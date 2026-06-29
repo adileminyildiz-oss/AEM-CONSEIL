@@ -308,7 +308,7 @@
 
   /* Testimonials */
   .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .quote{background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:var(--radius);padding:32px;transition:transform .3s,border-color .3s}
+  .quote{position:relative;overflow:hidden;background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:var(--radius);padding:32px;transition:transform .3s,border-color .3s}
   .quote:hover{transform:translateY(-6px);border-color:rgba(34,230,255,.3)}
   .quote .stars{color:var(--crystal);letter-spacing:3px;margin-bottom:14px;text-shadow:0 0 12px rgba(34,230,255,.45)}
   .quote p{color:var(--texte);font-size:1rem;margin-bottom:20px;font-family:"Playfair Display",serif;font-style:italic;font-size:1.05rem}
@@ -378,6 +378,25 @@
   .top.show{opacity:1;visibility:visible;transform:none}
   .top:hover{box-shadow:0 0 22px rgba(34,230,255,.4);transform:translateY(-3px)}
   .top svg{width:22px;height:22px}
+
+  /* ===== Special UI : micro-interactions premium ===== */
+  /* Barre de progression de défilement */
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:120;pointer-events:none;
+    background:linear-gradient(90deg,var(--crystal),var(--crystal-2));box-shadow:0 0 14px var(--glow)}
+  /* Spotlight qui suit le curseur (effet lampe) */
+  #cursor-glow{position:fixed;top:0;left:0;width:520px;height:520px;border-radius:50%;z-index:40;pointer-events:none;
+    transform:translate(-50%,-50%);opacity:0;transition:opacity .5s ease;mix-blend-mode:screen;
+    background:radial-gradient(circle,rgba(34,230,255,.10),rgba(59,157,255,.05) 40%,transparent 65%)}
+  html.cursor-on #cursor-glow{opacity:1}
+  /* Spotlight interactif dans les cartes (la lumière suit la souris) */
+  .card,.step,.quote{transform-style:preserve-3d}
+  .card::after,.step::after,.quote::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s ease;z-index:0;
+    background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(34,230,255,.16),transparent 55%)}
+  .card:hover::after,.step:hover::after,.quote:hover::after{opacity:1}
+  .card>*,.step>*,.quote>*{position:relative;z-index:1}
+  /* Boutons magnétiques : transition douce du retour */
+  .btn-pri,.btn-light{will-change:transform}
 
   @media(prefers-reduced-motion:reduce){
     *{scroll-behavior:auto!important;animation:none!important}
@@ -746,6 +765,60 @@
     entries.forEach(function(en){if(en.isIntersecting){animateCount(en.target);countIO.unobserve(en.target);}});
   },{threshold:.6});
   document.querySelectorAll('[data-count]').forEach(function(el){countIO.observe(el);});
+
+  /* ===== Special UI : micro-interactions premium ===== */
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1) Barre de progression de défilement (hors zoom : ajoutée à <html>)
+    var bar = document.createElement('div'); bar.id = 'progress';
+    document.documentElement.appendChild(bar);
+    function onScroll(){
+      var h = document.documentElement;
+      var max = (h.scrollHeight - h.clientHeight) || 1;
+      bar.style.width = Math.min(100, (h.scrollTop || document.body.scrollTop) / max * 100) + '%';
+    }
+    window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+    if(reduce) return; // pas d'effets de pointeur si l'utilisateur préfère réduire les animations
+
+    // 2) Spotlight qui suit le curseur (hors zoom)
+    var glow = document.createElement('div'); glow.id = 'cursor-glow';
+    document.documentElement.appendChild(glow);
+    var gx=0, gy=0, tx=0, ty=0, raf=null;
+    function loop(){
+      gx += (tx-gx)*0.18; gy += (ty-gy)*0.18;
+      glow.style.transform = 'translate('+gx+'px,'+gy+'px) translate(-50%,-50%)';
+      if(Math.abs(tx-gx)>0.5 || Math.abs(ty-gy)>0.5){ raf=requestAnimationFrame(loop); } else { raf=null; }
+    }
+    window.addEventListener('mousemove', function(e){
+      tx=e.clientX; ty=e.clientY;
+      document.documentElement.classList.add('cursor-on');
+      if(!raf) raf=requestAnimationFrame(loop);
+    }, {passive:true});
+    window.addEventListener('mouseleave', function(){ document.documentElement.classList.remove('cursor-on'); });
+
+    // 3) Spotlight interactif dans les cartes (position en %, indépendante du zoom)
+    document.querySelectorAll('.card,.step,.quote').forEach(function(el){
+      el.addEventListener('mousemove', function(e){
+        var r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', ((e.clientX - r.left)/r.width*100) + '%');
+        el.style.setProperty('--my', ((e.clientY - r.top)/r.height*100) + '%');
+      });
+    });
+
+    // 4) Boutons magnétiques (légère attraction vers le curseur)
+    var zoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
+    document.querySelectorAll('.btn-pri,.btn-light').forEach(function(btn){
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        var mx = (e.clientX - (r.left + r.width/2)) * 0.25 / zoom;
+        var my = (e.clientY - (r.top + r.height/2)) * 0.35 / zoom;
+        btn.style.transform = 'translate('+mx+'px,'+my+'px)';
+      });
+      btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
+    });
+  })();
 </script>
 </body>
 </html>
