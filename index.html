@@ -114,9 +114,16 @@
   /* ===== Préloader / effet d'ouverture ===== */
   #loader{
     position:fixed;inset:0;z-index:200;background:var(--noir);display:grid;place-items:center;overflow:hidden;
-    transition:opacity .8s ease,visibility .8s ease;
+    transition:opacity .8s ease,visibility .8s ease,background-color .9s ease;
   }
   #loader.done{opacity:0;visibility:hidden}
+  #loader.lift{background-color:transparent}            /* fond transparent pendant le slide */
+  /* la page principale s'ouvre en flou -> net */
+  body.revealing > *:not(#loader){filter:blur(16px);opacity:.5;transition:filter .9s ease,opacity .9s ease}
+  body.revealed  > *:not(#loader){filter:blur(0);opacity:1}
+  /* le logo de l'en-tête reste masqué tant que le logo du loader n'est pas arrivé à sa place */
+  body.revealing header .logo img{opacity:0}
+  body.revealed  header .logo img{opacity:1;transition:opacity .35s ease .1s}
   /* halo lumineux qui se diffuse puis s'évapore vers les bords */
   #loader::before{
     content:"";position:absolute;inset:0;pointer-events:none;
@@ -651,12 +658,40 @@
   // Année
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // Effet d'ouverture : retrait du préloader + apparition échelonnée
+  // Effet d'ouverture : logo centré -> maintien -> slide vers l'en-tête -> page en flou->net
   window.addEventListener('load', function(){
-    setTimeout(function(){
-      document.getElementById('loader').classList.add('done');
+    var loader = document.getElementById('loader');
+    var loaderImg = loader && loader.querySelector('.loader-logo-full');
+    var headerImg = document.querySelector('header .logo img');
+    if(!loader || !loaderImg || !headerImg || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      if(loader) loader.classList.add('done');
       document.body.classList.add('ready');
-    }, 2050);
+      return;
+    }
+    // 1) intro (zoom + flou->net) joue en CSS, puis maintien
+    setTimeout(function(){
+      // 2) mesure des positions (FLIP) : du centre vers le logo de l'en-tête
+      var from = loaderImg.getBoundingClientRect();
+      var to   = headerImg.getBoundingClientRect();
+      var dx = (to.left + to.width/2)  - (from.left + from.width/2);
+      var dy = (to.top  + to.height/2) - (from.top  + from.height/2);
+      var scale = to.width / from.width;
+      var zoom = parseFloat(getComputedStyle(document.body).zoom) || 1;  // le site applique un zoom global
+      // 3) la page se révèle en flou pendant le slide
+      document.body.classList.add('revealing');
+      loader.classList.add('lift');                 // fond du loader -> transparent
+      loaderImg.style.transition = 'transform .95s cubic-bezier(.6,.02,.18,1)';
+      loaderImg.style.transform  = 'translate('+(dx/zoom)+'px,'+(dy/zoom)+'px) scale('+scale+')';
+      // 4) à l'arrivée : net + apparition de la page, retrait du loader
+      setTimeout(function(){
+        document.body.classList.add('revealed','ready');
+        loader.classList.add('done');
+        setTimeout(function(){
+          document.body.classList.remove('revealing','revealed');
+          if(loader && loader.parentNode) loader.parentNode.removeChild(loader);
+        }, 900);
+      }, 850);
+    }, 1700);
   });
 
   // Menu mobile
