@@ -113,21 +113,50 @@
 
   /* ===== Préloader / effet d'ouverture ===== */
   #loader{
-    position:fixed;inset:0;z-index:200;background:var(--noir);display:grid;place-items:center;
-    transition:opacity .7s ease,visibility .7s ease;
+    position:fixed;inset:0;z-index:200;background:var(--noir);display:grid;place-items:center;overflow:hidden;
+    transition:opacity .8s ease,visibility .8s ease;
   }
   #loader.done{opacity:0;visibility:hidden}
-  .loader-logo{
-    font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:2.4rem;letter-spacing:3px;color:var(--texte);
-    display:flex;align-items:center;gap:4px;
+  /* halo lumineux qui se diffuse puis s'évapore vers les bords */
+  #loader::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(circle at 50% 50%,rgba(34,230,255,.55),rgba(59,157,255,.18) 32%,transparent 68%);
+    opacity:0;transform:scale(.35);
+    animation:halo 2.1s cubic-bezier(.2,.7,.2,1) forwards;
   }
-  .loader-logo i{
-    font-style:normal;font-family:"Playfair Display",serif;
+  @keyframes halo{
+    0%{opacity:0;transform:scale(.3)}
+    35%{opacity:.9}
+    100%{opacity:0;transform:scale(2.2)}
+  }
+  .loader-inner{
+    position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;
+    transform:scale(1.6);filter:blur(22px);opacity:0;
+    animation:zoomin 1.5s cubic-bezier(.16,.84,.3,1) forwards;
+  }
+  /* zoom rapide qui « rentre » dans le logo + passage flou -> net */
+  @keyframes zoomin{
+    0%{opacity:0;transform:scale(1.6);filter:blur(22px)}
+    55%{opacity:1}
+    100%{opacity:1;transform:scale(1);filter:blur(0)}
+  }
+  .loader-name{
+    font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:3rem;letter-spacing:6px;color:#fff;line-height:1;
+    text-shadow:0 0 26px rgba(34,230,255,.55);
+  }
+  .loader-name span{
+    display:block;margin-top:10px;font-weight:500;font-size:1.25rem;letter-spacing:18px;
     background:linear-gradient(120deg,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .loader-bar{margin-top:22px;width:180px;height:2px;background:rgba(120,180,255,.15);border-radius:2px;overflow:hidden}
-  .loader-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--crystal),var(--crystal-2));box-shadow:0 0 14px var(--glow);animation:load 1.5s cubic-bezier(.5,0,.2,1) forwards}
-  @keyframes load{to{width:100%}}
+  .loader-mark{
+    width:140px;height:auto;
+    filter:drop-shadow(0 0 30px rgba(34,230,255,.6));
+  }
+  @media(max-width:560px){
+    .loader-name{font-size:2rem;letter-spacing:4px}
+    .loader-name span{font-size:1rem;letter-spacing:12px}
+    .loader-mark{width:104px}
+  }
 
   /* apparition échelonnée à l'ouverture */
   .intro{opacity:0;transform:translateY(24px);filter:blur(6px)}
@@ -363,9 +392,9 @@
 
 <!-- Préloader (effet d'ouverture) -->
 <div id="loader" aria-hidden="true">
-  <div style="text-align:center">
-    <img src="assets/logo.svg" alt="AEM CONSEIL" style="height:88px;width:auto">
-    <div class="loader-bar" style="margin-left:auto;margin-right:auto"><i></i></div>
+  <div class="loader-inner">
+    <div class="loader-name">AEM<span>CONSEIL</span></div>
+    <img class="loader-mark" src="assets/monogram.svg" alt="AC">
   </div>
 </div>
 
@@ -621,7 +650,7 @@
     setTimeout(function(){
       document.getElementById('loader').classList.add('done');
       document.body.classList.add('ready');
-    }, 1300);
+    }, 2050);
   });
 
   // Menu mobile
