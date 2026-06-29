@@ -152,10 +152,15 @@
     width:140px;height:auto;
     filter:drop-shadow(0 0 30px rgba(34,230,255,.6));
   }
+  .loader-logo-full{
+    width:min(460px,76vw);height:auto;
+    filter:drop-shadow(0 0 34px rgba(34,230,255,.55));
+  }
   @media(max-width:560px){
     .loader-name{font-size:2rem;letter-spacing:4px}
     .loader-name span{font-size:1rem;letter-spacing:12px}
     .loader-mark{width:104px}
+    .loader-logo-full{width:84vw}
   }
 
   /* apparition échelonnée à l'ouverture */
@@ -393,8 +398,7 @@
 <!-- Préloader (effet d'ouverture) -->
 <div id="loader" aria-hidden="true">
   <div class="loader-inner">
-    <div class="loader-name">AEM<span>CONSEIL</span></div>
-    <img class="loader-mark" src="assets/logo-mark-white.png" alt="AC">
+    <img class="loader-logo-full" src="assets/logo-full.png" alt="AEM CONSEIL">
   </div>
 </div>
 
