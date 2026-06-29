@@ -42,7 +42,10 @@
     color:var(--texte);line-height:1.7;background:var(--noir);
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
     overflow-x:hidden;
+    zoom:.85;                 /* échelle globale réduite : tous les éléments plus petits */
   }
+  @media(max-width:880px){ body{zoom:.92} }
+  @media(max-width:560px){ body{zoom:1} }
   /* fond ambiant cristal */
   body::before{
     content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
