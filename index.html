@@ -113,17 +113,17 @@
 
   /* ===== Préloader / effet d'ouverture ===== */
   #loader{
-    position:fixed;inset:0;z-index:200;background:var(--noir);display:grid;place-items:center;overflow:hidden;
-    transition:opacity .8s ease,visibility .8s ease,background-color .9s ease;
+    position:fixed;inset:0;z-index:200;background:transparent;display:grid;place-items:center;overflow:hidden;pointer-events:none;
+    transition:opacity .8s ease,visibility .8s ease;
   }
   #loader.done{opacity:0;visibility:hidden}
-  #loader.lift{background-color:transparent}            /* fond transparent pendant le slide */
-  /* la page principale s'ouvre en flou -> net (l'en-tête sticky est exclu pour éviter tout glitch) */
-  body.revealing > *:not(header){filter:blur(16px);opacity:.5;transition:filter .9s ease,opacity .9s ease}
-  body.revealed  > *:not(header){filter:blur(0);opacity:1}
+  /* Pendant l'ouverture : seul le RESTE de l'écran est flou (le logo, dans #loader, reste NET) */
+  body.loading > *:not(#loader){filter:blur(15px);transition:filter .9s cubic-bezier(.4,0,.2,1)}
+  /* Le flou se retire avec un effet une fois le logo en place */
+  body.loading.unblur > *:not(#loader){filter:blur(0)}
   /* le logo de l'en-tête reste masqué tant que le logo du loader n'est pas arrivé à sa place */
-  body.revealing header .logo img{opacity:0}
-  body.revealed  header .logo img{opacity:1;transition:opacity .35s ease .1s}
+  body.loading header .logo img{opacity:0}
+  body.loading.unblur header .logo img{opacity:1;transition:opacity .4s ease .15s}
   /* halo lumineux qui se diffuse puis s'évapore vers les bords */
   #loader::before{
     content:"";position:absolute;inset:0;pointer-events:none;
@@ -138,14 +138,13 @@
   }
   .loader-inner{
     position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;
-    transform:scale(1.6);filter:blur(22px);opacity:0;
-    animation:zoomin 1.5s cubic-bezier(.16,.84,.3,1) forwards;
+    transform:scale(1.12);opacity:0;                    /* NET dès le départ : aucune flou sur le logo */
+    animation:logoIn .7s cubic-bezier(.2,.7,.2,1) forwards;
   }
-  /* zoom rapide qui « rentre » dans le logo + passage flou -> net */
-  @keyframes zoomin{
-    0%{opacity:0;transform:scale(1.6);filter:blur(22px)}
-    55%{opacity:1}
-    100%{opacity:1;transform:scale(1);filter:blur(0)}
+  /* entrée du logo : zoom léger + apparition, sans aucun flou */
+  @keyframes logoIn{
+    0%{opacity:0;transform:scale(1.12)}
+    100%{opacity:1;transform:scale(1)}
   }
   .loader-name{
     font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:3rem;letter-spacing:6px;color:#fff;line-height:1;
@@ -403,7 +402,7 @@
   }
 </style>
 </head>
-<body>
+<body class="loading">
 
 <!-- Préloader (effet d'ouverture) -->
 <div id="loader" aria-hidden="true">
@@ -658,62 +657,54 @@
   // Année
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // Effet d'ouverture : logo centré -> maintien -> slide vers l'en-tête -> page en flou->net
+  // Ouverture : logo NET centré (reste de l'écran flou) -> maintien -> slide du logo à sa place -> le flou se retire avec effet
   window.addEventListener('load', function(){
     var loader = document.getElementById('loader');
     var loaderImg = loader && loader.querySelector('.loader-logo-full');
     var headerImg = document.querySelector('header .logo img');
+    document.body.classList.add('ready');               // contenu en place (visible mais flou via 'loading')
 
-    // Retrait propre et définitif du loader — utilisé en fin de séquence ET comme garde-fou
-    function finish(){
+    // Retire le flou (avec effet) + le loader. Sert aussi de garde-fou.
+    function endSequence(){
       try{
-        document.body.classList.add('ready');
+        document.body.classList.add('unblur');          // le flou s'enlève avec transition
         if(loader){
           loader.classList.add('done');
           setTimeout(function(){
-            document.body.classList.remove('revealing','revealed');
+            document.body.classList.remove('loading','unblur');
             if(loader && loader.parentNode) loader.parentNode.removeChild(loader);
-          }, 850);
+          }, 1000);
+        } else {
+          document.body.classList.remove('loading');
         }
       }catch(e){}
     }
-    // Garde-fou : quoi qu'il arrive, le loader disparaît (jamais bloqué ni cassé à l'écran)
-    var safety = setTimeout(finish, 5000);
+    // Garde-fou : quoi qu'il arrive, le flou se retire et le loader disparaît (jamais bloqué ni cassé)
+    var safety = setTimeout(endSequence, 5000);
 
     if(!loader || !loaderImg || !headerImg || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      clearTimeout(safety); finish(); return;
+      clearTimeout(safety); endSequence(); return;
     }
 
-    // 1) intro (zoom + flou->net) joue en CSS, puis maintien
+    // 1) maintien du logo net au centre (le reste de l'écran reste flou)
     setTimeout(function(){
       try{
         // 2) mesure des positions (FLIP) : du centre vers le logo de l'en-tête
         var from = loaderImg.getBoundingClientRect();
         var to   = headerImg.getBoundingClientRect();
-        if(!from.width || !to.width || !headerImg.offsetWidth){ clearTimeout(safety); finish(); return; }
-        // facteur de zoom effectif mesuré directement (fiable sur tous les navigateurs, sans getComputedStyle)
-        var zoom = to.width / headerImg.offsetWidth;
+        if(!from.width || !to.width || !headerImg.offsetWidth){ clearTimeout(safety); endSequence(); return; }
+        var zoom = to.width / headerImg.offsetWidth;     // zoom effectif mesuré (fiable tous navigateurs)
         var dx = ((to.left + to.width/2)  - (from.left + from.width/2)) / zoom;
         var dy = ((to.top  + to.height/2) - (from.top  + from.height/2)) / zoom;
         var scale = to.width / from.width;
-        // 3) la page se révèle en flou pendant le slide
-        document.body.classList.add('revealing');
-        loader.classList.add('lift');                 // fond du loader -> transparent
+        // 3) le logo (toujours NET) glisse jusqu'à sa place
         loaderImg.style.willChange = 'transform';
         loaderImg.style.transition = 'transform 1s cubic-bezier(.65,0,.35,1)';
         loaderImg.style.transform  = 'translate('+dx+'px,'+dy+'px) scale('+scale+')';
-        // 4) à l'arrivée : net + apparition de la page, retrait du loader
-        setTimeout(function(){
-          clearTimeout(safety);
-          document.body.classList.add('revealed','ready');
-          loader.classList.add('done');
-          setTimeout(function(){
-            document.body.classList.remove('revealing','revealed');
-            if(loader && loader.parentNode) loader.parentNode.removeChild(loader);
-          }, 900);
-        }, 950);
-      }catch(e){ clearTimeout(safety); finish(); }
-    }, 1700);
+        // 4) une fois le logo en place -> le flou se retire avec effet
+        setTimeout(function(){ clearTimeout(safety); endSequence(); }, 1000);
+      }catch(e){ clearTimeout(safety); endSequence(); }
+    }, 1300);
   });
 
   // Menu mobile
