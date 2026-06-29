@@ -7,6 +7,11 @@
 <meta name="description" content="AEM-CONSEIL accompagne les entreprises dans leur comptabilité, leur gestion et leur développement : expertise comptable, conseil, paie, fiscalité et création d'entreprise.">
 <meta name="theme-color" content="#05070a">
 
+<!-- Favicons / icônes -->
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+
 <!-- Open Graph -->
 <meta property="og:title" content="AEM-CONSEIL — Cabinet de conseil & expertise comptable">
 <meta property="og:description" content="Comptabilité, conseil, paie, fiscalité et création d'entreprise. Un cabinet à taille humaine, proche de vous.">
@@ -141,15 +146,11 @@
     border-bottom:1px solid transparent;transition:border-color .3s,background .3s;
   }
   header.scrolled{border-bottom-color:var(--line);background:rgba(5,7,10,.82)}
-  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
-  .logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.3rem;color:var(--texte);letter-spacing:1px}
-  .logo .mark{
-    width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:#04121b;font-weight:700;font-size:1.2rem;
-    background:linear-gradient(135deg,var(--crystal),var(--crystal-2));box-shadow:0 0 0 1px rgba(34,230,255,.4),0 8px 22px rgba(34,230,255,.4);
-    font-family:"Playfair Display",serif;font-style:italic;
-  }
-  .logo b{font-weight:700}
-  .logo b i{font-style:italic;font-family:"Playfair Display",serif;background:linear-gradient(120deg,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:92px}
+  .logo{display:inline-flex;align-items:center}
+  .logo img{height:62px;width:auto;display:block;transition:transform .25s ease,filter .25s ease}
+  .logo:hover img{transform:translateY(-1px);filter:drop-shadow(0 0 14px rgba(34,230,255,.4))}
+  .foot-top .logo img{height:68px}
   .menu{display:flex;gap:34px;align-items:center}
   .menu a:not(.btn){font-weight:500;color:var(--texte-doux);position:relative;padding:4px 0;transition:color .2s}
   .menu a:not(.btn)::after{
@@ -363,14 +364,14 @@
 <!-- Préloader (effet d'ouverture) -->
 <div id="loader" aria-hidden="true">
   <div style="text-align:center">
-    <div class="loader-logo">AEM<i>·</i>CONSEIL</div>
-    <div class="loader-bar"><i></i></div>
+    <img src="assets/logo.svg" alt="AEM CONSEIL" style="height:88px;width:auto">
+    <div class="loader-bar" style="margin-left:auto;margin-right:auto"><i></i></div>
   </div>
 </div>
 
 <header id="hdr">
   <div class="wrap nav">
-    <a href="#top" class="logo"><span class="mark">A</span> <b>AEM<i>·</i>CONSEIL</b></a>
+    <a href="#top" class="logo" aria-label="AEM CONSEIL — Accueil"><img src="assets/logo.svg" alt="AEM CONSEIL"></a>
     <nav class="menu">
       <a href="#services">Services</a>
       <a href="#process">Méthode</a>
@@ -581,7 +582,7 @@
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <a href="#top" class="logo"><span class="mark">A</span> <b>AEM<i>·</i>CONSEIL</b></a>
+        <a href="#top" class="logo" aria-label="AEM CONSEIL — Accueil"><img src="assets/logo.svg" alt="AEM CONSEIL"></a>
         <p class="foot-desc">Cabinet de conseil et d'expertise comptable au service des entrepreneurs, TPE et PME.</p>
       </div>
       <div class="foot-cols">
