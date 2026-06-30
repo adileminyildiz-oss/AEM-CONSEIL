@@ -308,16 +308,39 @@
   .checks li{display:flex;gap:13px;align-items:flex-start;margin-bottom:16px;font-weight:500;color:var(--texte)}
   .checks li::before{content:"✓";color:#04121b;background:linear-gradient(135deg,var(--crystal),var(--crystal-2));width:25px;height:25px;border-radius:50%;display:grid;place-items:center;font-size:.82rem;flex:0 0 auto;margin-top:3px;box-shadow:0 0 14px rgba(34,230,255,.4)}
   .about-visual{
-    background:linear-gradient(160deg,var(--noir-3),var(--noir-2));border:1px solid var(--line);border-radius:22px;min-height:380px;
-    display:grid;place-items:center;color:#fff;text-align:center;padding:40px;position:relative;overflow:hidden;box-shadow:var(--ombre);
+    position:relative;overflow:hidden;min-height:460px;border-radius:28px;display:grid;place-items:center;text-align:center;padding:40px;
+    background:linear-gradient(150deg,rgba(255,255,255,.08),rgba(255,255,255,.015));
+    backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 34px 90px rgba(0,0,0,.55);
   }
-  .about-visual::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 18%,rgba(34,230,255,.22),transparent 55%)}
-  .about-visual::before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;border:1px solid rgba(34,230,255,.18);box-shadow:0 0 0 40px rgba(34,230,255,.04);animation:float 6s ease-in-out infinite}
-  @keyframes float{50%{transform:translateY(-16px)}}
-  .about-visual .inner{position:relative;z-index:1}
-  .about-visual .big{font-size:4rem;font-weight:600;font-family:"Playfair Display",serif;font-style:italic;letter-spacing:1px;
-    background:linear-gradient(120deg,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .about-visual .tag{color:var(--texte-doux);margin-top:10px;letter-spacing:1px;text-transform:uppercase;font-size:.82rem;font-family:"Sora",sans-serif}
+  /* lueur rotative derrière le logo */
+  .about-visual::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;pointer-events:none;
+    background:conic-gradient(from 0deg,rgba(34,230,255,0),rgba(34,230,255,.25),rgba(59,157,255,0) 55%,rgba(34,230,255,0));
+    filter:blur(26px);animation:avspin 16s linear infinite}
+  @keyframes avspin{to{transform:rotate(360deg)}}
+  .about-visual::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 44%,rgba(34,230,255,.18),transparent 56%)}
+  /* anneaux concentriques */
+  .av-ring{position:absolute;border-radius:50%;border:1px solid rgba(34,230,255,.18);pointer-events:none;width:190px;height:190px;animation:avpulse 4.5s ease-in-out infinite}
+  .av-ring.r2{width:300px;height:300px;border-color:rgba(34,230,255,.11);animation-delay:.5s}
+  .av-ring.r3{width:410px;height:410px;border-color:rgba(34,230,255,.06);animation-delay:1s}
+  @keyframes avpulse{50%{transform:scale(1.05);opacity:.55}}
+  /* cœur : logo + nom */
+  .av-core{position:relative;z-index:2}
+  .av-mark{width:96px;height:auto;margin:0 auto 18px;filter:drop-shadow(0 0 28px rgba(34,230,255,.6))}
+  .av-name{font-family:"Sora",sans-serif;font-weight:700;letter-spacing:5px;color:#fff;font-size:1.15rem}
+  .about-visual .tag{color:var(--texte-doux);margin-top:9px;letter-spacing:1.5px;text-transform:uppercase;font-size:.76rem;font-family:"Sora",sans-serif}
+  /* badges flottants (Spatial UI) */
+  .av-chip{position:absolute;z-index:3;font-size:.8rem;font-weight:600;color:#d4f3ff;white-space:nowrap;
+    padding:9px 15px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+    backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 30px rgba(0,0,0,.4)}
+  .av-chip::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--crystal);box-shadow:0 0 10px var(--glow);margin-right:8px;vertical-align:middle}
+  .av-chip.c1{top:9%;left:6%;animation:avfloat 6s ease-in-out infinite}
+  .av-chip.c2{top:15%;right:5%;animation:avfloat 7s ease-in-out infinite .5s}
+  .av-chip.c3{bottom:16%;left:5%;animation:avfloat 6.6s ease-in-out infinite 1s}
+  .av-chip.c4{bottom:9%;right:7%;animation:avfloat 7.4s ease-in-out infinite .3s}
+  @keyframes avfloat{50%{transform:translateY(-12px)}}
 
   /* Process */
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
@@ -739,10 +762,16 @@
       <p class="signature">« Votre réussite, c'est aussi la nôtre. »<br><b>— L'équipe AEM-CONSEIL</b></p>
     </div>
     <div class="about-visual reveal-r" data-d="2">
-      <div class="inner">
-        <div class="big">AEM</div>
+      <span class="av-ring"></span><span class="av-ring r2"></span><span class="av-ring r3"></span>
+      <div class="av-core">
+        <img class="av-mark" src="assets/logo-mark-white.png" alt="AEM CONSEIL">
+        <div class="av-name">AEM CONSEIL</div>
         <p class="tag">Rigueur · Proximité · Performance</p>
       </div>
+      <span class="av-chip c1">15 ans d'expérience</span>
+      <span class="av-chip c2">200+ clients</span>
+      <span class="av-chip c3">Réponse sous 24 h</span>
+      <span class="av-chip c4">100% engagement</span>
     </div>
   </div>
 </section>
