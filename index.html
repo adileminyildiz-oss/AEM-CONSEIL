@@ -710,6 +710,11 @@
 </button>
 
 <script>
+  // Toujours arriver en haut de page à l'ouverture (on désactive la restauration du défilement)
+  if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
+  window.scrollTo(0,0);
+  window.addEventListener('load', function(){ window.scrollTo(0,0); });
+
   // Année
   document.getElementById('y').textContent = new Date().getFullYear();
 
