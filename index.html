@@ -20,7 +20,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
 
 <style>
   :root{
@@ -43,7 +43,7 @@
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     color:var(--texte);line-height:1.7;background:var(--noir);
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
     overflow-x:hidden;
@@ -81,7 +81,7 @@
   @keyframes drift2{50%{transform:translate(-100px,60px) scale(1.08)}}
   @keyframes drift3{50%{transform:translate(80px,-90px) scale(1.15)}}
 
-  h1,h2,h3,.logo{font-family:"Space Grotesk","Inter",sans-serif}
+  h1,h2,h3,.logo{font-family:"Sora","Manrope",sans-serif}
   a{color:inherit;text-decoration:none}
   img{max-width:100%;display:block}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
@@ -104,7 +104,7 @@
   .btn{
     position:relative;display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;font-weight:600;
     transition:transform .2s ease,box-shadow .25s ease,background .25s ease,color .25s ease;
-    cursor:pointer;border:none;font-size:1rem;font-family:"Space Grotesk",inherit;line-height:1;white-space:nowrap;overflow:hidden;
+    cursor:pointer;border:none;font-size:1rem;font-family:"Sora",inherit;line-height:1;white-space:nowrap;overflow:hidden;
   }
   .btn svg{width:18px;height:18px;position:relative;z-index:2}
   .btn span{position:relative;z-index:2}
@@ -161,7 +161,7 @@
     100%{opacity:1;transform:scale(1)}
   }
   .loader-name{
-    font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:3rem;letter-spacing:6px;color:#fff;line-height:1;
+    font-family:"Sora",sans-serif;font-weight:700;font-size:3rem;letter-spacing:6px;color:#fff;line-height:1;
     text-shadow:0 0 26px rgba(34,230,255,.55);
   }
   .loader-name span{
@@ -262,14 +262,14 @@
   .hero-card h3{font-size:1.05rem;margin-bottom:22px;color:var(--texte);font-weight:600}
   .stat{display:flex;align-items:baseline;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
   .stat:last-child{border-bottom:none;padding-bottom:0}
-  .stat .num{font-size:2.1rem;font-weight:700;font-family:"Space Grotesk",sans-serif;min-width:96px;
+  .stat .num{font-size:2.1rem;font-weight:700;font-family:"Sora",sans-serif;min-width:96px;
     background:linear-gradient(120deg,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent}
   .stat .lbl{color:var(--texte-doux);font-size:.95rem}
 
   /* ===== Sections ===== */
   section{padding:100px 0;position:relative}
   .section-head{text-align:center;max-width:700px;margin:0 auto 60px}
-  .eyebrow{display:block;width:100%;color:var(--crystal);font-weight:700;letter-spacing:3.5px;text-transform:uppercase;font-size:1.1rem;font-family:"Space Grotesk",sans-serif;text-shadow:0 0 18px rgba(34,230,255,.35)}
+  .eyebrow{display:block;width:100%;color:var(--crystal);font-weight:700;letter-spacing:3.5px;text-transform:uppercase;font-size:1.1rem;font-family:"Sora",sans-serif;text-shadow:0 0 18px rgba(34,230,255,.35)}
   .section-head h2{font-size:2.45rem;font-weight:700;color:var(--texte);margin:12px 0 16px;letter-spacing:-.4px}
   .section-head p{color:var(--texte-doux);font-size:1.08rem}
   h2.mix,h1.mix{display:inline-block}
@@ -315,7 +315,7 @@
   .about-visual .inner{position:relative;z-index:1}
   .about-visual .big{font-size:4rem;font-weight:600;font-family:"Playfair Display",serif;font-style:italic;letter-spacing:1px;
     background:linear-gradient(120deg,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .about-visual .tag{color:var(--texte-doux);margin-top:10px;letter-spacing:1px;text-transform:uppercase;font-size:.82rem;font-family:"Space Grotesk",sans-serif}
+  .about-visual .tag{color:var(--texte-doux);margin-top:10px;letter-spacing:1px;text-transform:uppercase;font-size:.82rem;font-family:"Sora",sans-serif}
 
   /* Process */
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
@@ -323,7 +323,7 @@
   .step:hover{transform:translateY(-8px);border-color:rgba(34,230,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 24px 56px rgba(0,0,0,.45),0 0 30px rgba(34,230,255,.12)}
   .step .no{
     counter-increment:step;width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-weight:700;font-size:1.15rem;
-    color:#04121b;background:linear-gradient(135deg,var(--crystal),var(--crystal-2));margin-bottom:18px;font-family:"Space Grotesk",sans-serif;box-shadow:0 0 18px rgba(34,230,255,.3);
+    color:#04121b;background:linear-gradient(135deg,var(--crystal),var(--crystal-2));margin-bottom:18px;font-family:"Sora",sans-serif;box-shadow:0 0 18px rgba(34,230,255,.3);
   }
   .step .no::before{content:counter(step,decimal-leading-zero)}
   .step h3{font-size:1.08rem;color:var(--texte);margin-bottom:8px}
@@ -336,7 +336,7 @@
   .quote .stars{color:var(--crystal);letter-spacing:3px;margin-bottom:14px;text-shadow:0 0 12px rgba(34,230,255,.45)}
   .quote p{color:var(--texte);font-size:1rem;margin-bottom:20px;font-family:"Playfair Display",serif;font-style:italic;font-size:1.05rem}
   .quote .who{display:flex;align-items:center;gap:12px}
-  .quote .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#04121b;font-weight:700;background:linear-gradient(135deg,var(--crystal),var(--crystal-2));font-family:"Space Grotesk",sans-serif}
+  .quote .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#04121b;font-weight:700;background:linear-gradient(135deg,var(--crystal),var(--crystal-2));font-family:"Sora",sans-serif}
   .quote .who b{display:block;color:var(--texte);font-size:.95rem}
   .quote .who small{color:var(--texte-doux)}
 
@@ -381,7 +381,7 @@
   .foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;padding-bottom:30px;border-bottom:1px solid var(--line)}
   .foot-top .logo{color:var(--texte)}
   .foot-desc{max-width:300px;margin-top:14px;font-size:.92rem;color:var(--texte-doux)}
-  .foot-col h4{color:var(--texte);font-size:.95rem;margin-bottom:14px;letter-spacing:.5px;font-family:"Space Grotesk",sans-serif}
+  .foot-col h4{color:var(--texte);font-size:.95rem;margin-bottom:14px;letter-spacing:.5px;font-family:"Sora",sans-serif}
   .foot-links{display:flex;flex-direction:column;gap:10px}
   .foot-cols{display:flex;gap:64px;flex-wrap:wrap}
   .foot-links a{color:var(--texte-doux);font-size:.92rem;transition:color .2s}
@@ -389,11 +389,19 @@
   .foot-bot{padding-top:24px;font-size:.9rem;text-align:center;color:#6c809c}
 
   /* Scroll reveal */
-  .reveal{opacity:0;transform:translateY(42px) scale(.97);filter:blur(8px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),filter .8s ease}
-  .reveal.in{opacity:1;transform:none;filter:none}
-  .reveal[data-d="1"]{transition-delay:.08s}
-  .reveal[data-d="2"]{transition-delay:.16s}
-  .reveal[data-d="3"]{transition-delay:.24s}
+  .reveal,.reveal-l,.reveal-r,.reveal-zoom{
+    opacity:0;filter:blur(8px);
+    transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1),filter .85s ease;
+  }
+  .reveal{transform:translateY(42px) scale(.97)}
+  .reveal-l{transform:translateX(-60px)}            /* arrive depuis la gauche */
+  .reveal-r{transform:translateX(60px)}             /* arrive depuis la droite */
+  .reveal-zoom{transform:scale(.88)}                /* zoom doux */
+  .reveal.in,.reveal-l.in,.reveal-r.in,.reveal-zoom.in{opacity:1;transform:none;filter:none}
+  .reveal[data-d="1"],.reveal-l[data-d="1"],.reveal-r[data-d="1"],.reveal-zoom[data-d="1"]{transition-delay:.08s}
+  .reveal[data-d="2"],.reveal-l[data-d="2"],.reveal-r[data-d="2"],.reveal-zoom[data-d="2"]{transition-delay:.16s}
+  .reveal[data-d="3"],.reveal-l[data-d="3"],.reveal-r[data-d="3"],.reveal-zoom[data-d="3"]{transition-delay:.24s}
+  .reveal[data-d="4"],.reveal-l[data-d="4"],.reveal-r[data-d="4"]{transition-delay:.32s}
 
   /* back to top */
   .top{
@@ -528,32 +536,32 @@
       <p>De la création à la croissance, nous vous accompagnons à chaque étape de votre développement.</p>
     </div>
     <div class="grid">
-      <div class="card reveal" data-d="1">
+      <div class="card reveal-zoom" data-d="1">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
         <h3>Expertise comptable</h3>
         <p>Tenue de comptabilité, bilans, comptes annuels et liasses fiscales en toute sérénité.</p>
       </div>
-      <div class="card reveal" data-d="2">
+      <div class="card reveal-zoom" data-d="2">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
         <h3>Conseil & gestion</h3>
         <p>Tableaux de bord, prévisionnels et accompagnement stratégique pour piloter votre activité.</p>
       </div>
-      <div class="card reveal" data-d="3">
+      <div class="card reveal-zoom" data-d="3">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <h3>Paie & social</h3>
         <p>Bulletins de paie, déclarations sociales et gestion des obligations employeur.</p>
       </div>
-      <div class="card reveal" data-d="1">
+      <div class="card reveal-zoom" data-d="1">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
         <h3>Fiscalité</h3>
         <p>Optimisation fiscale, TVA, déclarations et veille réglementaire adaptées à votre situation.</p>
       </div>
-      <div class="card reveal" data-d="2">
+      <div class="card reveal-zoom" data-d="2">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
         <h3>Création d'entreprise</h3>
         <p>Choix du statut, formalités juridiques et démarrage de votre activité accompagné de A à Z.</p>
       </div>
-      <div class="card reveal" data-d="3">
+      <div class="card reveal-zoom" data-d="3">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3>Accompagnement personnalisé</h3>
         <p>Un interlocuteur dédié, à votre écoute, pour répondre à toutes vos questions au quotidien.</p>
@@ -582,7 +590,7 @@
 <!-- À PROPOS -->
 <section class="about" id="apropos">
   <div class="wrap about-inner">
-    <div class="reveal">
+    <div class="reveal-l">
       <div class="eyebrow">À propos</div>
       <h2 class="mix">Un cabinet à <span class="alt">taille humaine</span>, proche de <span class="alt">vous</span></h2>
       <p>Chez AEM-CONSEIL, nous croyons qu'une bonne relation de conseil repose sur la proximité, la réactivité et la transparence. Notre équipe met son savoir-faire au service de votre réussite.</p>
@@ -593,7 +601,7 @@
         <li>Un accompagnement sur-mesure selon vos besoins</li>
       </ul>
     </div>
-    <div class="about-visual reveal" data-d="2">
+    <div class="about-visual reveal-r" data-d="2">
       <div class="inner">
         <div class="big">AEM</div>
         <p class="tag">Rigueur · Proximité · Performance</p>
@@ -611,17 +619,17 @@
       <p>Des entrepreneurs et dirigeants qui avancent sereinement à nos côtés.</p>
     </div>
     <div class="quotes">
-      <div class="quote reveal" data-d="1">
+      <div class="quote reveal-zoom" data-d="1">
         <div class="stars">★★★★★</div>
         <p>« Un accompagnement vraiment humain. Mes comptes sont enfin clairs et je gagne un temps précieux chaque mois. »</p>
         <div class="who"><span class="av">SL</span><span><b>Sophie L.</b><small>Gérante, commerce</small></span></div>
       </div>
-      <div class="quote reveal" data-d="2">
+      <div class="quote reveal-zoom" data-d="2">
         <div class="stars">★★★★★</div>
         <p>« Réactifs, pédagogues et toujours disponibles. Ils m'ont accompagné de la création jusqu'au développement de ma société. »</p>
         <div class="who"><span class="av">KM</span><span><b>Karim M.</b><small>Fondateur, startup</small></span></div>
       </div>
-      <div class="quote reveal" data-d="3">
+      <div class="quote reveal-zoom" data-d="3">
         <div class="stars">★★★★★</div>
         <p>« Des conseils stratégiques qui ont un vrai impact sur ma rentabilité. Je recommande sans hésiter. »</p>
         <div class="who"><span class="av">EP</span><span><b>Élodie P.</b><small>Dirigeante, PME</small></span></div>
@@ -633,7 +641,7 @@
 <!-- CTA -->
 <section>
   <div class="wrap">
-    <div class="cta-box reveal">
+    <div class="cta-box reveal-zoom">
       <h2 class="mix">Prêt à donner un nouvel <span class="alt">élan</span> à votre <span class="alt">entreprise</span> ?</h2>
       <p>Contactez-nous dès aujourd'hui pour un premier échange gratuit et sans engagement.</p>
       <a href="#contact" class="btn btn-light"><span>Nous contacter</span></a>
@@ -650,13 +658,13 @@
       <p>Remplissez le formulaire ou contactez-nous directement, nous vous répondrons rapidement.</p>
     </div>
     <div class="contact-inner">
-      <div class="contact-info reveal">
+      <div class="contact-info reveal-l">
         <h3>Nos coordonnées</h3>
         <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><a href="tel:+33665908325">06 65 90 83 25</a></div>
         <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a></div>
         <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Du lundi au vendredi, 9h – 18h</span></div>
       </div>
-      <form class="reveal" data-d="1" onsubmit="event.preventDefault(); this.reset(); alert('Merci ! Votre message a bien été pris en compte. (Formulaire de démonstration)');">
+      <form class="reveal-r" onsubmit="event.preventDefault(); this.reset(); alert('Merci ! Votre message a bien été pris en compte. (Formulaire de démonstration)');">
         <div class="field"><label for="f-nom">Nom complet</label><input id="f-nom" type="text" required placeholder="Votre nom"></div>
         <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" type="email" required placeholder="vous@exemple.fr"></div>
         <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" rows="4" required placeholder="Décrivez votre besoin..."></textarea></div>
@@ -773,11 +781,11 @@
   }
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
-  // Effets de défilement (reveal)
+  // Effets de défilement (reveal, directionnels, zoom)
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
-  },{threshold:.14});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.reveal-zoom').forEach(function(el){io.observe(el);});
 
   // Compteurs animés
   function animateCount(el){
