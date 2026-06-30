@@ -7,6 +7,14 @@
 <meta name="description" content="AEM-CONSEIL accompagne les entreprises dans leur comptabilité, leur gestion et leur développement : expertise comptable, conseil, paie, fiscalité et création d'entreprise.">
 <meta name="theme-color" content="#05070a">
 
+<!-- PWA : application installable -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AEM-CONSEIL">
+<meta name="application-name" content="AEM-CONSEIL">
+
 <!-- Favicons / icônes -->
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
@@ -1135,6 +1143,16 @@
         item.classList.toggle('open', willOpen);
         q.setAttribute('aria-expanded', willOpen?'true':'false');
         a.style.maxHeight = willOpen ? (a.scrollHeight + 'px') : '0';
+      });
+    });
+  })();
+
+  /* ===== PWA : enregistrement du service worker ===== */
+  (function(){
+    if (!('serviceWorker' in navigator)) return;
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(err){
+        console.warn('Service worker non enregistré :', err);
       });
     });
   })();
