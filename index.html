@@ -772,6 +772,36 @@
   .app-tabs a:active{background:rgba(34,230,255,.10);transform:scale(.96)}
   html[data-theme="light"].app-mode .app-tabs{background:rgba(255,255,255,.92);border-top-color:rgba(20,50,90,.12);box-shadow:0 -12px 40px rgba(20,40,80,.14)}
 
+  /* ============================================================
+     BANNIÈRE COOKIES — compacte, Liquid Glass (thèmes + mode app)
+     ============================================================ */
+  .cookie-banner{position:fixed;left:20px;bottom:20px;z-index:135;width:min(360px,calc(100vw - 36px));
+    display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:18px;
+    background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+    backdrop-filter:blur(28px) saturate(185%);-webkit-backdrop-filter:blur(28px) saturate(185%);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 24px 60px rgba(0,0,0,.5);
+    transform:translateY(170%);opacity:0;visibility:hidden;
+    transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .5s ease,visibility .5s ease}
+  .cookie-banner.show{transform:none;opacity:1;visibility:visible}
+  .cookie-banner .ck-head{display:flex;align-items:center;gap:11px}
+  .cookie-banner .ck-ic{flex:0 0 auto;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--crystal);
+    background:rgba(34,230,255,.1);border:1px solid rgba(34,230,255,.22)}
+  .cookie-banner .ck-ic svg{width:20px;height:20px}
+  .cookie-banner .ck-head b{font-family:"Sora",sans-serif;font-size:1rem;color:var(--texte)}
+  .cookie-banner p{color:var(--texte-doux);font-size:.86rem;line-height:1.5;margin:0}
+  .cookie-banner p b{color:var(--texte)}
+  .cookie-banner .ck-actions{display:flex;gap:9px}
+  .cookie-banner .ck-actions .btn{flex:1;justify-content:center;padding:10px 14px;font-size:.88rem}
+  .ck-refuse{background:rgba(255,255,255,.05);color:var(--texte);border:1px solid rgba(255,255,255,.18)}
+  .ck-refuse:hover{border-color:var(--crystal);background:rgba(255,255,255,.08)}
+  html[data-theme="light"] .cookie-banner{background:linear-gradient(150deg,rgba(255,255,255,.92),rgba(228,238,250,.8));border-color:rgba(24,54,96,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 24px 60px rgba(26,52,98,.16)}
+  html[data-theme="light"] .ck-refuse{background:rgba(24,54,96,.05);border-color:rgba(24,54,96,.18);color:var(--texte)}
+  /* Mobile : ruban étroit au-dessus des barres du bas */
+  @media(max-width:880px){ .cookie-banner{left:12px;right:12px;width:auto;bottom:84px} }
+  /* Mode app : au-dessus de la barre d'onglets */
+  html.app-mode .cookie-banner{left:12px;right:12px;width:auto;bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+
   @media(prefers-reduced-motion:reduce){
     *{scroll-behavior:auto!important;animation:none!important}
     .reveal,.intro{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
@@ -1199,6 +1229,19 @@
   </a>
 </nav>
 
+<!-- Bannière de consentement aux cookies (compacte) -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentement aux cookies" aria-hidden="true">
+  <div class="ck-head">
+    <span class="ck-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5h.01"/><path d="M16 15.5h.01"/><path d="M12 18h.01"/><path d="M11 12h.01"/><path d="M15 11h.01"/></svg></span>
+    <b>Cookies</b>
+  </div>
+  <p>Nous utilisons des cookies pour améliorer votre expérience. <b>Vous restez libre</b> d'accepter ou de refuser.</p>
+  <div class="ck-actions">
+    <button class="btn ck-refuse" type="button" onclick="setCookieConsent('refused')"><span>Refuser</span></button>
+    <button class="btn btn-pri" type="button" onclick="setCookieConsent('accepted')"><span>Accepter</span></button>
+  </div>
+</div>
+
 <script>
   // Toujours arriver en haut de page à l'ouverture (on désactive la restauration du défilement)
   if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
@@ -1547,6 +1590,21 @@
       btn.appendChild(rip);
       setTimeout(function(){ if(rip.parentNode) rip.parentNode.removeChild(rip); }, 650);
     }, {passive:true});
+  })();
+
+  /* ===== Consentement aux cookies (mémorisé par appareil) ===== */
+  function setCookieConsent(choix){
+    try{ localStorage.setItem('aem_cookie_consent', choix); localStorage.setItem('aem_cookie_date', String(Date.now())); }catch(e){}
+    var el=document.getElementById('cookieBanner');
+    if(el){ el.classList.remove('show'); el.setAttribute('aria-hidden','true'); }
+  }
+  (function(){
+    var consent=null;
+    try{ consent=localStorage.getItem('aem_cookie_consent'); }catch(e){}
+    if(consent) return;                              // choix déjà fait : pas de bannière
+    var el=document.getElementById('cookieBanner'); if(!el) return;
+    var delay = document.documentElement.classList.contains('app-mode') ? 800 : 2600;
+    setTimeout(function(){ el.classList.add('show'); el.setAttribute('aria-hidden','false'); }, delay);
   })();
 
   /* ===== PWA : enregistrement du service worker ===== */
