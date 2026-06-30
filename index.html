@@ -302,6 +302,8 @@
   .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
   .about h2{font-size:2.3rem;color:var(--texte);font-weight:700;margin:12px 0 20px;letter-spacing:-.4px}
   .about p{color:var(--texte-doux);margin-bottom:16px;font-size:1.05rem}
+  .signature{margin-top:26px;padding-left:18px;border-left:2px solid var(--crystal);font-family:"Playfair Display",serif;font-style:italic;font-size:1.12rem;color:var(--texte)}
+  .signature b{font-family:"Manrope",sans-serif;font-style:normal;font-size:.92rem;color:var(--texte-doux);display:inline-block;margin-top:8px}
   .checks{list-style:none;margin-top:10px}
   .checks li{display:flex;gap:13px;align-items:flex-start;margin-bottom:16px;font-weight:500;color:var(--texte)}
   .checks li::before{content:"✓";color:#04121b;background:linear-gradient(135deg,var(--crystal),var(--crystal-2));width:25px;height:25px;border-radius:50%;display:grid;place-items:center;font-size:.82rem;flex:0 0 auto;margin-top:3px;box-shadow:0 0 14px rgba(34,230,255,.4)}
@@ -439,6 +441,47 @@
   .modal .m-cta{margin-top:28px;display:flex}
   .modal .m-cta .btn{width:100%;justify-content:center}
 
+  /* ===== Tarifs / Formules ===== */
+  .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+  .price{position:relative;overflow:hidden;display:flex;flex-direction:column;border-radius:24px;padding:38px 32px;
+    background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    backdrop-filter:blur(20px) saturate(170%);-webkit-backdrop-filter:blur(20px) saturate(170%);
+    border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 14px 40px rgba(0,0,0,.35);
+    transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s,border-color .45s}
+  .price:hover{transform:translateY(-8px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 28px 64px rgba(0,0,0,.5),0 0 36px rgba(34,230,255,.12)}
+  .price.featured{border-color:rgba(34,230,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 24px 60px rgba(0,0,0,.5),0 0 50px rgba(34,230,255,.16)}
+  .price .tag-pop{position:absolute;top:18px;right:18px;font-size:.7rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+    color:#04121b;background:linear-gradient(120deg,var(--crystal),var(--crystal-2));padding:6px 12px;border-radius:999px;box-shadow:0 0 18px rgba(34,230,255,.4)}
+  .price h3{font-size:1.18rem;color:var(--texte);margin-bottom:6px}
+  .price .who{color:var(--texte-doux);font-size:.92rem;margin-bottom:18px;min-height:42px}
+  .price .amount{display:flex;align-items:baseline;gap:7px;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+  .price .amount b{font-family:"Sora",sans-serif;font-size:2.5rem;font-weight:700;color:var(--texte);line-height:1}
+  .price .amount b.num{background:linear-gradient(120deg,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .price .amount small{color:var(--texte-doux);font-size:.9rem}
+  .price ul{list-style:none;display:grid;gap:12px;margin-bottom:26px;flex:1}
+  .price li{display:flex;gap:11px;align-items:flex-start;color:var(--texte);font-size:.95rem}
+  .price li svg{width:19px;height:19px;color:var(--crystal);flex:0 0 auto;margin-top:1px}
+  .price .btn{width:100%;justify-content:center;margin-top:auto}
+  .price-note{text-align:center;color:var(--texte-doux);font-size:.9rem;margin-top:30px}
+
+  /* ===== FAQ (accordéon) ===== */
+  .faq{max-width:880px;margin:0 auto;display:grid;gap:14px}
+  .faq-item{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(150deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+    backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.1);transition:border-color .3s}
+  .faq-item.open{border-color:rgba(34,230,255,.32)}
+  .faq-q{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;cursor:pointer;border:none;background:none;
+    padding:22px 26px;font-family:"Sora",sans-serif;font-weight:600;font-size:1.05rem;color:var(--texte);text-align:left}
+  .faq-q .ico{flex:0 0 auto;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:var(--crystal);
+    background:rgba(34,230,255,.1);border:1px solid rgba(34,230,255,.2);transition:transform .35s ease}
+  .faq-item.open .faq-q .ico{transform:rotate(135deg)}
+  .faq-q .ico svg{width:16px;height:16px}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .faq-a p{padding:0 26px 24px;color:var(--texte-doux);font-size:1rem;line-height:1.7}
+
+  @media(max-width:880px){ .prices{grid-template-columns:1fr;max-width:460px;margin:0 auto} }
+
   /* back to top */
   .top{
     position:fixed;right:22px;bottom:22px;width:50px;height:50px;border-radius:15px;border:1px solid rgba(34,230,255,.3);cursor:pointer;z-index:55;
@@ -509,8 +552,9 @@
     <nav class="menu">
       <a href="#services">Services</a>
       <a href="#process">Méthode</a>
+      <a href="#tarifs">Tarifs</a>
       <a href="#apropos">À propos</a>
-      <a href="#avis">Avis</a>
+      <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
       <a href="#contact" class="btn btn-pri"><span>Prendre rendez-vous</span></a>
     </nav>
@@ -526,8 +570,10 @@
   <button class="close" aria-label="Fermer le menu" onclick="toggleMenu(false)">✕</button>
   <a href="#services" onclick="toggleMenu(false)">Services</a>
   <a href="#process" onclick="toggleMenu(false)">Méthode</a>
+  <a href="#tarifs" onclick="toggleMenu(false)">Tarifs</a>
   <a href="#apropos" onclick="toggleMenu(false)">À propos</a>
   <a href="#avis" onclick="toggleMenu(false)">Avis</a>
+  <a href="#faq" onclick="toggleMenu(false)">FAQ</a>
   <a href="#contact" onclick="toggleMenu(false)">Contact</a>
   <a href="#contact" class="btn btn-pri" onclick="toggleMenu(false)"><span>Prendre rendez-vous</span></a>
 </aside>
@@ -623,19 +669,74 @@
   </div>
 </section>
 
+<!-- TARIFS -->
+<section class="tarifs" id="tarifs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Nos formules</div>
+      <h2 class="mix">Des tarifs <span class="alt">clairs</span>, sans <span class="alt">surprise</span></h2>
+      <p>Un accompagnement adapté à votre structure, à un tarif transparent et tout compris. Le premier rendez-vous est gratuit et sans engagement.</p>
+    </div>
+    <div class="prices">
+      <div class="price reveal-zoom" data-d="1">
+        <h3>Indépendant</h3>
+        <p class="who">Micro-entreprises, auto-entrepreneurs et indépendants.</p>
+        <div class="amount"><b class="num">69 €</b><small>/ mois HT</small></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Comptabilité tenue et révisée</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclarations de TVA</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclaration de revenus</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Tableau de bord en ligne</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Assistance par e-mail</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost"><span>Choisir cette formule</span></a>
+      </div>
+      <div class="price featured reveal-zoom" data-d="2">
+        <span class="tag-pop">Le plus choisi</span>
+        <h3>Société</h3>
+        <p class="who">TPE et sociétés : SAS, SARL, EURL, SASU.</p>
+        <div class="amount"><b class="num">149 €</b><small>/ mois HT</small></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Tout de la formule Indépendant</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Bilan et liasse fiscale</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Comptes annuels</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Rendez-vous de suivi trimestriels</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Interlocuteur dédié</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-pri"><span>Choisir cette formule</span></a>
+      </div>
+      <div class="price reveal-zoom" data-d="3">
+        <h3>PME · Sur-mesure</h3>
+        <p class="who">Structures avec salariés et besoins spécifiques.</p>
+        <div class="amount"><b>Sur devis</b></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Tout de la formule Société</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Gestion de la paie &amp; du social</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Conseil &amp; optimisation fiscale</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Prévisionnels &amp; business plan</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Accompagnement stratégique</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost"><span>Demander un devis</span></a>
+      </div>
+    </div>
+    <p class="price-note reveal">Tarifs indicatifs HT, ajustés selon votre volume d'activité. Sans engagement de durée — vous restez libre, et on vous accompagne à votre rythme.</p>
+  </div>
+</section>
+
 <!-- À PROPOS -->
 <section class="about" id="apropos">
   <div class="wrap about-inner">
     <div class="reveal-l">
       <div class="eyebrow">À propos</div>
       <h2 class="mix">Un cabinet à <span class="alt">taille humaine</span>, proche de <span class="alt">vous</span></h2>
-      <p>Chez AEM-CONSEIL, nous croyons qu'une bonne relation de conseil repose sur la proximité, la réactivité et la transparence. Notre équipe met son savoir-faire au service de votre réussite.</p>
+      <p>Chez AEM-CONSEIL, nous croyons qu'une bonne relation de conseil repose sur la proximité, la réactivité et la transparence. Derrière les chiffres, il y a avant tout des femmes et des hommes qui construisent un projet — et c'est eux que nous accompagnons.</p>
       <ul class="checks">
         <li>Des conseils clairs, sans jargon</li>
         <li>Une équipe disponible et réactive</li>
         <li>Des outils digitaux modernes et sécurisés</li>
         <li>Un accompagnement sur-mesure selon vos besoins</li>
       </ul>
+      <p class="signature">« Votre réussite, c'est aussi la nôtre. »<br><b>— L'équipe AEM-CONSEIL</b></p>
     </div>
     <div class="about-visual reveal-r" data-d="2">
       <div class="inner">
@@ -669,6 +770,43 @@
         <div class="stars">★★★★★</div>
         <p>« Des conseils stratégiques qui ont un vrai impact sur ma rentabilité. Je recommande sans hésiter. »</p>
         <div class="who"><span class="av">EP</span><span><b>Élodie P.</b><small>Dirigeante, PME</small></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Questions fréquentes</div>
+      <h2 class="mix">Vous vous <span class="alt">posez</span> des <span class="alt">questions</span> ?</h2>
+      <p>Les réponses qui reviennent le plus souvent. Une autre question en tête ? Écrivez-nous, on vous répond avec plaisir.</p>
+    </div>
+    <div class="faq reveal">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Le premier rendez-vous est-il vraiment gratuit ?</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><p>Oui, totalement. Nous prenons le temps de comprendre votre activité, vos besoins et vos objectifs — sans aucun engagement de votre part. C'est l'occasion de faire connaissance et de voir si le courant passe.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Puis-je changer d'expert-comptable en cours d'année ?</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><p>Bien sûr, et c'est plus simple qu'on ne le croit. Nous nous occupons de toutes les démarches de transfert avec votre ancien cabinet, en toute discrétion. Vous n'avez quasiment rien à faire.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Mes documents et mes données sont-ils en sécurité ?</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><p>Absolument. Vos données sont hébergées sur des outils sécurisés et chiffrés, conformes au RGPD, et accessibles à tout moment depuis votre espace en ligne personnel.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Travaillez-vous à distance ou en présentiel ?</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><p>Les deux, selon ce qui vous arrange le mieux. Nous accompagnons nos clients partout en France, par téléphone, visio ou rendez-vous — un échange humain reste toujours possible.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Quels types d'entreprises accompagnez-vous ?</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><p>Indépendants, micro-entreprises, TPE, PME, professions libérales et créateurs d'entreprise. Quelle que soit votre taille, nous adaptons notre accompagnement à votre réalité.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Comment se passe la reprise de ma comptabilité ?</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><p>Nous récupérons vos pièces et l'historique de vos comptes, faisons un point complet avec vous, puis reprenons la main sans la moindre interruption. La transition est fluide, c'est notre métier.</p></div>
       </div>
     </div>
   </div>
@@ -724,8 +862,10 @@
           <nav class="foot-links">
             <a href="#services">Services</a>
             <a href="#process">Méthode</a>
+            <a href="#tarifs">Tarifs</a>
             <a href="#apropos">À propos</a>
             <a href="#avis">Avis</a>
+            <a href="#faq">FAQ</a>
           </nav>
         </div>
         <div class="foot-col">
@@ -977,6 +1117,25 @@
       card.setAttribute('aria-label', h.textContent.trim()+' — voir le détail');
       card.addEventListener('click', function(){ openSvc(card); });
       card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSvc(card); } });
+    });
+  })();
+
+  /* ===== FAQ : accordéon ===== */
+  (function(){
+    var items = document.querySelectorAll('.faq-item');
+    items.forEach(function(item){
+      var q=item.querySelector('.faq-q'), a=item.querySelector('.faq-a');
+      if(!q||!a) return;
+      q.addEventListener('click', function(){
+        var willOpen = !item.classList.contains('open');
+        // ferme les autres (comportement accordéon)
+        items.forEach(function(other){
+          if(other!==item){ other.classList.remove('open'); var oa=other.querySelector('.faq-a'); var oq=other.querySelector('.faq-q'); if(oa) oa.style.maxHeight='0'; if(oq) oq.setAttribute('aria-expanded','false'); }
+        });
+        item.classList.toggle('open', willOpen);
+        q.setAttribute('aria-expanded', willOpen?'true':'false');
+        a.style.maxHeight = willOpen ? (a.scrollHeight + 'px') : '0';
+      });
     });
   })();
 </script>
