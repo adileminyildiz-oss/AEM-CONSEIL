@@ -492,6 +492,15 @@
   .price li svg{width:19px;height:19px;color:var(--crystal);flex:0 0 auto;margin-top:1px}
   .price .btn{width:100%;justify-content:center;margin-top:auto}
   .price-note{text-align:center;color:var(--texte-doux);font-size:.9rem;margin-top:30px}
+  /* Offre groupée réservée à la formule Tenue comptable */
+  .price-offer{display:flex;flex-direction:column;gap:5px;margin:0 0 20px;padding:13px 15px;border-radius:14px;
+    background:linear-gradient(135deg,rgba(34,230,255,.14),rgba(59,157,255,.06));border:1px solid rgba(34,230,255,.3);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12);font-size:.9rem;color:var(--texte);line-height:1.5}
+  .price-offer .offer-tag{display:inline-flex;align-items:center;gap:6px;font-size:.66rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--crystal)}
+  .price-offer .offer-tag::before{content:"★";font-size:.7rem}
+  .price-offer b{color:#fff}
+  .price-offer s{color:var(--texte-doux);font-weight:400}
+  .price-bundle{font-size:.84rem;color:var(--crystal);margin:-10px 0 18px;font-weight:600}
 
   /* ===== FAQ (accordéon) ===== */
   .faq{max-width:880px;margin:0 auto;display:grid;gap:14px}
@@ -712,6 +721,7 @@
         <h3>Création d'entreprise</h3>
         <p class="who">Pour lancer votre activité sur des bases solides.</p>
         <div class="amount"><b class="num">699 €</b><small>forfait HT</small></div>
+        <p class="price-bundle">→ 400 € avec un abonnement Tenue comptable</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Choix du statut juridique adapté</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Rédaction des statuts</span></li>
@@ -726,6 +736,10 @@
         <h3>Tenue comptable</h3>
         <p class="who">Pour les indépendants, TPE et sociétés.</p>
         <div class="amount"><b class="num">350 €</b><small>/ mois HT</small></div>
+        <div class="price-offer">
+          <span class="offer-tag">Offre réservée à cette formule</span>
+          <span>Votre <b>création de société à 400 €</b> (une seule fois) au lieu de <s>699 €</s>.</span>
+        </div>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Comptabilité tenue et révisée</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclarations de TVA</span></li>
