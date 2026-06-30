@@ -403,6 +403,42 @@
   .reveal[data-d="3"],.reveal-l[data-d="3"],.reveal-r[data-d="3"],.reveal-zoom[data-d="3"]{transition-delay:.24s}
   .reveal[data-d="4"],.reveal-l[data-d="4"],.reveal-r[data-d="4"]{transition-delay:.32s}
 
+  /* ===== Cartes services cliquables + indice ===== */
+  .card{cursor:pointer}
+  .card .card-arrow{position:absolute;top:22px;right:22px;width:34px;height:34px;border-radius:11px;z-index:2;
+    display:grid;place-items:center;color:var(--crystal);
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+    opacity:.55;transition:opacity .3s,transform .3s,background .3s,box-shadow .3s}
+  .card .card-arrow svg{width:17px;height:17px}
+  .card:hover .card-arrow{opacity:1;transform:translate(2px,-2px);background:rgba(34,230,255,.14);box-shadow:0 0 18px rgba(34,230,255,.35)}
+
+  /* ===== Modale détail service (Liquid Glass) ===== */
+  .modal-overlay{position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:24px;
+    background:rgba(3,6,12,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+  .modal-overlay.open{opacity:1;visibility:visible}
+  .modal{position:relative;width:min(640px,94vw);max-height:88vh;overflow:auto;border-radius:28px;padding:42px 40px;
+    background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.025));
+    backdrop-filter:blur(34px) saturate(185%);-webkit-backdrop-filter:blur(34px) saturate(185%);
+    border:1px solid rgba(255,255,255,.13);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 50px 110px rgba(0,0,0,.6);
+    transform:translateY(26px) scale(.95);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+  .modal-overlay.open .modal{transform:none}
+  .modal-close{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:12px;cursor:pointer;
+    border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:var(--texte);display:grid;place-items:center;transition:.25s}
+  .modal-close:hover{background:rgba(34,230,255,.14);border-color:var(--crystal);transform:rotate(90deg)}
+  .modal-close svg{width:20px;height:20px}
+  .modal .m-ic{width:62px;height:62px;border-radius:17px;display:grid;place-items:center;margin-bottom:20px;color:var(--crystal);
+    background:linear-gradient(135deg,rgba(34,230,255,.18),rgba(59,157,255,.08));border:1px solid rgba(34,230,255,.22)}
+  .modal .m-ic svg{width:30px;height:30px}
+  .modal h3{font-size:1.65rem;color:var(--texte);margin-bottom:10px;letter-spacing:-.3px}
+  .modal .m-lead{color:var(--texte-doux);font-size:1.02rem;margin-bottom:24px;line-height:1.7}
+  .modal ul{list-style:none;display:grid;gap:13px}
+  .modal li{display:flex;gap:13px;align-items:flex-start;color:var(--texte);font-size:.98rem}
+  .modal li svg{width:21px;height:21px;color:var(--crystal);flex:0 0 auto;margin-top:1px}
+  .modal .m-cta{margin-top:28px;display:flex}
+  .modal .m-cta .btn{width:100%;justify-content:center}
+
   /* back to top */
   .top{
     position:fixed;right:22px;bottom:22px;width:50px;height:50px;border-radius:15px;border:1px solid rgba(34,230,255,.3);cursor:pointer;z-index:55;
@@ -705,6 +741,20 @@
   </div>
 </footer>
 
+<!-- Modale détail d'un service -->
+<div class="modal-overlay" id="svcModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="svcTitle">
+    <button class="modal-close" aria-label="Fermer" onclick="closeSvc()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="m-ic" id="svcIc"></div>
+    <h3 id="svcTitle"></h3>
+    <p class="m-lead" id="svcLead"></p>
+    <ul id="svcList"></ul>
+    <div class="m-cta"><a href="#contact" class="btn btn-pri" onclick="closeSvc()"><span>Demander un devis</span></a></div>
+  </div>
+</div>
+
 <button class="top" id="toTop" aria-label="Revenir en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
@@ -862,6 +912,71 @@
         btn.style.transform = 'translate('+mx+'px,'+my+'px)';
       });
       btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
+    });
+  })();
+
+  /* ===== Cartes services cliquables -> modale détail ===== */
+  (function(){
+    var DETAILS = {
+      'Expertise comptable':{
+        lead:"Une comptabilité tenue avec rigueur, des comptes clairs et conformes, pour piloter votre activité en toute sérénité.",
+        items:["Saisie et tenue complète de votre comptabilité","Établissement du bilan et du compte de résultat","Comptes annuels et liasses fiscales","Révision et arrêté des comptes","Tableaux de bord et reporting réguliers"]
+      },
+      'Conseil & gestion':{
+        lead:"Des outils de pilotage et un regard stratégique pour prendre les bonnes décisions au bon moment.",
+        items:["Tableaux de bord et indicateurs de performance","Budgets et prévisionnels de trésorerie","Analyse de rentabilité et de coûts","Accompagnement dans vos décisions stratégiques","Suivi régulier de vos objectifs"]
+      },
+      'Paie & social':{
+        lead:"La gestion complète de votre paie et de vos obligations sociales, en toute conformité.",
+        items:["Bulletins de paie mensuels","Déclarations sociales (DSN)","Rédaction des contrats de travail","Gestion des congés, absences et soldes de tout compte","Conseil en droit social et conventions collectives"]
+      },
+      'Fiscalité':{
+        lead:"Une fiscalité maîtrisée et optimisée, adaptée à votre situation et à jour de la réglementation.",
+        items:["Déclarations fiscales (TVA, IS, IR)","Optimisation et stratégie fiscale","Veille réglementaire permanente","Accompagnement en cas de contrôle fiscal","Identification des crédits et aides fiscales"]
+      },
+      "Création d'entreprise":{
+        lead:"De l'idée au lancement, un accompagnement complet pour créer votre entreprise sur des bases solides.",
+        items:["Choix du statut juridique adapté","Business plan et prévisionnel financier","Formalités juridiques et administratives","Immatriculation de votre société","Accompagnement lors du démarrage d'activité"]
+      },
+      'Accompagnement personnalisé':{
+        lead:"Un interlocuteur dédié, disponible et à votre écoute, pour vous accompagner au quotidien.",
+        items:["Un interlocuteur unique et dédié","Disponibilité et réactivité sous 24 h","Outils digitaux modernes et sécurisés","Rendez-vous de suivi réguliers","Réponses à toutes vos questions du quotidien"]
+      }
+    };
+    var modal=document.getElementById('svcModal');
+    if(!modal) return;
+    var elIc=document.getElementById('svcIc'),elTitle=document.getElementById('svcTitle'),elLead=document.getElementById('svcLead'),elList=document.getElementById('svcList');
+    var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    var ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
+    var lastFocus=null;
+
+    function openSvc(card){
+      var h=card.querySelector('h3'); if(!h) return;
+      var title=h.textContent.trim(); var d=DETAILS[title]; if(!d) return;
+      var icSvg=card.querySelector('.ic svg');
+      elIc.innerHTML=icSvg?icSvg.outerHTML:'';
+      elTitle.textContent=title;
+      elLead.textContent=d.lead;
+      elList.innerHTML=d.items.map(function(t){return '<li>'+CHECK+'<span>'+t+'</span></li>';}).join('');
+      lastFocus=document.activeElement;
+      modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    }
+    window.closeSvc=function(){
+      modal.classList.remove('open'); modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+      if(lastFocus&&lastFocus.focus) lastFocus.focus();
+    };
+    modal.addEventListener('click', function(e){ if(e.target===modal) window.closeSvc(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&modal.classList.contains('open')) window.closeSvc(); });
+
+    document.querySelectorAll('.card').forEach(function(card){
+      var h=card.querySelector('h3'); if(!h||!DETAILS[h.textContent.trim()]) return;
+      var arrow=document.createElement('span'); arrow.className='card-arrow'; arrow.innerHTML=ARROW; card.appendChild(arrow);
+      card.setAttribute('role','button'); card.setAttribute('tabindex','0');
+      card.setAttribute('aria-label', h.textContent.trim()+' — voir le détail');
+      card.addEventListener('click', function(){ openSvc(card); });
+      card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSvc(card); } });
     });
   })();
 </script>
