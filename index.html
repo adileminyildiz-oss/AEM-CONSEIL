@@ -251,9 +251,10 @@
   .hero-trust svg{width:18px;height:18px;color:var(--crystal)}
   .hero-card{
     background:linear-gradient(150deg,rgba(255,255,255,.12),rgba(255,255,255,.025));
-    border:1px solid rgba(255,255,255,.12);border-radius:26px;padding:38px 36px;position:relative;overflow:hidden;
+    border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:22px 26px;position:relative;overflow:hidden;
+    max-width:380px;margin-left:auto;
     backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 30px 80px rgba(0,0,0,.5),0 0 60px rgba(34,230,255,.08);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 24px 60px rgba(0,0,0,.5),0 0 50px rgba(34,230,255,.08);
     animation:floatCard 7s ease-in-out infinite;
   }
   @keyframes floatCard{50%{transform:translateY(-12px)}}
@@ -265,9 +266,10 @@
     background:linear-gradient(90deg,transparent,var(--crystal),var(--crystal-2),transparent)}
   .hero-card h3{position:relative;z-index:1;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:500;
     font-size:1.32rem;letter-spacing:.2px;color:var(--texte);margin-bottom:10px;padding-bottom:20px;border-bottom:1px solid var(--line)}
-  .stat{position:relative;z-index:1;display:flex;align-items:baseline;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
-  .stat:last-child{border-bottom:none;padding-bottom:0}
-  .stat .num{font-size:2.5rem;font-weight:800;font-family:"Sora",sans-serif;min-width:104px;letter-spacing:-1px;
+  .stat{position:relative;z-index:1;display:flex;align-items:baseline;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+  .stat:first-child{padding-top:4px}
+  .stat:last-child{border-bottom:none;padding-bottom:4px}
+  .stat .num{font-size:2.05rem;font-weight:800;font-family:"Sora",sans-serif;min-width:88px;letter-spacing:-1px;
     background:linear-gradient(120deg,#bfeeff,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent;
     filter:drop-shadow(0 0 14px rgba(34,230,255,.3))}
   .stat .lbl{color:var(--texte-doux);font-size:.96rem;font-weight:500}
@@ -663,7 +665,6 @@
       </div>
     </div>
     <div class="hero-card intro" data-i="4">
-      <h3>AEM-CONSEIL en quelques chiffres</h3>
       <div class="stat"><span class="num" data-count="10" data-suffix="+">0</span><span class="lbl">années d'expérience</span></div>
       <div class="stat"><span class="num" data-count="200" data-suffix="+">0</span><span class="lbl">clients accompagnés</span></div>
       <div class="stat"><span class="num" data-count="100" data-suffix="%">0</span><span class="lbl">engagement & disponibilité</span></div>
