@@ -465,7 +465,7 @@
   .modal .m-cta .btn{width:100%;justify-content:center}
 
   /* ===== Tarifs / Formules ===== */
-  .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+  .prices{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;align-items:stretch}
   .price{position:relative;overflow:hidden;display:flex;flex-direction:column;border-radius:24px;padding:38px 32px;
     background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
     backdrop-filter:blur(20px) saturate(170%);-webkit-backdrop-filter:blur(20px) saturate(170%);
@@ -503,7 +503,8 @@
   .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
   .faq-a p{padding:0 26px 24px;color:var(--texte-doux);font-size:1rem;line-height:1.7}
 
-  @media(max-width:880px){ .prices{grid-template-columns:1fr;max-width:460px;margin:0 auto} }
+  @media(max-width:1100px){ .prices{grid-template-columns:repeat(2,1fr);max-width:720px;margin:0 auto} }
+  @media(max-width:620px){ .prices{grid-template-columns:1fr;max-width:420px} }
 
   /* back to top */
   .top{
@@ -718,7 +719,7 @@
         <span class="tag-pop">Le plus choisi</span>
         <h3>Tenue comptable</h3>
         <p class="who">Pour les indépendants, TPE et sociétés.</p>
-        <div class="amount"><b class="num">250 €</b><small>/ mois HT</small></div>
+        <div class="amount"><b class="num">350 €</b><small>/ mois HT</small></div>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Comptabilité tenue et révisée</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclarations de TVA</span></li>
@@ -729,12 +730,24 @@
         <a href="#contact" class="btn btn-pri"><span>Choisir cette formule</span></a>
       </div>
       <div class="price reveal-zoom" data-d="3">
+        <h3>Fiches de paie</h3>
+        <p class="who">Forfait mensuel pour la gestion de vos salariés.</p>
+        <div class="amount"><b class="num">70 €</b><small>/ bulletin HT</small></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Bulletins de paie mensuels</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclarations sociales (DSN)</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Gestion des congés et absences</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Documents de fin de contrat</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Conseil en droit social</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost"><span>Choisir cette formule</span></a>
+      </div>
+      <div class="price reveal-zoom" data-d="4">
         <h3>Demandes administratives</h3>
         <p class="who">Pour toutes vos démarches ponctuelles.</p>
-        <div class="amount"><b class="num">150 €</b><small>/ demande HT</small></div>
+        <div class="amount"><b class="num">+ 100 €</b><small>/ demande HT</small></div>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclarations et formalités</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Modifications statutaires</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Courriers et dossiers administratifs</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Assistance et conseil</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Traitement rapide de votre demande</span></li>
