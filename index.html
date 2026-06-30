@@ -1220,19 +1220,51 @@
     });
   })();
 
+  /* ===========================================================================
+     MESURE D'AUDIENCE — activée UNIQUEMENT après consentement de l'utilisateur
+     ---------------------------------------------------------------------------
+     👉 POUR ACTIVER LE JOUR VENU :
+        1) Renseignez votre identifiant dans ANALYTICS_ID ci-dessous.
+        2) Décommentez le bloc correspondant à votre outil (GA4 ou Matomo)
+           OU collez votre propre snippet à l'intérieur de loadAnalytics().
+     Tant que ANALYTICS_ID est vide, AUCUNE mesure n'est chargée.
+     =========================================================================== */
+  var ANALYTICS_ID = '';          // <-- collez ici votre identifiant (ex. GA4 "G-XXXXXXXX")
+  var _analyticsLoaded = false;
+  function loadAnalytics(){
+    if(_analyticsLoaded || !ANALYTICS_ID) return;   // rien sans consentement ni identifiant
+    _analyticsLoaded = true;
+
+    /* --- Option A : Google Analytics 4 (gtag.js) — décommentez ces lignes ---
+    var s = document.createElement('script'); s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ANALYTICS_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', ANALYTICS_ID, { anonymize_ip: true });
+    --- fin Option A --- */
+
+    /* --- Option B : Matomo / autre outil — collez votre snippet de suivi ici --- */
+  }
+
   /* ===== Consentement aux cookies (mémorisé par appareil) ===== */
   function setCookieConsent(choix){
     try{ localStorage.setItem('aem_cookie_consent', choix); localStorage.setItem('aem_cookie_date', String(Date.now())); }catch(e){}
     var el=document.getElementById('cookieBanner'); if(el) el.classList.remove('show');
+    if(choix === 'accepted') loadAnalytics();        // activation de la mesure après acceptation
   }
   (function(){
     var consent=null;
     try{ consent=localStorage.getItem('aem_cookie_consent'); }catch(e){}
-    if(!consent){
+    if(consent === 'accepted'){
+      loadAnalytics();                               // appareil ayant déjà accepté -> on charge la mesure
+    } else if(!consent){
       var el=document.getElementById('cookieBanner');
-      // on attend la fin de l'animation d'ouverture avant d'afficher la bannière
+      // 1re visite (appareil inconnu) : on attend la fin de l'animation d'ouverture, puis on propose
       setTimeout(function(){ if(el) el.classList.add('show'); }, 2600);
     }
+    // 'refused' -> aucune mesure, pas de bannière
   })();
 
   /* ===== FAQ : accordéon ===== */
