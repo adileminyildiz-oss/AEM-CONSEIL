@@ -519,9 +519,76 @@
   /* Boutons magnétiques : transition douce du retour */
   .btn-pri,.btn-light{will-change:transform}
 
+  /* ============================================================
+     AMÉLIORATIONS — effets & mise en page (v2)
+     ============================================================ */
+
+  /* Décalage d'ancre : les sections ne glissent plus sous l'en-tête collant */
+  html{scroll-padding-top:110px}
+
+  /* Retour tactile « app » : pas de flash au tap, légère pression à l'appui */
+  *{-webkit-tap-highlight-color:transparent}
+  .btn:active{transform:scale(.96)!important}
+  .card:active,.step:active,.quote:active,.price:active,.faq-q:active{transform:scale(.99)}
+
+  /* Lien de navigation actif (scroll-spy) */
+  .menu a:not(.btn).active{color:var(--texte)}
+  .menu a:not(.btn).active::after{width:100%}
+  .drawer a:not(.btn).active{color:var(--crystal);border-color:rgba(34,230,255,.3)}
+
+  /* Effet ripple au clic / tap sur les boutons */
+  .btn .ripple{position:absolute;z-index:1;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);
+    transform:scale(0);animation:ripple .6s ease-out forwards}
+  @keyframes ripple{to{transform:scale(2.6);opacity:0}}
+
+  /* Entrée échelonnée des liens du menu mobile */
+  .drawer a{opacity:0;transform:translateX(20px)}
+  .drawer.open a{animation:drawerIn .5s cubic-bezier(.2,.7,.2,1) both}
+  .drawer.open a:nth-of-type(1){animation-delay:.05s}
+  .drawer.open a:nth-of-type(2){animation-delay:.10s}
+  .drawer.open a:nth-of-type(3){animation-delay:.15s}
+  .drawer.open a:nth-of-type(4){animation-delay:.20s}
+  .drawer.open a:nth-of-type(5){animation-delay:.25s}
+  .drawer.open a:nth-of-type(6){animation-delay:.30s}
+  .drawer.open a:nth-of-type(7){animation-delay:.35s}
+  .drawer.open a:nth-of-type(8){animation-delay:.40s}
+  @keyframes drawerIn{to{opacity:1;transform:none}}
+
+  /* Bordure lumineuse animée sur la formule mise en avant */
+  .price.featured::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;z-index:0;
+    background:linear-gradient(130deg,var(--crystal),transparent 38%,transparent 62%,var(--crystal-2));
+    background-size:220% 220%;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+    animation:borderGlow 6s linear infinite}
+  .price.featured>*{position:relative;z-index:1}
+  @keyframes borderGlow{to{background-position:220% 220%}}
+
+  /* ===== Barre d'action mobile (Appeler / Devis) ===== */
+  .m-actionbar{
+    position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;gap:10px;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
+    background:rgba(8,12,20,.82);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+    border-top:1px solid rgba(120,180,255,.16);box-shadow:0 -14px 44px rgba(0,0,0,.55);
+    transform:translateY(130%);transition:transform .42s cubic-bezier(.2,.7,.2,1)}
+  .m-actionbar.show{transform:none}
+  .m-actionbar .btn{flex:1;justify-content:center;padding:14px 14px;font-size:.98rem}
+  .m-actionbar .btn svg{width:17px;height:17px}
+
+  @media(max-width:880px){
+    html{scroll-padding-top:84px}
+    .nav{height:74px}
+    .logo img{height:52px}
+    .m-actionbar{display:flex}
+    .top{bottom:86px;right:16px}
+    footer{padding-bottom:96px}
+  }
+
   @media(prefers-reduced-motion:reduce){
     *{scroll-behavior:auto!important;animation:none!important}
     .reveal,.intro{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
+    .drawer a{opacity:1!important;transform:none!important}
     #loader{display:none}
   }
 
@@ -907,6 +974,15 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
+<!-- Barre d'action rapide (mobile) -->
+<div class="m-actionbar" id="mbar" aria-hidden="true">
+  <a href="tel:+33665908325" class="btn btn-ghost">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <span>Appeler</span>
+  </a>
+  <a href="#contact" class="btn btn-pri"><span>Devis gratuit</span></a>
+</div>
+
 <script>
   // Toujours arriver en haut de page à l'ouverture (on désactive la restauration du défilement)
   if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
@@ -975,12 +1051,13 @@
   }
   document.addEventListener('keydown',function(e){if(e.key==='Escape')toggleMenu(false);});
 
-  // Ombre du header + bouton retour haut
-  var hdr=document.getElementById('hdr'),toTop=document.getElementById('toTop');
+  // Ombre du header + bouton retour haut + barre d'action mobile
+  var hdr=document.getElementById('hdr'),toTop=document.getElementById('toTop'),mbar=document.getElementById('mbar');
   function onScroll(){
     var y=window.scrollY;
     hdr.classList.toggle('scrolled',y>8);
     toTop.classList.toggle('show',y>520);
+    if(mbar) mbar.classList.toggle('show',y>600);
   }
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
@@ -1145,6 +1222,39 @@
         a.style.maxHeight = willOpen ? (a.scrollHeight + 'px') : '0';
       });
     });
+  })();
+
+  /* ===== Navigation active (scroll-spy) ===== */
+  (function(){
+    var ids=['services','process','tarifs','apropos','avis','faq','contact'];
+    var links=document.querySelectorAll('.menu a:not(.btn), .drawer a:not(.btn)');
+    if(!('IntersectionObserver' in window)||!links.length) return;
+    function setActive(id){
+      links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+id); });
+    }
+    var spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting) setActive(en.target.id); });
+    },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+    ids.forEach(function(id){ var s=document.getElementById(id); if(s) spy.observe(s); });
+  })();
+
+  /* ===== Effet ripple au clic / tap des boutons ===== */
+  (function(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.addEventListener('click', function(e){
+      var btn=e.target.closest && e.target.closest('.btn');
+      if(!btn) return;
+      var r=btn.getBoundingClientRect();
+      var size=Math.max(r.width,r.height);
+      var rip=document.createElement('span'); rip.className='ripple';
+      rip.style.width=rip.style.height=size+'px';
+      // clientX/Y absents (clavier) -> centrage du ripple
+      var cx=e.clientX||(r.left+r.width/2), cy=e.clientY||(r.top+r.height/2);
+      rip.style.left=(cx-r.left-size/2)+'px';
+      rip.style.top=(cy-r.top-size/2)+'px';
+      btn.appendChild(rip);
+      setTimeout(function(){ if(rip.parentNode) rip.parentNode.removeChild(rip); }, 650);
+    }, {passive:true});
   })();
 
   /* ===== PWA : enregistrement du service worker ===== */
