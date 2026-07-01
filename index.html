@@ -301,21 +301,29 @@
   .hero-trust span{display:flex;align-items:center;gap:8px}
   .hero-trust svg{width:18px;height:18px;color:var(--crystal)}
   .hero-card{
-    background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.025));
-    border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:34px;position:relative;overflow:hidden;
-    backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 24px 70px rgba(0,0,0,.45);
+    background:linear-gradient(150deg,rgba(255,255,255,.12),rgba(255,255,255,.025));
+    border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:28px 32px;position:relative;overflow:hidden;
+    max-width:440px;margin:0 auto;
+    backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 24px 60px rgba(0,0,0,.5),0 0 50px rgba(34,230,255,.08);
     animation:floatCard 7s ease-in-out infinite;
   }
   @keyframes floatCard{50%{transform:translateY(-12px)}}
-  .hero-card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
-    background:linear-gradient(140deg,rgba(255,255,255,.6),rgba(34,230,255,.4) 35%,transparent 60%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
-  .hero-card h3{font-size:1.05rem;margin-bottom:22px;color:var(--texte);font-weight:600}
-  .stat{display:flex;align-items:baseline;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
-  .stat:last-child{border-bottom:none;padding-bottom:0}
-  .stat .num{font-size:2.1rem;font-weight:700;font-family:"Sora",sans-serif;min-width:96px;
-    background:linear-gradient(120deg,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .stat .lbl{color:var(--texte-doux);font-size:.95rem}
+  /* lueur d'angle */
+  .hero-card::before{content:"";position:absolute;top:-40%;right:-30%;width:70%;height:80%;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(34,230,255,.18),transparent 65%);filter:blur(10px)}
+  /* barre d'accent lumineuse en haut */
+  .hero-card::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,transparent,var(--crystal),var(--crystal-2),transparent)}
+  .hero-card h3{position:relative;z-index:1;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:500;
+    font-size:1.32rem;letter-spacing:.2px;color:var(--texte);margin-bottom:10px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+  .stat{position:relative;z-index:1;display:flex;align-items:baseline;gap:15px;padding:15px 0;border-bottom:1px solid var(--line)}
+  .stat:first-child{padding-top:5px}
+  .stat:last-child{border-bottom:none;padding-bottom:5px}
+  .stat .num{font-size:2.25rem;font-weight:800;font-family:"Sora",sans-serif;min-width:96px;letter-spacing:-1px;
+    background:linear-gradient(120deg,#bfeeff,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 14px rgba(34,230,255,.3))}
+  .stat .lbl{color:var(--texte-doux);font-size:.96rem;font-weight:500}
 
   /* ===== Sections ===== */
   section{padding:100px 0;position:relative}
@@ -359,16 +367,39 @@
   .checks li{display:flex;gap:13px;align-items:flex-start;margin-bottom:16px;font-weight:500;color:var(--texte)}
   .checks li::before{content:"✓";color:#04121b;background:linear-gradient(135deg,var(--crystal),var(--crystal-2));width:25px;height:25px;border-radius:50%;display:grid;place-items:center;font-size:.82rem;flex:0 0 auto;margin-top:3px;box-shadow:0 0 14px rgba(34,230,255,.4)}
   .about-visual{
-    background:linear-gradient(160deg,var(--noir-3),var(--noir-2));border:1px solid var(--line);border-radius:22px;min-height:380px;
-    display:grid;place-items:center;color:#fff;text-align:center;padding:40px;position:relative;overflow:hidden;box-shadow:var(--ombre);
+    position:relative;overflow:hidden;min-height:460px;border-radius:28px;display:grid;place-items:center;text-align:center;padding:40px;
+    background:linear-gradient(150deg,rgba(255,255,255,.08),rgba(255,255,255,.015));
+    backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 34px 90px rgba(0,0,0,.55);
   }
-  .about-visual::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 18%,rgba(34,230,255,.22),transparent 55%)}
-  .about-visual::before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;border:1px solid rgba(34,230,255,.18);box-shadow:0 0 0 40px rgba(34,230,255,.04);animation:float 6s ease-in-out infinite}
-  @keyframes float{50%{transform:translateY(-16px)}}
-  .about-visual .inner{position:relative;z-index:1}
-  .about-visual .big{font-size:4rem;font-weight:600;font-family:"Playfair Display",serif;font-style:italic;letter-spacing:1px;
-    background:linear-gradient(120deg,var(--crystal),var(--crystal-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .about-visual .tag{color:var(--texte-doux);margin-top:10px;letter-spacing:1px;text-transform:uppercase;font-size:.82rem;font-family:"Sora",sans-serif}
+  /* lueur rotative derrière le logo */
+  .about-visual::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;pointer-events:none;
+    background:conic-gradient(from 0deg,rgba(34,230,255,0),rgba(34,230,255,.25),rgba(59,157,255,0) 55%,rgba(34,230,255,0));
+    filter:blur(26px);animation:avspin 16s linear infinite}
+  @keyframes avspin{to{transform:rotate(360deg)}}
+  .about-visual::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 44%,rgba(34,230,255,.18),transparent 56%)}
+  /* anneaux concentriques */
+  .av-ring{position:absolute;border-radius:50%;border:1px solid rgba(34,230,255,.18);pointer-events:none;width:190px;height:190px;animation:avpulse 4.5s ease-in-out infinite}
+  .av-ring.r2{width:300px;height:300px;border-color:rgba(34,230,255,.11);animation-delay:.5s}
+  .av-ring.r3{width:410px;height:410px;border-color:rgba(34,230,255,.06);animation-delay:1s}
+  @keyframes avpulse{50%{transform:scale(1.05);opacity:.55}}
+  /* cœur : logo + nom */
+  .av-core{position:relative;z-index:2}
+  .av-mark{width:96px;height:auto;margin:0 auto 18px;filter:drop-shadow(0 0 28px rgba(34,230,255,.6))}
+  .av-name{font-family:"Sora",sans-serif;font-weight:700;letter-spacing:5px;color:#fff;font-size:1.15rem}
+  .about-visual .tag{color:var(--texte-doux);margin-top:9px;letter-spacing:1.5px;text-transform:uppercase;font-size:.76rem;font-family:"Sora",sans-serif}
+  /* badges flottants (Spatial UI) */
+  .av-chip{position:absolute;z-index:3;font-size:.8rem;font-weight:600;color:#d4f3ff;white-space:nowrap;
+    padding:9px 15px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+    backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 30px rgba(0,0,0,.4)}
+  .av-chip::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--crystal);box-shadow:0 0 10px var(--glow);margin-right:8px;vertical-align:middle}
+  .av-chip.c1{top:9%;left:6%;animation:avfloat 6s ease-in-out infinite}
+  .av-chip.c2{top:15%;right:5%;animation:avfloat 7s ease-in-out infinite .5s}
+  .av-chip.c3{bottom:16%;left:5%;animation:avfloat 6.6s ease-in-out infinite 1s}
+  .av-chip.c4{bottom:9%;right:7%;animation:avfloat 7.4s ease-in-out infinite .3s}
+  @keyframes avfloat{50%{transform:translateY(-12px)}}
 
   /* Process */
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
@@ -493,7 +524,7 @@
   .modal .m-cta .btn{width:100%;justify-content:center}
 
   /* ===== Tarifs / Formules ===== */
-  .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+  .prices{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;align-items:stretch}
   .price{position:relative;overflow:hidden;display:flex;flex-direction:column;border-radius:24px;padding:38px 32px;
     background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
     backdrop-filter:blur(20px) saturate(170%);-webkit-backdrop-filter:blur(20px) saturate(170%);
@@ -514,6 +545,17 @@
   .price li svg{width:19px;height:19px;color:var(--crystal);flex:0 0 auto;margin-top:1px}
   .price .btn{width:100%;justify-content:center;margin-top:auto}
   .price-note{text-align:center;color:var(--texte-doux);font-size:.9rem;margin-top:30px}
+  /* Offre groupée réservée à la formule Tenue comptable */
+  .price-offer{display:flex;flex-direction:column;gap:5px;margin:0 0 20px;padding:13px 15px;border-radius:14px;
+    background:linear-gradient(135deg,rgba(34,230,255,.14),rgba(59,157,255,.06));border:1px solid rgba(34,230,255,.3);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12);font-size:.9rem;color:var(--texte);line-height:1.5}
+  .price-offer .offer-tag{display:inline-flex;align-items:center;gap:6px;font-size:.66rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--crystal)}
+  .price-offer .offer-tag::before{content:"★";font-size:.7rem}
+  .price-offer b{color:#fff}
+  .price-offer s{color:var(--texte-doux);font-weight:400}
+  .price-offer .offer-total{margin-top:7px;padding-top:10px;border-top:1px solid rgba(34,230,255,.28);font-weight:600;color:#fff}
+  .price-offer .offer-total b{color:var(--crystal);font-size:1.05em}
+  .price-bundle{font-size:.84rem;color:var(--crystal);margin:-10px 0 18px;font-weight:600}
 
   /* ===== FAQ (accordéon) ===== */
   .faq{max-width:880px;margin:0 auto;display:grid;gap:14px}
@@ -531,7 +573,29 @@
   .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
   .faq-a p{padding:0 26px 24px;color:var(--texte-doux);font-size:1rem;line-height:1.7}
 
-  @media(max-width:880px){ .prices{grid-template-columns:1fr;max-width:460px;margin:0 auto} }
+  @media(max-width:1100px){ .prices{grid-template-columns:repeat(2,1fr);max-width:720px;margin:0 auto} }
+  @media(max-width:620px){ .prices{grid-template-columns:1fr;max-width:420px} }
+
+  /* ===== Bannière cookies (Liquid Glass) ===== */
+  .cookie-banner{position:fixed;left:50%;bottom:22px;z-index:130;width:min(700px,calc(100vw - 36px));
+    transform:translateX(-50%) translateY(150%);opacity:0;visibility:hidden;
+    display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:18px 22px;border-radius:22px;
+    background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+    backdrop-filter:blur(28px) saturate(185%);-webkit-backdrop-filter:blur(28px) saturate(185%);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 30px 80px rgba(0,0,0,.6);
+    transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .5s ease,visibility .5s ease}
+  .cookie-banner.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
+  .cookie-banner .ck-ic{flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:var(--crystal);
+    background:rgba(34,230,255,.1);border:1px solid rgba(34,230,255,.22)}
+  .cookie-banner .ck-ic svg{width:22px;height:22px}
+  .cookie-banner p{flex:1 1 260px;color:var(--texte-doux);font-size:.9rem;line-height:1.55;margin:0}
+  .cookie-banner p b{color:var(--texte)}
+  .cookie-banner .ck-actions{display:flex;gap:10px;flex:0 0 auto}
+  .cookie-banner .btn{padding:11px 22px;font-size:.92rem}
+  .ck-refuse{background:rgba(255,255,255,.05);color:var(--texte);border:1px solid rgba(255,255,255,.18)}
+  .ck-refuse:hover{border-color:var(--crystal);background:rgba(255,255,255,.08);transform:translateY(-2px)}
+  @media(max-width:560px){ .cookie-banner{flex-direction:column;align-items:flex-start;text-align:left} .cookie-banner .ck-actions{width:100%} .cookie-banner .btn{flex:1} }
 
   /* back to top */
   .top{
@@ -899,8 +963,7 @@
       </div>
     </div>
     <div class="hero-card intro" data-i="4">
-      <h3>AEM-CONSEIL en quelques chiffres</h3>
-      <div class="stat"><span class="num" data-count="15" data-suffix="+">0</span><span class="lbl">années d'expérience</span></div>
+      <div class="stat"><span class="num" data-count="10" data-suffix="+">0</span><span class="lbl">années d'expérience</span></div>
       <div class="stat"><span class="num" data-count="200" data-suffix="+">0</span><span class="lbl">clients accompagnés</span></div>
       <div class="stat"><span class="num" data-count="100" data-suffix="%">0</span><span class="lbl">engagement & disponibilité</span></div>
     </div>
@@ -977,47 +1040,69 @@
     </div>
     <div class="prices">
       <div class="price reveal-zoom" data-d="1">
-        <h3>Indépendant</h3>
-        <p class="who">Micro-entreprises, auto-entrepreneurs et indépendants.</p>
-        <div class="amount"><b class="num">69 €</b><small>/ mois HT</small></div>
+        <h3>Création d'entreprise</h3>
+        <p class="who">Pour lancer votre activité sur des bases solides.</p>
+        <div class="amount"><b class="num">699 €</b><small>forfait HT</small></div>
+        <p class="price-bundle">→ 400 € avec un abonnement Tenue comptable</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Comptabilité tenue et révisée</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclarations de TVA</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclaration de revenus</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Tableau de bord en ligne</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Assistance par e-mail</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Choix du statut juridique adapté</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Rédaction des statuts</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Formalités et immatriculation</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Business plan et prévisionnel</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Accompagnement au démarrage</span></li>
         </ul>
-        <a href="#contact" class="btn btn-ghost"><span>Choisir cette formule</span></a>
+        <a href="#contact" class="btn btn-ghost"><span>Créer mon entreprise</span></a>
       </div>
       <div class="price featured reveal-zoom" data-d="2">
         <span class="tag-pop">Le plus choisi</span>
-        <h3>Société</h3>
-        <p class="who">TPE et sociétés : SAS, SARL, EURL, SASU.</p>
-        <div class="amount"><b class="num">149 €</b><small>/ mois HT</small></div>
+        <h3>Tenue comptable</h3>
+        <p class="who">Comptabilité seule, pour indépendants, TPE et sociétés.</p>
+        <div class="amount"><b class="num">350 €</b><small>/ mois HT</small></div>
+        <div class="price-offer">
+          <span class="offer-tag">Avantages réservés à cette formule</span>
+          <span>Création de société à <b>400 €</b> <s>699 €</s></span>
+          <span>Fiches de paie à <b>60 €</b> / bulletin <s>70 €</s></span>
+          <span>Demandes administratives à <b>30 €</b> <s>80 €</s></span>
+          <span class="offer-total">Pack tout compris (compta + paie + admin) : <b>450 € / mois</b></span>
+        </div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Tout de la formule Indépendant</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Bilan et liasse fiscale</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Comptes annuels</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Rendez-vous de suivi trimestriels</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Comptabilité tenue et révisée</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclarations de TVA</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Bilan et comptes annuels</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Tableau de bord en ligne</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Interlocuteur dédié</span></li>
         </ul>
         <a href="#contact" class="btn btn-pri"><span>Choisir cette formule</span></a>
       </div>
       <div class="price reveal-zoom" data-d="3">
-        <h3>PME · Sur-mesure</h3>
-        <p class="who">Structures avec salariés et besoins spécifiques.</p>
-        <div class="amount"><b>Sur devis</b></div>
+        <h3>Fiches de paie</h3>
+        <p class="who">Forfait mensuel pour la gestion de vos salariés.</p>
+        <div class="amount"><b class="num">70 €</b><small>/ bulletin HT</small></div>
+        <p class="price-bundle">→ 60 € / bulletin dans le pack Tenue comptable</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Tout de la formule Société</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Gestion de la paie &amp; du social</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Conseil &amp; optimisation fiscale</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Prévisionnels &amp; business plan</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Accompagnement stratégique</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Bulletins de paie mensuels</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclarations sociales (DSN)</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Gestion des congés et absences</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Documents de fin de contrat</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Conseil en droit social</span></li>
         </ul>
-        <a href="#contact" class="btn btn-ghost"><span>Demander un devis</span></a>
+        <a href="#contact" class="btn btn-ghost"><span>Choisir cette formule</span></a>
+      </div>
+      <div class="price reveal-zoom" data-d="4">
+        <h3>Demandes administratives</h3>
+        <p class="who">Pour toutes vos démarches ponctuelles.</p>
+        <div class="amount"><b class="num">80 €</b><small>/ demande HT</small></div>
+        <p class="price-bundle">→ 30 € / demande dans le pack Tenue comptable</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Déclarations et formalités</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Courriers et dossiers administratifs</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Assistance et conseil</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Traitement rapide de votre demande</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost"><span>Faire une demande</span></a>
       </div>
     </div>
-    <p class="price-note reveal">Tarifs indicatifs HT, ajustés selon votre volume d'activité. Sans engagement de durée — vous restez libre, et on vous accompagne à votre rythme.</p>
+    <p class="price-note reveal">Tarifs HT. Le premier rendez-vous est gratuit et sans engagement — parlons-en ensemble pour trouver la formule qui vous correspond.</p>
   </div>
 </section>
 
@@ -1037,10 +1122,16 @@
       <p class="signature">« Votre réussite, c'est aussi la nôtre. »<br><b>— L'équipe AEM-CONSEIL</b></p>
     </div>
     <div class="about-visual reveal-r" data-d="2">
-      <div class="inner">
-        <div class="big">AEM</div>
+      <span class="av-ring"></span><span class="av-ring r2"></span><span class="av-ring r3"></span>
+      <div class="av-core">
+        <img class="av-mark" src="assets/logo-mark-white.png" alt="AEM CONSEIL">
+        <div class="av-name">AEM CONSEIL</div>
         <p class="tag">Rigueur · Proximité · Performance</p>
       </div>
+      <span class="av-chip c1">10 ans d'expérience</span>
+      <span class="av-chip c2">200+ clients</span>
+      <span class="av-chip c3">Réponse sous 24 h</span>
+      <span class="av-chip c4">100% engagement</span>
     </div>
   </div>
 </section>
@@ -1193,6 +1284,16 @@
     <p class="m-lead" id="svcLead"></p>
     <ul id="svcList"></ul>
     <div class="m-cta"><a href="#contact" class="btn btn-pri" onclick="closeSvc()"><span>Demander un devis</span></a></div>
+  </div>
+</div>
+
+<!-- Bannière de consentement aux cookies -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentement aux cookies">
+  <span class="ck-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5h.01"/><path d="M16 15.5h.01"/><path d="M12 18h.01"/><path d="M11 12h.01"/><path d="M15 11h.01"/></svg></span>
+  <p>Nous utilisons des cookies pour améliorer votre expérience et mesurer l'audience du site. <b>Vous restez libre</b> d'accepter ou de refuser.</p>
+  <div class="ck-actions">
+    <button class="btn ck-refuse" onclick="setCookieConsent('refused')"><span>Refuser</span></button>
+    <button class="btn btn-pri" onclick="setCookieConsent('accepted')"><span>Accepter</span></button>
   </div>
 </div>
 
@@ -1462,6 +1563,53 @@
       card.addEventListener('click', function(){ openSvc(card); });
       card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSvc(card); } });
     });
+  })();
+
+  /* ===========================================================================
+     MESURE D'AUDIENCE — activée UNIQUEMENT après consentement de l'utilisateur
+     ---------------------------------------------------------------------------
+     👉 POUR ACTIVER LE JOUR VENU :
+        1) Renseignez votre identifiant dans ANALYTICS_ID ci-dessous.
+        2) Décommentez le bloc correspondant à votre outil (GA4 ou Matomo)
+           OU collez votre propre snippet à l'intérieur de loadAnalytics().
+     Tant que ANALYTICS_ID est vide, AUCUNE mesure n'est chargée.
+     =========================================================================== */
+  var ANALYTICS_ID = '';          // <-- collez ici votre identifiant (ex. GA4 "G-XXXXXXXX")
+  var _analyticsLoaded = false;
+  function loadAnalytics(){
+    if(_analyticsLoaded || !ANALYTICS_ID) return;   // rien sans consentement ni identifiant
+    _analyticsLoaded = true;
+
+    /* --- Option A : Google Analytics 4 (gtag.js) — décommentez ces lignes ---
+    var s = document.createElement('script'); s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ANALYTICS_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', ANALYTICS_ID, { anonymize_ip: true });
+    --- fin Option A --- */
+
+    /* --- Option B : Matomo / autre outil — collez votre snippet de suivi ici --- */
+  }
+
+  /* ===== Consentement aux cookies (mémorisé par appareil) ===== */
+  function setCookieConsent(choix){
+    try{ localStorage.setItem('aem_cookie_consent', choix); localStorage.setItem('aem_cookie_date', String(Date.now())); }catch(e){}
+    var el=document.getElementById('cookieBanner'); if(el) el.classList.remove('show');
+    if(choix === 'accepted') loadAnalytics();        // activation de la mesure après acceptation
+  }
+  (function(){
+    var consent=null;
+    try{ consent=localStorage.getItem('aem_cookie_consent'); }catch(e){}
+    if(consent === 'accepted'){
+      loadAnalytics();                               // appareil ayant déjà accepté -> on charge la mesure
+    } else if(!consent){
+      var el=document.getElementById('cookieBanner');
+      // 1re visite (appareil inconnu) : on attend la fin de l'animation d'ouverture, puis on propose
+      setTimeout(function(){ if(el) el.classList.add('show'); }, 2600);
+    }
+    // 'refused' -> aucune mesure, pas de bannière
   })();
 
   /* ===== FAQ : accordéon ===== */
