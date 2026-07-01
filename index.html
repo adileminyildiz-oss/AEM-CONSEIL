@@ -407,6 +407,9 @@
   .field input:focus,.field textarea:focus{outline:none;border-color:var(--crystal);box-shadow:0 0 0 3px var(--glow-soft),0 0 18px rgba(34,230,255,.2)}
   form .btn{width:100%;justify-content:center;margin-top:4px}
   .form-note{font-size:.82rem;color:var(--texte-doux);text-align:center;margin-top:14px}
+  .form-feedback{margin-top:14px;font-size:.9rem;text-align:center;padding:12px 15px;border-radius:12px;line-height:1.5}
+  .form-feedback.ok{color:#cdeffd;background:rgba(34,230,255,.1);border:1px solid rgba(34,230,255,.32)}
+  .form-feedback.err{color:#ffd9d9;background:rgba(255,120,120,.1);border:1px solid rgba(255,120,120,.32)}
   .form-note svg{width:14px;height:14px;color:var(--crystal);vertical-align:-2px;margin-right:3px}
 
   /* Footer */
@@ -929,12 +932,13 @@
         <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a></div>
         <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Du lundi au vendredi, 9h – 18h</span></div>
       </div>
-      <form class="reveal-r" onsubmit="event.preventDefault(); this.reset(); alert('Merci ! Votre message a bien été pris en compte. (Formulaire de démonstration)');">
-        <div class="field"><label for="f-nom">Nom complet</label><input id="f-nom" type="text" required placeholder="Votre nom"></div>
-        <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" type="email" required placeholder="vous@exemple.fr"></div>
-        <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" rows="4" required placeholder="Décrivez votre besoin..."></textarea></div>
+      <form id="contactForm" class="reveal-r">
+        <div class="field"><label for="f-nom">Nom complet</label><input id="f-nom" name="nom" type="text" required placeholder="Votre nom"></div>
+        <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" required placeholder="vous@exemple.fr"></div>
+        <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="4" required placeholder="Décrivez votre besoin..."></textarea></div>
         <button class="btn btn-pri" type="submit"><span>Envoyer le message</span></button>
         <p class="form-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Vos informations restent confidentielles.</p>
+        <p class="form-feedback" id="formFeedback" hidden></p>
       </form>
     </div>
   </div>
@@ -1266,6 +1270,43 @@
       setTimeout(function(){ if(el) el.classList.add('show'); }, 2600);
     }
     // 'refused' -> aucune mesure, pas de bannière
+  })();
+
+  /* ===========================================================================
+     FORMULAIRE DE CONTACT
+     ---------------------------------------------------------------------------
+     • Par défaut : ouvre la messagerie du visiteur (fonctionne immédiatement).
+     • Pour un envoi silencieux dans votre boîte : créez un formulaire gratuit sur
+       https://formspree.io (avec l'e-mail ci-dessous), puis collez l'URL fournie
+       dans FORM_ENDPOINT. Les messages arriveront alors directement par e-mail.
+     =========================================================================== */
+  var FORM_ENDPOINT = '';                              // <-- ex. 'https://formspree.io/f/xxxxxxxx'
+  var CONTACT_EMAIL = 'aemconseil.sas@gmail.com';
+  (function(){
+    var form = document.getElementById('contactForm');
+    if(!form) return;
+    var fb = document.getElementById('formFeedback');
+    function feedback(msg, ok){ if(!fb) return; fb.textContent=msg; fb.hidden=false; fb.className='form-feedback '+(ok?'ok':'err'); }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var nom=(form.nom.value||'').trim(), email=(form.email.value||'').trim(), message=(form.message.value||'').trim();
+      if(FORM_ENDPOINT){
+        var btn=form.querySelector('button[type=submit]'); var old=btn.innerHTML; btn.disabled=true;
+        fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)})
+          .then(function(r){
+            if(r.ok){ form.reset(); feedback('Merci '+(nom?nom+' ':'')+'! Votre message a bien été envoyé, nous vous répondrons rapidement.', true); }
+            else{ feedback("L'envoi a échoué. Réessayez ou écrivez-nous directement à "+CONTACT_EMAIL+'.', false); }
+          })
+          .catch(function(){ feedback("L'envoi a échoué. Réessayez ou écrivez-nous directement à "+CONTACT_EMAIL+'.', false); })
+          .finally(function(){ btn.disabled=false; btn.innerHTML=old; });
+      } else {
+        // Solution immédiate sans configuration : pré-remplit un e-mail vers le cabinet
+        var subject=encodeURIComponent('Demande via le site'+(nom?' — '+nom:''));
+        var body=encodeURIComponent('Nom : '+nom+'\nE-mail : '+email+'\n\n'+message);
+        window.location.href='mailto:'+CONTACT_EMAIL+'?subject='+subject+'&body='+body;
+        feedback('Votre logiciel de messagerie va s\'ouvrir pour finaliser l\'envoi. Si rien ne se passe, écrivez-nous à '+CONTACT_EMAIL+'.', true);
+      }
+    });
   })();
 
   /* ===== FAQ : accordéon ===== */
