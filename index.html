@@ -576,27 +576,6 @@
   @media(max-width:1100px){ .prices{grid-template-columns:repeat(2,1fr);max-width:720px;margin:0 auto} }
   @media(max-width:620px){ .prices{grid-template-columns:1fr;max-width:420px} }
 
-  /* ===== Bannière cookies (Liquid Glass) ===== */
-  .cookie-banner{position:fixed;left:50%;bottom:22px;z-index:130;width:min(700px,calc(100vw - 36px));
-    transform:translateX(-50%) translateY(150%);opacity:0;visibility:hidden;
-    display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:18px 22px;border-radius:22px;
-    background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
-    backdrop-filter:blur(28px) saturate(185%);-webkit-backdrop-filter:blur(28px) saturate(185%);
-    border:1px solid rgba(255,255,255,.14);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 30px 80px rgba(0,0,0,.6);
-    transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .5s ease,visibility .5s ease}
-  .cookie-banner.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
-  .cookie-banner .ck-ic{flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:var(--crystal);
-    background:rgba(34,230,255,.1);border:1px solid rgba(34,230,255,.22)}
-  .cookie-banner .ck-ic svg{width:22px;height:22px}
-  .cookie-banner p{flex:1 1 260px;color:var(--texte-doux);font-size:.9rem;line-height:1.55;margin:0}
-  .cookie-banner p b{color:var(--texte)}
-  .cookie-banner .ck-actions{display:flex;gap:10px;flex:0 0 auto}
-  .cookie-banner .btn{padding:11px 22px;font-size:.92rem}
-  .ck-refuse{background:rgba(255,255,255,.05);color:var(--texte);border:1px solid rgba(255,255,255,.18)}
-  .ck-refuse:hover{border-color:var(--crystal);background:rgba(255,255,255,.08);transform:translateY(-2px)}
-  @media(max-width:560px){ .cookie-banner{flex-direction:column;align-items:flex-start;text-align:left} .cookie-banner .ck-actions{width:100%} .cookie-banner .btn{flex:1} }
-
   /* back to top */
   .top{
     position:fixed;right:22px;bottom:22px;width:50px;height:50px;border-radius:15px;border:1px solid rgba(34,230,255,.3);cursor:pointer;z-index:55;
@@ -1287,16 +1266,6 @@
   </div>
 </div>
 
-<!-- Bannière de consentement aux cookies -->
-<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentement aux cookies">
-  <span class="ck-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5h.01"/><path d="M16 15.5h.01"/><path d="M12 18h.01"/><path d="M11 12h.01"/><path d="M15 11h.01"/></svg></span>
-  <p>Nous utilisons des cookies pour améliorer votre expérience et mesurer l'audience du site. <b>Vous restez libre</b> d'accepter ou de refuser.</p>
-  <div class="ck-actions">
-    <button class="btn ck-refuse" onclick="setCookieConsent('refused')"><span>Refuser</span></button>
-    <button class="btn btn-pri" onclick="setCookieConsent('accepted')"><span>Accepter</span></button>
-  </div>
-</div>
-
 <button class="top" id="toTop" aria-label="Revenir en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
@@ -1593,25 +1562,6 @@
     /* --- Option B : Matomo / autre outil — collez votre snippet de suivi ici --- */
   }
 
-  /* ===== Consentement aux cookies (mémorisé par appareil) ===== */
-  function setCookieConsent(choix){
-    try{ localStorage.setItem('aem_cookie_consent', choix); localStorage.setItem('aem_cookie_date', String(Date.now())); }catch(e){}
-    var el=document.getElementById('cookieBanner'); if(el) el.classList.remove('show');
-    if(choix === 'accepted') loadAnalytics();        // activation de la mesure après acceptation
-  }
-  (function(){
-    var consent=null;
-    try{ consent=localStorage.getItem('aem_cookie_consent'); }catch(e){}
-    if(consent === 'accepted'){
-      loadAnalytics();                               // appareil ayant déjà accepté -> on charge la mesure
-    } else if(!consent){
-      var el=document.getElementById('cookieBanner');
-      // 1re visite (appareil inconnu) : on attend la fin de l'animation d'ouverture, puis on propose
-      setTimeout(function(){ if(el) el.classList.add('show'); }, 2600);
-    }
-    // 'refused' -> aucune mesure, pas de bannière
-  })();
-
   /* ===== FAQ : accordéon ===== */
   (function(){
     var items = document.querySelectorAll('.faq-item');
@@ -1719,8 +1669,6 @@
     });
   })();
 
-  /* ===== PWA : enregistrement du service worker ===== */
-
   /* ===== Effet ripple au clic / tap des boutons ===== */
   (function(){
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1745,11 +1693,13 @@
     try{ localStorage.setItem('aem_cookie_consent', choix); localStorage.setItem('aem_cookie_date', String(Date.now())); }catch(e){}
     var el=document.getElementById('cookieBanner');
     if(el){ el.classList.remove('show'); el.setAttribute('aria-hidden','true'); }
+    if(choix === 'accepted') loadAnalytics();        // mesure activée après acceptation
   }
   (function(){
     var consent=null;
     try{ consent=localStorage.getItem('aem_cookie_consent'); }catch(e){}
-    if(consent) return;                              // choix déjà fait : pas de bannière
+    if(consent === 'accepted'){ loadAnalytics(); return; }   // appareil ayant déjà accepté
+    if(consent) return;                              // 'refused' : rien, pas de bannière
     var el=document.getElementById('cookieBanner'); if(!el) return;
     var delay = document.documentElement.classList.contains('app-mode') ? 800 : 2600;
     setTimeout(function(){ el.classList.add('show'); el.setAttribute('aria-hidden','false'); }, delay);
