@@ -12,11 +12,41 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
 
+<meta name="author" content="AEM-CONSEIL">
+<meta name="keywords" content="expert-comptable, comptabilité, création d'entreprise, fiche de paie, fiscalité, conseil, gestion, TPE, PME, indépendant">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://aemconseil.eu/">
+
 <!-- Open Graph -->
 <meta property="og:title" content="AEM-CONSEIL — Cabinet de conseil & expertise comptable">
 <meta property="og:description" content="Comptabilité, conseil, paie, fiscalité et création d'entreprise. Un cabinet à taille humaine, proche de vous.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://aemconseil.eu/">
+<meta property="og:image" content="https://aemconseil.eu/assets/favicon-512.png">
 <meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary">
+
+<!-- Données structurées (Google) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "name": "AEM-CONSEIL",
+  "description": "Cabinet de conseil et d'expertise comptable : comptabilité, paie, fiscalité, création d'entreprise et démarches administratives.",
+  "url": "https://aemconseil.eu/",
+  "email": "aemconseil.sas@gmail.com",
+  "telephone": "+33665908325",
+  "image": "https://aemconseil.eu/assets/favicon-512.png",
+  "priceRange": "€€",
+  "areaServed": "France",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  }
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,8 +243,8 @@
     content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;border-radius:2px;
     background:linear-gradient(90deg,var(--crystal),var(--crystal-2));box-shadow:0 0 10px var(--glow);transition:width .25s ease;
   }
-  .menu a:not(.btn):hover{color:var(--texte)}
-  .menu a:not(.btn):hover::after{width:100%}
+  .menu a:not(.btn):hover,.menu a:not(.btn).active{color:var(--texte)}
+  .menu a:not(.btn):hover::after,.menu a:not(.btn).active::after{width:100%}
   .menu .btn{padding:12px 26px}
   .burger{display:none;width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line);cursor:pointer;color:var(--texte)}
   .burger svg{width:26px;height:26px;margin:0 auto}
@@ -276,6 +306,7 @@
 
   /* ===== Sections ===== */
   section{padding:100px 0;position:relative}
+  section[id]{scroll-margin-top:104px}   /* ancres qui ne passent plus sous l'en-tête */
   .section-head{text-align:center;max-width:700px;margin:0 auto 60px}
   .eyebrow{display:block;width:100%;color:var(--crystal);font-weight:700;letter-spacing:3.5px;text-transform:uppercase;font-size:1.1rem;font-family:"Sora",sans-serif;text-shadow:0 0 18px rgba(34,230,255,.35)}
   .section-head h2{font-size:2.45rem;font-weight:700;color:var(--texte);margin:12px 0 16px;letter-spacing:-.4px}
@@ -422,7 +453,15 @@
   .foot-cols{display:flex;gap:64px;flex-wrap:wrap}
   .foot-links a{color:var(--texte-doux);font-size:.92rem;transition:color .2s}
   .foot-links a:hover{color:var(--crystal)}
-  .foot-bot{padding-top:24px;font-size:.9rem;text-align:center;color:#6c809c}
+  .foot-bot{padding-top:24px;font-size:.9rem;color:#6c809c;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .foot-legal{display:flex;gap:20px;flex-wrap:wrap}
+  .foot-legal a{color:#8ea3bf;transition:color .2s}
+  .foot-legal a:hover{color:var(--crystal)}
+  @media(max-width:560px){ .foot-bot{justify-content:center;text-align:center} }
+  /* contenu texte de la modale (mentions légales) */
+  .modal .m-legal h4{color:var(--texte);font-size:1rem;margin:18px 0 6px;font-family:"Sora",sans-serif}
+  .modal .m-legal p{color:var(--texte-doux);font-size:.95rem;line-height:1.65;margin:0}
+  .modal .m-legal a{color:var(--crystal)}
 
   /* Scroll reveal */
   .reveal,.reveal-l,.reveal-r,.reveal-zoom{
@@ -972,7 +1011,13 @@
         </div>
       </div>
     </div>
-    <div class="foot-bot">© <span id="y"></span> AEM-CONSEIL — Tous droits réservés.</div>
+    <div class="foot-bot">
+      <span>© <span id="y"></span> AEM-CONSEIL — Tous droits réservés.</span>
+      <span class="foot-legal">
+        <a href="#" onclick="event.preventDefault(); openLegal();">Mentions légales</a>
+        <a href="#" onclick="event.preventDefault(); reopenCookies();">Gérer mes cookies</a>
+      </span>
+    </div>
   </div>
 </footer>
 
@@ -987,6 +1032,27 @@
     <p class="m-lead" id="svcLead"></p>
     <ul id="svcList"></ul>
     <div class="m-cta"><a href="#contact" class="btn btn-pri" onclick="closeSvc()"><span>Demander un devis</span></a></div>
+  </div>
+</div>
+
+<!-- Modale Mentions légales -->
+<div class="modal-overlay" id="legalModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+    <button class="modal-close" aria-label="Fermer" onclick="closeLegal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 id="legalTitle">Mentions légales</h3>
+    <div class="m-legal">
+      <h4>Éditeur du site</h4>
+      <p>AEM-CONSEIL — Cabinet de conseil et d'expertise comptable.<br>E-mail : <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a> · Tél. : <a href="tel:+33665908325">06 65 90 83 25</a></p>
+      <h4>Hébergement</h4>
+      <p>Site hébergé par GitHub Pages (GitHub, Inc.), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+      <h4>Données personnelles (RGPD)</h4>
+      <p>Les informations transmises via le formulaire de contact servent uniquement à répondre à votre demande et ne sont jamais cédées à des tiers. Vous disposez d'un droit d'accès, de rectification et de suppression en écrivant à aemconseil.sas@gmail.com.</p>
+      <h4>Cookies</h4>
+      <p>Des cookies de mesure d'audience ne sont déposés qu'après votre consentement. Vous pouvez modifier votre choix à tout moment via « Gérer mes cookies » en bas de page.</p>
+      <p style="margin-top:16px;font-size:.84rem;opacity:.7">À compléter selon votre situation : forme juridique, SIRET, capital social, RCS, n° de TVA intracommunautaire, directeur de la publication.</p>
+    </div>
   </div>
 </div>
 
@@ -1307,6 +1373,35 @@
         feedback('Votre logiciel de messagerie va s\'ouvrir pour finaliser l\'envoi. Si rien ne se passe, écrivez-nous à '+CONTACT_EMAIL+'.', true);
       }
     });
+  })();
+
+  /* ===== Navigation active au défilement (scrollspy) ===== */
+  (function(){
+    var links={};
+    document.querySelectorAll('.menu a[href^="#"]:not(.btn)').forEach(function(a){
+      var id=a.getAttribute('href').slice(1); if(id) links[id]=a;
+    });
+    var sections=Object.keys(links).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    if(!sections.length) return;
+    var spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          for(var k in links){ links[k].classList.remove('active'); }
+          if(links[en.target.id]) links[en.target.id].classList.add('active');
+        }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    sections.forEach(function(s){ spy.observe(s); });
+  })();
+
+  /* ===== Mentions légales (modale) + ré-ouverture de la bannière cookies ===== */
+  function openLegal(){ var m=document.getElementById('legalModal'); if(m){ m.classList.add('open'); m.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; } }
+  function closeLegal(){ var m=document.getElementById('legalModal'); if(m){ m.classList.remove('open'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; } }
+  function reopenCookies(){ var el=document.getElementById('cookieBanner'); if(el) el.classList.add('show'); }
+  (function(){
+    var m=document.getElementById('legalModal');
+    if(m) m.addEventListener('click', function(e){ if(e.target===m) closeLegal(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLegal(); });
   })();
 
   /* ===== FAQ : accordéon ===== */
