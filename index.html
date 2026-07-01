@@ -2,21 +2,72 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<!-- Thème + mode application (appliqués avant le rendu pour éviter tout clignotement) -->
+<script>
+  (function(){
+    var de = document.documentElement;
+    try{ de.setAttribute('data-theme', localStorage.getItem('aem-theme') || 'dark'); }
+    catch(e){ de.setAttribute('data-theme','dark'); }
+    try{
+      var p = new URLSearchParams(location.search);
+      var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+      if(standalone || p.get('app')==='1') de.classList.add('app-mode');
+    }catch(e){}
+  })();
+</script>
+
 <title>AEM-CONSEIL — Cabinet de conseil & expertise comptable</title>
 <meta name="description" content="AEM-CONSEIL accompagne les entreprises dans leur comptabilité, leur gestion et leur développement : expertise comptable, conseil, paie, fiscalité et création d'entreprise.">
 <meta name="theme-color" content="#05070a">
+
+<!-- PWA : application installable -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AEM-CONSEIL">
+<meta name="application-name" content="AEM-CONSEIL">
 
 <!-- Favicons / icônes -->
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
 
+<link rel="canonical" href="https://aemconseil.eu/">
+
 <!-- Open Graph -->
 <meta property="og:title" content="AEM-CONSEIL — Cabinet de conseil & expertise comptable">
 <meta property="og:description" content="Comptabilité, conseil, paie, fiscalité et création d'entreprise. Un cabinet à taille humaine, proche de vous.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:url" content="https://aemconseil.eu/">
+<meta property="og:site_name" content="AEM-CONSEIL">
+<meta property="og:image" content="https://aemconseil.eu/assets/favicon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AEM-CONSEIL — Cabinet de conseil & expertise comptable">
+<meta name="twitter:description" content="Comptabilité, conseil, paie, fiscalité et création d'entreprise. Un cabinet à taille humaine, proche de vous.">
+<meta name="twitter:image" content="https://aemconseil.eu/assets/favicon-512.png">
+
+<!-- Données structurées (SEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "name": "AEM-CONSEIL",
+  "description": "Cabinet de conseil et d'expertise comptable au service des entrepreneurs, TPE et PME : comptabilité, conseil, paie, fiscalité et création d'entreprise.",
+  "url": "https://aemconseil.eu/",
+  "email": "aemconseil.sas@gmail.com",
+  "telephone": "+33665908325",
+  "image": "https://aemconseil.eu/assets/favicon-512.png",
+  "logo": "https://aemconseil.eu/assets/logo-full.png",
+  "areaServed": "FR",
+  "priceRange": "€€",
+  "openingHours": "Mo-Fr 09:00-18:00",
+  "knowsLanguage": "fr"
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -407,9 +458,6 @@
   .field input:focus,.field textarea:focus{outline:none;border-color:var(--crystal);box-shadow:0 0 0 3px var(--glow-soft),0 0 18px rgba(34,230,255,.2)}
   form .btn{width:100%;justify-content:center;margin-top:4px}
   .form-note{font-size:.82rem;color:var(--texte-doux);text-align:center;margin-top:14px}
-  .form-feedback{margin-top:14px;font-size:.9rem;text-align:center;padding:12px 15px;border-radius:12px;line-height:1.5}
-  .form-feedback.ok{color:#cdeffd;background:rgba(34,230,255,.1);border:1px solid rgba(34,230,255,.32)}
-  .form-feedback.err{color:#ffd9d9;background:rgba(255,120,120,.1);border:1px solid rgba(255,120,120,.32)}
   .form-note svg{width:14px;height:14px;color:var(--crystal);vertical-align:-2px;margin-right:3px}
 
   /* Footer */
@@ -528,27 +576,6 @@
   @media(max-width:1100px){ .prices{grid-template-columns:repeat(2,1fr);max-width:720px;margin:0 auto} }
   @media(max-width:620px){ .prices{grid-template-columns:1fr;max-width:420px} }
 
-  /* ===== Bannière cookies (Liquid Glass) ===== */
-  .cookie-banner{position:fixed;left:50%;bottom:22px;z-index:130;width:min(700px,calc(100vw - 36px));
-    transform:translateX(-50%) translateY(150%);opacity:0;visibility:hidden;
-    display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:18px 22px;border-radius:22px;
-    background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
-    backdrop-filter:blur(28px) saturate(185%);-webkit-backdrop-filter:blur(28px) saturate(185%);
-    border:1px solid rgba(255,255,255,.14);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 30px 80px rgba(0,0,0,.6);
-    transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .5s ease,visibility .5s ease}
-  .cookie-banner.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
-  .cookie-banner .ck-ic{flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:var(--crystal);
-    background:rgba(34,230,255,.1);border:1px solid rgba(34,230,255,.22)}
-  .cookie-banner .ck-ic svg{width:22px;height:22px}
-  .cookie-banner p{flex:1 1 260px;color:var(--texte-doux);font-size:.9rem;line-height:1.55;margin:0}
-  .cookie-banner p b{color:var(--texte)}
-  .cookie-banner .ck-actions{display:flex;gap:10px;flex:0 0 auto}
-  .cookie-banner .btn{padding:11px 22px;font-size:.92rem}
-  .ck-refuse{background:rgba(255,255,255,.05);color:var(--texte);border:1px solid rgba(255,255,255,.18)}
-  .ck-refuse:hover{border-color:var(--crystal);background:rgba(255,255,255,.08);transform:translateY(-2px)}
-  @media(max-width:560px){ .cookie-banner{flex-direction:column;align-items:flex-start;text-align:left} .cookie-banner .ck-actions{width:100%} .cookie-banner .btn{flex:1} }
-
   /* back to top */
   .top{
     position:fixed;right:22px;bottom:22px;width:50px;height:50px;border-radius:15px;border:1px solid rgba(34,230,255,.3);cursor:pointer;z-index:55;
@@ -578,9 +605,250 @@
   /* Boutons magnétiques : transition douce du retour */
   .btn-pri,.btn-light{will-change:transform}
 
+  /* ============================================================
+     AMÉLIORATIONS — effets & mise en page (v2)
+     ============================================================ */
+
+  /* Décalage d'ancre : les sections ne glissent plus sous l'en-tête collant */
+  html{scroll-padding-top:110px}
+
+  /* Retour tactile « app » : pas de flash au tap, légère pression à l'appui */
+  *{-webkit-tap-highlight-color:transparent}
+  .btn:active{transform:scale(.96)!important}
+  .card:active,.step:active,.quote:active,.price:active,.faq-q:active{transform:scale(.99)}
+
+  /* Lien de navigation actif (scroll-spy) */
+  .menu a:not(.btn).active{color:var(--texte)}
+  .menu a:not(.btn).active::after{width:100%}
+  .drawer a:not(.btn).active{color:var(--crystal);border-color:rgba(34,230,255,.3)}
+
+  /* Effet ripple au clic / tap sur les boutons */
+  .btn .ripple{position:absolute;z-index:1;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);
+    transform:scale(0);animation:ripple .6s ease-out forwards}
+  @keyframes ripple{to{transform:scale(2.6);opacity:0}}
+
+  /* Entrée échelonnée des liens du menu mobile */
+  .drawer a{opacity:0;transform:translateX(20px)}
+  .drawer.open a{animation:drawerIn .5s cubic-bezier(.2,.7,.2,1) both}
+  .drawer.open a:nth-of-type(1){animation-delay:.05s}
+  .drawer.open a:nth-of-type(2){animation-delay:.10s}
+  .drawer.open a:nth-of-type(3){animation-delay:.15s}
+  .drawer.open a:nth-of-type(4){animation-delay:.20s}
+  .drawer.open a:nth-of-type(5){animation-delay:.25s}
+  .drawer.open a:nth-of-type(6){animation-delay:.30s}
+  .drawer.open a:nth-of-type(7){animation-delay:.35s}
+  .drawer.open a:nth-of-type(8){animation-delay:.40s}
+  @keyframes drawerIn{to{opacity:1;transform:none}}
+
+  /* Bordure lumineuse animée sur la formule mise en avant */
+  .price.featured::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;z-index:0;
+    background:linear-gradient(130deg,var(--crystal),transparent 38%,transparent 62%,var(--crystal-2));
+    background-size:220% 220%;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+    animation:borderGlow 6s linear infinite}
+  .price.featured>*{position:relative;z-index:1}
+  @keyframes borderGlow{to{background-position:220% 220%}}
+
+  /* ===== Barre d'action mobile (Appeler / Devis) ===== */
+  .m-actionbar{
+    position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;gap:10px;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
+    background:rgba(8,12,20,.82);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+    border-top:1px solid rgba(120,180,255,.16);box-shadow:0 -14px 44px rgba(0,0,0,.55);
+    transform:translateY(130%);transition:transform .42s cubic-bezier(.2,.7,.2,1)}
+  .m-actionbar.show{transform:none}
+  .m-actionbar .btn{flex:1;justify-content:center;padding:14px 14px;font-size:.98rem}
+  .m-actionbar .btn svg{width:17px;height:17px}
+
+  @media(max-width:880px){
+    html{scroll-padding-top:84px}
+    .nav{height:74px}
+    .logo img{height:52px}
+    .m-actionbar{display:flex}
+    .top{bottom:86px;right:16px}
+    footer{padding-bottom:96px}
+  }
+
+  /* ============================================================
+     BOUTON DE THÈME + OUTILS D'EN-TÊTE
+     ============================================================ */
+  .nav-tools{display:flex;align-items:center;gap:12px;margin-left:18px}
+  .menu{margin-left:auto}
+  .theme-toggle{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;cursor:pointer;
+    color:var(--texte-doux);background:rgba(255,255,255,.04);border:1px solid var(--line);transition:color .25s,border-color .25s,box-shadow .25s,background .25s}
+  .theme-toggle:hover{color:var(--crystal);border-color:var(--crystal);box-shadow:0 0 18px rgba(34,230,255,.25)}
+  .theme-toggle:active{transform:scale(.94)}
+  .theme-toggle svg{width:21px;height:21px}
+  .theme-toggle .ic-sun{display:none}
+  html[data-theme="light"] .theme-toggle .ic-sun{display:block}
+  html[data-theme="light"] .theme-toggle .ic-moon{display:none}
+
+  /* ============================================================
+     FORMULAIRE — états (envoi / succès / erreur) + anti-spam
+     ============================================================ */
+  .hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+  .field label .opt{color:var(--texte-doux);font-weight:400;font-size:.82em}
+  .form-status{margin-top:14px;font-size:.94rem;text-align:center;display:none;line-height:1.55}
+  .form-status.show{display:block}
+  .form-status.ok{color:#3ce0a6}
+  .form-status.err{color:#ff8f8f}
+  .btn.is-loading{pointer-events:none;opacity:.9}
+  .btn .spin{width:16px;height:16px;border:2px solid rgba(4,18,27,.35);border-top-color:#04121b;border-radius:50%;display:inline-block;animation:spin .7s linear infinite;vertical-align:-3px;margin-right:8px}
+  @keyframes spin{to{transform:rotate(1turn)}}
+
+  /* ============================================================
+     EFFETS SUPPLÉMENTAIRES
+     ============================================================ */
+  /* Aurora animée derrière le hero */
+  .hero::before{content:"";position:absolute;inset:-30% -15% auto -15%;height:90%;z-index:0;pointer-events:none;opacity:.55;
+    background:conic-gradient(from 0deg at 50% 50%,transparent,rgba(34,230,255,.12),transparent 28%,rgba(59,157,255,.12),transparent 58%,rgba(34,230,255,.10),transparent);
+    filter:blur(46px);animation:aurora 22s linear infinite}
+  @keyframes aurora{to{transform:rotate(1turn)}}
+  /* Dégradé vivant sur les boutons pleins */
+  .btn-pri,.btn-light{background-size:185% 185%;animation:btnGrad 9s ease infinite}
+  @keyframes btnGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  /* Inclinaison 3D du visuel « À propos » (desktop, au survol) */
+  .about-visual{transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease;transform-style:preserve-3d;will-change:transform}
+
+  /* ============================================================
+     THÈME CLAIR
+     ============================================================ */
+  html[data-theme="light"]{
+    --noir:#e8eff8;--noir-2:#ffffff;--noir-3:#f1f6fc;
+    --crystal:#0b8fbe;--crystal-2:#1f6fd6;
+    --glow:rgba(28,130,205,.34);--glow-soft:rgba(28,130,205,.14);
+    --line:rgba(24,54,96,.13);--texte:#0e1d33;--texte-doux:#44597a;
+    --ombre:0 20px 50px rgba(26,52,98,.13);
+  }
+  html[data-theme="light"] body{background:#e8eff8}
+  /* Fond « ciel clair » : dégradé fondu + accents doux qui se mélangent en douceur */
+  html[data-theme="light"] body::before{
+    background:
+      radial-gradient(1100px 760px at 86% -14%, rgba(95,165,255,.20), transparent 60%),
+      radial-gradient(880px 660px at 0% 12%, rgba(52,205,232,.13), transparent 58%),
+      radial-gradient(1300px 980px at 50% 122%, rgba(120,165,255,.12), transparent 62%),
+      linear-gradient(180deg,#f4f9fe 0%,#e8eff9 58%,#eef3fb 100%);
+  }
+  /* Voile clair supplémentaire pour adoucir et unifier l'ensemble */
+  html[data-theme="light"] body::after{opacity:.06}
+  html[data-theme="light"] .orbs i{opacity:.16;filter:blur(86px)}
+  html[data-theme="light"] .hero::before{opacity:.32}
+  html[data-theme="light"] .mix .alt{
+    background:linear-gradient(120deg,var(--crystal),#1f7fe0 50%,var(--crystal));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  html[data-theme="light"] header{background:rgba(243,248,254,.66);border-bottom-color:rgba(24,54,96,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.75)}
+  html[data-theme="light"] header.scrolled{background:rgba(243,248,254,.88);box-shadow:0 10px 40px rgba(26,52,98,.10)}
+  html[data-theme="light"] .theme-toggle{background:rgba(24,54,96,.05);color:var(--texte-doux)}
+  html[data-theme="light"] .badge{background:rgba(31,111,214,.07);border-color:rgba(31,111,214,.16);color:#0c5f9e;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+  html[data-theme="light"] .hero-card,
+  html[data-theme="light"] .card,
+  html[data-theme="light"] .step,
+  html[data-theme="light"] .quote,
+  html[data-theme="light"] .price,
+  html[data-theme="light"] form,
+  html[data-theme="light"] .cta-box,
+  html[data-theme="light"] .faq-item,
+  html[data-theme="light"] .modal{
+    background:linear-gradient(150deg,rgba(255,255,255,.9),rgba(228,238,250,.74));
+    border-color:rgba(24,54,96,.12);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 16px 42px rgba(26,52,98,.11)}
+  html[data-theme="light"] .card:hover,
+  html[data-theme="light"] .step:hover,
+  html[data-theme="light"] .quote:hover,
+  html[data-theme="light"] .price:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 26px 56px rgba(26,52,98,.16),0 0 30px rgba(28,130,205,.10)}
+  html[data-theme="light"] .price.featured{border-color:rgba(28,130,205,.34)}
+  html[data-theme="light"] .btn-ghost{background:rgba(20,50,90,.04);border-color:rgba(20,50,90,.18);color:var(--texte)}
+  html[data-theme="light"] .field input,html[data-theme="light"] .field textarea{background:rgba(20,50,90,.04);border-color:rgba(20,50,90,.14);color:var(--texte);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+  html[data-theme="light"] .field input::placeholder,html[data-theme="light"] .field textarea::placeholder{color:#8496ab}
+  html[data-theme="light"] .about-visual{background:linear-gradient(160deg,#eaf2fb,#dfeaf7);border-color:rgba(20,50,90,.12)}
+  html[data-theme="light"] .about-visual::after{background:radial-gradient(circle at 30% 18%,rgba(31,127,224,.18),transparent 55%)}
+  html[data-theme="light"] footer{background:#e9eff7;border-top-color:rgba(20,50,90,.10)}
+  html[data-theme="light"] .m-actionbar{background:rgba(255,255,255,.85);border-top-color:rgba(20,50,90,.12);box-shadow:0 -14px 44px rgba(20,40,80,.12)}
+  html[data-theme="light"] .top{background:rgba(255,255,255,.85);color:var(--crystal-2);border-color:rgba(20,140,200,.3)}
+  html[data-theme="light"] .drawer .close{background:rgba(20,50,90,.05);border-color:rgba(20,50,90,.14)}
+  html[data-theme="light"] .modal-overlay{background:rgba(180,200,225,.5)}
+  html[data-theme="light"] ::selection{background:rgba(20,140,200,.22);color:#04121b}
+
+  /* ============================================================
+     MODE APPLICATION (PWA installée) — design distinct du site
+     Activé en standalone, ou via ?app=1 pour prévisualiser
+     ============================================================ */
+  .app-tabs{display:none}
+  /* Pas de préloader/flou d'ouverture en mode app : affichage instantané */
+  html.app-mode body.loading > *{filter:none!important}
+  html.app-mode body.loading header .logo img{opacity:1!important}
+  html.app-mode body{zoom:1;padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+  html.app-mode .menu,
+  html.app-mode .burger,
+  html.app-mode .m-actionbar,
+  html.app-mode .top,
+  html.app-mode .hero-trust,
+  html.app-mode #loader{display:none!important}
+  /* En-tête slim facon app : logo centré + thème à droite */
+  html.app-mode .nav{height:58px;justify-content:center;position:relative}
+  html.app-mode .nav .logo img{height:38px}
+  html.app-mode .nav-tools{position:absolute;right:0;top:50%;transform:translateY(-50%);margin:0}
+  /* Contenu compact, plus « solide » */
+  html.app-mode section{padding:32px 0}
+  html.app-mode .wrap{padding:0 16px}
+  html.app-mode .hero{min-height:auto}
+  html.app-mode .hero-inner{padding-top:18px;padding-bottom:14px;gap:22px}
+  html.app-mode .hero h1{font-size:1.95rem}
+  html.app-mode .hero p.lead{font-size:1.04rem;margin-bottom:24px}
+  html.app-mode .section-head{margin-bottom:34px}
+  html.app-mode .hero::before{opacity:.7}
+  html.app-mode .foot-cols{display:none}
+  html.app-mode footer{padding:26px 0 30px}
+  /* Barre d'onglets bas (navigation app) */
+  html.app-mode .app-tabs{
+    position:fixed;left:0;right:0;bottom:0;z-index:90;display:grid;grid-template-columns:repeat(4,1fr);
+    padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));
+    background:rgba(8,12,20,.92);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+    border-top:1px solid rgba(120,180,255,.16);box-shadow:0 -12px 40px rgba(0,0,0,.5)}
+  .app-tabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px 2px;
+    color:var(--texte-doux);font-size:.7rem;font-weight:600;font-family:"Sora",sans-serif;border-radius:13px;transition:color .2s,background .2s}
+  .app-tabs a svg{width:23px;height:23px;transition:transform .25s ease}
+  .app-tabs a.active{color:var(--crystal)}
+  .app-tabs a.active svg{transform:translateY(-1px);filter:drop-shadow(0 0 8px var(--glow))}
+  .app-tabs a:active{background:rgba(34,230,255,.10);transform:scale(.96)}
+  html[data-theme="light"].app-mode .app-tabs{background:rgba(255,255,255,.92);border-top-color:rgba(20,50,90,.12);box-shadow:0 -12px 40px rgba(20,40,80,.14)}
+
+  /* ============================================================
+     BANNIÈRE COOKIES — compacte, Liquid Glass (thèmes + mode app)
+     ============================================================ */
+  .cookie-banner{position:fixed;left:20px;bottom:20px;z-index:135;width:min(360px,calc(100vw - 36px));
+    display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:18px;
+    background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+    backdrop-filter:blur(28px) saturate(185%);-webkit-backdrop-filter:blur(28px) saturate(185%);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 24px 60px rgba(0,0,0,.5);
+    transform:translateY(170%);opacity:0;visibility:hidden;
+    transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .5s ease,visibility .5s ease}
+  .cookie-banner.show{transform:none;opacity:1;visibility:visible}
+  .cookie-banner .ck-head{display:flex;align-items:center;gap:11px}
+  .cookie-banner .ck-ic{flex:0 0 auto;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--crystal);
+    background:rgba(34,230,255,.1);border:1px solid rgba(34,230,255,.22)}
+  .cookie-banner .ck-ic svg{width:20px;height:20px}
+  .cookie-banner .ck-head b{font-family:"Sora",sans-serif;font-size:1rem;color:var(--texte)}
+  .cookie-banner p{color:var(--texte-doux);font-size:.86rem;line-height:1.5;margin:0}
+  .cookie-banner p b{color:var(--texte)}
+  .cookie-banner .ck-actions{display:flex;gap:9px}
+  .cookie-banner .ck-actions .btn{flex:1;justify-content:center;padding:10px 14px;font-size:.88rem}
+  .ck-refuse{background:rgba(255,255,255,.05);color:var(--texte);border:1px solid rgba(255,255,255,.18)}
+  .ck-refuse:hover{border-color:var(--crystal);background:rgba(255,255,255,.08)}
+  html[data-theme="light"] .cookie-banner{background:linear-gradient(150deg,rgba(255,255,255,.92),rgba(228,238,250,.8));border-color:rgba(24,54,96,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 24px 60px rgba(26,52,98,.16)}
+  html[data-theme="light"] .ck-refuse{background:rgba(24,54,96,.05);border-color:rgba(24,54,96,.18);color:var(--texte)}
+  /* Mobile : ruban étroit au-dessus des barres du bas */
+  @media(max-width:880px){ .cookie-banner{left:12px;right:12px;width:auto;bottom:84px} }
+  /* Mode app : au-dessus de la barre d'onglets */
+  html.app-mode .cookie-banner{left:12px;right:12px;width:auto;bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+
   @media(prefers-reduced-motion:reduce){
     *{scroll-behavior:auto!important;animation:none!important}
     .reveal,.intro{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
+    .drawer a{opacity:1!important;transform:none!important}
     #loader{display:none}
   }
 
@@ -625,9 +893,15 @@
       <a href="#contact">Contact</a>
       <a href="#contact" class="btn btn-pri"><span>Prendre rendez-vous</span></a>
     </nav>
-    <button class="burger" aria-label="Ouvrir le menu" aria-controls="drawer" aria-expanded="false" onclick="toggleMenu(true)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
+    <div class="nav-tools">
+      <button class="theme-toggle" type="button" aria-label="Changer de thème" onclick="toggleTheme()">
+        <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="burger" aria-label="Ouvrir le menu" aria-controls="drawer" aria-expanded="false" onclick="toggleMenu(true)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -932,13 +1206,15 @@
         <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a></div>
         <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Du lundi au vendredi, 9h – 18h</span></div>
       </div>
-      <form id="contactForm" class="reveal-r">
-        <div class="field"><label for="f-nom">Nom complet</label><input id="f-nom" name="nom" type="text" required placeholder="Votre nom"></div>
-        <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" required placeholder="vous@exemple.fr"></div>
+      <form id="contactForm" class="reveal-r" novalidate>
+        <div class="field"><label for="f-nom">Nom complet</label><input id="f-nom" name="nom" type="text" required placeholder="Votre nom" autocomplete="name"></div>
+        <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" required placeholder="vous@exemple.fr" autocomplete="email"></div>
+        <div class="field"><label for="f-tel">Téléphone <span class="opt">(optionnel)</span></label><input id="f-tel" name="telephone" type="tel" placeholder="06 00 00 00 00" autocomplete="tel"></div>
         <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="4" required placeholder="Décrivez votre besoin..."></textarea></div>
-        <button class="btn btn-pri" type="submit"><span>Envoyer le message</span></button>
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn btn-pri" type="submit" id="formBtn"><span>Envoyer le message</span></button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         <p class="form-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Vos informations restent confidentielles.</p>
-        <p class="form-feedback" id="formFeedback" hidden></p>
       </form>
     </div>
   </div>
@@ -990,19 +1266,51 @@
   </div>
 </div>
 
-<!-- Bannière de consentement aux cookies -->
-<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentement aux cookies">
-  <span class="ck-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5h.01"/><path d="M16 15.5h.01"/><path d="M12 18h.01"/><path d="M11 12h.01"/><path d="M15 11h.01"/></svg></span>
-  <p>Nous utilisons des cookies pour améliorer votre expérience et mesurer l'audience du site. <b>Vous restez libre</b> d'accepter ou de refuser.</p>
-  <div class="ck-actions">
-    <button class="btn ck-refuse" onclick="setCookieConsent('refused')"><span>Refuser</span></button>
-    <button class="btn btn-pri" onclick="setCookieConsent('accepted')"><span>Accepter</span></button>
-  </div>
-</div>
-
 <button class="top" id="toTop" aria-label="Revenir en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
+
+<!-- Barre d'action rapide (mobile) -->
+<div class="m-actionbar" id="mbar" aria-hidden="true">
+  <a href="tel:+33665908325" class="btn btn-ghost">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <span>Appeler</span>
+  </a>
+  <a href="#contact" class="btn btn-pri"><span>Devis gratuit</span></a>
+</div>
+
+<!-- Barre d'onglets (mode application) -->
+<nav class="app-tabs" aria-label="Navigation de l'application">
+  <a href="#top" data-tab="top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+    <span>Accueil</span>
+  </a>
+  <a href="#services" data-tab="services">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    <span>Services</span>
+  </a>
+  <a href="#tarifs" data-tab="tarifs">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3.83V8a0 0 0 0 1 0 0H6.83L3.41 11.41a2 2 0 0 0 0 2.83l6.34 6.34a2 2 0 0 0 2.83 0l8-8"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+    <span>Tarifs</span>
+  </a>
+  <a href="#contact" data-tab="contact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <span>Contact</span>
+  </a>
+</nav>
+
+<!-- Bannière de consentement aux cookies (compacte) -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentement aux cookies" aria-hidden="true">
+  <div class="ck-head">
+    <span class="ck-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5h.01"/><path d="M16 15.5h.01"/><path d="M12 18h.01"/><path d="M11 12h.01"/><path d="M15 11h.01"/></svg></span>
+    <b>Cookies</b>
+  </div>
+  <p>Nous utilisons des cookies pour améliorer votre expérience. <b>Vous restez libre</b> d'accepter ou de refuser.</p>
+  <div class="ck-actions">
+    <button class="btn ck-refuse" type="button" onclick="setCookieConsent('refused')"><span>Refuser</span></button>
+    <button class="btn btn-pri" type="button" onclick="setCookieConsent('accepted')"><span>Accepter</span></button>
+  </div>
+</div>
 
 <script>
   // Toujours arriver en haut de page à l'ouverture (on désactive la restauration du défilement)
@@ -1072,12 +1380,13 @@
   }
   document.addEventListener('keydown',function(e){if(e.key==='Escape')toggleMenu(false);});
 
-  // Ombre du header + bouton retour haut
-  var hdr=document.getElementById('hdr'),toTop=document.getElementById('toTop');
+  // Ombre du header + bouton retour haut + barre d'action mobile
+  var hdr=document.getElementById('hdr'),toTop=document.getElementById('toTop'),mbar=document.getElementById('mbar');
   function onScroll(){
     var y=window.scrollY;
     hdr.classList.toggle('scrolled',y>8);
     toTop.classList.toggle('show',y>520);
+    if(mbar) mbar.classList.toggle('show',y>600);
   }
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
@@ -1253,62 +1562,6 @@
     /* --- Option B : Matomo / autre outil — collez votre snippet de suivi ici --- */
   }
 
-  /* ===== Consentement aux cookies (mémorisé par appareil) ===== */
-  function setCookieConsent(choix){
-    try{ localStorage.setItem('aem_cookie_consent', choix); localStorage.setItem('aem_cookie_date', String(Date.now())); }catch(e){}
-    var el=document.getElementById('cookieBanner'); if(el) el.classList.remove('show');
-    if(choix === 'accepted') loadAnalytics();        // activation de la mesure après acceptation
-  }
-  (function(){
-    var consent=null;
-    try{ consent=localStorage.getItem('aem_cookie_consent'); }catch(e){}
-    if(consent === 'accepted'){
-      loadAnalytics();                               // appareil ayant déjà accepté -> on charge la mesure
-    } else if(!consent){
-      var el=document.getElementById('cookieBanner');
-      // 1re visite (appareil inconnu) : on attend la fin de l'animation d'ouverture, puis on propose
-      setTimeout(function(){ if(el) el.classList.add('show'); }, 2600);
-    }
-    // 'refused' -> aucune mesure, pas de bannière
-  })();
-
-  /* ===========================================================================
-     FORMULAIRE DE CONTACT
-     ---------------------------------------------------------------------------
-     • Par défaut : ouvre la messagerie du visiteur (fonctionne immédiatement).
-     • Pour un envoi silencieux dans votre boîte : créez un formulaire gratuit sur
-       https://formspree.io (avec l'e-mail ci-dessous), puis collez l'URL fournie
-       dans FORM_ENDPOINT. Les messages arriveront alors directement par e-mail.
-     =========================================================================== */
-  var FORM_ENDPOINT = '';                              // <-- ex. 'https://formspree.io/f/xxxxxxxx'
-  var CONTACT_EMAIL = 'aemconseil.sas@gmail.com';
-  (function(){
-    var form = document.getElementById('contactForm');
-    if(!form) return;
-    var fb = document.getElementById('formFeedback');
-    function feedback(msg, ok){ if(!fb) return; fb.textContent=msg; fb.hidden=false; fb.className='form-feedback '+(ok?'ok':'err'); }
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var nom=(form.nom.value||'').trim(), email=(form.email.value||'').trim(), message=(form.message.value||'').trim();
-      if(FORM_ENDPOINT){
-        var btn=form.querySelector('button[type=submit]'); var old=btn.innerHTML; btn.disabled=true;
-        fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)})
-          .then(function(r){
-            if(r.ok){ form.reset(); feedback('Merci '+(nom?nom+' ':'')+'! Votre message a bien été envoyé, nous vous répondrons rapidement.', true); }
-            else{ feedback("L'envoi a échoué. Réessayez ou écrivez-nous directement à "+CONTACT_EMAIL+'.', false); }
-          })
-          .catch(function(){ feedback("L'envoi a échoué. Réessayez ou écrivez-nous directement à "+CONTACT_EMAIL+'.', false); })
-          .finally(function(){ btn.disabled=false; btn.innerHTML=old; });
-      } else {
-        // Solution immédiate sans configuration : pré-remplit un e-mail vers le cabinet
-        var subject=encodeURIComponent('Demande via le site'+(nom?' — '+nom:''));
-        var body=encodeURIComponent('Nom : '+nom+'\nE-mail : '+email+'\n\n'+message);
-        window.location.href='mailto:'+CONTACT_EMAIL+'?subject='+subject+'&body='+body;
-        feedback('Votre logiciel de messagerie va s\'ouvrir pour finaliser l\'envoi. Si rien ne se passe, écrivez-nous à '+CONTACT_EMAIL+'.', true);
-      }
-    });
-  })();
-
   /* ===== FAQ : accordéon ===== */
   (function(){
     var items = document.querySelectorAll('.faq-item');
@@ -1324,6 +1577,140 @@
         item.classList.toggle('open', willOpen);
         q.setAttribute('aria-expanded', willOpen?'true':'false');
         a.style.maxHeight = willOpen ? (a.scrollHeight + 'px') : '0';
+      });
+    });
+  })();
+
+  /* ===== Navigation active (scroll-spy) — menu, drawer & onglets app ===== */
+  (function(){
+    var ids=['services','process','tarifs','apropos','avis','faq','contact'];
+    var links=document.querySelectorAll('.menu a:not(.btn), .drawer a:not(.btn)');
+    var tabs=document.querySelectorAll('.app-tabs a');
+    // Regroupe les sections du site vers les 4 onglets de l'app
+    var tabMap={services:'services',process:'services',tarifs:'tarifs',apropos:'tarifs',avis:'tarifs',faq:'tarifs',contact:'contact'};
+    if(!('IntersectionObserver' in window)) return;
+    function setActive(id){
+      links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+id); });
+      if(tabs.length){
+        var tab = (window.scrollY<220) ? 'top' : (tabMap[id]||'top');
+        tabs.forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-tab')===tab); });
+      }
+    }
+    var spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting) setActive(en.target.id); });
+    },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+    ids.forEach(function(id){ var s=document.getElementById(id); if(s) spy.observe(s); });
+    // Onglet Accueil actif quand on est tout en haut
+    window.addEventListener('scroll', function(){ if(window.scrollY<220 && tabs.length){ tabs.forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-tab')==='top'); }); } }, {passive:true});
+  })();
+
+  /* ===== Thème clair / sombre ===== */
+  function applyTheme(t){
+    var de=document.documentElement;
+    de.setAttribute('data-theme', t);
+    try{ localStorage.setItem('aem-theme', t); }catch(e){}
+    var light = (t==='light');
+    document.querySelectorAll('header .logo img, footer .logo img').forEach(function(img){
+      img.src = light ? 'assets/logo-full-dark.png' : 'assets/logo-full.png';
+    });
+    var tc=document.querySelector('meta[name="theme-color"]');
+    if(tc) tc.setAttribute('content', light ? '#eef3fa' : '#05070a');
+  }
+  function toggleTheme(){
+    var cur = document.documentElement.getAttribute('data-theme')==='light' ? 'light' : 'dark';
+    applyTheme(cur==='light' ? 'dark' : 'light');
+  }
+  // Aligne logos / couleur de barre sur le thème courant au chargement
+  applyTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'light' : 'dark');
+
+  /* ===== Inclinaison 3D du visuel « À propos » (desktop) ===== */
+  (function(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if(window.matchMedia('(hover: none)').matches) return;   // pas sur écran tactile
+    var v=document.querySelector('.about-visual'); if(!v) return;
+    v.addEventListener('mousemove', function(e){
+      var r=v.getBoundingClientRect();
+      var rx=((e.clientY-r.top)/r.height-0.5)*-9;
+      var ry=((e.clientX-r.left)/r.width-0.5)*9;
+      v.style.transform='perspective(900px) rotateX('+rx+'deg) rotateY('+ry+'deg)';
+    });
+    v.addEventListener('mouseleave', function(){ v.style.transform=''; });
+  })();
+
+  /* ===== Formulaire de contact — envoi réel (FormSubmit) ===== */
+  (function(){
+    var form=document.getElementById('contactForm'); if(!form) return;
+    var btn=document.getElementById('formBtn'), status=document.getElementById('formStatus');
+    var ENDPOINT='https://formsubmit.co/ajax/aemconseil.sas@gmail.com';
+    function setStatus(msg,type){ status.textContent=msg; status.className='form-status show '+(type||''); }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(form._honey && form._honey.value) return;            // piège anti-robot
+      if(!form.checkValidity()){ setStatus('Merci de remplir les champs requis.','err'); form.reportValidity(); return; }
+      var original=btn.innerHTML;
+      btn.classList.add('is-loading'); btn.innerHTML='<span class="spin"></span><span>Envoi…</span>';
+      setStatus('','');
+      var payload={
+        nom:form.nom.value, email:form.email.value, telephone:form.telephone.value, message:form.message.value,
+        _subject:'Nouveau message — site AEM-CONSEIL', _template:'table', _captcha:'false'
+      };
+      fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
+        .then(function(r){ return r.json().catch(function(){return {};}).then(function(d){ return {ok:r.ok,d:d}; }); })
+        .then(function(res){
+          if(res.ok && (res.d.success===undefined || String(res.d.success)==='true')){
+            form.reset();
+            setStatus('✓ Merci ! Votre message a bien été envoyé. Nous vous répondons sous 24 h.','ok');
+          } else { throw new Error('refus'); }
+        })
+        .catch(function(){
+          setStatus('Une erreur est survenue. Écrivez-nous directement à aemconseil.sas@gmail.com.','err');
+        })
+        .finally(function(){ btn.classList.remove('is-loading'); btn.innerHTML=original; });
+    });
+  })();
+
+  /* ===== Effet ripple au clic / tap des boutons ===== */
+  (function(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.addEventListener('click', function(e){
+      var btn=e.target.closest && e.target.closest('.btn');
+      if(!btn) return;
+      var r=btn.getBoundingClientRect();
+      var size=Math.max(r.width,r.height);
+      var rip=document.createElement('span'); rip.className='ripple';
+      rip.style.width=rip.style.height=size+'px';
+      // clientX/Y absents (clavier) -> centrage du ripple
+      var cx=e.clientX||(r.left+r.width/2), cy=e.clientY||(r.top+r.height/2);
+      rip.style.left=(cx-r.left-size/2)+'px';
+      rip.style.top=(cy-r.top-size/2)+'px';
+      btn.appendChild(rip);
+      setTimeout(function(){ if(rip.parentNode) rip.parentNode.removeChild(rip); }, 650);
+    }, {passive:true});
+  })();
+
+  /* ===== Consentement aux cookies (mémorisé par appareil) ===== */
+  function setCookieConsent(choix){
+    try{ localStorage.setItem('aem_cookie_consent', choix); localStorage.setItem('aem_cookie_date', String(Date.now())); }catch(e){}
+    var el=document.getElementById('cookieBanner');
+    if(el){ el.classList.remove('show'); el.setAttribute('aria-hidden','true'); }
+    if(choix === 'accepted') loadAnalytics();        // mesure activée après acceptation
+  }
+  (function(){
+    var consent=null;
+    try{ consent=localStorage.getItem('aem_cookie_consent'); }catch(e){}
+    if(consent === 'accepted'){ loadAnalytics(); return; }   // appareil ayant déjà accepté
+    if(consent) return;                              // 'refused' : rien, pas de bannière
+    var el=document.getElementById('cookieBanner'); if(!el) return;
+    var delay = document.documentElement.classList.contains('app-mode') ? 800 : 2600;
+    setTimeout(function(){ el.classList.add('show'); el.setAttribute('aria-hidden','false'); }, delay);
+  })();
+
+  /* ===== PWA : enregistrement du service worker ===== */
+  (function(){
+    if (!('serviceWorker' in navigator)) return;
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(err){
+        console.warn('Service worker non enregistré :', err);
       });
     });
   })();
