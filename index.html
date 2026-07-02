@@ -553,7 +553,7 @@
     border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 14px 40px rgba(0,0,0,.35);
     transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s,border-color .45s}
   .price:hover{transform:translateY(-8px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 28px 64px rgba(0,0,0,.5),0 0 36px rgba(34,230,255,.12)}
-  .price.featured{border-color:rgba(34,230,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 24px 60px rgba(0,0,0,.5),0 0 50px rgba(34,230,255,.16)}
+  .price.featured{border-color:rgba(34,230,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 24px 60px rgba(0,0,0,.5),0 0 50px rgba(34,230,255,.16);padding-top:54px}
   .price .tag-pop{position:absolute;top:18px;right:18px;font-size:.7rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
     color:#04121b;background:linear-gradient(120deg,var(--crystal),var(--crystal-2));padding:6px 12px;border-radius:999px;box-shadow:0 0 18px rgba(34,230,255,.4)}
   .price h3{font-size:1.18rem;color:var(--texte);margin-bottom:6px}
@@ -671,6 +671,8 @@
     -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
     animation:borderGlow 6s linear infinite}
   .price.featured>*{position:relative;z-index:1}
+  /* Le badge « Le plus choisi » reste en absolu (la règle ci-dessus le remettait dans le flux) */
+  .price.featured>.tag-pop{position:absolute;top:18px;right:18px;z-index:3}
   @keyframes borderGlow{to{background-position:220% 220%}}
 
   /* ===== Barre d'action mobile (Appeler / Devis) ===== */
