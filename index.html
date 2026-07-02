@@ -467,6 +467,8 @@
   .field input::placeholder,.field textarea::placeholder{color:#5e7290}
   .field input:focus,.field textarea:focus{outline:none;border-color:var(--crystal);box-shadow:0 0 0 3px var(--glow-soft),0 0 18px rgba(34,230,255,.2)}
   form .btn{width:100%;justify-content:center;margin-top:4px}
+  /* Bouton d'envoi immobile : on garde le halo mais on retire tout déplacement */
+  #formBtn,#formBtn:hover,#formBtn:active{transform:none!important}
   .form-note{font-size:.82rem;color:var(--texte-doux);text-align:center;margin-top:14px}
   .form-note svg{width:14px;height:14px;color:var(--crystal);vertical-align:-2px;margin-right:3px}
 
