@@ -253,6 +253,25 @@
   body.ready .intro[data-i="5"]{animation-delay:.75s}
   @keyframes rise{to{opacity:1;transform:none;filter:blur(0)}}
 
+  /* ===== Entrée « balayage vers le haut » — téléphones =====
+     Sur mobile, on ne joue plus la montée derrière le flou : les éléments
+     balayent vers le haut au moment où le contenu apparaît (classe .entered),
+     en vague échelonnée, pour une entrée nette et bien visible. */
+  @media(max-width:768px){
+    @keyframes sweepUp{
+      0%{opacity:0;transform:translateY(72px) scale(.985);filter:blur(7px)}
+      55%{filter:blur(0)}
+      100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+    }
+    body.ready .intro{animation:none}                 /* on annule la montée « derrière le flou » */
+    body.entered .intro{animation:sweepUp .95s cubic-bezier(.16,.84,.32,1) both}
+    body.entered .intro[data-i="1"]{animation-delay:.04s}
+    body.entered .intro[data-i="2"]{animation-delay:.16s}
+    body.entered .intro[data-i="3"]{animation-delay:.28s}
+    body.entered .intro[data-i="4"]{animation-delay:.40s}
+    body.entered .intro[data-i="5"]{animation-delay:.52s}
+  }
+
   /* ===== Header ===== */
   header{
     position:sticky;top:0;z-index:60;background:rgba(10,16,26,.4);
@@ -1385,6 +1404,7 @@
     function endSequence(){
       try{
         document.body.classList.add('unblur');          // le flou s'enlève avec transition
+        document.body.classList.add('entered');         // marqueur persistant : déclenche le balayage mobile
         if(loader){
           loader.classList.add('done');
           setTimeout(function(){
@@ -1399,8 +1419,8 @@
     // Garde-fou : quoi qu'il arrive, le flou se retire et le loader disparaît (jamais bloqué ni cassé)
     var safety = setTimeout(endSequence, 5000);
 
-    if(!loader || !loaderImg || !headerImg || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      clearTimeout(safety); endSequence(); return;
+    if(!loader || !loaderImg || !headerImg || document.documentElement.classList.contains('app-mode') || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      clearTimeout(safety); endSequence(); return;     // mode app : entrée immédiate (pas de préloader)
     }
 
     // 1) maintien du logo net au centre (le reste de l'écran reste flou)
