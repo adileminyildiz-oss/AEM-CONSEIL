@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AEM-CONSEIL — Concept 4 · Spatial profond</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#03040d; --nuit:#060a1e; --outremer:#2740f5; --azur:#5f80ff; --peri:#9db2ff;
+    --line:rgba(150,172,255,.13); --glass:rgba(255,255,255,.055);
+    --txt:#eef2ff; --txt2:#9aabd2;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Manrope',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;overflow-x:clip}
+  body::before{content:"";position:fixed;inset:0;z-index:-3;
+    background:
+      radial-gradient(900px 640px at 82% 8%, rgba(39,64,245,.34), transparent 60%),
+      radial-gradient(760px 620px at 10% 20%, rgba(18,34,120,.4), transparent 62%),
+      radial-gradient(900px 700px at 60% 112%, rgba(30,50,190,.22), transparent 60%),
+      linear-gradient(180deg,#04061a,#03040d)}
+  .orbs{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+  .orbs span{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;mix-blend-mode:screen}
+  .o1{width:34vw;height:34vw;left:-6vw;top:-8vh;background:radial-gradient(circle,rgba(39,64,245,.7),transparent 62%);animation:f1 22s ease-in-out infinite}
+  .o2{width:30vw;height:30vw;right:-6vw;bottom:-10vh;background:radial-gradient(circle,rgba(95,128,255,.55),transparent 62%);animation:f2 27s ease-in-out infinite}
+  @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,5vh) scale(1.16)}}
+  @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-5vw,-4vh) scale(1.2)}}
+  .disp{font-family:'Sora',sans-serif;letter-spacing:-.02em}
+  .ital{font-family:'Newsreader',serif;font-style:italic;font-weight:500}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 34px}
+  a{color:inherit;text-decoration:none}
+
+  nav{position:sticky;top:16px;z-index:20;margin:16px auto 0;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    padding:11px 13px 11px 20px;border-radius:18px;border:1px solid var(--line);background:rgba(8,13,32,.5);backdrop-filter:blur(28px) saturate(170%)}
+  .logo{height:34px;display:block;filter:brightness(1.16) drop-shadow(0 0 10px rgba(157,178,255,.72)) drop-shadow(0 0 24px rgba(39,64,245,.5));animation:glow 5s ease-in-out infinite}
+  @keyframes glow{0%,100%{filter:brightness(1.13) drop-shadow(0 0 8px rgba(157,178,255,.6)) drop-shadow(0 0 20px rgba(39,64,245,.4))}50%{filter:brightness(1.24) drop-shadow(0 0 16px rgba(157,178,255,.9)) drop-shadow(0 0 34px rgba(39,64,245,.6))}}
+  .nlinks{display:flex;gap:28px;font-size:14px;color:var(--txt2)}.nlinks a:hover{color:#fff}
+  .btn{position:relative;overflow:hidden;font-family:'Sora';font-weight:600;cursor:pointer;border:none;transition:transform .18s,filter .2s,box-shadow .2s}
+  .btn::after{content:"";position:absolute;inset:0;left:-60%;width:44%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-16deg);transition:left .55s}
+  .btn:hover::after{left:135%}.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}.btn:active{transform:scale(.98)}
+  .btn-pri{padding:12px 22px;border-radius:12px;font-size:14px;color:#05061a;background:linear-gradient(135deg,#aebfff,#2740f5);box-shadow:0 12px 32px rgba(39,64,245,.5)}
+  .btn-ghost{padding:12px 22px;border-radius:12px;font-size:14px;color:var(--txt);background:var(--glass);border:1px solid var(--line)}
+
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:70px 0 60px}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:var(--glass);font-size:12.5px;color:#c8d3f4}
+  .dot{width:7px;height:7px;border-radius:50%;background:#3ae6a6;box-shadow:0 0 9px #3ae6a6}
+  .hero h1{font-family:'Sora',sans-serif;font-weight:700;font-size:clamp(38px,5vw,60px);line-height:1.05;margin:22px 0 0;text-wrap:balance}
+  .hero h1 .ital{color:var(--peri)}
+  .lead{margin:22px 0 0;max-width:440px;font-size:16.5px;line-height:1.6;color:var(--txt2)}
+  .cta-row{display:flex;gap:12px;margin-top:30px}
+
+  /* Scène spatiale */
+  .stage{position:relative;aspect-ratio:1/1;display:grid;place-items:center}
+  .ring{position:absolute;border-radius:50%;border:1px solid var(--line)}
+  .r1{width:96%;height:96%;animation:rot 40s linear infinite}
+  .r2{width:70%;height:70%;border-color:rgba(150,172,255,.2);animation:rot 28s linear infinite reverse}
+  .r3{width:46%;height:46%;border-color:rgba(150,172,255,.26)}
+  @keyframes rot{to{transform:rotate(360deg)}}
+  .r1::after,.r2::after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:var(--azur);box-shadow:0 0 14px var(--azur);top:-4px;left:calc(50% - 4px)}
+  .core{position:relative;width:58%;aspect-ratio:16/8;display:grid;place-items:center;border-radius:24px;
+    background:radial-gradient(circle at 50% 50%,rgba(39,64,245,.22),transparent 70%)}
+  .core img{width:100%;filter:brightness(1.2) drop-shadow(0 0 18px rgba(157,178,255,.7)) drop-shadow(0 0 40px rgba(39,64,245,.55))}
+  .chip{position:absolute;display:flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(10,16,36,.72);backdrop-filter:blur(18px) saturate(170%);font-size:12.5px;color:#d5deff;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .chip .m{font-weight:700;color:#fff}
+  .c1{top:8%;left:2%;animation:flo 6s ease-in-out infinite}
+  .c2{top:16%;right:0%;animation:flo 7s ease-in-out infinite .6s}
+  .c3{bottom:14%;left:0%;animation:flo 6.5s ease-in-out infinite .3s}
+  .c4{bottom:7%;right:5%;animation:flo 6.8s ease-in-out infinite 1s}
+  @keyframes flo{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+  section{padding:64px 0}
+  .sh{text-align:center;max-width:640px;margin:0 auto 40px}
+  .eyebrow{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .sh h2{font-family:'Sora';font-weight:700;font-size:clamp(28px,3.8vw,42px);margin-top:12px;text-wrap:balance}
+  .sh h2 .ital{color:var(--peri)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{border-radius:18px;border:1px solid var(--line);background:linear-gradient(165deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+    backdrop-filter:blur(22px) saturate(165%);padding:28px;transition:transform .25s,border-color .25s;box-shadow:0 22px 54px rgba(0,0,0,.4)}
+  .card:hover{transform:translateY(-5px);border-color:rgba(95,128,255,.5)}
+  .ic{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;color:var(--peri);background:linear-gradient(150deg,rgba(39,64,245,.3),rgba(39,64,245,.08));border:1px solid rgba(95,128,255,.3)}
+  .card h3{font-family:'Sora';font-weight:600;font-size:18px;margin:18px 0 0}
+  .card p{margin:10px 0 0;font-size:14px;line-height:1.55;color:var(--txt2)}
+  footer{border-top:1px solid var(--line);padding:44px 0;margin-top:30px;color:var(--txt2);font-size:13px;text-align:center}
+  @media(max-width:900px){.hero{grid-template-columns:1fr}.stage{max-width:440px;margin:0 auto}.nlinks{display:none}.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="orbs"><span class="o1"></span><span class="o2"></span></div>
+<nav>
+  <img class="logo" src="../assets/logo-full.png" alt="AEM Conseil">
+  <div class="nlinks"><a>Services</a><a>À propos</a><a>Avis</a><a>FAQ</a><a>Contact</a></div>
+  <button class="btn btn-pri">Prendre rendez-vous</button>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <span class="badge"><span class="dot"></span> Cabinet disponible · Réponse sous 24 h</span>
+      <h1>Votre entreprise, <span class="ital">au centre</span> de tout ce que nous faisons</h1>
+      <p class="lead">Comptabilité, gestion et fiscalité gravitent autour d'un seul objectif : votre réussite. Un cabinet moderne, précis et disponible.</p>
+      <div class="cta-row">
+        <button class="btn btn-pri">Demander un devis gratuit →</button>
+        <button class="btn btn-ghost">Découvrir nos services</button>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="core"><img src="../assets/logo-full.png" alt="AEM Conseil"></div>
+      <div class="chip c1"><span class="m">10 ans</span> d'expérience</div>
+      <div class="chip c2"><span class="m">200+</span> clients</div>
+      <div class="chip c3">Réponse <span class="m">24 h</span></div>
+      <div class="chip c4"><span class="m">100 %</span> engagement</div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sh"><span class="eyebrow">Nos expertises</span><h2>Une orbite <span class="ital">complète</span> de services</h2></div>
+    <div class="grid3">
+      <div class="card"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 15v3M12 10v8M17 5v13"/></svg></div><h3>Expertise comptable</h3><p>Tenue, bilan, comptes annuels et liasses fiscales, en toute sérénité.</p></div>
+      <div class="card"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></div><h3>Conseil & gestion</h3><p>Tableaux de bord et prévisionnels pour piloter votre activité.</p></div>
+      <div class="card"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8M21 7v5M21 7h-5"/></svg></div><h3>Fiscalité & paie</h3><p>TVA, déclarations, bulletins et DSN, dans le respect des délais.</p></div>
+    </div>
+  </section>
+</div>
+<footer>Concept 4 · « Spatial profond » — Sora + Newsreader · © 2026 AEM-CONSEIL</footer>
+</body>
+</html>

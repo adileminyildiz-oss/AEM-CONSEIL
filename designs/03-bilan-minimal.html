@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AEM-CONSEIL — Concept 3 · Bilan minimal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#04050b; --nuit:#070912; --outremer:#2b45ff; --azur:#6d86ff; --peri:#a9b8ff;
+    --line:rgba(150,168,255,.10); --glass:rgba(255,255,255,.04);
+    --txt:#f2f4ff; --txt2:#8b98bd;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;overflow-x:clip}
+  body::before{content:"";position:fixed;inset:0;z-index:-1;
+    background:radial-gradient(760px 560px at 50% -8%, rgba(43,69,255,.28), transparent 60%),
+    radial-gradient(600px 500px at 88% 30%, rgba(43,69,255,.10), transparent 62%),
+    linear-gradient(180deg,#05060e,#04050b)}
+  .beam{position:fixed;top:-30%;left:50%;width:40vw;height:120vh;transform:translateX(-50%) rotate(8deg);z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(80,110,255,.16),transparent 70%);filter:blur(50px);animation:sway 14s ease-in-out infinite}
+  @keyframes sway{0%,100%{transform:translateX(-50%) rotate(8deg)}50%{transform:translateX(-46%) rotate(4deg)}}
+  .disp{font-family:'Inter Tight',sans-serif;letter-spacing:-.03em}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:0}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 34px}
+  a{color:inherit;text-decoration:none}
+
+  nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 0}
+  .logo{height:34px;display:block;filter:brightness(1.15) drop-shadow(0 0 9px rgba(169,184,255,.6)) drop-shadow(0 0 22px rgba(43,69,255,.4));animation:glow 6s ease-in-out infinite}
+  @keyframes glow{0%,100%{filter:brightness(1.12) drop-shadow(0 0 7px rgba(169,184,255,.5)) drop-shadow(0 0 18px rgba(43,69,255,.3))}50%{filter:brightness(1.2) drop-shadow(0 0 12px rgba(169,184,255,.8)) drop-shadow(0 0 30px rgba(43,69,255,.5))}}
+  .nlinks{display:flex;gap:32px;font-size:13.5px;color:var(--txt2)}
+  .nlinks a{position:relative}
+  .nlinks a::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:1.5px;background:var(--azur);transition:right .3s}
+  .nlinks a:hover{color:#fff}.nlinks a:hover::after{right:0}
+  .btn{position:relative;overflow:hidden;font-family:'Inter Tight';font-weight:600;cursor:pointer;border:none;transition:transform .16s,filter .2s,box-shadow .2s}
+  .btn::after{content:"";position:absolute;inset:0;left:-60%;width:44%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-16deg);transition:left .5s}
+  .btn:hover::after{left:135%}.btn:hover{transform:translateY(-2px)}.btn:active{transform:scale(.97)}
+  .btn-pri{padding:11px 20px;border-radius:10px;font-size:13.5px;color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff);box-shadow:0 8px 26px rgba(43,69,255,.45)}
+
+  .hero{text-align:center;padding:80px 0 40px}
+  .kick{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--azur)}
+  .hero h1{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:clamp(46px,8.5vw,104px);line-height:.98;letter-spacing:-.035em;margin:26px auto 0;max-width:12ch;text-wrap:balance}
+  .hero h1 .ital{color:var(--peri);font-weight:400;letter-spacing:0}
+  .lead{margin:30px auto 0;max-width:440px;font-size:16px;line-height:1.6;color:var(--txt2)}
+  .cta-row{display:flex;gap:12px;justify-content:center;margin-top:34px}
+  .btn-ghost{padding:11px 20px;border-radius:10px;font-size:13.5px;color:var(--txt);background:var(--glass);border:1px solid var(--line)}
+
+  .rule{max-width:1080px;margin:70px auto 0;height:1px;background:var(--line)}
+  .figures{display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center}
+  .fig{padding:38px 12px;border-right:1px solid var(--line)}
+  .fig:last-child{border-right:none}
+  .fig .n{font-family:'Inter Tight';font-weight:600;font-size:40px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .fig .l{font-size:12.5px;color:var(--txt2);margin-top:6px}
+
+  section{padding:70px 0}
+  .sh{max-width:640px;margin:0 auto 44px;text-align:center}
+  .sh h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(28px,4vw,44px);letter-spacing:-.03em;margin-top:12px;text-wrap:balance}
+  .sh h2 .ital{color:var(--peri)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .card{background:linear-gradient(180deg,rgba(10,14,28,.7),rgba(6,8,18,.7));backdrop-filter:blur(10px);padding:34px 30px;transition:background .25s}
+  .card:hover{background:linear-gradient(180deg,rgba(20,28,58,.7),rgba(10,14,32,.7))}
+  .num{font-family:'Instrument Serif';font-style:italic;font-size:30px;color:var(--azur)}
+  .card h3{font-family:'Inter Tight';font-weight:600;font-size:18px;margin:16px 0 0}
+  .card p{margin:10px 0 0;font-size:14px;line-height:1.55;color:var(--txt2)}
+  footer{border-top:1px solid var(--line);padding:44px 0;margin-top:20px;color:var(--txt2);font-size:13px;text-align:center}
+  @media(max-width:900px){.nlinks{display:none}.grid3{grid-template-columns:1fr}.figures{grid-template-columns:1fr 1fr}.fig:nth-child(2){border-right:none}}
+</style>
+</head>
+<body>
+<div class="beam"></div>
+<div class="wrap">
+  <nav>
+    <img class="logo" src="../assets/logo-full.png" alt="AEM Conseil">
+    <div class="nlinks"><a>Services</a><a>À propos</a><a>Avis</a><a>FAQ</a><a>Contact</a></div>
+    <button class="btn btn-pri">Prendre rendez-vous</button>
+  </nav>
+
+  <header class="hero">
+    <div class="kick">Cabinet d'expertise comptable</div>
+    <h1 class="disp">Des comptes <span class="ital">justes.</span> Des décisions <span class="ital">claires.</span></h1>
+    <p class="lead">AEM-CONSEIL accompagne entrepreneurs, TPE et PME avec rigueur, proximité et une exigence de clarté à chaque ligne.</p>
+    <div class="cta-row">
+      <button class="btn btn-pri">Demander un devis gratuit →</button>
+      <button class="btn btn-ghost">Découvrir nos services</button>
+    </div>
+  </header>
+
+  <div class="figures">
+    <div class="fig"><div class="n">10+</div><div class="l">années d'expérience</div></div>
+    <div class="fig"><div class="n">200+</div><div class="l">clients accompagnés</div></div>
+    <div class="fig"><div class="n">24 h</div><div class="l">délai de réponse</div></div>
+    <div class="fig"><div class="n">100 %</div><div class="l">engagement</div></div>
+  </div>
+
+  <section>
+    <div class="sh"><div class="kick">Nos expertises</div><h2>Tout ce qu'un <span class="ital">cabinet</span> doit vous apporter</h2></div>
+    <div class="grid3">
+      <div class="card"><div class="num">01</div><h3>Expertise comptable</h3><p>Tenue, révision, bilan et liasses fiscales — vos comptes tenus au cordeau.</p></div>
+      <div class="card"><div class="num">02</div><h3>Conseil & gestion</h3><p>Prévisionnels, tableaux de bord et trésorerie pour décider sur du concret.</p></div>
+      <div class="card"><div class="num">03</div><h3>Fiscalité & paie</h3><p>TVA, déclarations, bulletins et DSN, toujours dans les délais.</p></div>
+    </div>
+  </section>
+</div>
+<footer>Concept 3 · « Bilan minimal » — Inter Tight + Instrument Serif · © 2026 AEM-CONSEIL</footer>
+</body>
+</html>

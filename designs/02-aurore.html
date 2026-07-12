@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AEM-CONSEIL — Concept 2 · Aurore éditoriale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#03050e; --nuit:#060a1c; --outremer:#2438e6; --azur:#6f8cff; --peri:#9fb2ff;
+    --line:rgba(150,170,255,.14); --glass:rgba(255,255,255,.055);
+    --txt:#eef1ff; --txt2:#a3b1d6;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Manrope',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;overflow-x:clip}
+  .aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;background:linear-gradient(180deg,#04061400,#03050e)}
+  .aurora span{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;mix-blend-mode:screen}
+  .a1{width:60vw;height:60vw;left:-10vw;top:-20vh;background:radial-gradient(circle,rgba(36,56,230,.7),transparent 62%);animation:d1 26s ease-in-out infinite}
+  .a2{width:56vw;height:56vw;right:-12vw;top:-6vh;background:radial-gradient(circle,rgba(63,86,255,.55),transparent 62%);animation:d2 32s ease-in-out infinite}
+  .a3{width:70vw;height:70vw;left:20vw;bottom:-40vh;background:radial-gradient(circle,rgba(20,34,150,.6),transparent 60%);animation:d3 30s ease-in-out infinite}
+  @keyframes d1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(8vw,6vh) scale(1.15)}}
+  @keyframes d2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7vw,5vh) scale(1.2)}}
+  @keyframes d3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vw,-6vh) scale(1.12)}}
+  .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.04;
+    background-image:radial-gradient(rgba(255,255,255,.6) .5px,transparent .5px);background-size:3px 3px}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 34px}
+  a{color:inherit;text-decoration:none}
+  .serif{font-family:'Fraunces',serif}
+  .ital{font-family:'Fraunces',serif;font-style:italic;font-weight:500}
+
+  nav{position:sticky;top:18px;z-index:20;margin:18px auto 0;max-width:1160px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    padding:12px 14px 12px 22px;border-radius:999px;border:1px solid var(--line);background:rgba(8,12,30,.5);backdrop-filter:blur(30px) saturate(170%)}
+  .logo{height:34px;display:block;filter:brightness(1.16) drop-shadow(0 0 10px rgba(159,178,255,.7)) drop-shadow(0 0 24px rgba(36,56,230,.45));animation:glow 5.5s ease-in-out infinite}
+  @keyframes glow{0%,100%{filter:brightness(1.13) drop-shadow(0 0 8px rgba(159,178,255,.55)) drop-shadow(0 0 20px rgba(36,56,230,.35))}50%{filter:brightness(1.22) drop-shadow(0 0 15px rgba(159,178,255,.85)) drop-shadow(0 0 32px rgba(36,56,230,.55))}}
+  .nlinks{display:flex;gap:30px;font-size:14px;color:var(--txt2)}
+  .nlinks a:hover{color:#fff}
+  .btn{position:relative;overflow:hidden;font-family:'Manrope';font-weight:700;cursor:pointer;border:none;transition:transform .18s,filter .2s,box-shadow .2s}
+  .btn::after{content:"";position:absolute;inset:0;left:-60%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-16deg);transition:left .55s}
+  .btn:hover::after{left:135%}.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}.btn:active{transform:scale(.98)}
+  .btn-pri{padding:13px 26px;border-radius:999px;font-size:14px;color:#05061a;background:linear-gradient(135deg,#b9c6ff,#2438e6);box-shadow:0 12px 34px rgba(36,56,230,.5)}
+  .btn-ghost{padding:13px 26px;border-radius:999px;font-size:14px;color:var(--txt);background:var(--glass);border:1px solid var(--line)}
+
+  .hero{text-align:center;padding:100px 0 30px;max-width:940px;margin:0 auto}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--glass);font-size:12.5px;color:#c8d2f2}
+  .dot{width:7px;height:7px;border-radius:50%;background:#39e6a6;box-shadow:0 0 9px #39e6a6}
+  .hero h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(44px,7vw,88px);line-height:1.02;margin:28px 0 0;text-wrap:balance}
+  .hero h1 .ital{color:var(--peri)}
+  .lead{margin:26px auto 0;max-width:560px;font-size:17px;line-height:1.65;color:var(--txt2)}
+  .cta-row{display:flex;gap:14px;justify-content:center;margin-top:34px}
+  .strip{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:70px;padding-top:30px;border-top:1px solid var(--line)}
+  .stat .n{font-family:'Fraunces',serif;font-size:34px;font-weight:600;color:#dfe6ff}
+  .stat .l{font-size:13px;color:var(--txt2);margin-top:4px}
+
+  section{padding:70px 0}
+  .sh{text-align:center;max-width:660px;margin:0 auto 44px}
+  .eyebrow{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .sh h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,4.4vw,50px);margin-top:14px;text-wrap:balance}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{border-radius:22px;border:1px solid var(--line);background:linear-gradient(165deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+    backdrop-filter:blur(26px) saturate(165%);padding:32px 28px;transition:transform .28s,border-color .28s;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+  .card:hover{transform:translateY(-6px);border-color:rgba(111,140,255,.5)}
+  .ic{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;color:var(--peri);background:linear-gradient(150deg,rgba(36,56,230,.3),rgba(36,56,230,.08));border:1px solid rgba(111,140,255,.3)}
+  .card h3{font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin:20px 0 0}
+  .card p{margin:11px 0 0;font-size:14.5px;line-height:1.6;color:var(--txt2)}
+  footer{border-top:1px solid var(--line);padding:44px 0;margin-top:30px;color:var(--txt2);font-size:13px;text-align:center}
+  @media(max-width:900px){.nlinks{display:none}.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="aurora"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+<div class="grain"></div>
+<nav>
+  <img class="logo" src="../assets/logo-full.png" alt="AEM Conseil">
+  <div class="nlinks"><a>Services</a><a>À propos</a><a>Avis</a><a>FAQ</a><a>Contact</a></div>
+  <button class="btn btn-pri">Prendre rendez-vous</button>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="badge"><span class="dot"></span> Cabinet disponible · Réponse sous 24 h</span>
+    <h1>Votre <span class="ital">partenaire</span> de confiance pour la <span class="ital">réussite</span> de votre entreprise</h1>
+    <p class="lead">Un cabinet à taille humaine qui allie la rigueur du chiffre à la clarté du conseil — pour des décisions justes, sereines et durables.</p>
+    <div class="cta-row">
+      <button class="btn btn-pri">Demander un devis gratuit →</button>
+      <button class="btn btn-ghost">Découvrir nos services</button>
+    </div>
+    <div class="strip">
+      <div class="stat"><div class="n">10+</div><div class="l">années d'expérience</div></div>
+      <div class="stat"><div class="n">200+</div><div class="l">clients accompagnés</div></div>
+      <div class="stat"><div class="n">24 h</div><div class="l">délai de réponse</div></div>
+      <div class="stat"><div class="n">100 %</div><div class="l">engagement</div></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sh"><span class="eyebrow">Nos expertises</span><h2>Des <span class="ital">services</span> complets pour votre entreprise</h2></div>
+    <div class="grid3">
+      <div class="card"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 15v3M12 10v8M17 5v13"/></svg></div><h3>Expertise comptable</h3><p>Tenue, bilan, comptes annuels et liasses fiscales — une comptabilité juste, à jour et lisible.</p></div>
+      <div class="card"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></div><h3>Conseil & gestion</h3><p>Tableaux de bord, prévisionnels et suivi de trésorerie pour piloter votre activité avec confiance.</p></div>
+      <div class="card"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8M21 7v5M21 7h-5"/></svg></div><h3>Fiscalité & paie</h3><p>TVA, déclarations, bulletins et obligations sociales, dans le respect strict des échéances.</p></div>
+    </div>
+  </section>
+</div>
+<footer>Concept 2 · « Aurore éditoriale » — Fraunces + Manrope · © 2026 AEM-CONSEIL</footer>
+</body>
+</html>

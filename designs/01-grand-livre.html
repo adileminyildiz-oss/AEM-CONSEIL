@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AEM-CONSEIL — Concept 1 · Grand Livre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#04060f; --nuit:#070c1c; --nuit2:#0b1330;
+    --outremer:#2a44ff; --azur:#5b7cff; --peri:#8aa4ff;
+    --line:rgba(140,165,255,.12); --glass:rgba(255,255,255,.05);
+    --txt:#eef2ff; --txt2:#9fb0d6; --pos:#3ee9a4; --neg:#ff7d94;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;overflow-x:clip}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;
+    background:
+      radial-gradient(1100px 700px at 78% -6%, rgba(42,68,255,.30), transparent 60%),
+      radial-gradient(900px 620px at 8% 12%, rgba(20,40,120,.34), transparent 62%),
+      radial-gradient(1000px 760px at 50% 108%, rgba(30,52,180,.22), transparent 60%),
+      linear-gradient(180deg,#050814,#04060f)}
+  body::after{content:"";position:fixed;inset:-40%;z-index:-1;pointer-events:none;
+    background:conic-gradient(from 0deg at 50% 50%, transparent, rgba(42,68,255,.06), transparent 30%, rgba(90,124,255,.05), transparent 60%);
+    animation:spin 40s linear infinite;opacity:.7}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  h1,h2,h3,.dsp{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em}
+  .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  a{color:inherit;text-decoration:none}
+
+  nav{position:sticky;top:16px;z-index:20;margin:16px auto 0;max-width:1200px;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    padding:11px 12px 11px 20px;border-radius:16px;border:1px solid var(--line);
+    background:rgba(9,15,35,.55);backdrop-filter:blur(26px) saturate(160%)}
+  .logo{height:34px;display:block;filter:brightness(1.14) drop-shadow(0 0 9px rgba(138,164,255,.65)) drop-shadow(0 0 20px rgba(42,68,255,.4));animation:glow 5s ease-in-out infinite}
+  @keyframes glow{0%,100%{filter:brightness(1.12) drop-shadow(0 0 8px rgba(138,164,255,.55)) drop-shadow(0 0 18px rgba(42,68,255,.35))}50%{filter:brightness(1.2) drop-shadow(0 0 13px rgba(138,164,255,.8)) drop-shadow(0 0 28px rgba(42,68,255,.5))}}
+  .nlinks{display:flex;gap:28px;font-size:14px;color:var(--txt2)}
+  .nlinks a:hover{color:#fff}
+  .btn{position:relative;overflow:hidden;font-family:'Space Grotesk',sans-serif;font-weight:600;cursor:pointer;border:none;transition:transform .16s,box-shadow .2s,filter .2s}
+  .btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .5s}
+  .btn:hover::after{left:130%}
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+  .btn:active{transform:translateY(0) scale(.98)}
+  .btn-pri{padding:12px 22px;border-radius:12px;font-size:14px;color:#050814;
+    background:linear-gradient(135deg,#9fb4ff,#2a44ff);box-shadow:0 10px 30px rgba(42,68,255,.45)}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--azur)}
+
+  .hero{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center;padding:88px 0 70px}
+  .hero h1{font-size:clamp(38px,5vw,62px);line-height:1.02;font-weight:600;margin:20px 0 0;text-wrap:balance}
+  .hero h1 b{font-weight:700;background:linear-gradient(120deg,#cdd8ff,#5b7cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{margin:22px 0 0;max-width:460px;font-size:16.5px;line-height:1.6;color:var(--txt2)}
+  .cta-row{display:flex;gap:12px;margin-top:30px}
+  .btn-ghost{padding:12px 22px;border-radius:12px;font-size:14px;color:var(--txt);background:var(--glass);border:1px solid var(--line)}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass);font-size:12.5px;color:#c7d3f5}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--pos);box-shadow:0 0 9px var(--pos)}
+
+  /* Panneau tableau de bord comptable */
+  .panel{position:relative;border-radius:22px;border:1px solid var(--line);
+    background:linear-gradient(165deg,rgba(255,255,255,.09),rgba(255,255,255,.02));
+    backdrop-filter:blur(30px) saturate(170%);box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1);padding:22px}
+  .panel-h{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 16px;border-bottom:1px solid var(--line)}
+  .panel-h .t{font-family:'Space Grotesk';font-weight:600;font-size:14.5px}
+  .panel-h .ex{font-family:'JetBrains Mono';font-size:11px;color:var(--txt2)}
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  .kpi{border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);padding:14px 15px}
+  .kpi .lab{font-size:11.5px;color:var(--txt2);letter-spacing:.04em}
+  .kpi .val{font-family:'JetBrains Mono';font-weight:700;font-size:23px;margin-top:7px;font-variant-numeric:tabular-nums}
+  .kpi .chg{font-family:'JetBrains Mono';font-size:11.5px;margin-top:4px}
+  .up{color:var(--pos)} .down{color:var(--neg)}
+  .spark{margin-top:18px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);padding:14px 15px 10px}
+  .spark .lab{display:flex;justify-content:space-between;font-size:11.5px;color:var(--txt2)}
+  .bar-row{display:flex;align-items:flex-end;gap:6px;height:60px;margin-top:12px}
+  .bar{flex:1;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#5b7cff,rgba(42,68,255,.25))}
+  .ledger{margin-top:12px;border-radius:14px;border:1px solid var(--line);overflow:hidden}
+  .lrow{display:grid;grid-template-columns:1fr auto auto;gap:14px;padding:10px 15px;font-size:12.5px;border-bottom:1px solid var(--line)}
+  .lrow:last-child{border-bottom:none}
+  .lrow.head{color:var(--txt2);font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.02)}
+  .lrow .m{font-family:'JetBrains Mono';font-variant-numeric:tabular-nums}
+
+  section{padding:64px 0}
+  .sh{text-align:center;max-width:640px;margin:0 auto 40px}
+  .sh h2{font-size:clamp(28px,3.6vw,40px);font-weight:600;margin-top:12px;text-wrap:balance}
+  .sh h2 b{font-weight:700;color:var(--peri)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{border-radius:18px;border:1px solid var(--line);background:linear-gradient(165deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    backdrop-filter:blur(20px) saturate(160%);padding:26px;transition:transform .25s,border-color .25s}
+  .card:hover{transform:translateY(-5px);border-color:rgba(91,124,255,.5)}
+  .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:var(--peri);
+    background:linear-gradient(150deg,rgba(42,68,255,.28),rgba(42,68,255,.08));border:1px solid rgba(91,124,255,.3)}
+  .card h3{font-size:17.5px;font-weight:600;margin:18px 0 0}
+  .card p{margin:9px 0 0;font-size:14px;line-height:1.55;color:var(--txt2)}
+  footer{border-top:1px solid var(--line);padding:40px 0;margin-top:40px;color:var(--txt2);font-size:13px;text-align:center}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:34px}.nlinks{display:none}.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <img class="logo" src="../assets/logo-full.png" alt="AEM Conseil">
+  <div class="nlinks"><a>Services</a><a>Méthode</a><a>À propos</a><a>FAQ</a><a>Contact</a></div>
+  <button class="btn btn-pri">Prendre rendez-vous</button>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <span class="badge"><span class="dot"></span> Cabinet disponible · Réponse sous 24 h</span>
+      <h1>La comptabilité, <b>claire comme un bilan</b> bien tenu.</h1>
+      <p class="lead">AEM-CONSEIL pilote votre comptabilité, votre trésorerie et vos obligations fiscales dans un espace unique, lisible et sécurisé — pensé comme un vrai logiciel de gestion.</p>
+      <div class="cta-row">
+        <button class="btn btn-pri">Demander un devis gratuit →</button>
+        <button class="btn btn-ghost">Découvrir nos services</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-h"><span class="t">Tableau de bord · Exercice 2026</span><span class="ex mono">SIREN 000 000 000</span></div>
+      <div class="kpis">
+        <div class="kpi"><div class="lab">Chiffre d'affaires</div><div class="val">248 500 €</div><div class="chg up">▲ +12,4 % vs N-1</div></div>
+        <div class="kpi"><div class="lab">Résultat net</div><div class="val">41 320 €</div><div class="chg up">▲ +8,1 %</div></div>
+        <div class="kpi"><div class="lab">Trésorerie</div><div class="val">63 900 €</div><div class="chg up">▲ +5 200 €</div></div>
+        <div class="kpi"><div class="lab">TVA à décaisser</div><div class="val">9 740 €</div><div class="chg down">Échéance 20/07</div></div>
+      </div>
+      <div class="spark">
+        <div class="lab"><span>Produits mensuels (k€)</span><span class="mono">2026</span></div>
+        <div class="bar-row">
+          <div class="bar" style="height:42%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:48%"></div>
+          <div class="bar" style="height:68%"></div><div class="bar" style="height:60%"></div><div class="bar" style="height:82%"></div>
+          <div class="bar" style="height:74%"></div><div class="bar" style="height:95%"></div><div class="bar" style="height:88%"></div>
+        </div>
+      </div>
+      <div class="ledger">
+        <div class="lrow head"><span>Écriture</span><span>Débit</span><span>Crédit</span></div>
+        <div class="lrow"><span>411 · Clients — Facture F-2026-084</span><span class="m">3 600,00</span><span class="m">—</span></div>
+        <div class="lrow"><span>512 · Banque — Encaissement</span><span class="m">—</span><span class="m">3 600,00</span></div>
+        <div class="lrow"><span>445 · TVA collectée</span><span class="m">—</span><span class="m">600,00</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sh"><span class="eyebrow">Nos expertises</span><h2>Un cabinet complet, <b>de la saisie au bilan</b></h2></div>
+    <div class="grid3">
+      <div class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 15v3M12 10v8M17 5v13"/></svg></div><h3>Expertise comptable</h3><p>Tenue, révision, bilan et liasses fiscales. Vos comptes justes, à jour et exploitables à tout moment.</p></div>
+      <div class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-6 4 4 8-8M21 7v5M21 7h-5"/></svg></div><h3>Pilotage & gestion</h3><p>Tableaux de bord, prévisionnels et suivi de trésorerie pour décider sur des chiffres fiables.</p></div>
+      <div class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 12h18"/></svg></div><h3>Paie & fiscalité</h3><p>Bulletins, DSN, TVA et déclarations, dans le respect strict des échéances et de la réglementation.</p></div>
+    </div>
+  </section>
+</div>
+<footer>Concept 1 · « Grand Livre » — Space Grotesk + Inter + JetBrains Mono · © 2026 AEM-CONSEIL</footer>
+</body>
+</html>
