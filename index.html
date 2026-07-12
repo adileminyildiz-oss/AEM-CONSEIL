@@ -52,7 +52,6 @@
   "image": "https://aemconseil.eu/assets/favicon-512.png",
   "logo": "https://aemconseil.eu/assets/logo-full.png",
   "areaServed": "FR",
-  "priceRange": "€€",
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
@@ -220,7 +219,6 @@
     <a href="#top" style="display:flex;align-items:center"><img src="assets/logo-full.png" alt="AEM Conseil" style="height:34px;display:block"></a>
     <div class="aem-navlinks" style="display:flex;align-items:center;gap:30px;font-size:14px;color:#c4d2e4">
       <a href="#services" style="color:inherit">Services</a>
-      <a href="#tarifs" style="color:inherit">Tarifs</a>
       <a href="#apropos" style="color:inherit">À propos</a>
       <a href="#avis" style="color:inherit">Avis</a>
       <a href="#faq" style="color:inherit">FAQ</a>
@@ -230,7 +228,6 @@
     <button class="aem-burger" type="button" onclick="toggleNav()" aria-label="Ouvrir le menu" style="flex:none;place-items:center;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#eaf1fb;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <div id="aem-drawer" class="aem-drawer" hidden onclick="closeNav()" style="position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:60;flex-direction:column;gap:2px;padding:14px;border-radius:20px;background:rgba(11,17,28,.94);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(34px) saturate(180%);-webkit-backdrop-filter:blur(34px) saturate(180%);box-shadow:0 24px 56px rgba(0,0,0,.55);animation:aemNavDrop .22s ease">
       <a href="#services" style="padding:14px 16px;border-radius:12px;font-size:15.5px;font-weight:600;color:#dbe6f2">Services</a>
-      <a href="#tarifs" style="padding:14px 16px;border-radius:12px;font-size:15.5px;font-weight:600;color:#dbe6f2">Tarifs</a>
       <a href="#apropos" style="padding:14px 16px;border-radius:12px;font-size:15.5px;font-weight:600;color:#dbe6f2">À propos</a>
       <a href="#avis" style="padding:14px 16px;border-radius:12px;font-size:15.5px;font-weight:600;color:#dbe6f2">Avis</a>
       <a href="#faq" style="padding:14px 16px;border-radius:12px;font-size:15.5px;font-weight:600;color:#dbe6f2">FAQ</a>
@@ -288,20 +285,6 @@
       <a href="#contact" onclick="closeSvc()" class="aem-btn aem-btn-shimmer aem-grad-btn" style="display:block;text-align:center;margin-top:30px;padding:16px;border-radius:999px;font-weight:700;font-size:15px;color:#04121f;background:linear-gradient(135deg,#9ad9fb,#38bdf8 50%,#2f7ff0);box-shadow:0 12px 34px rgba(56,189,248,.4)">Demander un devis</a>
     </div>
   </div>
-
-  <!-- TARIFS -->
-  <section id="tarifs" style="position:relative;padding:clamp(50px,7vw,90px) 0;overflow:hidden">
-    <div id="aem-tarifs-word" style="position:absolute;top:120px;left:50%;transform:translateX(-50%);font-size:clamp(120px,20vw,300px);font-weight:800;letter-spacing:-6px;color:rgba(255,255,255,.022);white-space:nowrap;pointer-events:none;z-index:0;will-change:transform">Tarifs</div>
-    <div style="position:absolute;top:60px;right:8%;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.22),transparent 68%);pointer-events:none;animation:aemPulse 10s ease-in-out infinite"></div>
-    <div style="position:absolute;top:200px;left:2%;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.22),transparent 66%);pointer-events:none;animation:aemPulse 11s ease-in-out infinite 1.5s"></div>
-    <div class="aem-reveal" style="position:relative;text-align:center;max-width:680px;margin:0 auto 54px">
-      <span style="font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:#38bdf8">Nos formules</span>
-      <h2 style="font-size:clamp(30px,4vw,46px);line-height:1.1;font-weight:800;letter-spacing:-1px;margin:16px 0 0">Des tarifs <em style="color:#7fd3fb">clairs</em>, sans <em>surprise</em></h2>
-      <p style="margin:18px 0 0;font-size:16px;color:#a9b9cd">Un accompagnement adapté à votre structure, à un tarif transparent et tout compris. Le premier rendez-vous est gratuit et sans engagement.</p>
-    </div>
-    <div class="aem-price-grid" id="aem-price-grid" style="position:relative;display:grid;gap:20px;align-items:stretch"></div>
-    <p style="position:relative;text-align:center;margin:34px 0 0;font-size:13px;color:#8395aa">Tarifs HT. Le premier rendez-vous est gratuit et sans engagement — parlons-en ensemble pour trouver la formule qui vous correspond.</p>
-  </section>
 
   <!-- À PROPOS -->
   <section id="apropos" class="aem-about" style="display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:center;padding:clamp(50px,7vw,90px) 0">
@@ -397,7 +380,6 @@
         <h4 style="font-size:14px;font-weight:700;margin:0 0 16px">Navigation</h4>
         <div style="display:flex;flex-direction:column;gap:11px;font-size:14px">
           <a href="#services" style="color:#9fb0c4">Services</a>
-          <a href="#tarifs" style="color:#9fb0c4">Tarifs</a>
           <a href="#apropos" style="color:#9fb0c4">À propos</a>
           <a href="#avis" style="color:#9fb0c4">Avis</a>
           <a href="#faq" style="color:#9fb0c4">FAQ</a>
@@ -484,16 +466,6 @@ var SERVICES = [
     desc:'Un interlocuteur dédié, disponible et à votre écoute, pour répondre à toutes vos questions au quotidien.',
     features:['Un interlocuteur unique et dédié','Réponses sous 24 h','Rendez-vous à distance ou en présentiel','Outils digitaux modernes et sécurisés','Conseils clairs, sans jargon','Suivi sur-mesure selon vos besoins'] }
 ];
-var PLANS = [
-  { name:'Tenue comptable', tagline:'Comptabilité seule, pour indépendants, TPE et sociétés.', price:'350 €', unit:'/ mois HT', note:'Pack tout compris (compta + paie + admin) : 450 € / mois', featured:true, cta:'Choisir cette formule',
-    features:['Comptabilité tenue et révisée','Factures clients et fournisseurs traitées','Récupération et exploitation du FEC','Déclarations de TVA','Bilan et comptes annuels','Tableau de bord en ligne','Interlocuteur dédié'] },
-  { name:'Création d’entreprise', tagline:'Pour lancer votre activité sur des bases solides.', price:'699 €', unit:'forfait HT', note:'→ 400 € avec un abonnement Tenue comptable', cta:'Créer mon entreprise',
-    features:['Choix du statut juridique adapté','Rédaction des statuts','Formalités et immatriculation','Business plan et prévisionnel','Accompagnement au démarrage'] },
-  { name:'Fiches de paie', tagline:'Forfait mensuel pour la gestion de vos salariés.', price:'70 €', unit:'/ bulletin HT', note:'→ 60 € / bulletin dans le pack Tenue comptable', cta:'Choisir cette formule',
-    features:['Bulletins de paie mensuels','Déclarations sociales (DSN)','Gestion des congés et absences','Documents de fin de contrat','Conseil en droit social'] },
-  { name:'Demandes administratives', tagline:'Pour toutes vos démarches ponctuelles.', price:'80 €', unit:'/ demande HT', note:'→ 30 € / demande dans le pack Tenue comptable', cta:'Faire une demande',
-    features:['Déclarations et formalités','Courriers et dossiers administratifs','Assistance et conseil','Traitement rapide de votre demande'] }
-];
 var ABOUT_POINTS = ['Des conseils clairs, sans jargon','Une équipe disponible et réactive','Des outils digitaux modernes et sécurisés','Un accompagnement sur-mesure selon vos besoins'];
 var REVIEWS = [
   { initials:'SL', name:'Sophie L.', role:'Gérante, commerce', quote:'Un accompagnement vraiment humain. Mes comptes sont enfin clairs et je gagne un temps précieux chaque mois.' },
@@ -525,32 +497,6 @@ var ARROW = '<div style="position:absolute;top:22px;right:22px;color:#6f8299"><s
       + '<div style="display:grid;place-items:center;width:52px;height:52px;border-radius:14px;background:linear-gradient(150deg,rgba(56,189,248,.2),rgba(37,99,235,.12));border:1px solid rgba(56,189,248,.25);color:#7fd3fb">'+svgWrap(s.icon,24)+'</div>'
       + '<h3 style="font-size:19px;font-weight:700;margin:22px 0 0">'+esc(s.title)+'</h3>'
       + '<p style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#a1b2c6">'+esc(s.teaser)+'</p></div>';
-  }).join('');
-
-  /* Tarifs */
-  var featShadow='0 30px 80px rgba(37,99,235,.42),0 0 60px rgba(56,189,248,.3),inset 0 1px 0 rgba(255,255,255,.16)';
-  var featGlow = '<div style="position:absolute;top:-26%;left:50%;transform:translateX(-50%);width:92%;height:72%;background:radial-gradient(ellipse at center,rgba(56,189,248,.4),transparent 66%);filter:blur(30px);z-index:-1;pointer-events:none;animation:aemPulse 4.5s ease-in-out infinite"></div>'
-    + '<div style="position:absolute;bottom:-24%;left:50%;transform:translateX(-50%);width:80%;height:60%;background:radial-gradient(ellipse at center,rgba(37,99,235,.32),transparent 68%);filter:blur(34px);z-index:-1;pointer-events:none;animation:aemPulse 5.5s ease-in-out infinite 1s"></div>'
-    + '<div style="position:absolute;top:18%;left:-16%;width:48%;height:66%;background:radial-gradient(ellipse at center,rgba(56,189,248,.34),transparent 70%);filter:blur(32px);z-index:-1;pointer-events:none;animation:aemPulse 5s ease-in-out infinite .5s"></div>'
-    + '<div style="position:absolute;top:18%;right:-16%;width:48%;height:66%;background:radial-gradient(ellipse at center,rgba(56,189,248,.34),transparent 70%);filter:blur(32px);z-index:-1;pointer-events:none;animation:aemPulse 5s ease-in-out infinite 1.4s"></div>';
-  document.getElementById('aem-price-grid').innerHTML = PLANS.map(function(p){
-    var bg = p.featured ? 'linear-gradient(160deg,rgba(56,189,248,.16),rgba(37,99,235,.07))' : 'linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.028))';
-    var border = p.featured ? 'rgba(56,189,248,.55)' : 'rgba(255,255,255,.09)';
-    var shadow = p.featured ? featShadow : '0 20px 50px rgba(0,0,0,.3)';
-    var ctaStyle = p.featured ? 'color:#04121f;background:linear-gradient(135deg,#9ad9fb,#38bdf8 50%,#2f7ff0);box-shadow:0 12px 30px rgba(56,189,248,.42)' : 'color:#e7f1fc;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)';
-    var ctaClass = p.featured ? 'aem-btn aem-btn-shimmer aem-grad-btn' : 'aem-btn aem-btn-shimmer aem-ghost-btn';
-    var badge = p.featured ? '<span style="display:inline-block;padding:6px 12px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.08em;color:#04121f;background:linear-gradient(135deg,#9ad9fb,#38bdf8)">LE PLUS CHOISI</span>' : '';
-    var feats = p.features.map(function(f){ return '<li style="display:flex;align-items:flex-start;gap:11px;font-size:14px;line-height:1.45;color:#cdd9e8">'+CHK+esc(f)+'</li>'; }).join('');
-    return '<div class="aem-reveal aem-tilt" style="position:relative;display:flex;flex-direction:column;padding:32px 26px;border-radius:20px;background:'+bg+';border:1px solid '+border+';backdrop-filter:blur(32px) saturate(180%);box-shadow:'+shadow+';overflow:hidden">'
-      + (p.featured?featGlow:'')
-      + '<div style="height:24px;margin-bottom:14px">'+badge+'</div>'
-      + '<h3 style="font-size:19px;font-weight:700;margin:0">'+esc(p.name)+'</h3>'
-      + '<p style="margin:8px 0 0;font-size:13.5px;color:#93a5ba;min-height:38px">'+esc(p.tagline)+'</p>'
-      + '<div style="display:flex;align-items:baseline;gap:8px;margin:20px 0 0"><span style="font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#7fd3fb">'+esc(p.price)+'</span><span style="font-size:13px;color:#93a5ba">'+esc(p.unit)+'</span></div>'
-      + '<p style="margin:12px 0 0;font-size:12.5px;color:#7fd3fb">'+esc(p.note)+'</p>'
-      + '<div style="height:1px;background:rgba(255,255,255,.09);margin:22px 0"></div>'
-      + '<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;flex:1">'+feats+'</ul>'
-      + '<a href="#contact" class="'+ctaClass+'" style="display:block;text-align:center;margin-top:26px;padding:14px;border-radius:999px;font-weight:600;font-size:14px;'+ctaStyle+'">'+esc(p.cta)+'</a></div>';
   }).join('');
 
   /* À propos */
@@ -703,12 +649,11 @@ try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }cat
       card.addEventListener('pointerleave', function(){ card.style.transform=''; });
     });
 
-    /* Parallaxe du mot « Tarifs » */
-    var word=document.getElementById('aem-tarifs-word'), ticking=false;
+    /* Visibilité du bouton « retour haut » */
+    var ticking=false;
     var onScroll=function(){
       if(ticking) return; ticking=true;
       requestAnimationFrame(function(){
-        if(word){ var r=word.getBoundingClientRect(); var off=(r.top+r.height/2-window.innerHeight/2)*-0.12; word.style.transform='translateX(-50%) translateY('+off.toFixed(1)+'px)'; }
         var tt=document.getElementById('toTop'); if(tt){ if((window.scrollY||window.pageYOffset)>600) tt.classList.add('show'); else tt.classList.remove('show'); }
         ticking=false;
       });
