@@ -116,9 +116,15 @@
   body.loaded #loader{opacity:0;visibility:hidden;pointer-events:none}
 
   /* ===== Nav ===== */
-  nav{position:sticky;top:0;z-index:60;background:rgba(5,7,15,.55);backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
-  nav.scrolled{border-color:var(--line);background:rgba(5,7,15,.78)}
-  .nav-in{max-width:var(--max);margin:0 auto;padding:16px 34px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  #nav{position:sticky;top:14px;z-index:60;padding:0 clamp(14px,3vw,28px)}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:10px 12px 10px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    border-radius:999px;border:1px solid rgba(150,168,255,.16);
+    background:linear-gradient(180deg,rgba(20,26,46,.6),rgba(9,13,26,.62));
+    -webkit-backdrop-filter:blur(28px) saturate(185%);backdrop-filter:blur(28px) saturate(185%);
+    box-shadow:0 18px 46px rgba(0,0,0,.5),0 0 40px rgba(43,69,255,.1),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.32);
+    transition:background .3s,border-color .3s,box-shadow .3s}
+  #nav.scrolled .nav-in{background:linear-gradient(180deg,rgba(24,30,54,.74),rgba(9,13,26,.74));border-color:rgba(150,168,255,.26);
+    box-shadow:0 22px 54px rgba(0,0,0,.6),0 0 50px rgba(43,69,255,.16),inset 0 1px 0 rgba(255,255,255,.17),inset 0 -1px 0 rgba(0,0,0,.36)}
   .logo img{height:34px;display:block;filter:brightness(1.15) drop-shadow(0 0 8px rgba(169,184,255,.55)) drop-shadow(0 0 20px rgba(43,69,255,.35));animation:glow 6s ease-in-out infinite}
   @keyframes glow{0%,100%{filter:brightness(1.12) drop-shadow(0 0 6px rgba(169,184,255,.45)) drop-shadow(0 0 16px rgba(43,69,255,.28))}50%{filter:brightness(1.2) drop-shadow(0 0 12px rgba(169,184,255,.8)) drop-shadow(0 0 30px rgba(43,69,255,.5))}}
   .nlinks{display:flex;gap:30px;font-size:14px;color:var(--txt2)}
