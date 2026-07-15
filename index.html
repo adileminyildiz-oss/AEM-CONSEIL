@@ -203,19 +203,24 @@
     background:radial-gradient(ellipse at 58% 42%,rgba(43,69,255,.55),transparent 62%);filter:blur(72px);opacity:.5;
     transform:translate(-50%,-50%);animation:auraShift 13s ease-in-out infinite}
   @keyframes auraShift{0%,100%{transform:translate(-52%,-50%) scale(1)}50%{transform:translate(-47%,-53%) scale(1.14)}}
-  .steps{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .step{position:relative;overflow:hidden;border:1px solid rgba(150,168,255,.16);border-radius:20px;padding:28px 24px;
-    background:linear-gradient(180deg,rgba(18,23,42,.66),rgba(9,12,24,.72));backdrop-filter:blur(22px) saturate(175%);-webkit-backdrop-filter:blur(22px) saturate(175%);
-    box-shadow:0 24px 50px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.10);transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s}
-  .step::before{content:"";position:absolute;top:-38%;left:-10%;width:120%;height:78%;pointer-events:none;
-    background:radial-gradient(ellipse at 50% 0%,rgba(109,134,255,.16),transparent 60%);opacity:.7}
-  .step>*{position:relative;z-index:1}
-  .step:hover{transform:translateY(-5px);border-color:rgba(109,134,255,.4);box-shadow:0 30px 62px rgba(0,0,0,.5),0 0 42px rgba(43,69,255,.18),inset 0 1px 0 rgba(255,255,255,.14)}
-  .step.accent{border-color:rgba(109,134,255,.5);box-shadow:0 30px 66px rgba(0,0,0,.5),0 0 56px rgba(43,69,255,.32),inset 0 1px 0 rgba(255,255,255,.16)}
-  .step.accent::before{background:radial-gradient(ellipse at 50% 0%,rgba(109,134,255,.36),transparent 62%);opacity:1}
-  .step .sn{font-family:'Instrument Serif';font-style:italic;font-size:24px;color:var(--azur)}
-  .step h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px;margin:12px 0 0}
-  .step p{margin:8px 0 0;font-size:13.5px;color:var(--txt2)}
+  /* Méthode — timeline connectée */
+  .steps{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .track-line{position:absolute;top:29px;left:8%;right:8%;height:2px;border-radius:2px;background:rgba(150,168,255,.15);z-index:0}
+  .track-progress{position:absolute;top:29px;left:8%;height:2px;border-radius:2px;width:0;z-index:0;
+    background:linear-gradient(90deg,var(--outremer),var(--azur));box-shadow:0 0 12px rgba(43,69,255,.6);transition:width 1.7s cubic-bezier(.22,1,.36,1),height 1.7s cubic-bezier(.22,1,.36,1)}
+  .steps.in .track-progress{width:66%}
+  .step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px}
+  .step .node{position:relative;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin-bottom:24px;
+    font-family:'Instrument Serif';font-style:italic;font-size:24px;color:var(--peri);backdrop-filter:blur(10px);
+    background:linear-gradient(160deg,rgba(20,26,48,.9),rgba(9,13,26,.95));border:1px solid var(--line-2);
+    box-shadow:0 8px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12);transition:transform .3s}
+  .step:hover .node{transform:translateY(-4px)}
+  .step.on .node{border-color:rgba(109,134,255,.7);color:#fff;background:linear-gradient(160deg,var(--outremer),rgba(43,69,255,.5));box-shadow:0 0 26px rgba(43,69,255,.55),inset 0 1px 0 rgba(255,255,255,.2)}
+  .step.dest .node{border-color:rgba(62,233,164,.6);color:#04121b;background:linear-gradient(160deg,#8ff5cf,#3ee9a4);box-shadow:0 0 26px rgba(62,233,164,.5)}
+  .step h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px}
+  .step p{margin-top:8px;font-size:13.5px;line-height:1.5;color:var(--txt2);max-width:26ch}
+  .step .tag{margin-top:13px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--azur);padding:4px 11px;border:1px solid var(--line-2);border-radius:999px}
+  .step.dest .tag{color:var(--pos);border-color:rgba(62,233,164,.3)}
 
   /* ===== À propos ===== */
   .about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
@@ -353,9 +358,16 @@
   @media(max-width:960px){
     .about{grid-template-columns:1fr;gap:40px}
     .svc-grid,.avis-grid{grid-template-columns:1fr}
-    .steps{grid-template-columns:1fr 1fr}
     .contact{grid-template-columns:1fr;gap:30px}
     .ft-top{grid-template-columns:1fr;gap:28px}
+    /* Timeline verticale */
+    .steps{grid-template-columns:1fr;gap:0}
+    .track-line{top:0;bottom:0;left:29px;right:auto;width:2px;height:auto}
+    .track-progress{top:0;left:29px;width:2px;height:0}
+    .steps.in .track-progress{width:2px;height:70%}
+    .step{flex-direction:row;align-items:flex-start;text-align:left;gap:22px;padding:0 0 34px}
+    .step .node{margin-bottom:0;flex:none}
+    .step p{max-width:none}
   }
   @media(max-width:820px){
     .nlinks,.nav-in>.btn-pri{display:none}
@@ -606,10 +618,10 @@ var SERVICES=[
     features:['Un interlocuteur unique et dédié','Réponses sous 24 h','Rendez-vous à distance ou en présentiel','Outils digitaux modernes et sécurisés','Conseils clairs, sans jargon','Suivi sur-mesure selon vos besoins']}
 ];
 var STEPS=[
-  {t:'Reprise & FEC',d:'Nous récupérons votre FEC et vos pièces comptables, puis dressons un point complet de votre situation.'},
-  {t:'Tenue & révision',d:'Saisie, lettrage, rapprochements bancaires et révision des comptes, tout au long de l’exercice.'},
-  {t:'Déclarations & échéances',d:'TVA, DSN, acomptes et déclarations : chaque obligation traitée dans les délais légaux.'},
-  {t:'Bilan & conseil',d:'Clôture, bilan et liasse fiscale, puis rendez-vous de pilotage pour préparer la suite.'}
+  {t:'Reprise & FEC',d:'Récupération de votre FEC et de vos pièces comptables, puis point complet de votre situation.',tag:'Démarrage'},
+  {t:'Tenue & révision',d:'Saisie, lettrage, rapprochements bancaires et révision des comptes, tout au long de l’exercice.',tag:'En continu'},
+  {t:'Déclarations & échéances',d:'TVA, DSN, acomptes et déclarations : chaque obligation traitée dans les délais légaux.',tag:'Aux échéances'},
+  {t:'Bilan & conseil',d:'Clôture, bilan et liasse fiscale, puis rendez-vous de pilotage pour préparer la suite.',tag:'Objectif',dest:true}
 ];
 var ABOUT_POINTS=['Des conseils clairs, sans jargon','Une équipe disponible et réactive','Des outils digitaux modernes et sécurisés','Un accompagnement sur-mesure selon vos besoins'];
 var REVIEWS=[
@@ -646,11 +658,14 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
     return head+ghost+ic+'<h3>'+esc(s.title)+'</h3><p>'+esc(s.teaser)+'</p>'+more+'</div>';
   }).join('');
 
-  document.getElementById('steps').innerHTML=STEPS.map(function(s,i){
-    var n=('0'+(i+1)).slice(-2);
-    var cls=(i===STEPS.length-1)?' accent':'';
-    return '<div class="step'+cls+'"><div class="sn">'+n+'</div><h3>'+esc(s.t)+'</h3><p>'+esc(s.d)+'</p></div>';
-  }).join('');
+  var CHECK='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>';
+  document.getElementById('steps').innerHTML=
+    '<div class="track-line" aria-hidden="true"></div><div class="track-progress" aria-hidden="true"></div>'
+    + STEPS.map(function(s,i){
+        var n=('0'+(i+1)).slice(-2);
+        var node=s.dest?'<div class="node">'+CHECK+'</div>':'<div class="node">'+n+'</div>';
+        return '<div class="step'+(s.dest?' dest':' on')+'">'+node+'<h3>'+esc(s.t)+'</h3><p>'+esc(s.d)+'</p><span class="tag">'+esc(s.tag)+'</span></div>';
+      }).join('');
 
   document.getElementById('about-points').innerHTML=ABOUT_POINTS.map(function(p){
     return '<li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>'+esc(p)+'</li>';
