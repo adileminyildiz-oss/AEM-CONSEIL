@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Avis — Note & confiance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--noir:#04050b;--outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;--line:rgba(150,168,255,.14);--txt:#f2f4ff;--txt2:#8b98bd;--pos:#3ee9a4}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:'Inter',sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(720px 520px at 50% -6%,rgba(43,69,255,.18),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic;color:var(--peri)}
+  .wrap{max-width:1080px;margin:0 auto;padding:74px 34px}
+  .sh{text-align:center;max-width:620px;margin:0 auto 44px}
+  .kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .sh h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin-top:12px}
+  .trust{display:grid;grid-template-columns:.82fr 1.18fr;gap:22px;align-items:stretch}
+  .score{border:1px solid rgba(109,134,255,.4);border-radius:22px;padding:34px 30px;display:flex;flex-direction:column;justify-content:center;
+    background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03));box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 50px rgba(43,69,255,.16),inset 0 1px 0 rgba(255,255,255,.12)}
+  .score .big{font-family:'Inter Tight';font-weight:800;font-size:64px;line-height:1;letter-spacing:-.03em}
+  .score .stars{color:#ffd166;letter-spacing:3px;font-size:20px;margin-top:10px}
+  .score .lab{margin-top:12px;font-size:14px;color:var(--txt2)}
+  .avatars{display:flex;margin-top:22px}
+  .avatars span{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:'Inter Tight';font-weight:700;font-size:13px;color:#04121b;border:2px solid #0a0e1a;margin-left:-10px;background:linear-gradient(135deg,#8ff5cf,#3ee9a4)}
+  .avatars span:first-child{margin-left:0}
+  .avatars .more{background:linear-gradient(135deg,#9ab4ff,#2b45ff);color:#fff}
+  .score .rec{margin-top:16px;font-size:13.5px;color:var(--peri);font-weight:600}
+  .list{display:flex;flex-direction:column;gap:14px}
+  .rev{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+  .rev .av{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#5b7cff,#2b45ff);color:#04121b;font-family:'Inter Tight';font-weight:700;font-size:14px}
+  .rev .body .st{color:#ffd166;letter-spacing:2px;font-size:12px}
+  .rev .body p{font-family:'Instrument Serif';font-style:italic;font-size:16px;line-height:1.5;color:#dbe3f2;margin:6px 0 10px}
+  .rev .body b{font-family:'Inter Tight';font-size:14px}
+  .rev .body span{font-size:12.5px;color:var(--txt2);margin-left:8px}
+  @media(max-width:820px){.trust{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="sh"><span class="kick">Ils nous font confiance</span><h2>La <span class="ital">parole</span> à nos clients</h2></div>
+  <div class="trust">
+    <div class="score">
+      <div class="big">5,0</div>
+      <div class="stars">★★★★★</div>
+      <div class="lab">Note moyenne de nos clients</div>
+      <div class="avatars"><span>SL</span><span>KM</span><span>EP</span><span class="more">+</span></div>
+      <div class="rec">200+ clients · 97 % nous recommandent</div>
+    </div>
+    <div class="list">
+      <div class="rev"><span class="av">SL</span><div class="body"><div class="st">★★★★★</div><p>« Un accompagnement vraiment humain. Mes comptes sont enfin clairs et je gagne un temps précieux chaque mois. »</p><b>Sophie L.</b><span>Gérante, commerce</span></div></div>
+      <div class="rev"><span class="av">KM</span><div class="body"><div class="st">★★★★★</div><p>« Réactifs, pédagogues et toujours disponibles. Ils m'ont accompagné de la création au développement de ma société. »</p><b>Karim M.</b><span>Fondateur, startup</span></div></div>
+      <div class="rev"><span class="av">EP</span><div class="body"><div class="st">★★★★★</div><p>« Des conseils stratégiques qui ont un vrai impact sur ma rentabilité. Je recommande sans hésiter. »</p><b>Élodie P.</b><span>Dirigeante, PME</span></div></div>
+    </div>
+  </div>
+</div></body></html>
