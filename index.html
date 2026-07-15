@@ -864,7 +864,15 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
 })();
 
 /* ===== Service worker ===== */
-if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js').then(function(reg){ if(reg.update) reg.update(); }).catch(function(){});
+  });
+  var _swRefreshed=false;
+  navigator.serviceWorker.addEventListener('controllerchange',function(){
+    if(_swRefreshed)return; _swRefreshed=true; window.location.reload();
+  });
+}
 </script>
 </body>
 </html>
