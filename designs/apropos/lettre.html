@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>À propos — Lettre du cabinet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--noir:#04050b;--outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;--line:rgba(150,168,255,.14);--txt:#f2f4ff;--txt2:#93a1c0}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:'Newsreader',serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(720px 520px at 50% -6%,rgba(43,69,255,.16),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
+  .wrap{max-width:820px;margin:0 auto;padding:80px 34px}
+  .kick{text-align:center;font-family:'Inter Tight';font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .letter{position:relative;margin:24px auto 0;padding:clamp(38px,6vw,64px);border-radius:24px;
+    background:linear-gradient(160deg,rgba(20,26,44,.7),rgba(9,13,26,.82));border:1px solid var(--line);
+    backdrop-filter:blur(22px) saturate(160%);box-shadow:0 40px 90px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);overflow:hidden}
+  .letter::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.04;
+    background-image:radial-gradient(rgba(255,255,255,.7) .5px,transparent .5px);background-size:4px 4px}
+  .mark{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+  .mark img{height:30px;filter:brightness(1.2) drop-shadow(0 0 10px rgba(109,134,255,.5))}
+  .mark span{font-family:'Inter Tight';font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2)}
+  .hi{font-family:'Newsreader';font-style:italic;font-size:clamp(21px,2.6vw,27px);color:var(--peri);margin-bottom:18px}
+  .letter p{font-size:clamp(16px,1.9vw,18.5px);line-height:1.75;color:#dbe3f2;margin-bottom:16px}
+  .letter p em{font-style:italic;color:#fff}
+  .close{margin-top:30px;font-size:17px;color:var(--txt2)}
+  .sig{font-family:'Caveat';font-weight:700;font-size:44px;color:var(--peri);line-height:1;margin-top:4px;filter:drop-shadow(0 0 12px rgba(109,134,255,.4))}
+  .role{font-family:'Inter Tight';font-size:12.5px;color:var(--txt2);margin-top:8px;letter-spacing:.03em}
+  .tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}
+  .tag{font-family:'Inter Tight';font-size:12.5px;color:#cdd7f5;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03)}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="kick">À propos</div>
+  <div class="letter">
+    <div class="mark"><img src="../../assets/logo-full.png" alt="AEM CONSEIL"><span>Cabinet d'expertise comptable</span></div>
+    <p class="hi">Chère entrepreneuse, cher entrepreneur,</p>
+    <p>Derrière chaque écriture, chaque bilan, il y a bien plus que des chiffres : il y a <em>votre projet</em>, vos nuits à y penser, vos décisions à prendre. C'est cela que nous accompagnons.</p>
+    <p>Nous avons choisi de rester un cabinet à taille humaine — pour vous connaître vraiment, vous répondre vite, et vous parler simplement. Pas de jargon, pas d'interlocuteur qui change : une équipe qui vous suit, du premier jour au bilan.</p>
+    <p class="close">Avec toute notre attention,</p>
+    <div class="sig">AEM-CONSEIL</div>
+    <div class="role">— L'équipe du cabinet</div>
+    <div class="tags"><span class="tag">10 ans d'expérience</span><span class="tag">200+ clients</span><span class="tag">Réponse sous 24 h</span><span class="tag">Interlocuteur dédié</span></div>
+  </div>
+</div></body></html>

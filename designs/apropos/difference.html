@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>À propos — Notre différence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--noir:#04050b;--outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;--line:rgba(150,168,255,.14);--txt:#f2f4ff;--txt2:#8b98bd;--pos:#3ee9a4;--mut:#5c6a86}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:'Inter',sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(720px 520px at 50% -6%,rgba(43,69,255,.18),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic;color:var(--peri)}
+  .wrap{max-width:1040px;margin:0 auto;padding:74px 34px}
+  .sh{text-align:center;max-width:640px;margin:0 auto 48px}
+  .kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .sh h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin-top:12px}
+  .compare{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .col{border:1px solid var(--line);border-radius:22px;padding:32px 28px}
+  .col.old{background:rgba(255,255,255,.02)}
+  .col.new{background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03));border-color:rgba(109,134,255,.45);
+    box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 50px rgba(43,69,255,.18),inset 0 1px 0 rgba(255,255,255,.12)}
+  .col h3{font-family:'Inter Tight';font-weight:600;font-size:18px;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+  .col.old h3{color:var(--txt2)}
+  .col ul{list-style:none;display:flex;flex-direction:column;gap:16px}
+  .col li{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.4}
+  .col.old li{color:var(--mut)}
+  .col li .m{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
+  .col.old li .m{border:1px solid rgba(150,168,255,.2);color:var(--mut)}
+  .col.new li .m{background:linear-gradient(135deg,#5b7cff,#2b45ff);color:#fff}
+  .vs{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:52px;height:52px;border-radius:50%;
+    display:grid;place-items:center;font-family:'Instrument Serif';font-style:italic;font-size:18px;color:var(--peri);
+    background:rgba(9,13,26,.95);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.6)}
+  @media(max-width:720px){.compare{grid-template-columns:1fr;gap:14px}.vs{position:static;transform:none;margin:0 auto}}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="sh"><span class="kick">À propos</span><h2>La <span class="ital">différence</span> d'un cabinet à taille humaine</h2></div>
+  <div class="compare">
+    <div class="col old">
+      <h3>Un cabinet classique</h3>
+      <ul>
+        <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un interlocuteur qui change souvent</li>
+        <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Des réponses qui tardent</li>
+        <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un jargon technique</li>
+        <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un bilan… une fois par an</li>
+      </ul>
+    </div>
+    <div class="col new">
+      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a9b8ff" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Avec AEM-CONSEIL</h3>
+      <ul>
+        <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Un interlocuteur unique et dédié</li>
+        <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Une réponse sous 24 h</li>
+        <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Des conseils clairs, sans jargon</li>
+        <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Des tableaux de bord en continu</li>
+      </ul>
+    </div>
+    <div class="vs">vs</div>
+  </div>
+</div></body></html>
