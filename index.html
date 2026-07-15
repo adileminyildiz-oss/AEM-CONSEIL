@@ -223,27 +223,23 @@
   .step.dest .tag{color:var(--pos);border-color:rgba(62,233,164,.3)}
 
   /* ===== À propos ===== */
-  .about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-  .about h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(28px,3.8vw,42px);letter-spacing:-.03em;margin-top:14px;text-wrap:balance}
-  .about h2 .ital{color:var(--peri)}
-  .about p.intro{margin-top:20px;font-size:16px;line-height:1.7;color:var(--txt2)}
-  .about ul{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
-  .about li{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500}
-  .about li .chk{display:grid;place-items:center;flex:none;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#5b7cff,#2b45ff);color:#05061a}
-  .about blockquote{margin:28px 0 0;padding-left:18px;border-left:2px solid var(--line-2)}
-  .about blockquote p{font-family:'Instrument Serif';font-style:italic;font-size:19px;color:#cdd7f5;margin:0}
-  .about blockquote footer{margin-top:8px;font-size:13px;color:var(--txt2)}
-  .about-visual{position:relative;aspect-ratio:5/4;border:1px solid var(--line);border-radius:22px;overflow:hidden;display:grid;place-items:center;background:var(--glass)}
-  .about-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 46%,rgba(43,69,255,.16),transparent 62%)}
-  .about-visual .ring{position:absolute;border-radius:50%;border:1px solid var(--line)}
-  .about-visual .r1{width:82%;aspect-ratio:1}.about-visual .r2{width:56%;aspect-ratio:1;border-color:var(--line-2)}
-  .about-visual img{position:relative;width:64%;max-width:260px;filter:brightness(1.18) drop-shadow(0 0 16px rgba(169,184,255,.6)) drop-shadow(0 0 36px rgba(43,69,255,.45))}
-  .about-visual .chip{position:absolute;padding:8px 13px;border-radius:999px;border:1px solid var(--line-2);background:rgba(9,12,26,.72);backdrop-filter:blur(16px);font-size:12px;color:#cdd7f5}
-  .about-visual .p1{top:12%;left:8%;animation:flo 6s ease-in-out infinite}
-  .about-visual .p2{top:18%;right:7%;animation:flo 6.6s ease-in-out infinite .6s}
-  .about-visual .p3{bottom:14%;left:9%;animation:flo 6.3s ease-in-out infinite .3s}
-  .about-visual .p4{bottom:10%;right:8%;animation:flo 6.8s ease-in-out infinite 1s}
-  @keyframes flo{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  /* À propos — comparatif « Notre différence » */
+  .compare{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .compare .col{border:1px solid var(--line);border-radius:22px;padding:32px 28px}
+  .compare .col.old{background:rgba(255,255,255,.02)}
+  .compare .col.new{background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03));border-color:rgba(109,134,255,.45);
+    box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 50px rgba(43,69,255,.18),inset 0 1px 0 rgba(255,255,255,.12)}
+  .compare .col h3{font-family:'Inter Tight';font-weight:600;font-size:18px;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+  .compare .col.old h3{color:var(--txt2)}
+  .compare .col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+  .compare .col li{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.4}
+  .compare .col.old li{color:#5c6a86}
+  .compare .col li .m{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
+  .compare .col.old li .m{border:1px solid rgba(150,168,255,.2);color:#5c6a86}
+  .compare .col.new li .m{background:linear-gradient(135deg,#5b7cff,#2b45ff);color:#fff}
+  .compare .vs{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:52px;height:52px;border-radius:50%;
+    display:grid;place-items:center;font-family:'Instrument Serif';font-style:italic;font-size:18px;color:var(--peri);
+    background:rgba(9,13,26,.95);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.6)}
 
   /* ===== Avis ===== */
   .avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -356,7 +352,8 @@
 
   /* ===== Responsive ===== */
   @media(max-width:960px){
-    .about{grid-template-columns:1fr;gap:40px}
+    .compare{grid-template-columns:1fr;gap:14px}
+    .compare .vs{position:static;transform:none;margin:0 auto}
     .svc-grid,.avis-grid{grid-template-columns:1fr}
     .contact{grid-template-columns:1fr;gap:30px}
     .ft-top{grid-template-columns:1fr;gap:28px}
@@ -434,22 +431,27 @@
 
     <!-- À PROPOS -->
     <section id="apropos">
-      <div class="about">
-        <div class="reveal">
-          <span class="kick">À propos</span>
-          <h2>Un cabinet à <span class="ital">taille humaine</span>, proche de vous</h2>
-          <p class="intro">Chez AEM-CONSEIL, une bonne relation de conseil repose sur la proximité, la réactivité et la transparence. Derrière les chiffres, il y a des femmes et des hommes qui construisent un projet — et c'est eux que nous accompagnons.</p>
-          <ul id="about-points"></ul>
-          <blockquote><p>« Votre réussite, c'est aussi la nôtre. »</p><footer>— L'équipe AEM-CONSEIL</footer></blockquote>
+      <div class="sh reveal"><span class="kick">À propos</span><h2>La <span class="ital">différence</span> d'un cabinet à taille humaine</h2><p>Chez AEM-CONSEIL, la proximité, la réactivité et la transparence ne sont pas des mots : c'est notre façon de travailler.</p></div>
+      <div class="compare reveal">
+        <div class="col old">
+          <h3>Un cabinet classique</h3>
+          <ul>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un interlocuteur qui change souvent</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Des réponses qui tardent</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un jargon technique</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un bilan… une fois par an</li>
+          </ul>
         </div>
-        <div class="about-visual reveal">
-          <div class="ring r1"></div><div class="ring r2"></div>
-          <img src="assets/logo-full.png" alt="AEM Conseil">
-          <span class="chip p1">● 10 ans d'expérience</span>
-          <span class="chip p2">● 200+ clients</span>
-          <span class="chip p3">● Réponse sous 24 h</span>
-          <span class="chip p4">● 100 % engagement</span>
+        <div class="col new">
+          <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a9b8ff" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Avec AEM-CONSEIL</h3>
+          <ul>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Un interlocuteur unique et dédié</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Une réponse sous 24 h</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Des conseils clairs, sans jargon</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Des tableaux de bord en continu</li>
+          </ul>
         </div>
+        <div class="vs" aria-hidden="true">vs</div>
       </div>
     </section>
 
@@ -666,10 +668,6 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
         var node=s.dest?'<div class="node">'+CHECK+'</div>':'<div class="node">'+n+'</div>';
         return '<div class="step'+(s.dest?' dest':' on')+'">'+node+'<h3>'+esc(s.t)+'</h3><p>'+esc(s.d)+'</p><span class="tag">'+esc(s.tag)+'</span></div>';
       }).join('');
-
-  document.getElementById('about-points').innerHTML=ABOUT_POINTS.map(function(p){
-    return '<li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>'+esc(p)+'</li>';
-  }).join('');
 
   document.getElementById('avis-grid').innerHTML=REVIEWS.map(function(r){
     return '<div class="avis"><div class="stars">★★★★★</div><p>« '+esc(r.quote)+' »</p>'
