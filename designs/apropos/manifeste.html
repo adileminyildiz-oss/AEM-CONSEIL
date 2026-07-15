@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>À propos — Manifeste signé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--noir:#04050b;--outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;--line:rgba(150,168,255,.14);--txt:#f2f4ff;--txt2:#8b98bd}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:'Inter',sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(720px 520px at 50% -6%,rgba(43,69,255,.18),transparent 60%),radial-gradient(560px 460px at 88% 60%,rgba(43,69,255,.09),transparent 62%),linear-gradient(180deg,#05060e,#04050b)}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic}
+  .wrap{max-width:1000px;margin:0 auto;padding:84px 34px;text-align:center}
+  .kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .manif{font-family:'Inter Tight';font-weight:600;font-size:clamp(30px,4.6vw,54px);line-height:1.14;letter-spacing:-.02em;margin:22px auto 0;max-width:16ch;text-wrap:balance}
+  .manif .ital{color:var(--peri);font-weight:400}
+  .lead{margin:26px auto 0;max-width:600px;font-size:16.5px;line-height:1.7;color:var(--txt2)}
+  .credo{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:54px 0 0;text-align:left}
+  .credo .c{background:rgba(9,12,24,.6);padding:24px 22px;backdrop-filter:blur(12px)}
+  .credo .n{font-family:'Instrument Serif';font-style:italic;font-size:22px;color:var(--azur)}
+  .credo h4{font-family:'Inter Tight';font-weight:600;font-size:15px;margin:10px 0 0}
+  .credo p{margin:6px 0 0;font-size:13px;color:var(--txt2)}
+  .sign{margin:56px auto 0;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .sign .q{font-family:'Instrument Serif';font-style:italic;font-size:22px;color:#cdd7f5}
+  .sign .name{font-family:'Caveat';font-weight:700;font-size:46px;color:var(--peri);line-height:1;margin-top:6px;filter:drop-shadow(0 0 12px rgba(109,134,255,.4))}
+  .sign .role{font-size:12.5px;color:var(--txt2);letter-spacing:.04em}
+  .pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:34px 0 0}
+  .pill{font-size:13px;color:#cdd7f5;padding:8px 15px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03)}
+  .pill b{color:#fff;font-family:'Inter Tight'}
+  @media(max-width:760px){.credo{grid-template-columns:1fr 1fr}}
+</style></head>
+<body>
+<div class="wrap">
+  <span class="kick">À propos · Notre engagement</span>
+  <h1 class="manif">Derrière chaque <span class="ital">chiffre</span>, il y a un projet — et des femmes et des hommes que nous <span class="ital">accompagnons</span>.</h1>
+  <p class="lead">Chez AEM-CONSEIL, une bonne relation de conseil repose sur la proximité, la réactivité et la transparence. Un cabinet à taille humaine, qui vous connaît vraiment.</p>
+  <div class="credo">
+    <div class="c"><div class="n">01</div><h4>Clarté</h4><p>Des conseils clairs, sans jargon.</p></div>
+    <div class="c"><div class="n">02</div><h4>Réactivité</h4><p>Une équipe disponible, réponse sous 24 h.</p></div>
+    <div class="c"><div class="n">03</div><h4>Sécurité</h4><p>Des outils digitaux modernes et sécurisés.</p></div>
+    <div class="c"><div class="n">04</div><h4>Sur-mesure</h4><p>Un accompagnement selon vos besoins.</p></div>
+  </div>
+  <div class="sign">
+    <span class="q">« Votre réussite, c'est aussi la nôtre. »</span>
+    <span class="name">AEM-CONSEIL</span>
+    <span class="role">— L'équipe du cabinet</span>
+  </div>
+  <div class="pills">
+    <span class="pill"><b>10 ans</b> d'expérience</span>
+    <span class="pill"><b>200+</b> clients accompagnés</span>
+    <span class="pill">Réponse <b>24 h</b></span>
+    <span class="pill"><b>100 %</b> engagement</span>
+  </div>
+</div></body></html>

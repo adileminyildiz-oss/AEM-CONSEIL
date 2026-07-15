@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>À propos — Orbite vivante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--noir:#04050b;--outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;--line:rgba(150,168,255,.14);--txt:#f2f4ff;--txt2:#8b98bd;--pos:#3ee9a4}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:'Inter',sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(760px 560px at 50% 40%,rgba(43,69,255,.16),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic;color:var(--peri)}
+  .wrap{max-width:1100px;margin:0 auto;padding:70px 34px;text-align:center}
+  .kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:12px auto 0;max-width:18ch}
+  .lead{margin:18px auto 34px;max-width:560px;font-size:16px;color:var(--txt2)}
+  .stage{position:relative;width:min(620px,92vw);aspect-ratio:1;margin:0 auto}
+  .ring{position:absolute;inset:0;margin:auto;border-radius:50%;border:1px solid var(--line)}
+  .r1{width:100%;height:100%;animation:spin 40s linear infinite}
+  .r2{width:66%;height:66%;border-color:rgba(150,168,255,.2);animation:spin 30s linear infinite reverse}
+  .r3{width:34%;height:34%;border-color:rgba(150,168,255,.26)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .core{position:absolute;inset:0;margin:auto;width:24%;aspect-ratio:1;display:grid;place-items:center;border-radius:50%;
+    background:radial-gradient(circle,rgba(43,69,255,.34),transparent 70%)}
+  .core img{width:118%;filter:brightness(1.25) drop-shadow(0 0 16px rgba(157,178,255,.7)) drop-shadow(0 0 40px rgba(43,69,255,.6))}
+  .sat{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:7px;
+    padding:9px 15px;border-radius:999px;border:1px solid var(--line);background:rgba(10,16,36,.82);backdrop-filter:blur(16px);
+    font-size:13px;color:#d5deff;white-space:nowrap;box-shadow:0 10px 26px rgba(0,0,0,.45)}
+  .sat b{font-family:'Inter Tight';color:#fff}
+  .sat .d{width:7px;height:7px;border-radius:50%;background:var(--azur);box-shadow:0 0 9px var(--azur)}
+  /* satellites placed around the outer ring */
+  .s1{margin-top:-46%} .s2{margin-left:44%} .s3{margin-top:46%} .s4{margin-left:-44%}
+  .val{position:absolute;top:50%;left:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:linear-gradient(135deg,#8ff5cf,#3ee9a4);box-shadow:0 0 12px rgba(62,233,164,.6)}
+  .v1{transform:translate(0,-155px)} .v2{transform:translate(155px,0)} .v3{transform:translate(0,155px)} .v4{transform:translate(-155px,0)}
+  .legend{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 22px;margin:36px 0 0;font-size:13.5px;color:var(--txt2)}
+  .legend span{display:inline-flex;align-items:center;gap:8px}
+  .legend .k{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#8ff5cf,#3ee9a4);box-shadow:0 0 8px rgba(62,233,164,.5)}
+  @media(max-width:600px){.sat{font-size:11px;padding:7px 11px}}
+</style></head>
+<body>
+<div class="wrap">
+  <span class="kick">À propos</span>
+  <h2>Un cabinet à <span class="ital">taille humaine</span>, et vous au centre</h2>
+  <p class="lead">Comptabilité, gestion et conseil gravitent autour d'un seul objectif : votre réussite.</p>
+  <div class="stage">
+    <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+    <span class="val v1"></span><span class="val v2"></span><span class="val v3"></span><span class="val v4"></span>
+    <div class="core"><img src="../../assets/logo-mark-white.png" alt="AC"></div>
+    <div class="sat s1"><span class="d"></span><b>10 ans</b> d'expérience</div>
+    <div class="sat s2"><span class="d"></span><b>200+</b> clients</div>
+    <div class="sat s3"><span class="d"></span>Réponse <b>24 h</b></div>
+    <div class="sat s4"><span class="d"></span><b>100 %</b> engagement</div>
+  </div>
+  <div class="legend">
+    <span><span class="k"></span>Conseils clairs, sans jargon</span>
+    <span><span class="k"></span>Équipe disponible &amp; réactive</span>
+    <span><span class="k"></span>Outils modernes &amp; sécurisés</span>
+    <span><span class="k"></span>Accompagnement sur-mesure</span>
+  </div>
+</div></body></html>
