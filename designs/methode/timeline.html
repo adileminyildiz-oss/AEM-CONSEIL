@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Méthode — Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--noir:#04050b;--outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;--line:rgba(150,168,255,.14);--txt:#f2f4ff;--txt2:#8b98bd;--pos:#3ee9a4}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:'Inter',sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(760px 560px at 50% -8%,rgba(43,69,255,.2),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic}
+  .wrap{max-width:1120px;margin:0 auto;padding:80px 34px;position:relative}
+  .glow{position:absolute;left:50%;top:62%;width:min(820px,92%);height:340px;transform:translate(-50%,-50%);z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at 55% 45%,rgba(43,69,255,.4),transparent 62%);filter:blur(70px);opacity:.5}
+  .sh{text-align:center;max-width:660px;margin:0 auto 60px;position:relative;z-index:1}
+  .kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .sh h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(30px,4.4vw,46px);letter-spacing:-.03em;margin-top:12px}
+  .sh h2 .ital{color:var(--peri)}
+  /* Timeline */
+  .track{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .track::before{content:"";position:absolute;top:29px;left:8%;right:8%;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,rgba(150,168,255,.15),rgba(150,168,255,.15))}
+  .track::after{content:"";position:absolute;top:29px;left:8%;width:66%;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,var(--outremer),var(--azur));box-shadow:0 0 12px rgba(43,69,255,.6)}
+  .step{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px}
+  .node{position:relative;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin-bottom:26px;
+    background:linear-gradient(160deg,rgba(20,26,48,.9),rgba(9,13,26,.95));border:1px solid var(--line);
+    font-family:'Instrument Serif';font-style:italic;font-size:24px;color:var(--peri);backdrop-filter:blur(10px);
+    box-shadow:0 8px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12)}
+  .step.on .node{border-color:rgba(109,134,255,.7);color:#fff;background:linear-gradient(160deg,var(--outremer),rgba(43,69,255,.5));box-shadow:0 0 26px rgba(43,69,255,.55),inset 0 1px 0 rgba(255,255,255,.2)}
+  .step.dest .node{border-color:rgba(62,233,164,.6);color:#04121b;background:linear-gradient(160deg,#8ff5cf,#3ee9a4);box-shadow:0 0 26px rgba(62,233,164,.5)}
+  .step h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px}
+  .step p{margin-top:8px;font-size:13.5px;line-height:1.5;color:var(--txt2);max-width:24ch}
+  .step .tag{margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--azur);padding:4px 10px;border:1px solid var(--line);border-radius:999px}
+  .step.dest .tag{color:var(--pos);border-color:rgba(62,233,164,.3)}
+  @media(max-width:760px){
+    .track{grid-template-columns:1fr;gap:0}
+    .track::before{top:0;bottom:0;left:29px;right:auto;width:2px;height:auto}
+    .track::after{top:0;left:29px;width:2px;height:66%}
+    .step{flex-direction:row;align-items:flex-start;text-align:left;gap:20px;padding:0 0 34px}
+    .node{margin-bottom:0;flex:none}
+    .step p{max-width:none}
+  }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="glow"></div>
+  <div class="sh"><span class="kick">Notre méthode</span><h2>Une <span class="ital">logique</span> comptable, du premier jour au bilan</h2></div>
+  <div class="track">
+    <div class="step on"><div class="node">01</div><h3>Reprise &amp; FEC</h3><p>Récupération de votre FEC et de vos pièces, point complet de départ.</p><span class="tag">Démarrage</span></div>
+    <div class="step on"><div class="node">02</div><h3>Tenue &amp; révision</h3><p>Saisie, lettrage, rapprochements et révision tout au long de l'exercice.</p><span class="tag">En continu</span></div>
+    <div class="step on"><div class="node">03</div><h3>Déclarations &amp; échéances</h3><p>TVA, DSN, acomptes : chaque obligation traitée dans les délais.</p><span class="tag">Aux échéances</span></div>
+    <div class="step dest"><div class="node"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg></div><h3>Bilan &amp; conseil</h3><p>Clôture, bilan, liasse fiscale et rendez-vous de pilotage.</p><span class="tag">Objectif</span></div>
+  </div>
+</div></body></html>
