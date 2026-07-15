@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Services — B · Index éditorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--noir:#04050b;--outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;--line:rgba(150,168,255,.12);--txt:#f2f4ff;--txt2:#8b98bd}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:'Space Grotesk',sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(760px 560px at 50% -8%,rgba(43,69,255,.22),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
+  .ital{font-family:'Fraunces',serif;font-style:italic;font-weight:500}
+  .wrap{max-width:1080px;margin:0 auto;padding:70px 34px}
+  .sh{max-width:680px;margin:0 auto 40px;text-align:center}
+  .kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .sh h2{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(30px,4.4vw,52px);margin-top:12px}
+  .sh h2 .ital{color:var(--peri)}
+  .rows{border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:32px;padding:26px 12px;border-bottom:1px solid var(--line);
+    position:relative;transition:background .3s;cursor:pointer}
+  .row::before{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:0;background:linear-gradient(90deg,var(--outremer),var(--azur));transition:width .4s cubic-bezier(.22,1,.36,1)}
+  .row:hover{background:linear-gradient(90deg,rgba(43,69,255,.06),transparent)}
+  .row:hover::before{width:100%}
+  .no{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:clamp(38px,5vw,64px);color:var(--peri);line-height:1;width:1.6em}
+  .mid h3{font-family:'Fraunces',serif;font-weight:600;font-size:23px}
+  .mid p{margin-top:6px;font-size:14.5px;color:var(--txt2)}
+  .go{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--peri);transition:.3s;flex:none}
+  .row:hover .go{background:var(--outremer);color:#fff;border-color:var(--outremer);transform:translateX(4px)}
+  @media(max-width:640px){.row{grid-template-columns:auto 1fr;gap:18px}.go{display:none}}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="sh"><span class="kick">Nos expertises</span><h2>Des <span class="ital">services</span> complets pour votre <span class="ital">entreprise</span></h2></div>
+  <div class="rows">
+    <div class="row"><div class="no">01</div><div class="mid"><h3>Expertise comptable</h3><p>Tenue, bilan, comptes annuels et liasses fiscales, en toute sérénité.</p></div><div class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div></div>
+    <div class="row"><div class="no">02</div><div class="mid"><h3>Conseil &amp; gestion</h3><p>Tableaux de bord, prévisionnels et pilotage stratégique de votre activité.</p></div><div class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div></div>
+    <div class="row"><div class="no">03</div><div class="mid"><h3>Paie &amp; social</h3><p>Bulletins de paie, déclarations sociales et obligations employeur.</p></div><div class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div></div>
+    <div class="row"><div class="no">04</div><div class="mid"><h3>Fiscalité</h3><p>Optimisation fiscale, TVA, déclarations et veille réglementaire adaptées.</p></div><div class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div></div>
+    <div class="row"><div class="no">05</div><div class="mid"><h3>Création d'entreprise</h3><p>Choix du statut, formalités et démarrage de votre activité de A à Z.</p></div><div class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div></div>
+    <div class="row"><div class="no">06</div><div class="mid"><h3>Accompagnement personnalisé</h3><p>Un interlocuteur dédié, à votre écoute au quotidien, sans jargon.</p></div><div class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div></div>
+  </div>
+</div></body></html>
