@@ -231,10 +231,10 @@
   @keyframes auraShift{0%,100%{transform:translate(-52%,-50%) scale(1)}50%{transform:translate(-47%,-53%) scale(1.14)}}
   /* Méthode — timeline connectée */
   .steps{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-  .track-line{position:absolute;top:29px;left:8%;right:8%;height:2px;border-radius:2px;background:rgba(150,168,255,.15);z-index:0}
-  .track-progress{position:absolute;top:29px;left:8%;height:2px;border-radius:2px;width:0;z-index:0;
+  .track-line{position:absolute;top:29px;left:calc(12.5% - 7.5px);right:calc(12.5% - 7.5px);height:2px;border-radius:2px;background:rgba(150,168,255,.15);z-index:0}
+  .track-progress{position:absolute;top:29px;left:calc(12.5% - 7.5px);height:2px;border-radius:2px;width:0;z-index:0;
     background:linear-gradient(90deg,var(--outremer),var(--azur));box-shadow:0 0 12px rgba(43,69,255,.6);transition:width 1.7s cubic-bezier(.22,1,.36,1),height 1.7s cubic-bezier(.22,1,.36,1)}
-  .steps.in .track-progress{width:66%}
+  .steps.in .track-progress{width:calc(50% + 10px)}
   .step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px}
   .step .node{position:relative;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin-bottom:24px;
     font-family:'Instrument Serif';font-style:italic;font-size:24px;color:var(--peri);backdrop-filter:blur(10px);
@@ -447,9 +447,10 @@
     .ft-top{grid-template-columns:1fr;gap:28px}
     /* Timeline verticale */
     .steps{grid-template-columns:1fr;gap:0}
-    .track-line{top:0;bottom:0;left:29px;right:auto;width:2px;height:auto}
-    .track-progress{top:0;left:29px;width:2px;height:0}
-    .steps.in .track-progress{width:2px;height:70%}
+    /* Ligne verticale : un connecteur par étape, du centre d'un cercle au suivant (pas de dépassement) */
+    .track-line,.track-progress{display:none}
+    .step:not(.dest)::before{content:'';position:absolute;left:29px;top:30px;height:100%;width:2px;z-index:0;
+      background:linear-gradient(180deg,rgba(43,69,255,.9),rgba(109,134,255,.45))}
     .step{flex-direction:row;align-items:flex-start;text-align:left;gap:22px;padding:0 0 34px}
     .step .node{margin-bottom:0;flex:none}
     .step-body{flex:1 1 auto}
