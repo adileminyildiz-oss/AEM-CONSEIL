@@ -680,7 +680,7 @@
       </div>
       <div class="ft-bottom">
         <span>© 2026 AEM-CONSEIL — Tous droits réservés.</span>
-        <span style="display:flex;flex-wrap:wrap;gap:14px 22px"><a href="#" onclick="event.preventDefault();openLegal()">Mentions légales</a><a href="#" onclick="event.preventDefault();openCGV()">Conditions générales de vente</a><a href="#" onclick="event.preventDefault();reopenCookies()">Gérer mes cookies</a></span>
+        <span style="display:flex;flex-wrap:wrap;gap:14px 22px"><a href="#" onclick="event.preventDefault();openLegal()">Mentions légales</a><a href="#" onclick="event.preventDefault();openPrivacy()">Politique de confidentialité</a><a href="#" onclick="event.preventDefault();openCGU()">CGU</a><a href="#" onclick="event.preventDefault();openCGV()">CGV</a><a href="#" onclick="event.preventDefault();reopenCookies()">Gérer mes cookies</a></span>
       </div>
     </div>
   </footer>
@@ -730,6 +730,92 @@
   </div>
 </div>
 
+<!-- Modale Politique de confidentialité -->
+<div class="overlay-modal" id="privacyModal" onclick="closePrivacy(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" aria-label="Fermer" onclick="closePrivacy()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h3 id="privacyTitle">Politique de confidentialité</h3>
+    <p class="m-desc">AEM-CONSEIL accorde une grande importance à la protection de vos données personnelles. La présente politique explique quelles données sont collectées, pourquoi, et comment vous pouvez exercer vos droits. Dernière mise à jour : juillet 2026.</p>
+    <div class="m-legal" style="margin-top:20px">
+      <h4>1. Responsable du traitement</h4>
+      <p>Le responsable du traitement des données est le cabinet AEM-CONSEIL, joignable par e-mail à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a> et par téléphone au <a href="tel:+33665908325">06 65 90 83 25</a>.</p>
+
+      <h4>2. Données que nous collectons</h4>
+      <p>Nous collectons les données que vous nous transmettez directement via le formulaire de contact ou de demande de rappel : nom, prénom, adresse e-mail, numéro de téléphone, objet et contenu de votre message. Nous collectons également des données techniques de navigation (statistiques d'audience) uniquement après votre consentement aux cookies.</p>
+
+      <h4>3. Finalités et bases légales</h4>
+      <p>Vos données sont traitées pour : répondre à vos demandes et vous recontacter (base : mesures précontractuelles et intérêt légitime) ; exécuter nos missions lorsque vous devenez client (base : exécution du contrat) ; respecter nos obligations légales et comptables (base : obligation légale) ; mesurer l'audience du site (base : votre consentement).</p>
+
+      <h4>4. Destinataires des données</h4>
+      <p>Vos données sont destinées au seul cabinet AEM-CONSEIL. Elles ne sont jamais vendues ni cédées. Elles peuvent être traitées par nos prestataires techniques (hébergeur, service d'envoi de formulaire) agissant en qualité de sous-traitants, ainsi que par les administrations lorsque la loi l'impose.</p>
+
+      <h4>5. Durée de conservation</h4>
+      <p>Les données de prospection sont conservées jusqu'à trois (3) ans après le dernier contact. Les données liées à une relation contractuelle sont conservées pendant la durée de la mission puis archivées selon les délais légaux (notamment dix ans pour les pièces comptables). Les données de mesure d'audience sont conservées au maximum treize (13) mois.</p>
+
+      <h4>6. Transferts hors Union européenne</h4>
+      <p>Certains prestataires techniques peuvent être situés hors de l'Union européenne. Dans ce cas, les transferts sont encadrés par des garanties appropriées (clauses contractuelles types de la Commission européenne) assurant un niveau de protection adéquat.</p>
+
+      <h4>7. Sécurité</h4>
+      <p>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées (accès restreints, chiffrement des échanges, sauvegardes) afin de protéger vos données contre tout accès, altération ou divulgation non autorisés.</p>
+
+      <h4>8. Vos droits</h4>
+      <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité de vos données, ainsi que du droit de définir des directives relatives à leur sort après votre décès. Vous pouvez les exercer à tout moment en écrivant à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>.</p>
+
+      <h4>9. Cookies</h4>
+      <p>Le site n'utilise des cookies de mesure d'audience qu'après votre consentement, recueilli via le bandeau dédié et modifiable à tout moment par « Gérer mes cookies ». Les cookies strictement nécessaires au fonctionnement du site ne requièrent pas de consentement.</p>
+
+      <h4>10. Réclamation auprès de la CNIL</h4>
+      <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la Commission nationale de l'informatique et des libertés (CNIL), 3 place de Fontenoy, 75007 Paris — <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
+
+      <h4>11. Modification de la politique</h4>
+      <p>La présente politique peut être mise à jour à tout moment pour refléter les évolutions légales ou de nos services. La version applicable est celle publiée sur le site à la date de votre consultation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Conditions générales d'utilisation -->
+<div class="overlay-modal" id="cguModal" onclick="closeCGU(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cguTitle" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" aria-label="Fermer" onclick="closeCGU()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h3 id="cguTitle">Conditions générales d'utilisation</h3>
+    <p class="m-desc">Les présentes CGU définissent les conditions d'accès et d'utilisation du site aemconseil.eu. Dernière mise à jour : juillet 2026.</p>
+    <div class="m-legal" style="margin-top:20px">
+      <h4>1. Objet</h4>
+      <p>Les présentes conditions générales d'utilisation (CGU) ont pour objet de définir les modalités de mise à disposition et d'utilisation du site aemconseil.eu (ci-après « le Site »). Toute navigation sur le Site implique l'acceptation pleine et entière des présentes CGU.</p>
+
+      <h4>2. Définitions</h4>
+      <p>« Site » : le site accessible à l'adresse aemconseil.eu. « Éditeur » : le cabinet AEM-CONSEIL, responsable de la publication. « Utilisateur » : toute personne qui navigue sur le Site et accède à ses contenus.</p>
+
+      <h4>3. Éditeur et hébergeur</h4>
+      <p>Le Site est édité par AEM-CONSEIL (voir « Mentions légales » pour les coordonnées complètes) et hébergé par GitHub Pages (GitHub, Inc.), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+
+      <h4>4. Accès au site</h4>
+      <p>Le Site est accessible gratuitement à tout Utilisateur disposant d'un accès à Internet. Les frais de connexion et d'équipement restent à sa charge. L'Éditeur s'efforce d'assurer une disponibilité permanente mais ne saurait être tenu responsable des interruptions liées à la maintenance, à une panne ou à un cas de force majeure.</p>
+
+      <h4>5. Propriété intellectuelle</h4>
+      <p>L'ensemble des éléments du Site (textes, logo, marque, graphismes, structure) est protégé par le droit de la propriété intellectuelle et demeure la propriété exclusive de l'Éditeur. Toute reproduction ou représentation, totale ou partielle, sans autorisation écrite préalable, est interdite et constituerait une contrefaçon.</p>
+
+      <h4>6. Comportement de l'Utilisateur</h4>
+      <p>L'Utilisateur s'engage à utiliser le Site conformément à la loi et aux présentes CGU, à ne pas en perturber le fonctionnement et à fournir des informations exactes lorsqu'il remplit un formulaire.</p>
+
+      <h4>7. Responsabilité</h4>
+      <p>Les informations présentes sur le Site sont fournies à titre indicatif et n'ont pas de valeur contractuelle. Elles ne sauraient se substituer à un conseil personnalisé. L'Éditeur ne saurait être tenu responsable d'un usage qui en serait fait, ni des dommages indirects résultant de l'utilisation du Site.</p>
+
+      <h4>8. Liens hypertextes</h4>
+      <p>Le Site peut contenir des liens vers des sites tiers dont l'Éditeur ne maîtrise pas le contenu et ne saurait être tenu responsable. La création d'un lien vers le Site est autorisée sous réserve de ne pas porter atteinte à l'image de l'Éditeur.</p>
+
+      <h4>9. Données personnelles et cookies</h4>
+      <p>Le traitement des données personnelles et l'usage des cookies sont détaillés dans la « Politique de confidentialité », qui fait partie intégrante des présentes CGU.</p>
+
+      <h4>10. Modification des CGU</h4>
+      <p>L'Éditeur se réserve le droit de modifier les présentes CGU à tout moment. La version applicable est celle en vigueur au moment de la connexion de l'Utilisateur.</p>
+
+      <h4>11. Droit applicable et juridiction</h4>
+      <p>Les présentes CGU sont soumises au droit français. Tout litige relatif à leur interprétation ou à leur exécution relève de la compétence des tribunaux français.</p>
+    </div>
+  </div>
+</div>
+
 <!-- Modale Conditions générales de vente -->
 <div class="overlay-modal" id="cgvModal" onclick="closeCGV(event)">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cgvTitle" onclick="event.stopPropagation()">
@@ -740,38 +826,50 @@
       <h4>1. Objet et champ d'application</h4>
       <p>Les présentes conditions générales de vente (CGV) régissent les relations entre le cabinet AEM-CONSEIL (ci-après « le Cabinet ») et ses clients (ci-après « le Client ») pour l'ensemble des prestations de comptabilité, de conseil, de fiscalité, de social et d'accompagnement à la création d'entreprise. Toute commande de prestation implique l'acceptation sans réserve des présentes CGV, qui prévalent sur tout autre document du Client.</p>
 
-      <h4>2. Prestations et lettre de mission</h4>
+      <h4>2. Définitions</h4>
+      <p>« Cabinet » : AEM-CONSEIL, prestataire des services. « Client » : toute personne physique ou morale ayant commandé une prestation. « Prestation » : tout service fourni par le Cabinet. « Lettre de mission » : le document contractuel décrivant une mission déterminée et ses honoraires.</p>
+
+      <h4>3. Prestations et lettre de mission</h4>
       <p>Chaque mission fait l'objet d'une lettre de mission distincte qui précise sa nature, son étendue, les obligations réciproques et les honoraires convenus. La lettre de mission signée complète et prévaut sur les présentes CGV pour les points spécifiques qu'elle traite. Les prestations sont réalisées conformément aux normes professionnelles de l'Ordre des experts-comptables lorsque la mission en relève.</p>
 
-      <h4>3. Devis et acceptation</h4>
+      <h4>4. Devis et commande</h4>
       <p>Les devis sont gratuits et valables trente (30) jours à compter de leur émission. La commande est ferme dès la signature du devis ou de la lettre de mission, ou dès tout accord écrit du Client (y compris par e-mail).</p>
 
-      <h4>4. Honoraires et modalités de paiement</h4>
-      <p>Les honoraires sont fixés dans le devis ou la lettre de mission, forfaitairement ou au temps passé. Sauf stipulation contraire, les factures sont payables à trente (30) jours à réception. Conformément aux articles L.441-10 et D.441-5 du Code de commerce, tout retard de paiement entraîne de plein droit des pénalités au taux d'intérêt légal majoré, ainsi qu'une indemnité forfaitaire de recouvrement de 40 €, sans préjudice de la suspension des prestations en cours.</p>
+      <h4>5. Prix</h4>
+      <p>Les honoraires sont fixés dans le devis ou la lettre de mission, forfaitairement ou au temps passé, et exprimés en euros. Ils peuvent être révisés pour toute prestation nouvelle ou modification substantielle de la mission, après information du Client.</p>
 
-      <h4>5. Obligations du Cabinet</h4>
+      <h4>6. Modalités de paiement</h4>
+      <p>Sauf stipulation contraire, les factures sont payables à trente (30) jours à réception. Conformément aux articles L.441-10 et D.441-5 du Code de commerce, tout retard de paiement entraîne de plein droit des pénalités au taux d'intérêt légal majoré, ainsi qu'une indemnité forfaitaire de recouvrement de 40 €, sans préjudice de la suspension des prestations en cours.</p>
+
+      <h4>7. Exécution des prestations</h4>
+      <p>Les délais d'exécution sont donnés à titre indicatif et dépendent notamment de la transmission par le Client des éléments nécessaires. Le Cabinet exécute les prestations selon un calendrier rythmé par les échéances légales du Client.</p>
+
+      <h4>8. Obligations du Cabinet</h4>
       <p>Le Cabinet s'engage à exécuter ses missions avec diligence, dans le respect du secret professionnel et des règles déontologiques applicables. Il est tenu à une obligation de moyens et non de résultat, sauf disposition expresse contraire.</p>
 
-      <h4>6. Obligations du Client</h4>
+      <h4>9. Obligations du Client</h4>
       <p>Le Client s'engage à fournir en temps utile l'ensemble des documents, informations et justificatifs nécessaires à la bonne exécution de la mission, et à en garantir l'exactitude et la sincérité. Le Cabinet ne saurait être tenu responsable des conséquences d'informations transmises tardivement, incomplètes ou erronées.</p>
 
-      <h4>7. Durée, résiliation et interruption</h4>
+      <h4>10. Droit de rétractation</h4>
+      <p>Lorsque le Client est un consommateur ayant conclu le contrat à distance ou hors établissement, il dispose d'un délai de quatorze (14) jours pour se rétracter, sauf s'il a expressément demandé le commencement de l'exécution avant la fin de ce délai. Ce droit ne s'applique pas aux professionnels agissant dans le cadre de leur activité.</p>
+
+      <h4>11. Durée, résiliation et interruption</h4>
       <p>Les missions récurrentes sont conclues pour la durée précisée dans la lettre de mission, généralement l'exercice comptable, renouvelable. Chaque partie peut y mettre fin par lettre recommandée dans le respect d'un préavis raisonnable, les prestations réalisées jusqu'à la date effective de fin restant dues.</p>
 
-      <h4>8. Confidentialité et données personnelles (RGPD)</h4>
-      <p>Le Cabinet traite les données du Client dans le seul cadre de l'exécution des missions, de manière confidentielle et conforme au Règlement (UE) 2016/679 (RGPD). Le Client dispose d'un droit d'accès, de rectification, d'effacement et de portabilité en écrivant à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>.</p>
+      <h4>12. Confidentialité et données personnelles (RGPD)</h4>
+      <p>Le Cabinet traite les données du Client dans le seul cadre de l'exécution des missions, de manière confidentielle et conforme au Règlement (UE) 2016/679 (RGPD), tel que détaillé dans la « Politique de confidentialité ». Le Client dispose d'un droit d'accès, de rectification, d'effacement et de portabilité en écrivant à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>.</p>
 
-      <h4>9. Responsabilité</h4>
+      <h4>13. Responsabilité</h4>
       <p>La responsabilité du Cabinet est limitée aux dommages directs et prouvés résultant d'une faute qui lui serait imputable, dans la limite du montant des honoraires perçus au titre de la mission concernée. Sa responsabilité ne peut être engagée pour les retards ou manquements imputables au Client ou à un tiers.</p>
 
-      <h4>10. Propriété des travaux</h4>
+      <h4>14. Force majeure</h4>
+      <p>La responsabilité du Cabinet ne saurait être engagée en cas d'inexécution ou de retard imputable à un cas de force majeure au sens de l'article 1218 du Code civil (catastrophe, panne généralisée, mesure administrative, etc.). Les obligations sont suspendues pendant la durée de l'événement.</p>
+
+      <h4>15. Propriété des travaux</h4>
       <p>Les documents et livrables remis au Client lui appartiennent une fois les honoraires intégralement réglés. Le Cabinet conserve la propriété de ses méthodes, outils et supports internes.</p>
 
-      <h4>11. Réclamations et médiation</h4>
-      <p>Toute réclamation peut être adressée par écrit à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>. À défaut d'accord amiable, le Client consommateur peut recourir gratuitement à un médiateur de la consommation.</p>
-
-      <h4>12. Droit applicable et litiges</h4>
-      <p>Les présentes CGV sont soumises au droit français. À défaut de résolution amiable, tout litige relève de la compétence des tribunaux français compétents.</p>
+      <h4>16. Réclamation, médiation et droit applicable</h4>
+      <p>Toute réclamation peut être adressée par écrit à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>. À défaut d'accord amiable, le Client consommateur peut recourir gratuitement à un médiateur de la consommation. Les présentes CGV sont soumises au droit français ; à défaut de résolution amiable, tout litige relève de la compétence des tribunaux français compétents.</p>
 
       <p style="margin-top:16px;font-size:13px;opacity:.7">Modèle à faire valider et à compléter selon votre situation (forme juridique, SIRET, n° d'inscription à l'Ordre des experts-comptables, médiateur désigné, taux et délais spécifiques).</p>
     </div>
@@ -894,7 +992,11 @@ function openLegal(){var m=document.getElementById('legalModal');m.classList.add
 function closeLegal(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('legalModal');m.classList.remove('open');document.body.style.overflow='';}
 function openCGV(){var m=document.getElementById('cgvModal');m.classList.add('open');document.body.style.overflow='hidden';}
 function closeCGV(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('cgvModal');m.classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSvc();closeLegal();closeCGV();closeNav();}});
+function openPrivacy(){var m=document.getElementById('privacyModal');m.classList.add('open');document.body.style.overflow='hidden';}
+function closePrivacy(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('privacyModal');m.classList.remove('open');document.body.style.overflow='';}
+function openCGU(){var m=document.getElementById('cguModal');m.classList.add('open');document.body.style.overflow='hidden';}
+function closeCGU(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('cguModal');m.classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSvc();closeLegal();closeCGV();closePrivacy();closeCGU();closeNav();}});
 
 /* ===== Formulaire (FormSubmit) ===== */
 (function(){
