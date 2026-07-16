@@ -437,7 +437,9 @@
   /* ===== Responsive ===== */
   @media(max-width:960px){
     .compare{grid-template-columns:1fr;gap:14px}
-    .compare .vs{position:static;transform:none;margin:0 auto}
+    .compare .col.old{order:1}
+    .compare .vs{position:static;transform:none;margin:0 auto;order:2}
+    .compare .col.new{order:3}
     .svc-grid{grid-template-columns:1fr}
     .faq-wrap{grid-template-columns:1fr;gap:16px}
     .faq-help{position:static}
