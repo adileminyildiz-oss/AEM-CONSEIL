@@ -680,7 +680,7 @@
       </div>
       <div class="ft-bottom">
         <span>© 2026 AEM-CONSEIL — Tous droits réservés.</span>
-        <span style="display:flex;gap:22px"><a href="#" onclick="event.preventDefault();openLegal()">Mentions légales</a><a href="#" onclick="event.preventDefault();reopenCookies()">Gérer mes cookies</a></span>
+        <span style="display:flex;flex-wrap:wrap;gap:14px 22px"><a href="#" onclick="event.preventDefault();openLegal()">Mentions légales</a><a href="#" onclick="event.preventDefault();openCGV()">Conditions générales de vente</a><a href="#" onclick="event.preventDefault();reopenCookies()">Gérer mes cookies</a></span>
       </div>
     </div>
   </footer>
@@ -726,6 +726,54 @@
       <h4>Cookies</h4>
       <p>Des cookies de mesure d'audience ne sont déposés qu'après votre consentement, modifiable à tout moment via « Gérer mes cookies ».</p>
       <p style="margin-top:14px;font-size:13px;opacity:.7">À compléter : forme juridique, SIRET, capital social, RCS, n° de TVA intracommunautaire, directeur de la publication.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Conditions générales de vente -->
+<div class="overlay-modal" id="cgvModal" onclick="closeCGV(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cgvTitle" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" aria-label="Fermer" onclick="closeCGV()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h3 id="cgvTitle">Conditions générales de vente</h3>
+    <p class="m-desc">Applicables aux prestations de conseil et d'expertise comptable proposées par AEM-CONSEIL. Dernière mise à jour : juillet 2026.</p>
+    <div class="m-legal" style="margin-top:20px">
+      <h4>1. Objet et champ d'application</h4>
+      <p>Les présentes conditions générales de vente (CGV) régissent les relations entre le cabinet AEM-CONSEIL (ci-après « le Cabinet ») et ses clients (ci-après « le Client ») pour l'ensemble des prestations de comptabilité, de conseil, de fiscalité, de social et d'accompagnement à la création d'entreprise. Toute commande de prestation implique l'acceptation sans réserve des présentes CGV, qui prévalent sur tout autre document du Client.</p>
+
+      <h4>2. Prestations et lettre de mission</h4>
+      <p>Chaque mission fait l'objet d'une lettre de mission distincte qui précise sa nature, son étendue, les obligations réciproques et les honoraires convenus. La lettre de mission signée complète et prévaut sur les présentes CGV pour les points spécifiques qu'elle traite. Les prestations sont réalisées conformément aux normes professionnelles de l'Ordre des experts-comptables lorsque la mission en relève.</p>
+
+      <h4>3. Devis et acceptation</h4>
+      <p>Les devis sont gratuits et valables trente (30) jours à compter de leur émission. La commande est ferme dès la signature du devis ou de la lettre de mission, ou dès tout accord écrit du Client (y compris par e-mail).</p>
+
+      <h4>4. Honoraires et modalités de paiement</h4>
+      <p>Les honoraires sont fixés dans le devis ou la lettre de mission, forfaitairement ou au temps passé. Sauf stipulation contraire, les factures sont payables à trente (30) jours à réception. Conformément aux articles L.441-10 et D.441-5 du Code de commerce, tout retard de paiement entraîne de plein droit des pénalités au taux d'intérêt légal majoré, ainsi qu'une indemnité forfaitaire de recouvrement de 40 €, sans préjudice de la suspension des prestations en cours.</p>
+
+      <h4>5. Obligations du Cabinet</h4>
+      <p>Le Cabinet s'engage à exécuter ses missions avec diligence, dans le respect du secret professionnel et des règles déontologiques applicables. Il est tenu à une obligation de moyens et non de résultat, sauf disposition expresse contraire.</p>
+
+      <h4>6. Obligations du Client</h4>
+      <p>Le Client s'engage à fournir en temps utile l'ensemble des documents, informations et justificatifs nécessaires à la bonne exécution de la mission, et à en garantir l'exactitude et la sincérité. Le Cabinet ne saurait être tenu responsable des conséquences d'informations transmises tardivement, incomplètes ou erronées.</p>
+
+      <h4>7. Durée, résiliation et interruption</h4>
+      <p>Les missions récurrentes sont conclues pour la durée précisée dans la lettre de mission, généralement l'exercice comptable, renouvelable. Chaque partie peut y mettre fin par lettre recommandée dans le respect d'un préavis raisonnable, les prestations réalisées jusqu'à la date effective de fin restant dues.</p>
+
+      <h4>8. Confidentialité et données personnelles (RGPD)</h4>
+      <p>Le Cabinet traite les données du Client dans le seul cadre de l'exécution des missions, de manière confidentielle et conforme au Règlement (UE) 2016/679 (RGPD). Le Client dispose d'un droit d'accès, de rectification, d'effacement et de portabilité en écrivant à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>.</p>
+
+      <h4>9. Responsabilité</h4>
+      <p>La responsabilité du Cabinet est limitée aux dommages directs et prouvés résultant d'une faute qui lui serait imputable, dans la limite du montant des honoraires perçus au titre de la mission concernée. Sa responsabilité ne peut être engagée pour les retards ou manquements imputables au Client ou à un tiers.</p>
+
+      <h4>10. Propriété des travaux</h4>
+      <p>Les documents et livrables remis au Client lui appartiennent une fois les honoraires intégralement réglés. Le Cabinet conserve la propriété de ses méthodes, outils et supports internes.</p>
+
+      <h4>11. Réclamations et médiation</h4>
+      <p>Toute réclamation peut être adressée par écrit à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>. À défaut d'accord amiable, le Client consommateur peut recourir gratuitement à un médiateur de la consommation.</p>
+
+      <h4>12. Droit applicable et litiges</h4>
+      <p>Les présentes CGV sont soumises au droit français. À défaut de résolution amiable, tout litige relève de la compétence des tribunaux français compétents.</p>
+
+      <p style="margin-top:16px;font-size:13px;opacity:.7">Modèle à faire valider et à compléter selon votre situation (forme juridique, SIRET, n° d'inscription à l'Ordre des experts-comptables, médiateur désigné, taux et délais spécifiques).</p>
     </div>
   </div>
 </div>
@@ -844,7 +892,9 @@ function closeSvc(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;v
 function toggleFaq(b){var el=b.closest('.faq');if(el)el.classList.toggle('open');}
 function openLegal(){var m=document.getElementById('legalModal');m.classList.add('open');document.body.style.overflow='hidden';}
 function closeLegal(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('legalModal');m.classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSvc();closeLegal();closeNav();}});
+function openCGV(){var m=document.getElementById('cgvModal');m.classList.add('open');document.body.style.overflow='hidden';}
+function closeCGV(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('cgvModal');m.classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSvc();closeLegal();closeCGV();closeNav();}});
 
 /* ===== Formulaire (FormSubmit) ===== */
 (function(){
