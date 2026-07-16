@@ -227,9 +227,11 @@
     .svc{min-height:0;justify-content:flex-start;padding:24px}
     .svc .ic{position:static;top:auto;left:auto;margin-bottom:18px}
     .svc.tall h3{font-size:21px}
-    .svc.wide{grid-column:auto}
-    .svc.wide .wide-head{flex-direction:column;gap:14px}
-    .svc.wide .ic{margin-bottom:0}
+    .svc.wide{grid-column:auto;align-items:flex-start;justify-content:flex-start;text-align:left}
+    .svc.wide .wide-head{flex-direction:column;align-items:flex-start;gap:0}
+    .svc.wide .ic{margin-bottom:18px}
+    .svc.wide p{max-width:none}
+    .svc.wide .more{justify-content:flex-start}
   }
 
   /* ===== Méthode ===== */
