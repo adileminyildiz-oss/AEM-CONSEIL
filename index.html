@@ -556,9 +556,6 @@
   .spot:hover::after{opacity:1}
   .spot>*{position:relative;z-index:1}
 
-  /* Boutons magnétiques : transition douce du retour */
-  .btn-pri,.sm-btn-pri{will-change:transform}
-
   /* Bandeau chiffres + marquee */
   #chiffres{overflow:clip}
   .stats-band{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:var(--max);margin:0 auto}
@@ -576,7 +573,7 @@
   .marquee:hover .mq-track{animation-play-state:paused}
   @media(max-width:860px){.stats-band{grid-template-columns:1fr 1fr;gap:12px}}
   @media(max-width:560px){.stat{padding:24px 16px}}
-  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mq-track{animation:none}.spot::after{display:none}.btn-pri,.sm-btn-pri{transform:none!important}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mq-track{animation:none}.spot::after{display:none}}
 </style>
 </head>
 <body class="loading">
@@ -1285,7 +1282,7 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
   window.addEventListener('resize',onScroll);onScroll();
 })();
 
-/* ===== New-gen : halo curseur + boutons magnétiques ===== */
+/* ===== New-gen : halo curseur sur les cartes ===== */
 (function(){
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine=!window.matchMedia||window.matchMedia('(pointer: fine)').matches;
@@ -1298,15 +1295,6 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
     el.style.setProperty('--mx',(e.clientX-r.left)+'px');
     el.style.setProperty('--my',(e.clientY-r.top)+'px');
   },{passive:true});
-  // Boutons magnétiques
-  [].slice.call(document.querySelectorAll('.btn-pri,.sm-btn-pri')).forEach(function(btn){
-    btn.addEventListener('mousemove',function(e){
-      var r=btn.getBoundingClientRect();
-      var mx=e.clientX-r.left-r.width/2, my=e.clientY-r.top-r.height/2;
-      btn.style.transform='translate('+(mx*0.16).toFixed(1)+'px,'+(my*0.22).toFixed(1)+'px)';
-    });
-    btn.addEventListener('mouseleave',function(){btn.style.transform='';});
-  });
 })();
 
 /* ===== Simulateur de devis ===== */
