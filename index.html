@@ -540,12 +540,50 @@
   .sm-status.err{color:#ff9b9b}.sm-status.ok{color:var(--pos)}
   .sm-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
   @media(max-width:560px){.sm-opts.two{grid-template-columns:1fr}.sm-grid2{grid-template-columns:1fr}.sm-panel{padding:26px 18px 22px}.sim-top{padding:20px 18px 0}}
+
+  /* ===== New-gen : scroll fluide + ancres ===== */
+  html{scroll-behavior:smooth}
+  section[id],header[id]{scroll-margin-top:86px}
+
+  /* Barre de progression de lecture */
+  #scrollbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;pointer-events:none;
+    background:linear-gradient(90deg,var(--outremer),var(--azur),var(--peri));box-shadow:0 0 10px rgba(43,69,255,.6);transition:width .12s linear}
+
+  /* Halo lumineux qui suit le curseur (spotlight hover) */
+  .spot{position:relative}
+  .spot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;z-index:0;
+    background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(109,134,255,.16),transparent 62%)}
+  .spot:hover::after{opacity:1}
+  .spot>*{position:relative;z-index:1}
+
+  /* Boutons magnétiques : transition douce du retour */
+  .btn-pri,.sm-btn-pri{will-change:transform}
+
+  /* Bandeau chiffres + marquee */
+  #chiffres{overflow:clip}
+  .stats-band{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:var(--max);margin:0 auto}
+  .stat{border:1px solid var(--line);border-radius:20px;padding:30px 24px;text-align:center;
+    background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.012));backdrop-filter:blur(18px) saturate(150%)}
+  .stat .num{display:block;font-family:'Inter Tight';font-weight:700;font-size:clamp(34px,4.6vw,50px);letter-spacing:-.03em;line-height:1;
+    background:linear-gradient(120deg,#fff,var(--peri));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .lab{display:block;margin-top:12px;font-size:13.5px;color:var(--txt2);line-height:1.4}
+  .marquee{margin-top:34px;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:16px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .mq-track{display:flex;align-items:center;gap:0;width:max-content;animation:mq 34s linear infinite}
+  .mq-track span{font-family:'Inter Tight';font-weight:600;font-size:15px;color:var(--peri);white-space:nowrap;padding:0 26px;display:inline-flex;align-items:center;gap:26px}
+  .mq-track span::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--azur);opacity:.6}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  .marquee:hover .mq-track{animation-play-state:paused}
+  @media(max-width:860px){.stats-band{grid-template-columns:1fr 1fr;gap:12px}}
+  @media(max-width:560px){.stat{padding:24px 16px}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mq-track{animation:none}.spot::after{display:none}.btn-pri,.sm-btn-pri{transform:none!important}}
 </style>
 </head>
 <body class="loading">
 
 <div id="loader" aria-hidden="true"><img src="assets/logo-full.png" alt="AEM CONSEIL"></div>
 <div class="beam" aria-hidden="true"></div>
+<div id="scrollbar" aria-hidden="true"></div>
 
 <div id="app">
   <nav id="nav">
@@ -691,7 +729,7 @@
     <section id="apropos">
       <div class="sh reveal"><span class="kick">À propos</span><h2>La <span class="ital">différence</span> d'un cabinet à taille humaine</h2><p>Chez AEM-CONSEIL, la proximité, la réactivité et la transparence ne sont pas des mots : c'est notre façon de travailler.</p></div>
       <div class="compare reveal">
-        <div class="col old">
+        <div class="col old spot">
           <h3>Un cabinet classique</h3>
           <ul>
             <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un interlocuteur qui change souvent</li>
@@ -700,7 +738,7 @@
             <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un bilan… une fois par an</li>
           </ul>
         </div>
-        <div class="col new">
+        <div class="col new spot">
           <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a9b8ff" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Avec AEM-CONSEIL</h3>
           <ul>
             <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Un interlocuteur unique et dédié</li>
@@ -710,6 +748,22 @@
           </ul>
         </div>
         <div class="vs" aria-hidden="true">vs</div>
+      </div>
+    </section>
+
+    <!-- CHIFFRES + MARQUEE -->
+    <section id="chiffres">
+      <div class="stats-band reveal">
+        <div class="stat"><span class="num aem-count" data-to="200" data-suffix="+">0</span><span class="lab">clients accompagnés</span></div>
+        <div class="stat"><span class="num aem-count" data-to="10" data-suffix=" ans">0</span><span class="lab">d'expérience à vos côtés</span></div>
+        <div class="stat"><span class="num aem-count" data-to="24" data-suffix=" h">0</span><span class="lab">délai de réponse</span></div>
+        <div class="stat"><span class="num aem-count" data-to="97" data-suffix=" %">0</span><span class="lab">de clients satisfaits</span></div>
+      </div>
+      <div class="marquee reveal" aria-hidden="true">
+        <div class="mq-track">
+          <span>Réactivité</span><span>Proximité</span><span>Transparence</span><span>Rigueur</span><span>Accompagnement sur-mesure</span><span>Sans jargon</span><span>Interlocuteur dédié</span><span>Conseil stratégique</span>
+          <span>Réactivité</span><span>Proximité</span><span>Transparence</span><span>Rigueur</span><span>Accompagnement sur-mesure</span><span>Sans jargon</span><span>Interlocuteur dédié</span><span>Conseil stratégique</span>
+        </div>
       </div>
     </section>
 
@@ -1102,7 +1156,7 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
   document.getElementById('svc-grid').innerHTML=SERVICES.map(function(s,i){
     var n=('0'+(i+1)).slice(-2);
     var last=i===SERVICES.length-1;
-    var head='<div class="svc'+(i===0?' tall':(last?' wide':''))+'" onclick="openSvc('+i+')" tabindex="0" role="button" aria-label="'+esc(s.title)+'" onkeydown="if(event.key===\'Enter\')openSvc('+i+')">';
+    var head='<div class="svc spot'+(i===0?' tall':(last?' wide':''))+'" onclick="openSvc('+i+')" tabindex="0" role="button" aria-label="'+esc(s.title)+'" onkeydown="if(event.key===\'Enter\')openSvc('+i+')">';
     var ghost='<span class="ghost" aria-hidden="true">'+n+'</span>';
     var ic='<span class="ic">'+svgW(s.icon,20)+'</span>';
     var more='<span class="more">Voir le détail '+svgW('<path d="M7 17L17 7M17 7H9M17 7v8"/>',14)+'</span>';
@@ -1128,7 +1182,7 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
   }).join('');
 
   document.getElementById('faq-list').innerHTML=FAQS.map(function(f){
-    return '<div class="faq"><button type="button" onclick="toggleFaq(this)">'+esc(f.q)
+    return '<div class="faq spot"><button type="button" onclick="toggleFaq(this)">'+esc(f.q)
       +'<span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></button>'
       +'<div class="faq-panel"><p>'+esc(f.a)+'</p></div></div>';
   }).join('');
@@ -1215,7 +1269,7 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
   var countIO=new IntersectionObserver(function(en){en.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;countIO.unobserve(el);var to=parseInt(el.dataset.to,10)||0,suf=el.dataset.suffix||'',dur=1400,t0=performance.now();var tick=function(now){var p=Math.min(1,(now-t0)/dur),ea=1-Math.pow(1-p,3);el.textContent=Math.round(to*ea)+suf;if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);});},{threshold:.6});
   document.querySelectorAll('.aem-count').forEach(function(el){countIO.observe(el);});
 
-  var nav=document.getElementById('nav'),toTop=document.getElementById('toTop');
+  var nav=document.getElementById('nav'),toTop=document.getElementById('toTop'),scrollbar=document.getElementById('scrollbar');
   var links=[].slice.call(document.querySelectorAll('.nlinks a'));
   var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
   var ticking=false;
@@ -1223,11 +1277,36 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
     var y=window.scrollY||window.pageYOffset;
     nav.classList.toggle('scrolled',y>10);
     if(toTop)toTop.classList.toggle('show',y>600);
+    if(scrollbar){var h=document.documentElement.scrollHeight-window.innerHeight;scrollbar.style.width=(h>0?Math.min(100,y/h*100):0)+'%';}
     var cur=-1;for(var i=0;i<secs.length;i++){if(secs[i]&&secs[i].getBoundingClientRect().top<=140)cur=i;}
     links.forEach(function(a,i){a.classList.toggle('active',i===cur);});
     ticking=false;});}
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',onScroll);onScroll();
+})();
+
+/* ===== New-gen : halo curseur + boutons magnétiques ===== */
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=!window.matchMedia||window.matchMedia('(pointer: fine)').matches;
+  if(reduce||!fine)return;
+  // Halo qui suit le curseur sur les cartes .spot
+  document.addEventListener('mousemove',function(e){
+    var el=e.target.closest&&e.target.closest('.spot');
+    if(!el)return;
+    var r=el.getBoundingClientRect();
+    el.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    el.style.setProperty('--my',(e.clientY-r.top)+'px');
+  },{passive:true});
+  // Boutons magnétiques
+  [].slice.call(document.querySelectorAll('.btn-pri,.sm-btn-pri')).forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){
+      var r=btn.getBoundingClientRect();
+      var mx=e.clientX-r.left-r.width/2, my=e.clientY-r.top-r.height/2;
+      btn.style.transform='translate('+(mx*0.16).toFixed(1)+'px,'+(my*0.22).toFixed(1)+'px)';
+    });
+    btn.addEventListener('mouseleave',function(){btn.style.transform='';});
+  });
 })();
 
 /* ===== Simulateur de devis ===== */
