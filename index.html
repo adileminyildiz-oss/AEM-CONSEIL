@@ -477,6 +477,69 @@
   @media(max-width:520px){.steps{grid-template-columns:1fr}.hero .cta-row{flex-direction:column}.hero .cta-row .btn{width:100%;justify-content:center}}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}#app{filter:none!important;transform:none!important}*{animation-duration:.001ms!important}
     .hero .badge,.hero h1,.hero .lead,.hero .cta-row,.hero .trust,.hero-scroll{opacity:1!important;animation:none!important}.hero h1 .ital{color:var(--peri)!important}}
+
+  /* ===== Simulateur de devis ===== */
+  .sim{position:relative;max-width:760px;margin:0 auto;border:1px solid var(--line-2);border-radius:26px;overflow:hidden;
+    background:linear-gradient(160deg,rgba(20,26,48,.55),rgba(9,13,26,.72));backdrop-filter:blur(24px) saturate(160%);
+    box-shadow:0 40px 100px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+  .sim-top{padding:22px 26px 0}
+  .sm-barrow{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .sm-steplab{font-family:'Inter Tight';font-size:13px;color:var(--txt2);font-weight:500}
+  .sm-steplab b{color:var(--peri);font-weight:600}
+  .sm-bar{margin-top:12px;height:5px;border-radius:5px;background:rgba(150,168,255,.14);overflow:hidden}
+  .sm-bar>i{display:block;height:100%;border-radius:5px;width:20%;background:linear-gradient(90deg,var(--outremer),var(--azur));
+    box-shadow:0 0 12px rgba(43,69,255,.6);transition:width .45s cubic-bezier(.22,1,.36,1)}
+  .sm-panel{padding:30px 26px 26px}
+  .sm-step{display:none}
+  .sm-step.on{display:block;animation:smIn .4s cubic-bezier(.22,1,.36,1)}
+  @keyframes smIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .sm-q{font-family:'Inter Tight';font-weight:600;font-size:22px;letter-spacing:-.01em}
+  .sm-hint{margin-top:6px;color:var(--txt2);font-size:14px}
+  .sm-opts{margin-top:22px;display:grid;gap:12px}
+  .sm-opts.two{grid-template-columns:1fr 1fr}
+  .sm-opts.chips{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .sm-opt{position:relative;text-align:left;cursor:pointer;border:1px solid var(--line-2);border-radius:16px;padding:18px;
+    background:var(--glass);color:var(--txt);font-family:'Inter';font-size:15px;transition:.22s;display:flex;align-items:center;gap:13px}
+  .sm-opt:hover{border-color:rgba(109,134,255,.5);background:var(--glass-2);transform:translateY(-2px)}
+  .sm-opt .oi{flex:none;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:var(--peri);
+    background:linear-gradient(150deg,rgba(43,69,255,.26),rgba(43,69,255,.08));border:1px solid var(--line-2)}
+  .sm-opt .ot{display:flex;flex-direction:column;gap:2px}
+  .sm-opt .ot b{font-family:'Inter Tight';font-weight:600;font-size:15.5px}
+  .sm-opt .ot span{font-size:12.5px;color:var(--txt2)}
+  .sm-opt .chk{position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;opacity:0;transition:.2s;color:#fff}
+  .sm-opt.sel{border-color:rgba(109,134,255,.75);background:linear-gradient(160deg,rgba(43,69,255,.2),rgba(43,69,255,.05));box-shadow:0 0 32px rgba(43,69,255,.18)}
+  .sm-opt.sel .chk{opacity:1;background:linear-gradient(135deg,#5b7cff,#2b45ff);border-color:transparent}
+  .sm-opt.mini{padding:14px 16px;justify-content:center;text-align:center}
+  .sm-opt.mini b{font-size:14.5px}
+  .sm-fld{margin-top:16px}
+  .sm-fld label{display:block;font-family:'Inter Tight';font-size:13.5px;color:var(--peri);margin-bottom:7px;font-weight:500}
+  .sm-fld input,.sm-fld textarea{width:100%;padding:14px 15px;border-radius:13px;border:1px solid var(--line-2);background:rgba(4,6,14,.6);
+    color:var(--txt);font-family:'Inter';font-size:15px;outline:none;transition:.2s}
+  .sm-fld input:focus,.sm-fld textarea:focus{border-color:rgba(109,134,255,.7);box-shadow:0 0 0 3px rgba(43,69,255,.14)}
+  .sm-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .sm-recap{margin-top:20px;border:1px solid var(--line);border-radius:16px;background:rgba(4,6,14,.4);padding:18px 20px}
+  .sm-recap .rr{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .sm-recap .rr:last-child{border-bottom:none}
+  .sm-recap .rr span{color:var(--txt2)}.sm-recap .rr b{font-family:'Inter Tight';font-weight:600;text-align:right}
+  .sm-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:26px}
+  .sm-btn{font-family:'Inter Tight';font-weight:600;font-size:15px;border-radius:13px;padding:14px 24px;cursor:pointer;border:1px solid transparent;transition:.22s;display:inline-flex;align-items:center;gap:9px}
+  .sm-btn-ghost{background:transparent;border-color:var(--line-2);color:var(--txt2)}
+  .sm-btn-ghost:hover{color:#fff;border-color:rgba(109,134,255,.5)}
+  .sm-btn-ghost.hide{visibility:hidden}
+  .sm-btn-pri{background:linear-gradient(120deg,#c9d2ff,#5b7cff 60%,#2b45ff);color:#0a1030;box-shadow:0 10px 30px rgba(43,69,255,.4)}
+  .sm-btn-pri:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .sm-btn-pri[disabled]{opacity:.45;cursor:not-allowed;filter:none;transform:none;box-shadow:none}
+  .sm-done{text-align:center;padding:12px 6px 6px}
+  .sm-done .sm-badge{width:70px;height:70px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;color:#04121b;
+    background:linear-gradient(160deg,#8ff5cf,#3ee9a4);box-shadow:0 0 34px rgba(62,233,164,.5)}
+  .sm-done h3{font-family:'Inter Tight';font-weight:600;font-size:24px;letter-spacing:-.01em}
+  .sm-done p{margin-top:10px;color:var(--txt2);font-size:15px;line-height:1.6}
+  .sm-reassure{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .sm-reassure span{font-size:12.5px;color:#cdd7f5;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03)}
+  .sm-status{margin-top:14px;font-size:14px;text-align:center;min-height:19px;color:var(--txt2)}
+  .sm-status.err{color:#ff9b9b}.sm-status.ok{color:var(--pos)}
+  .sm-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+  @media(max-width:560px){.sm-opts.two{grid-template-columns:1fr}.sm-grid2{grid-template-columns:1fr}.sm-panel{padding:26px 18px 22px}.sim-top{padding:20px 18px 0}}
 </style>
 </head>
 <body class="loading">
@@ -491,6 +554,7 @@
       <div class="nlinks">
         <a href="#services">Services</a>
         <a href="#methode">Méthode</a>
+        <a href="#devis">Devis</a>
         <a href="#apropos">À propos</a>
         <a href="#avis">Avis</a>
         <a href="#faq">FAQ</a>
@@ -509,7 +573,7 @@
       <h1 class="disp">Des comptes <span class="ital">justes.</span> Des décisions <span class="ital">claires.</span></h1>
       <p class="lead">AEM-CONSEIL accompagne entrepreneurs, TPE et PME dans leur comptabilité, leur gestion et leurs décisions — avec rigueur, proximité et une exigence de clarté à chaque ligne.</p>
       <div class="cta-row">
-        <a href="#contact" class="btn btn-pri">Demander un devis gratuit <span aria-hidden="true">→</span></a>
+        <a href="#devis" class="btn btn-pri">Demander un devis gratuit <span aria-hidden="true">→</span></a>
         <a href="#services" class="btn btn-ghost">Découvrir nos services</a>
       </div>
       <div class="trust">
@@ -531,6 +595,96 @@
       <div class="methode-glow" aria-hidden="true"></div>
       <div class="sh reveal"><span class="kick">Notre méthode</span><h2>Une <span class="ital">logique</span> comptable, du premier jour au bilan</h2><p>Un processus clair et rythmé par vos échéances, pour ne jamais être pris au dépourvu.</p></div>
       <div class="steps reveal" id="steps"></div>
+    </section>
+
+    <!-- SIMULATEUR / DEVIS -->
+    <section id="devis">
+      <div class="sh reveal"><span class="kick">Simulateur</span><h2>Estimez votre <span class="ital">accompagnement</span> en 1 minute</h2><p>Quelques questions pour cerner votre besoin. Vous recevez un devis personnalisé et gratuit sous 24 h — sans engagement.</p></div>
+      <form class="sim reveal" id="simForm" novalidate>
+        <input type="text" class="sm-hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="sim-top">
+          <div class="sm-barrow"><span class="sm-steplab">Étape <b id="smCur">1</b> / 5</span><span class="sm-steplab" id="smTitle">Votre situation</span></div>
+          <div class="sm-bar"><i id="smBar"></i></div>
+        </div>
+        <div class="sm-panel">
+          <!-- Étape 1 -->
+          <section class="sm-step on" data-step="1">
+            <div class="sm-q">Où en êtes-vous aujourd'hui ?</div>
+            <div class="sm-hint">Cela nous aide à adapter notre accompagnement.</div>
+            <div class="sm-opts" data-single="situation">
+              <button type="button" class="sm-opt" data-val="Je crée mon entreprise"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.8-.8.8-2 0-3s-2.2-.8-3 0z"/><path d="M9 12a12 12 0 018-9c1 4-1 8-4 10l-1 4-3-3z"/></svg></span><span class="ot"><b>Je crée mon entreprise</b><span>Statut, formalités, démarrage</span></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="J'ai déjà une entreprise"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></span><span class="ot"><b>J'ai déjà une entreprise</b><span>Tenue, bilan, conseil au quotidien</span></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Je change de cabinet"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 019-9 9 9 0 016.7 3M21 12a9 9 0 01-9 9 9 9 0 01-6.7-3"/><path d="M18 3v3h-3M6 21v-3h3"/></svg></span><span class="ot"><b>Je change de cabinet</b><span>Reprise de dossier sans stress</span></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+            </div>
+          </section>
+          <!-- Étape 2 -->
+          <section class="sm-step" data-step="2">
+            <div class="sm-q">Quelle est votre forme juridique ?</div>
+            <div class="sm-hint">Si vous ne savez pas encore, choisissez « Je ne sais pas encore ».</div>
+            <div class="sm-opts chips" data-single="statut">
+              <button type="button" class="sm-opt mini" data-val="Micro-entreprise"><b>Micro-entreprise</b></button>
+              <button type="button" class="sm-opt mini" data-val="Entreprise individuelle"><b>Entreprise individuelle</b></button>
+              <button type="button" class="sm-opt mini" data-val="EURL"><b>EURL</b></button>
+              <button type="button" class="sm-opt mini" data-val="SASU"><b>SASU</b></button>
+              <button type="button" class="sm-opt mini" data-val="SARL"><b>SARL</b></button>
+              <button type="button" class="sm-opt mini" data-val="SAS"><b>SAS</b></button>
+              <button type="button" class="sm-opt mini" data-val="SCI"><b>SCI</b></button>
+              <button type="button" class="sm-opt mini" data-val="Je ne sais pas encore"><b>Je ne sais pas encore</b></button>
+            </div>
+          </section>
+          <!-- Étape 3 -->
+          <section class="sm-step" data-step="3">
+            <div class="sm-q">De quoi avez-vous besoin ?</div>
+            <div class="sm-hint">Plusieurs choix possibles.</div>
+            <div class="sm-opts two" data-multi="besoins">
+              <button type="button" class="sm-opt" data-val="Tenue comptable & bilan"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 15v3M12 10v8M17 5v13"/></svg></span><span class="ot"><b>Comptabilité & bilan</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Paie & social"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0112 0M16 5.5a3 3 0 010 5.5"/></svg></span><span class="ot"><b>Paie & social</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Fiscalité & TVA"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8M21 7v5M21 7h-5"/></svg></span><span class="ot"><b>Fiscalité & TVA</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Conseil & gestion"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 12h18"/></svg></span><span class="ot"><b>Conseil & gestion</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Création & juridique"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/></svg></span><span class="ot"><b>Création & formalités</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Accompagnement global"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span><span class="ot"><b>Accompagnement global</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+            </div>
+          </section>
+          <!-- Étape 4 -->
+          <section class="sm-step" data-step="4">
+            <div class="sm-q">Combien de salariés ?</div>
+            <div class="sm-hint">Une estimation suffit.</div>
+            <div class="sm-opts chips" data-single="salaries">
+              <button type="button" class="sm-opt mini" data-val="Aucun"><b>Aucun</b></button>
+              <button type="button" class="sm-opt mini" data-val="1 à 5"><b>1 à 5</b></button>
+              <button type="button" class="sm-opt mini" data-val="6 à 20"><b>6 à 20</b></button>
+              <button type="button" class="sm-opt mini" data-val="Plus de 20"><b>Plus de 20</b></button>
+            </div>
+          </section>
+          <!-- Étape 5 -->
+          <section class="sm-step" data-step="5">
+            <div class="sm-q">Où vous envoyer votre devis ?</div>
+            <div class="sm-hint">Réponse sous 24 h, sans engagement.</div>
+            <div class="sm-grid2">
+              <div class="sm-fld"><label for="sm-prenom">Prénom</label><input type="text" id="sm-prenom" placeholder="Votre prénom" autocomplete="given-name"></div>
+              <div class="sm-fld"><label for="sm-tel">Téléphone</label><input type="tel" id="sm-tel" placeholder="06 12 34 56 78" autocomplete="tel"></div>
+            </div>
+            <div class="sm-fld"><label for="sm-email">E-mail</label><input type="email" id="sm-email" placeholder="vous@exemple.fr" autocomplete="email"></div>
+            <div class="sm-fld"><label for="sm-msg">Un mot sur votre projet (facultatif)</label><textarea id="sm-msg" rows="3" placeholder="Activité, échéance, question particulière…"></textarea></div>
+            <div class="sm-recap" id="smRecap"></div>
+          </section>
+          <!-- Fin -->
+          <section class="sm-step" data-step="6">
+            <div class="sm-done">
+              <div class="sm-badge"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <h3>Votre demande est envoyée</h3>
+              <p>Merci ! Nous revenons vers vous sous 24 h avec un devis personnalisé et un premier rendez-vous offert.</p>
+              <div class="sm-reassure"><span>✔ Sans engagement</span><span>✔ Premier RDV offert</span><span>✔ Réponse sous 24 h</span></div>
+            </div>
+          </section>
+
+          <div class="sm-nav" id="smNav">
+            <button type="button" class="sm-btn sm-btn-ghost hide" id="smPrev">← Retour</button>
+            <button type="button" class="sm-btn sm-btn-pri" id="smNext" disabled>Continuer →</button>
+          </div>
+          <div class="sm-status" id="smStatus" role="status" aria-live="polite"></div>
+        </div>
+      </form>
     </section>
 
     <!-- À PROPOS -->
@@ -596,7 +750,7 @@
         <h2>Faisons le point sur votre <span class="ital">situation</span> — et voyons comment avancer</h2>
         <p>Un échange gratuit et sans engagement : on analyse vos comptes, on répond à vos questions et on vous dit concrètement ce que nous pouvons faire pour vous.</p>
         <div class="cta-actions">
-          <a href="#contact" class="btn btn-pri">Demander un devis gratuit <span aria-hidden="true">→</span></a>
+          <a href="#devis" class="btn btn-pri">Demander un devis gratuit <span aria-hidden="true">→</span></a>
           <a href="tel:+33665908325" class="btn btn-ghost">Nous appeler</a>
         </div>
         <div class="reassure">
@@ -694,6 +848,7 @@
   <button class="dclose" aria-label="Fermer" onclick="closeNav()">✕</button>
   <a href="#services" onclick="closeNav()">Services</a>
   <a href="#methode" onclick="closeNav()">Méthode</a>
+  <a href="#devis" onclick="closeNav()">Devis</a>
   <a href="#apropos" onclick="closeNav()">À propos</a>
   <a href="#avis" onclick="closeNav()">Avis</a>
   <a href="#faq" onclick="closeNav()">FAQ</a>
@@ -709,7 +864,7 @@
     <h3 id="svcTitle"></h3>
     <p class="m-desc" id="svcDesc"></p>
     <ul id="svcFeatures"></ul>
-    <a href="#contact" onclick="closeSvc()" class="btn btn-pri m-cta">Demander un devis</a>
+    <a href="#devis" onclick="closeSvc()" class="btn btn-pri m-cta">Demander un devis</a>
   </div>
 </div>
 
@@ -1073,6 +1228,96 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
     ticking=false;});}
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',onScroll);onScroll();
+})();
+
+/* ===== Simulateur de devis ===== */
+(function(){
+  var form=document.getElementById('simForm'); if(!form) return;
+  var STEP_TITLES=['Votre situation','Forme juridique','Vos besoins','Vos effectifs','Vos coordonnées'];
+  var data={situation:'',statut:'',besoins:[],salaries:'',prenom:'',tel:'',email:'',msg:''};
+  var cur=1, TOTAL=5;
+  var steps=[].slice.call(form.querySelectorAll('.sm-step'));
+  var bar=document.getElementById('smBar'), scur=document.getElementById('smCur'), stitle=document.getElementById('smTitle');
+  var prev=document.getElementById('smPrev'), next=document.getElementById('smNext'), nav=document.getElementById('smNav'), status=document.getElementById('smStatus');
+  var ENDPOINT='https://formsubmit.co/ajax/aemconseil.sas@gmail.com';
+  var sending=false;
+
+  function show(n){
+    cur=n;
+    steps.forEach(function(s){s.classList.toggle('on', +s.dataset.step===n);});
+    if(n<=TOTAL){bar.style.width=(n/TOTAL*100)+'%';scur.textContent=n;stitle.textContent=STEP_TITLES[n-1];}
+    prev.classList.toggle('hide', n===1 || n>TOTAL);
+    if(n>TOTAL){nav.style.display='none';return;} nav.style.display='flex';
+    next.textContent = n===TOTAL ? 'Envoyer ma demande' : 'Continuer →';
+    if(n===TOTAL) buildRecap();
+    refresh();
+  }
+  function valid(n){
+    if(n===1)return !!data.situation;
+    if(n===2)return !!data.statut;
+    if(n===3)return data.besoins.length>0;
+    if(n===4)return !!data.salaries;
+    if(n===5)return data.prenom.trim() && /.+@.+\..+/.test(data.email) && data.tel.trim();
+    return true;
+  }
+  function refresh(){ next.disabled = sending || !valid(cur); }
+
+  form.querySelectorAll('[data-single]').forEach(function(grp){
+    var key=grp.dataset.single;
+    grp.querySelectorAll('.sm-opt').forEach(function(b){
+      b.addEventListener('click',function(){
+        grp.querySelectorAll('.sm-opt').forEach(function(x){x.classList.remove('sel');});
+        b.classList.add('sel'); data[key]=b.dataset.val; refresh();
+        if(cur<TOTAL){ setTimeout(function(){show(cur+1);},220); }
+      });
+    });
+  });
+  form.querySelectorAll('[data-multi]').forEach(function(grp){
+    var key=grp.dataset.multi;
+    grp.querySelectorAll('.sm-opt').forEach(function(b){
+      b.addEventListener('click',function(){
+        b.classList.toggle('sel');
+        var v=b.dataset.val, i=data[key].indexOf(v);
+        if(b.classList.contains('sel')&&i<0)data[key].push(v);
+        if(!b.classList.contains('sel')&&i>=0)data[key].splice(i,1);
+        refresh();
+      });
+    });
+  });
+  [['sm-prenom','prenom'],['sm-tel','tel'],['sm-email','email'],['sm-msg','msg']].forEach(function(p){
+    var el=document.getElementById(p[0]); if(el)el.addEventListener('input',function(){data[p[1]]=el.value;refresh();});
+  });
+
+  function buildRecap(){
+    var r=document.getElementById('smRecap');
+    r.innerHTML=''
+      +'<div class="rr"><span>Situation</span><b>'+(data.situation||'—')+'</b></div>'
+      +'<div class="rr"><span>Forme juridique</span><b>'+(data.statut||'—')+'</b></div>'
+      +'<div class="rr"><span>Besoins</span><b>'+(data.besoins.join(', ')||'—')+'</b></div>'
+      +'<div class="rr"><span>Salariés</span><b>'+(data.salaries||'—')+'</b></div>';
+  }
+
+  function send(){
+    if(sending)return; sending=true; refresh();
+    next.textContent='Envoi…'; status.className='sm-status'; status.textContent='';
+    var payload={
+      _subject:'Demande de devis — simulateur AEM-CONSEIL',
+      Prénom:data.prenom, 'E-mail':data.email, Téléphone:data.tel,
+      Situation:data.situation, 'Forme juridique':data.statut,
+      Besoins:data.besoins.join(', ')||'—', Salariés:data.salaries,
+      Message:data.msg||'—', _template:'table'
+    };
+    if(form._honey && form._honey.value){ show(6); return; }
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); })
+      .then(function(){ sending=false; show(6); })
+      .catch(function(){ sending=false; next.textContent='Envoyer ma demande'; refresh();
+        status.className='sm-status err'; status.textContent='Une erreur est survenue. Réessayez ou écrivez-nous à aemconseil.sas@gmail.com.'; });
+  }
+
+  next.addEventListener('click',function(){ if(!valid(cur))return; if(cur<TOTAL){show(cur+1);} else {send();} });
+  prev.addEventListener('click',function(){ if(cur>1 && cur<=TOTAL)show(cur-1); });
+  show(1);
 })();
 
 /* ===== Service worker ===== */
