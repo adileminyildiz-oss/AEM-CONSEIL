@@ -633,6 +633,21 @@
   .sp-final p{margin:14px auto 0;max-width:500px;color:#c3cdf0;font-size:15.5px;line-height:1.6}
   .sp-final .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
   @media(max-width:640px){.sp-inc{grid-template-columns:1fr}}
+
+  /* ===== Comparateur de statuts ===== */
+  .cmp-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+  .cmp-chip{border:1px solid var(--line-2);border-radius:999px;padding:9px 16px;font-family:'Inter Tight';font-weight:500;font-size:13.5px;color:var(--txt2);background:var(--glass);cursor:pointer;transition:.18s}
+  .cmp-chip:hover{color:#fff;border-color:rgba(109,134,255,.5)}
+  .cmp-chip[aria-pressed="true"]{color:#0a1030;background:linear-gradient(120deg,#c9d2ff,#5b7cff);border-color:transparent}
+  .cmp-scroll{margin-top:24px;overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:rgba(4,6,14,.35)}
+  .cmp-table{width:100%;border-collapse:collapse;min-width:560px}
+  .cmp-table th,.cmp-table td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.4;vertical-align:top}
+  .cmp-table thead th{font-family:'Inter Tight';font-weight:600;font-size:14px;color:var(--txt);background:rgba(12,15,28,.7)}
+  .cmp-table thead th:first-child{color:var(--txt2);font-weight:500}
+  .cmp-table tbody th{font-family:'Inter Tight';font-weight:500;color:var(--peri);white-space:nowrap;background:rgba(255,255,255,.02);position:sticky;left:0}
+  .cmp-table td{color:var(--txt2)}
+  .cmp-table tbody tr:last-child th,.cmp-table tbody tr:last-child td{border-bottom:none}
+  .cmp-note{margin-top:16px;font-size:12.5px;color:var(--txt2);text-align:center;opacity:.85}
 </style>
 </head>
 <body class="loading">
@@ -1251,6 +1266,52 @@ var SERVICE_PAGES=[
 ];
 var SP_BY_SLUG={}; SERVICE_PAGES.forEach(function(s){SP_BY_SLUG[s.slug]=s;});
 
+/* ===== Comparateur de statuts (infos générales à titre indicatif) ===== */
+var STATUTS=[
+  {k:'micro',nom:'Micro-entreprise'},
+  {k:'ei',nom:'Entreprise individuelle'},
+  {k:'eurl',nom:'EURL'},
+  {k:'sasu',nom:'SASU'},
+  {k:'sarl',nom:'SARL'},
+  {k:'sas',nom:'SAS'}
+];
+var CMP_ROWS=[
+  {label:'Associés',v:{micro:'1',ei:'1',eurl:'1',sasu:'1',sarl:'2 à 100',sas:'2 minimum'}},
+  {label:'Responsabilité',v:{micro:'Limitée au patrimoine professionnel',ei:'Limitée au patrimoine professionnel',eurl:'Limitée aux apports',sasu:'Limitée aux apports',sarl:'Limitée aux apports',sas:'Limitée aux apports'}},
+  {label:'Capital minimum',v:{micro:'Aucun',ei:'Aucun',eurl:'Libre (dès 1 €)',sasu:'Libre (dès 1 €)',sarl:'Libre (dès 1 €)',sas:'Libre (dès 1 €)'}},
+  {label:'Régime social du dirigeant',v:{micro:'Travailleur non salarié',ei:'Travailleur non salarié',eurl:'Travailleur non salarié',sasu:'Assimilé salarié',sarl:'TNS si gérant majoritaire',sas:'Assimilé salarié'}},
+  {label:'Imposition des bénéfices',v:{micro:'Impôt sur le revenu (micro)',ei:'Impôt sur le revenu (option IS)',eurl:'Impôt sur le revenu (option IS)',sasu:'Impôt sur les sociétés (option IR 5 ans)',sarl:'Impôt sur les sociétés (option IR)',sas:'Impôt sur les sociétés (option IR 5 ans)'}},
+  {label:'Idéal pour',v:{micro:'Tester une activité, charges légères',ei:'Se lancer seul, simplement',eurl:'Entreprendre seul en société',sasu:'Seul : souplesse et protection sociale',sarl:'Projet à plusieurs, cadre sécurisant',sas:'Lever des fonds, souplesse à plusieurs'}}
+];
+function cmpRender(sel){
+  var stat=STATUTS.filter(function(s){return sel.indexOf(s.k)>=0;});
+  var head='<tr><th>Critère</th>'+stat.map(function(s){return '<th>'+esc(s.nom)+'</th>';}).join('')+'</tr>';
+  var body=CMP_ROWS.map(function(r){return '<tr><th>'+esc(r.label)+'</th>'+stat.map(function(s){return '<td>'+esc(r.v[s.k]||'—')+'</td>';}).join('')+'</tr>';}).join('');
+  return '<thead>'+head+'</thead><tbody>'+body+'</tbody>';
+}
+function cmpBlock(){
+  var chips=STATUTS.map(function(s){return '<button type="button" class="cmp-chip" data-k="'+s.k+'" aria-pressed="true">'+esc(s.nom)+'</button>';}).join('');
+  return '<div class="sp-sec"><h2>Comparez les statuts juridiques</h2><p class="sub">Sélectionnez les formes à comparer (2 minimum).</p>'
+    +'<div class="cmp-chips" id="cmpChips">'+chips+'</div>'
+    +'<div class="cmp-scroll"><table class="cmp-table" id="cmpTable"></table></div>'
+    +'<p class="cmp-note">Informations générales à titre indicatif — nous vous aidons à choisir le statut adapté à votre situation.</p></div>';
+}
+function initComparateur(){
+  var table=document.getElementById('cmpTable'), chips=document.getElementById('cmpChips'); if(!table||!chips)return;
+  var sel=STATUTS.map(function(s){return s.k;});
+  function draw(){table.innerHTML=cmpRender(sel);}
+  draw();
+  chips.querySelectorAll('.cmp-chip').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.k, i=sel.indexOf(k);
+      if(i>=0){ if(sel.length<=2)return; sel.splice(i,1); b.setAttribute('aria-pressed','false'); }
+      else { sel.push(k); b.setAttribute('aria-pressed','true'); }
+      sel.sort(function(a,c){return STATUTS.map(function(x){return x.k;}).indexOf(a)-STATUTS.map(function(x){return x.k;}).indexOf(c);});
+      draw();
+    });
+  });
+}
+
 /* ===== Helpers ===== */
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function svgW(inner,s){s=s||24;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">'+inner+'</svg>';}
@@ -1337,6 +1398,7 @@ function spServicePageHTML(s){
       +'<div class="sp-sec"><h2>Ce que comprend la mission</h2><ul class="sp-inc">'+inc+'</ul></div>'
       +'<div class="sp-sec"><h2>Comment ça se passe</h2><p class="sub">Un processus clair, rythmé par vos échéances.</p><div class="sp-steps">'+steps+'</div></div>'
       +'<div class="sp-sec"><h2>Pour qui&nbsp;?</h2><div class="sp-aud">'+aud+'</div></div>'
+      +(s.slug==='creation'?cmpBlock():'')
       +'<div class="sp-sec"><h2>Questions fréquentes</h2><div class="sp-faq faq-list">'+faq+'</div></div>'
       +'<div class="sp-final"><h2>Parlons de votre '+esc(s.title.toLowerCase())+'</h2><p>Premier rendez-vous offert, réponse sous 24 h et sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis gratuit <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Prendre rendez-vous</a></div></div>'
     +'</div>';
@@ -1344,6 +1406,7 @@ function spServicePageHTML(s){
 function spOpen(slug){
   var s=SP_BY_SLUG[slug]; var el=document.getElementById('svcPage'); if(!s||!el){spClose();return;}
   el.innerHTML=spServicePageHTML(s); el.classList.add('open'); el.scrollTop=0;
+  if(s.slug==='creation')initComparateur();
   document.body.classList.add('page-open'); document.title=s.title+' — AEM-CONSEIL';
 }
 function spClose(){
