@@ -128,7 +128,7 @@
   #nav .btn-pri{border-radius:999px}
   .logo img{height:34px;display:block;filter:brightness(1.15) drop-shadow(0 0 8px rgba(169,184,255,.55)) drop-shadow(0 0 20px rgba(43,69,255,.35));animation:glow 6s ease-in-out infinite}
   @keyframes glow{0%,100%{filter:brightness(1.12) drop-shadow(0 0 6px rgba(169,184,255,.45)) drop-shadow(0 0 16px rgba(43,69,255,.28))}50%{filter:brightness(1.2) drop-shadow(0 0 12px rgba(169,184,255,.8)) drop-shadow(0 0 30px rgba(43,69,255,.5))}}
-  .nlinks{display:flex;gap:30px;font-size:14px;color:var(--txt2)}
+  .nlinks{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--txt2)}
   .nlinks a{position:relative;padding:3px 0}
   .nlinks a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1.5px;background:var(--azur);transition:right .3s cubic-bezier(.22,1,.36,1)}
   .nlinks a:hover,.nlinks a.active{color:#fff}
@@ -648,6 +648,18 @@
   .cmp-table td{color:var(--txt2)}
   .cmp-table tbody tr:last-child th,.cmp-table tbody tr:last-child td{border-bottom:none}
   .cmp-note{margin-top:16px;font-size:12.5px;color:var(--txt2);text-align:center;opacity:.85}
+
+  /* ===== Page Guide (article) ===== */
+  .gd-wrap{max-width:760px}
+  .gd-read{display:inline-block;margin-top:18px;font-size:12.5px;letter-spacing:.04em;color:var(--azur);border:1px solid var(--line-2);border-radius:999px;padding:6px 14px}
+  .gd-body{margin-top:52px}
+  .gd-sec{margin-top:38px}
+  .gd-sec:first-child{margin-top:0}
+  .gd-sec h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(20px,2.6vw,26px);letter-spacing:-.02em;margin-bottom:14px}
+  .gd-sec p{color:#cfd7ee;font-size:16px;line-height:1.75;margin-bottom:14px}
+  .gd-list{list-style:none;margin:6px 0 14px;padding:0;display:flex;flex-direction:column;gap:10px}
+  .gd-list li{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;line-height:1.5;color:#cfd7ee}
+  .gd-list li svg{flex:none;color:var(--azur);margin-top:2px}
 </style>
 </head>
 <body class="loading">
@@ -667,6 +679,10 @@
         </div>
         <a href="#methode">Méthode</a>
         <a href="#devis">Devis</a>
+        <div class="mega-wrap">
+          <a href="#ressources/creer-son-entreprise">Ressources <svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="mega"><div class="mega-inner" id="megaRes"></div></div>
+        </div>
         <a href="#apropos">À propos</a>
         <a href="#avis">Avis</a>
         <a href="#faq">FAQ</a>
@@ -978,6 +994,7 @@
   <div class="dsublist" id="drawerSvc"></div>
   <a href="#methode" onclick="closeNav()">Méthode</a>
   <a href="#devis" onclick="closeNav()">Devis</a>
+  <div class="dsublist" id="drawerRes"></div>
   <a href="#apropos" onclick="closeNav()">À propos</a>
   <a href="#avis" onclick="closeNav()">Avis</a>
   <a href="#faq" onclick="closeNav()">FAQ</a>
@@ -1312,6 +1329,47 @@ function initComparateur(){
   });
 }
 
+/* ===== Guides (Ressources) — contenu éditorial original ===== */
+var GUIDES=[
+  {slug:'creer-son-entreprise',cat:'Création',read:'4 min',title:'Créer son entreprise, étape par étape',
+    lead:'De l’idée à l’immatriculation, voici les grandes étapes pour lancer votre activité sereinement — sans rien oublier.',
+    sections:[
+      {h:'1. Cadrer son projet',p:['Avant toute démarche administrative, prenez le temps de clarifier votre projet : quelle activité, pour quels clients, avec quel modèle de revenus ? Un projet bien cadré évite de mauvais choix par la suite.','Estimez vos besoins de financement et vos charges des premiers mois. C’est le socle de votre prévisionnel.']},
+      {h:'2. Choisir son statut juridique',p:['Le statut détermine votre responsabilité, votre régime social et votre fiscalité. Micro-entreprise pour tester simplement, société (SASU, SARL…) pour protéger votre patrimoine et vous développer.'],list:['Vous lancez seul et testez une activité : la micro-entreprise','Vous voulez protéger votre patrimoine : une société','Vous serez plusieurs associés : SARL ou SAS']},
+      {h:'3. Réaliser les formalités',p:['Rédaction des statuts (pour une société), dépôt du capital, publication d’une annonce légale puis immatriculation sur le guichet unique. Une fois le dossier complet, l’immatriculation intervient généralement en quelques jours.']},
+      {h:'4. Bien démarrer',p:['Ouvrez un compte dédié à l’activité, mettez en place votre facturation et votre suivi comptable dès le premier euro. C’est là qu’un accompagnement fait gagner un temps précieux et évite les erreurs.']}
+    ]},
+  {slug:'micro-ou-societe',cat:'Statut',read:'3 min',title:'Micro-entreprise ou société : comment choisir ?',
+    lead:'Deux voies très différentes pour entreprendre. Voici les critères concrets pour trancher selon votre situation.',
+    sections:[
+      {h:'La micro-entreprise',p:['Simple et rapide, elle convient pour tester une activité ou exercer en complément. La comptabilité est allégée et les charges sont calculées sur le chiffre d’affaires encaissé.'],list:['Formalités minimales','Comptabilité très simplifiée','Plafonds de chiffre d’affaires à respecter','Pas de déduction des charges réelles']},
+      {h:'La société (SASU, SARL, SAS…)',p:['Elle crée une personne morale distincte : votre responsabilité est limitée aux apports et vous pouvez déduire vos charges réelles. C’est le cadre adapté pour se développer, s’associer ou lever des fonds.'],list:['Responsabilité limitée','Déduction des charges réelles','Image plus solide vis-à-vis des partenaires','Formalités et gestion plus structurées']},
+      {h:'Comment trancher',p:['Le bon choix dépend de votre chiffre d’affaires prévisionnel, de vos charges, de votre besoin de protection sociale et de vos projets de développement. Un point avec votre expert-comptable permet de sécuriser la décision — souvent avant même de vous lancer.']}
+    ]},
+  {slug:'comprendre-la-tva',cat:'Fiscalité',read:'4 min',title:'Comprendre la TVA en quelques minutes',
+    lead:'Collecte, déduction, déclaration : les bases de la TVA expliquées simplement, sans jargon.',
+    sections:[
+      {h:'Le principe',p:['La TVA est un impôt sur la consommation que vous collectez pour l’État. Vous la facturez à vos clients (TVA collectée) et vous déduisez celle payée à vos fournisseurs (TVA déductible). Vous reversez la différence.']},
+      {h:'Les régimes',p:['Selon votre chiffre d’affaires et votre activité, vous relevez de la franchise en base (pas de TVA facturée), du régime simplifié ou du régime réel normal. Chaque régime a ses seuils et ses obligations déclaratives.']},
+      {h:'Les déclarations',p:['La TVA se déclare mensuellement, trimestriellement ou annuellement selon le régime. Une déclaration juste et dans les délais évite pénalités et régularisations. C’est un poste que nous prenons entièrement en charge.']}
+    ]},
+  {slug:'preparer-son-bilan',cat:'Comptabilité',read:'3 min',title:'Bien préparer son bilan comptable',
+    lead:'Le bilan n’est pas qu’une obligation : bien préparé, c’est un outil de pilotage. Voici comment l’aborder.',
+    sections:[
+      {h:'Rassembler les pièces',p:['Factures, relevés bancaires, justificatifs de frais, contrats en cours : plus vos pièces sont complètes et à jour, plus la clôture est rapide et fiable. Un suivi régulier tout au long de l’année évite le rush de fin d’exercice.']},
+      {h:'Vérifier la cohérence',p:['Rapprochements bancaires, lettrage des comptes clients et fournisseurs, contrôle des stocks et des immobilisations : cette révision garantit des comptes sincères et sans surprise.']},
+      {h:'En faire un outil de décision',p:['Au-delà des chiffres, le bilan raconte la santé de votre entreprise. Le rendez-vous de clôture est le moment idéal pour analyser vos résultats et préparer les décisions de l’année à venir.']}
+    ]},
+  {slug:'changer-de-comptable',cat:'Pratique',read:'3 min',title:'Changer d’expert-comptable sans stress',
+    lead:'Changer de cabinet est plus simple qu’on ne le croit — et possible à tout moment de l’année.',
+    sections:[
+      {h:'C’est possible quand vous voulez',p:['Vous n’êtes lié à aucune période imposée : le changement peut intervenir à tout moment. Le nouveau cabinet se charge de récupérer votre dossier auprès de l’ancien, dans le respect des règles de la profession.']},
+      {h:'Une transition organisée',p:['Nous récupérons votre FEC et vos pièces comptables, réalisons un point complet de votre situation, puis reprenons la tenue sans interruption de service. Vous ne perdez ni historique, ni continuité.'],list:['Récupération de votre dossier','Point complet de votre situation','Reprise de la tenue sans coupure']},
+      {h:'Ce que vous y gagnez',p:['Un interlocuteur dédié, des réponses rapides et des conseils clairs. Si votre cabinet actuel ne vous apporte plus cela, un premier échange (offert) permet de voir concrètement ce que nous pouvons améliorer.']}
+    ]}
+];
+var GUIDE_BY_SLUG={}; GUIDES.forEach(function(g){GUIDE_BY_SLUG[g.slug]=g;});
+
 /* ===== Helpers ===== */
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function svgW(inner,s){s=s||24;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">'+inner+'</svg>';}
@@ -1362,6 +1420,14 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
   if(ds){ds.innerHTML='<span class="dlabel">Nos expertises</span>'+SERVICE_PAGES.map(function(s){
     return '<a class="dsub" href="#services/'+s.slug+'" onclick="closeNav()">'+esc(s.title)+'</a>';
   }).join('');}
+  var mr=document.getElementById('megaRes');
+  if(mr){mr.innerHTML=GUIDES.map(function(g){
+    return '<a class="mitem" href="#ressources/'+g.slug+'"><span class="mi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span><b>'+esc(g.title)+'</b><em>'+esc(g.cat)+' · '+esc(g.read)+'</em></span></a>';
+  }).join('');}
+  var dr=document.getElementById('drawerRes');
+  if(dr){dr.innerHTML='<span class="dlabel">Ressources & guides</span>'+GUIDES.map(function(g){
+    return '<a class="dsub" href="#ressources/'+g.slug+'" onclick="closeNav()">'+esc(g.title)+'</a>';
+  }).join('');}
 })();
 
 /* ===== Interactions ===== */
@@ -1403,26 +1469,42 @@ function spServicePageHTML(s){
       +'<div class="sp-final"><h2>Parlons de votre '+esc(s.title.toLowerCase())+'</h2><p>Premier rendez-vous offert, réponse sous 24 h et sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis gratuit <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Prendre rendez-vous</a></div></div>'
     +'</div>';
 }
-function spOpen(slug){
-  var s=SP_BY_SLUG[slug]; var el=document.getElementById('svcPage'); if(!s||!el){spClose();return;}
-  el.innerHTML=spServicePageHTML(s); el.classList.add('open'); el.scrollTop=0;
-  if(s.slug==='creation')initComparateur();
-  document.body.classList.add('page-open'); document.title=s.title+' — AEM-CONSEIL';
+function spGuidePageHTML(g){
+  var secs=g.sections.map(function(s){
+    var ps=(s.p||[]).map(function(x){return '<p>'+esc(x)+'</p>';}).join('');
+    var li=s.list?'<ul class="gd-list">'+s.list.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>':'';
+    return '<div class="gd-sec"><h2>'+esc(s.h)+'</h2>'+ps+li+'</div>';
+  }).join('');
+  return ''
+    +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
+    +'<div class="sp-wrap gd-wrap">'
+      +'<div class="sp-hero" style="text-align:left;margin:0"><span class="sp-kick">'+esc(g.cat)+' · Guide</span><h1>'+esc(g.title)+'</h1><p>'+esc(g.lead)+'</p><span class="gd-read">'+esc(g.read)+' de lecture</span></div>'
+      +'<article class="gd-body">'+secs+'</article>'
+      +'<div class="sp-final"><h2>Une question sur ce sujet&nbsp;?</h2><p>Le premier rendez-vous est offert. Parlons de votre situation, sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div></div>'
+    +'</div>';
 }
+function spShow(html,title){
+  var el=document.getElementById('svcPage'); if(!el)return;
+  el.innerHTML=html; el.classList.add('open'); el.scrollTop=0;
+  document.body.classList.add('page-open'); document.title=title+' — AEM-CONSEIL';
+}
+function spOpenService(slug){var s=SP_BY_SLUG[slug]; if(!s){spClose();return;} spShow(spServicePageHTML(s),s.title); if(slug==='creation')initComparateur();}
+function spOpenGuide(slug){var g=GUIDE_BY_SLUG[slug]; if(!g){spClose();return;} spShow(spGuidePageHTML(g),g.title);}
 function spClose(){
   var el=document.getElementById('svcPage'); if(!el)return;
   el.classList.remove('open'); el.innerHTML=''; document.body.classList.remove('page-open'); document.title=SP_BASE_TITLE;
 }
 function spRoute(){
-  var m=(location.hash||'').match(/^#services\/([a-z-]+)$/);
-  if(m && SP_BY_SLUG[m[1]]){spOpen(m[1]);} else {spClose();}
+  var m=(location.hash||'').match(/^#(services|ressources)\/([a-z0-9-]+)$/);
+  if(m){ if(m[1]==='services'){spOpenService(m[2]);} else {spOpenGuide(m[2]);} return; }
+  spClose();
 }
-function spBack(){ location.hash='#services'; }
+function spBack(){ if(window.history.length>1){history.back();} else {location.hash='#services';} }
 function spGo(e,target){ if(e)e.preventDefault(); if(location.hash===target){spClose();var t=document.querySelector(target);if(t)t.scrollIntoView();} else {location.hash=target;} }
 window.addEventListener('hashchange',spRoute);
 spRoute();
 
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.body.classList.contains('page-open')){location.hash='#services';return;}closeSvc();closeLegal();closeCGV();closePrivacy();closeCGU();closeNav();}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.body.classList.contains('page-open')){spBack();return;}closeSvc();closeLegal();closeCGV();closePrivacy();closeCGU();closeNav();}});
 
 /* ===== Formulaire (FormSubmit) ===== */
 (function(){
@@ -1486,7 +1568,7 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
 
   var nav=document.getElementById('nav'),toTop=document.getElementById('toTop'),scrollbar=document.getElementById('scrollbar');
   var links=[].slice.call(document.querySelectorAll('.nlinks > a, .nlinks > .mega-wrap > a'));
-  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var secs=links.map(function(a){var h=a.getAttribute('href');return (h&&/^#[\w-]+$/.test(h))?document.querySelector(h):null;});
   var ticking=false;
   function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(function(){
     var y=window.scrollY||window.pageYOffset;
