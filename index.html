@@ -660,6 +660,32 @@
   .gd-list{list-style:none;margin:6px 0 14px;padding:0;display:flex;flex-direction:column;gap:10px}
   .gd-list li{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;line-height:1.5;color:#cfd7ee}
   .gd-list li svg{flex:none;color:var(--azur);margin-top:2px}
+
+  /* ===== Méthodes comptables (section Méthode) ===== */
+  .meth-methods{position:relative;z-index:1;margin-top:72px}
+  .meth-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:920px;margin:32px auto 0}
+  .meth-card{border:1px solid var(--line);border-radius:22px;padding:30px 28px;background:var(--glass);backdrop-filter:blur(16px) saturate(150%)}
+  .meth-card.best{border-color:rgba(109,134,255,.45);background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03));box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 46px rgba(43,69,255,.16),inset 0 1px 0 rgba(255,255,255,.1)}
+  .meth-tag{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt2);font-weight:600}
+  .meth-card.best .meth-tag{color:var(--peri)}
+  .meth-card h3{font-family:'Inter Tight';font-weight:600;font-size:20px;letter-spacing:-.01em;margin-top:9px}
+  .meth-card>p{margin-top:12px;color:var(--txt2);font-size:14.5px;line-height:1.6}
+  .meth-card ul{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .meth-card li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.45;color:#cfd7ee}
+  .meth-card li .mk{flex:none;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;margin-top:1px;font-size:11px}
+  .meth-card li .mk.ok{background:linear-gradient(135deg,#5b7cff,#2b45ff);color:#fff}
+  .meth-card li .mk.no{border:1px solid rgba(150,168,255,.25);color:var(--txt2)}
+  .meth-card li.lim{color:var(--txt2)}
+  .meth-detail{max-width:920px;margin:20px auto 0;border:1px solid var(--line-2);border-radius:22px;padding:32px 32px;
+    background:linear-gradient(160deg,rgba(20,26,48,.5),rgba(9,13,26,.62));backdrop-filter:blur(18px) saturate(150%)}
+  .meth-detail h3{font-family:'Inter Tight';font-weight:600;font-size:clamp(19px,2.4vw,24px);letter-spacing:-.02em}
+  .meth-detail>p{margin-top:10px;color:var(--txt2);font-size:15px;line-height:1.65}
+  .meth-reasons{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .meth-reasons li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:#cfd7ee}
+  .meth-reasons li svg{flex:none;color:var(--azur);margin-top:2px}
+  .meth-reasons li b{font-family:'Inter Tight';font-weight:600;color:var(--txt)}
+  .meth-note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--txt2);line-height:1.6}
+  @media(max-width:760px){.meth-grid{grid-template-columns:1fr}.meth-reasons{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="loading">
@@ -723,6 +749,47 @@
       <div class="methode-glow" aria-hidden="true"></div>
       <div class="sh reveal"><span class="kick">Notre méthode</span><h2>Une <span class="ital">logique</span> comptable, du premier jour au bilan</h2><p>Un processus clair et rythmé par vos échéances, pour ne jamais être pris au dépourvu.</p></div>
       <div class="steps reveal" id="steps"></div>
+
+      <div class="meth-methods reveal">
+        <div class="sh"><span class="kick">La méthode comptable</span><h2>Quelle <span class="ital">méthode</span> pour tenir vos comptes&nbsp;?</h2><p>Deux grandes approches existent — le choix détermine la fiabilité de vos comptes et votre capacité à piloter. Voici celle que nous appliquons, et pourquoi.</p></div>
+        <div class="meth-grid">
+          <div class="meth-card">
+            <span class="meth-tag">Approche 1</span>
+            <h3>Comptabilité de trésorerie</h3>
+            <p>Les opérations sont enregistrées au moment où l'argent entre ou sort : encaissements et décaissements. C'est la logique du relevé bancaire.</p>
+            <ul>
+              <li><span class="mk ok">✓</span>Simple et rapide à tenir</li>
+              <li><span class="mk ok">✓</span>Adaptée aux très petites structures (certaines professions libérales, micro-entreprise)</li>
+              <li class="lim"><span class="mk no">–</span>Ne tient pas compte des factures non encore payées</li>
+              <li class="lim"><span class="mk no">–</span>Vision partielle : le résultat est faussé par le simple décalage des paiements</li>
+            </ul>
+          </div>
+          <div class="meth-card best spot">
+            <span class="meth-tag">Notre choix</span>
+            <h3>Comptabilité d'engagement</h3>
+            <p>Les opérations sont enregistrées dès qu'elles naissent : une facture émise ou reçue est comptabilisée immédiatement, indépendamment de son paiement.</p>
+            <ul>
+              <li><span class="mk ok">✓</span>Image fidèle et sincère de votre activité</li>
+              <li><span class="mk ok">✓</span>Créances, dettes et stocks pris en compte</li>
+              <li><span class="mk ok">✓</span>Obligatoire pour la plupart des sociétés</li>
+              <li><span class="mk ok">✓</span>Base d'un vrai pilotage : tableaux de bord et prévisionnels</li>
+            </ul>
+          </div>
+        </div>
+        <div class="meth-detail">
+          <h3>Pourquoi nous appliquons la comptabilité d'engagement, en partie double</h3>
+          <p>C'est la méthode de référence des cabinets d'expertise comptable — et celle qui vous sert le mieux au quotidien. Chaque opération est enregistrée deux fois, au débit et au crédit : c'est le principe de la <b>partie double</b>, garant de comptes équilibrés et vérifiables.</p>
+          <ul class="meth-reasons">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>Une image fidèle</b> — votre résultat reflète l'activité réelle de la période, pas les aléas de trésorerie.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>La conformité</b> — elle répond au Plan Comptable Général et aux attentes de l'administration et des banques.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>L'anticipation</b> — vous visualisez vos échéances et votre trésorerie à venir, pas seulement le passé.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>Le pilotage</b> — des comptes exploitables en continu pour décider au bon moment.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>La fiabilité</b> — la partie double sécurise chaque écriture et rend les comptes traçables.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>La sérénité</b> — moins d'erreurs, des clôtures plus rapides et des contrôles facilités.</span></li>
+          </ul>
+          <p class="meth-note">En pratique, nous adaptons le niveau de détail — système réel simplifié ou réel normal — à la taille et aux obligations de votre entreprise, sans jamais rogner sur la rigueur. Objectif : des comptes justes, et des décisions claires.</p>
+        </div>
+      </div>
     </section>
 
     <!-- SIMULATEUR / DEVIS -->
