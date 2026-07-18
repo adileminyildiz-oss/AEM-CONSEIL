@@ -1170,19 +1170,19 @@ var IC={
   scale:'<path d="M12 3v18M7 21h10M5 7h14M5 7l-2.5 5.5a3 3 0 006 0zM19 7l-2.5 5.5a3 3 0 006 0z"/>'
 };
 var SERVICES=[
-  {icon:IC.bars,title:'Expertise comptable',teaser:'Tenue, bilan, comptes annuels et liasses fiscales, en toute sérénité.',
+  {icon:IC.bars,page:'comptabilite',title:'Expertise comptable',teaser:'Tenue, bilan, comptes annuels et liasses fiscales, en toute sérénité.',
     desc:'Une comptabilité tenue avec rigueur, des comptes clairs et conformes, pour piloter votre activité en toute sérénité.',
     features:['Traitement des factures clients et fournisseurs','Récupération et exploitation de votre FEC (Fichier des Écritures Comptables)','Saisie et tenue complète de votre comptabilité','Établissement du bilan et du compte de résultat','Comptes annuels et liasses fiscales','Révision et arrêté des comptes','Tableaux de bord et reporting réguliers']},
-  {icon:IC.case,title:'Conseil & gestion',teaser:'Tableaux de bord, prévisionnels et pilotage stratégique de votre activité.',
+  {icon:IC.case,page:'conseil-gestion',title:'Conseil & gestion',teaser:'Tableaux de bord, prévisionnels et pilotage stratégique de votre activité.',
     desc:'Un accompagnement stratégique pour piloter, anticiper et développer votre activité en toute confiance.',
     features:['Tableaux de bord personnalisés','Prévisionnels et budgets','Analyse de rentabilité et de marges','Suivi de trésorerie','Accompagnement à la prise de décision','Points réguliers avec votre conseiller']},
-  {icon:IC.doc,title:'Paie & social',teaser:'Bulletins de paie, déclarations sociales et obligations employeur.',
+  {icon:IC.doc,page:'paie-social',title:'Paie & social',teaser:'Bulletins de paie, déclarations sociales et obligations employeur.',
     desc:'La gestion complète de vos salariés, du bulletin de paie aux obligations sociales.',
     features:['Bulletins de paie mensuels','Déclarations sociales (DSN)','Gestion des congés et absences','Contrats et documents de fin de contrat','Conseil en droit social','Veille sur la réglementation sociale']},
-  {icon:IC.trend,title:'Fiscalité',teaser:'Optimisation, TVA, déclarations et veille réglementaire adaptées.',
+  {icon:IC.trend,page:'fiscalite',title:'Fiscalité',teaser:'Optimisation, TVA, déclarations et veille réglementaire adaptées.',
     desc:'Une fiscalité optimisée et sécurisée, en parfaite conformité avec la réglementation en vigueur.',
     features:['Déclarations de TVA','Analyse et contrôle de cohérence de votre FEC','Optimisation fiscale adaptée à votre situation','Déclarations fiscales annuelles','Veille réglementaire permanente','Assistance en cas de contrôle']},
-  {icon:IC.rocket,title:'Création d’entreprise',teaser:'Statut, formalités et démarrage de votre activité, accompagnés de A à Z.',
+  {icon:IC.rocket,page:'creation',title:'Création d’entreprise',teaser:'Statut, formalités et démarrage de votre activité, accompagnés de A à Z.',
     desc:'De l’idée à l’immatriculation, on vous accompagne pour lancer votre activité sur des bases solides.',
     features:['Choix du statut juridique adapté','Rédaction des statuts','Formalités et immatriculation','Business plan et prévisionnel','Ouverture des comptes et démarches','Accompagnement au démarrage']},
   {icon:IC.users,title:'Accompagnement personnalisé',teaser:'Un interlocuteur dédié, à votre écoute au quotidien.',
@@ -1261,7 +1261,8 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
   document.getElementById('svc-grid').innerHTML=SERVICES.map(function(s,i){
     var n=('0'+(i+1)).slice(-2);
     var last=i===SERVICES.length-1;
-    var head='<div class="svc spot'+(i===0?' tall':(last?' wide':''))+'" onclick="openSvc('+i+')" tabindex="0" role="button" aria-label="'+esc(s.title)+'" onkeydown="if(event.key===\'Enter\')openSvc('+i+')">';
+    var act=s.page?"location.hash=\'#services/"+s.page+"\'":"openSvc("+i+")";
+    var head='<div class="svc spot'+(i===0?' tall':(last?' wide':''))+'" onclick="'+act+'" tabindex="0" role="button" aria-label="'+esc(s.title)+'" onkeydown="if(event.key===\'Enter\'){'+act+'}">';
     var ghost='<span class="ghost" aria-hidden="true">'+n+'</span>';
     var ic='<span class="ic">'+svgW(s.icon,20)+'</span>';
     var more='<span class="more">Voir le détail '+svgW('<path d="M7 17L17 7M17 7H9M17 7v8"/>',14)+'</span>';
