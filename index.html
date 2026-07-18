@@ -574,6 +574,65 @@
   @media(max-width:860px){.stats-band{grid-template-columns:1fr 1fr;gap:12px}}
   @media(max-width:560px){.stat{padding:24px 16px}}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mq-track{animation:none}.spot::after{display:none}}
+
+  /* ===== Méga-menu Services ===== */
+  .mega-wrap{position:relative;display:flex;align-items:center}
+  .mega-wrap>a .caret{margin-left:5px;transition:transform .25s;vertical-align:middle}
+  .mega-wrap:hover>a .caret,.mega-wrap:focus-within>a .caret{transform:rotate(180deg)}
+  .mega{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(6px);padding-top:16px;width:min(600px,92vw);z-index:70;
+    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,transform .22s ease}
+  .mega-wrap:hover .mega,.mega-wrap:focus-within .mega{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  .mega-inner{background:linear-gradient(160deg,rgba(15,20,38,.98),rgba(8,11,22,.98));border:1px solid var(--line-2);border-radius:18px;padding:12px;
+    display:grid;grid-template-columns:1fr 1fr;gap:5px;box-shadow:0 34px 80px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.06)}
+  .mega .mitem{display:flex;gap:12px;align-items:flex-start;padding:12px 13px;border-radius:13px;transition:background .18s;color:var(--txt)}
+  .mega .mitem:hover{background:var(--glass-2)}
+  .mega .mitem .mi{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--peri);
+    background:linear-gradient(150deg,rgba(43,69,255,.26),rgba(43,69,255,.08));border:1px solid var(--line-2)}
+  .mega .mitem b{font-family:'Inter Tight';font-weight:600;font-size:14px;display:block}
+  .mega .mitem em{font-style:normal;font-size:12px;color:var(--txt2);display:block;margin-top:2px;line-height:1.35}
+  /* Sous-liens Services dans le tiroir mobile */
+  .drawer .dsub{font-size:14.5px;color:var(--txt2);padding-left:16px;border-left:1px solid var(--line-2);margin-left:4px}
+  .drawer .dsub:hover{color:#fff}
+  .drawer .dlabel{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--azur);margin-top:8px;font-weight:600}
+
+  /* ===== Page Service dédiée ===== */
+  #svcPage{position:fixed;inset:0;z-index:130;display:none;overflow-y:auto;overflow-x:hidden;
+    background:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.16),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
+  #svcPage.open{display:block}
+  body.page-open{overflow:hidden}
+  .sp-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:14px clamp(16px,5vw,40px);background:rgba(4,5,11,.72);backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid var(--line)}
+  .sp-bar .sp-brand{display:flex;align-items:center;gap:14px}
+  .sp-bar .sp-back{display:inline-flex;align-items:center;gap:8px;font-family:'Inter Tight';font-weight:500;font-size:14px;color:var(--txt2);background:none;border:none;cursor:pointer;padding:8px 10px;border-radius:10px}
+  .sp-bar .sp-back:hover{color:#fff;background:var(--glass)}
+  .sp-bar img{height:28px;cursor:pointer}
+  .sp-wrap{max-width:960px;margin:0 auto;padding:clamp(38px,6vw,74px) 22px 96px}
+  .sp-hero{text-align:center;max-width:700px;margin:0 auto}
+  .sp-kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .sp-hero h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(31px,6vw,54px);letter-spacing:-.03em;margin-top:14px;text-wrap:balance;line-height:1.05}
+  .sp-hero h1 .ital{font-family:'Instrument Serif';font-style:italic;font-weight:400;color:var(--peri)}
+  .sp-hero p{margin-top:18px;color:var(--txt2);font-size:17px;line-height:1.7}
+  .sp-hero .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+  .sp-sec{margin-top:60px}
+  .sp-sec>h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(23px,3.2vw,32px);letter-spacing:-.02em;text-align:center}
+  .sp-sec>.sub{text-align:center;color:var(--txt2);margin-top:8px;font-size:15px}
+  .sp-inc{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .sp-inc li{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:15px 18px;background:var(--glass);font-size:14.5px;line-height:1.45}
+  .sp-inc li svg{flex:none;color:var(--azur);margin-top:1px}
+  .sp-steps{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+  .sp-stepcard{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--glass)}
+  .sp-stepcard .n{font-family:'Instrument Serif';font-style:italic;font-size:26px;color:var(--peri)}
+  .sp-stepcard h3{font-family:'Inter Tight';font-weight:600;font-size:16px;margin-top:8px}
+  .sp-stepcard p{margin-top:6px;color:var(--txt2);font-size:13.5px;line-height:1.5}
+  .sp-aud{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .sp-aud span{border:1px solid var(--line-2);border-radius:999px;padding:9px 16px;font-size:13.5px;color:#cdd7f5;background:var(--glass)}
+  .sp-faq{margin-top:26px;max-width:720px;margin-left:auto;margin-right:auto}
+  .sp-final{margin-top:64px;text-align:center;border:1px solid var(--line-2);border-radius:24px;padding:clamp(36px,5vw,58px) 26px;overflow:hidden;
+    background:linear-gradient(160deg,rgba(43,69,255,.15),rgba(43,69,255,.03));box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 50px rgba(43,69,255,.14)}
+  .sp-final h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(24px,3.6vw,36px);letter-spacing:-.02em;max-width:560px;margin:0 auto;text-wrap:balance}
+  .sp-final p{margin:14px auto 0;max-width:500px;color:#c3cdf0;font-size:15.5px;line-height:1.6}
+  .sp-final .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+  @media(max-width:640px){.sp-inc{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="loading">
@@ -587,7 +646,10 @@
     <div class="nav-in">
       <a href="#top" class="logo" aria-label="AEM CONSEIL — Accueil"><img src="assets/logo-full.png" alt="AEM Conseil"></a>
       <div class="nlinks">
-        <a href="#services">Services</a>
+        <div class="mega-wrap">
+          <a href="#services">Services <svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="mega"><div class="mega-inner" id="megaInner"></div></div>
+        </div>
         <a href="#methode">Méthode</a>
         <a href="#devis">Devis</a>
         <a href="#apropos">À propos</a>
@@ -898,6 +960,7 @@
 <aside class="drawer" id="drawer" aria-hidden="true">
   <button class="dclose" aria-label="Fermer" onclick="closeNav()">✕</button>
   <a href="#services" onclick="closeNav()">Services</a>
+  <div class="dsublist" id="drawerSvc"></div>
   <a href="#methode" onclick="closeNav()">Méthode</a>
   <a href="#devis" onclick="closeNav()">Devis</a>
   <a href="#apropos" onclick="closeNav()">À propos</a>
@@ -906,6 +969,9 @@
   <a href="#contact" onclick="closeNav()">Contact</a>
   <a href="#contact" class="btn btn-pri" onclick="closeNav()">Prendre rendez-vous</a>
 </aside>
+
+<!-- Page Service dédiée -->
+<div id="svcPage" role="dialog" aria-modal="true" aria-label="Page service"></div>
 
 <!-- Modale service -->
 <div class="overlay-modal" id="svcModal" onclick="closeSvc(event)">
@@ -1100,7 +1166,8 @@ var IC={
   doc:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
   trend:'<path d="M3 17l6-6 4 4 8-8M21 7v5M21 7h-5"/>',
   rocket:'<path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.8-.8.8-2 0-3s-2.2-.8-3 0z"/><path d="M9 12a12 12 0 018-9c1 4-1 8-4 10l-1 4-3-3z"/><circle cx="14" cy="9" r="1.3"/>',
-  users:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0112 0M16 5.5a3 3 0 010 5.5M21 20a6 6 0 00-4-5.6"/>'
+  users:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0112 0M16 5.5a3 3 0 010 5.5M21 20a6 6 0 00-4-5.6"/>',
+  scale:'<path d="M12 3v18M7 21h10M5 7h14M5 7l-2.5 5.5a3 3 0 006 0zM19 7l-2.5 5.5a3 3 0 006 0z"/>'
 };
 var SERVICES=[
   {icon:IC.bars,title:'Expertise comptable',teaser:'Tenue, bilan, comptes annuels et liasses fiscales, en toute sérénité.',
@@ -1143,6 +1210,47 @@ var FAQS=[
   {q:'Comment se passe la reprise de ma comptabilité ?',a:'Nous récupérons votre FEC et vos pièces comptables, réalisons un point complet, puis reprenons la tenue sans interruption de service.'}
 ];
 
+/* ===== Pages Services (méga-menu) ===== */
+var SERVICE_PAGES=[
+  {slug:'comptabilite',icon:IC.bars,cat:'Comptabilité',title:'Expertise comptable',menu:'Tenue, bilan et comptes annuels',
+    lead:'Une comptabilité tenue avec rigueur, des comptes clairs et conformes — pour piloter votre activité l’esprit tranquille.',
+    includes:['Tenue complète de votre comptabilité','Saisie, lettrage et rapprochements bancaires','Révision et arrêté des comptes','Bilan et compte de résultat','Comptes annuels et liasse fiscale','Reprise et exploitation de votre FEC','Tableaux de bord et reporting réguliers'],
+    process:[{t:'Reprise & FEC',d:'Récupération de vos pièces et de votre FEC, puis point complet de votre situation.'},{t:'Tenue en continu',d:'Saisie, lettrage et rapprochements tout au long de l’exercice.'},{t:'Révision',d:'Contrôle de cohérence et arrêté des comptes avant clôture.'},{t:'Bilan & conseil',d:'Bilan, liasse fiscale et rendez-vous de pilotage pour préparer la suite.'}],
+    audience:['Indépendants','TPE','PME','Professions libérales','Commerçants','Artisans'],
+    faq:[{q:'Puis-je vous confier ma compta en cours d’année ?',a:'Oui. Nous récupérons votre dossier auprès de votre ancien cabinet et reprenons la tenue sans interruption de service.'},{q:'À quelle fréquence ai-je un point sur mes comptes ?',a:'Selon la formule : au minimum au moment du bilan, et idéalement via des tableaux de bord réguliers tout au long de l’année.'}]},
+  {slug:'paie-social',icon:IC.users,cat:'Social',title:'Paie & social',menu:'Bulletins, DSN et obligations employeur',
+    lead:'La gestion complète de vos salariés, du bulletin de paie aux déclarations sociales — sans erreur et dans les délais.',
+    includes:['Bulletins de paie mensuels','Déclarations sociales (DSN)','Gestion des entrées et sorties','Suivi des congés et absences','Contrats et documents de fin de contrat','Conseil en droit social','Veille sur la réglementation sociale'],
+    process:[{t:'Paramétrage',d:'Mise en place de votre dossier social et de votre convention collective.'},{t:'Collecte',d:'Recueil mensuel des variables de paie (heures, primes, absences).'},{t:'Édition',d:'Établissement et contrôle des bulletins de paie.'},{t:'Déclarations',d:'Télétransmission des DSN et suivi des échéances sociales.'}],
+    audience:['Employeurs','TPE avec salariés','PME','Associations','Commerces'],
+    faq:[{q:'À partir de combien de salariés m’accompagnez-vous ?',a:'Dès le premier salarié — y compris pour votre toute première embauche et les formalités associées.'},{q:'La DSN est-elle incluse ?',a:'Oui, l’établissement et la télétransmission des déclarations sociales nominatives font partie de la mission paie.'}]},
+  {slug:'fiscalite',icon:IC.trend,cat:'Fiscalité',title:'Fiscalité & TVA',menu:'Déclarations, optimisation et veille',
+    lead:'Une fiscalité optimisée et sécurisée, en parfaite conformité — pour ne payer ni trop, ni au mauvais moment.',
+    includes:['Déclarations de TVA','Déclarations fiscales annuelles','Optimisation fiscale adaptée à votre situation','Contrôle de cohérence de votre FEC','Choix et suivi du régime d’imposition','Veille réglementaire permanente','Assistance en cas de contrôle'],
+    process:[{t:'Diagnostic',d:'Analyse de votre situation et de votre régime fiscal.'},{t:'Déclarations',d:'Établissement et dépôt de vos déclarations périodiques.'},{t:'Optimisation',d:'Recommandations légales pour alléger et lisser votre charge fiscale.'},{t:'Veille',d:'Alertes sur les évolutions qui vous concernent.'}],
+    audience:['Toutes entreprises assujetties','Dirigeants','Indépendants','Sociétés'],
+    faq:[{q:'Quel régime de TVA est adapté à mon activité ?',a:'Cela dépend de votre chiffre d’affaires et de votre activité. Nous étudions votre cas pour choisir le régime le plus avantageux.'},{q:'Que se passe-t-il en cas de contrôle fiscal ?',a:'Nous vous assistons à chaque étape : préparation des pièces, réponses à l’administration et accompagnement dans les échanges.'}]},
+  {slug:'conseil-gestion',icon:IC.case,cat:'Pilotage',title:'Conseil & gestion',menu:'Tableaux de bord et prévisionnels',
+    lead:'Un accompagnement stratégique pour piloter, anticiper et développer votre activité en toute confiance.',
+    includes:['Tableaux de bord personnalisés','Prévisionnels et budgets','Analyse de rentabilité et de marges','Suivi de trésorerie','Aide à la prise de décision','Business plan','Points réguliers avec votre conseiller'],
+    process:[{t:'Cadrage',d:'Définition de vos objectifs et des indicateurs clés à suivre.'},{t:'Mise en place',d:'Construction de vos tableaux de bord et prévisionnels.'},{t:'Suivi',d:'Points périodiques pour comparer réalisé et objectifs.'},{t:'Recommandations',d:'Conseils concrets pour ajuster et gagner en rentabilité.'}],
+    audience:['Dirigeants','Créateurs','PME en croissance','Porteurs de projet'],
+    faq:[{q:'À quelle fréquence se font les points de pilotage ?',a:'Selon vos besoins : mensuel, trimestriel ou à des moments clés de votre activité.'},{q:'Pouvez-vous établir un prévisionnel pour ma banque ?',a:'Oui, nous réalisons des prévisionnels et business plans solides pour vos demandes de financement.'}]},
+  {slug:'creation',icon:IC.rocket,cat:'Création',title:'Création d’entreprise',menu:'Statut, formalités et démarrage',
+    lead:'De l’idée à l’immatriculation, on vous accompagne pour lancer votre activité sur des bases solides.',
+    includes:['Choix du statut juridique adapté','Rédaction des statuts','Formalités et immatriculation','Business plan et prévisionnel','Ouverture des comptes et démarches','Aides et financements','Accompagnement au démarrage'],
+    process:[{t:'Étude du projet',d:'Analyse de votre projet, de vos objectifs et de votre situation.'},{t:'Choix du statut',d:'Comparaison des formes juridiques et fiscales pour la plus adaptée.'},{t:'Formalités',d:'Rédaction des statuts, immatriculation et démarches administratives.'},{t:'Démarrage',d:'Mise en place de vos outils et accompagnement des premiers mois.'}],
+    audience:['Futurs entrepreneurs','Porteurs de projet','Créateurs de société','Repreneurs'],
+    faq:[{q:'Quel statut juridique choisir ?',a:'Cela dépend de votre projet, de vos associés et de votre régime social souhaité. Nous vous guidons vers le statut le plus pertinent.'},{q:'Quels sont les délais de création ?',a:'Une fois le dossier complet, l’immatriculation intervient généralement sous quelques jours ouvrés.'}]},
+  {slug:'juridique',icon:IC.scale,cat:'Juridique',title:'Juridique & formalités',menu:'Statuts, assemblées et secrétariat',
+    lead:'Le suivi juridique de votre société tout au long de sa vie — statuts, modifications et obligations, sans y penser.',
+    includes:['Rédaction et mise à jour des statuts','Approbation annuelle des comptes','Tenue des assemblées générales','Modifications statutaires','Transfert de siège social','Secrétariat juridique annuel','Formalités auprès du greffe'],
+    process:[{t:'Point annuel',d:'Revue de vos obligations juridiques de l’année.'},{t:'Préparation',d:'Rédaction des actes, convocations et procès-verbaux.'},{t:'Assemblées',d:'Tenue des assemblées et formalisation des décisions.'},{t:'Formalités',d:'Dépôts au greffe et mise à jour de vos registres.'}],
+    audience:['Sociétés (SAS, SARL, SCI…)','Dirigeants','Associés','Holdings'],
+    faq:[{q:'Qu’est-ce que le secrétariat juridique annuel ?',a:'C’est la gestion de vos obligations juridiques récurrentes : approbation des comptes, assemblée générale et dépôts associés.'},{q:'Pouvez-vous gérer une modification de statuts ?',a:'Oui : changement de gérant, transfert de siège, modification de l’objet ou du capital — nous rédigeons les actes et réalisons les formalités.'}]}
+];
+var SP_BY_SLUG={}; SERVICE_PAGES.forEach(function(s){SP_BY_SLUG[s.slug]=s;});
+
 /* ===== Helpers ===== */
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function svgW(inner,s){s=s||24;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">'+inner+'</svg>';}
@@ -1183,6 +1291,15 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
       +'<span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></button>'
       +'<div class="faq-panel"><p>'+esc(f.a)+'</p></div></div>';
   }).join('');
+
+  var mi=document.getElementById('megaInner');
+  if(mi){mi.innerHTML=SERVICE_PAGES.map(function(s){
+    return '<a class="mitem" href="#services/'+s.slug+'"><span class="mi">'+svgW(s.icon,18)+'</span><span><b>'+esc(s.title)+'</b><em>'+esc(s.menu)+'</em></span></a>';
+  }).join('');}
+  var ds=document.getElementById('drawerSvc');
+  if(ds){ds.innerHTML='<span class="dlabel">Nos expertises</span>'+SERVICE_PAGES.map(function(s){
+    return '<a class="dsub" href="#services/'+s.slug+'" onclick="closeNav()">'+esc(s.title)+'</a>';
+  }).join('');}
 })();
 
 /* ===== Interactions ===== */
@@ -1204,7 +1321,44 @@ function openPrivacy(){var m=document.getElementById('privacyModal');m.classList
 function closePrivacy(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('privacyModal');m.classList.remove('open');document.body.style.overflow='';}
 function openCGU(){var m=document.getElementById('cguModal');m.classList.add('open');document.body.style.overflow='hidden';}
 function closeCGU(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('cguModal');m.classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSvc();closeLegal();closeCGV();closePrivacy();closeCGU();closeNav();}});
+
+/* ===== Pages Services : routeur par ancre (#services/slug) ===== */
+var SP_BASE_TITLE=document.title;
+function spServicePageHTML(s){
+  var inc=s.includes.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('');
+  var steps=s.process.map(function(p,i){return '<div class="sp-stepcard"><span class="n">'+('0'+(i+1)).slice(-2)+'</span><h3>'+esc(p.t)+'</h3><p>'+esc(p.d)+'</p></div>';}).join('');
+  var aud=s.audience.map(function(a){return '<span>'+esc(a)+'</span>';}).join('');
+  var faq=s.faq.map(function(f){return '<div class="faq spot"><button type="button" onclick="toggleFaq(this)">'+esc(f.q)+'<span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="faq-panel"><p>'+esc(f.a)+'</p></div></div>';}).join('');
+  return ''
+    +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
+    +'<div class="sp-wrap">'
+      +'<div class="sp-hero"><span class="sp-kick">'+esc(s.cat)+'</span><h1>'+esc(s.title)+'</h1><p>'+esc(s.lead)+'</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Estimer mon besoin <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div></div>'
+      +'<div class="sp-sec"><h2>Ce que comprend la mission</h2><ul class="sp-inc">'+inc+'</ul></div>'
+      +'<div class="sp-sec"><h2>Comment ça se passe</h2><p class="sub">Un processus clair, rythmé par vos échéances.</p><div class="sp-steps">'+steps+'</div></div>'
+      +'<div class="sp-sec"><h2>Pour qui&nbsp;?</h2><div class="sp-aud">'+aud+'</div></div>'
+      +'<div class="sp-sec"><h2>Questions fréquentes</h2><div class="sp-faq faq-list">'+faq+'</div></div>'
+      +'<div class="sp-final"><h2>Parlons de votre '+esc(s.title.toLowerCase())+'</h2><p>Premier rendez-vous offert, réponse sous 24 h et sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis gratuit <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Prendre rendez-vous</a></div></div>'
+    +'</div>';
+}
+function spOpen(slug){
+  var s=SP_BY_SLUG[slug]; var el=document.getElementById('svcPage'); if(!s||!el){spClose();return;}
+  el.innerHTML=spServicePageHTML(s); el.classList.add('open'); el.scrollTop=0;
+  document.body.classList.add('page-open'); document.title=s.title+' — AEM-CONSEIL';
+}
+function spClose(){
+  var el=document.getElementById('svcPage'); if(!el)return;
+  el.classList.remove('open'); el.innerHTML=''; document.body.classList.remove('page-open'); document.title=SP_BASE_TITLE;
+}
+function spRoute(){
+  var m=(location.hash||'').match(/^#services\/([a-z-]+)$/);
+  if(m && SP_BY_SLUG[m[1]]){spOpen(m[1]);} else {spClose();}
+}
+function spBack(){ location.hash='#services'; }
+function spGo(e,target){ if(e)e.preventDefault(); if(location.hash===target){spClose();var t=document.querySelector(target);if(t)t.scrollIntoView();} else {location.hash=target;} }
+window.addEventListener('hashchange',spRoute);
+spRoute();
+
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.body.classList.contains('page-open')){location.hash='#services';return;}closeSvc();closeLegal();closeCGV();closePrivacy();closeCGU();closeNav();}});
 
 /* ===== Formulaire (FormSubmit) ===== */
 (function(){
@@ -1267,7 +1421,7 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
   document.querySelectorAll('.aem-count').forEach(function(el){countIO.observe(el);});
 
   var nav=document.getElementById('nav'),toTop=document.getElementById('toTop'),scrollbar=document.getElementById('scrollbar');
-  var links=[].slice.call(document.querySelectorAll('.nlinks a'));
+  var links=[].slice.call(document.querySelectorAll('.nlinks > a, .nlinks > .mega-wrap > a'));
   var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
   var ticking=false;
   function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(function(){
