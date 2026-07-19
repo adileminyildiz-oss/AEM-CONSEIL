@@ -28,7 +28,9 @@
   }
   *{box-sizing:border-box;margin:0}
   html{scroll-behavior:smooth}
-  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5;
+    height:100vh;height:100dvh;overflow:hidden;display:flex;flex-direction:column}
+  .topbar{flex:none}
   body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
     background:
       radial-gradient(820px 600px at 50% -10%, rgba(43,69,255,.20), transparent 60%),
@@ -76,12 +78,16 @@
   .btn-danger:hover{background:rgba(255,107,125,.16)}
 
   /* ===== Layout ===== */
-  .shell{max-width:1500px;margin:0 auto;padding:22px clamp(14px,3vw,28px) 60px;
-    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:26px;align-items:start}
-  @media(max-width:1080px){.shell{grid-template-columns:1fr}}
+  .shell{max-width:1500px;width:100%;margin:0 auto;padding:14px clamp(14px,3vw,28px);
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px;flex:1;min-height:0;align-items:stretch}
+  @media(max-width:1080px){
+    body{height:auto;overflow:auto;display:block}
+    .shell{grid-template-columns:1fr;padding-bottom:40px}
+  }
 
   /* ===== Éditeur (panneau gauche) ===== */
-  .editor{display:flex;flex-direction:column;gap:7px;min-width:0}
+  .editor{display:flex;flex-direction:column;gap:7px;min-width:0;min-height:0;overflow-y:auto;padding-right:5px}
+  @media(max-width:1080px){.editor{overflow:visible;padding-right:0}}
   .card{border:1px solid var(--line);border-radius:10px;background:var(--glass);padding:9px 10px}
   .card h3{font-family:'Inter Tight';font-weight:600;font-size:11.5px;letter-spacing:-.01em;margin-bottom:1px;display:flex;align-items:center;gap:6px}
   .card h3 .ic{width:17px;height:17px;border-radius:5px;display:grid;place-items:center;background:rgba(43,69,255,.16);color:var(--peri);flex:none}
@@ -137,16 +143,16 @@
   .check input{width:17px;height:17px;accent-color:var(--outremer);cursor:pointer}
 
   /* ===== Aperçu (panneau droit) ===== */
-  .preview-col{position:sticky;top:78px}
-  @media(max-width:1080px){.preview-col{position:static}}
-  .preview-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .preview-col{display:flex;flex-direction:column;min-height:0;min-width:0}
+  @media(max-width:1080px){.preview-col{min-height:auto}}
+  .preview-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap;flex:none}
   .preview-bar .zoom{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--txt2)}
   .preview-bar .zoom button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line-2);background:var(--glass);color:var(--txt);cursor:pointer;font-size:16px;line-height:1;display:grid;place-items:center}
-  .preview-scroll{border:1px solid var(--line);border-radius:16px;background:#3a3f52;padding:22px;overflow:auto;max-height:calc(100vh - 130px)}
-  @media(max-width:1080px){.preview-scroll{max-height:none}}
+  .preview-scroll{flex:1;min-height:0;border:1px solid var(--line);border-radius:16px;background:#3a3f52;padding:14px;overflow:auto;display:flex}
+  @media(max-width:1080px){.preview-scroll{display:block;overflow:visible}}
 
   /* ===== Le document (A4) ===== */
-  .doc{width:210mm;min-height:297mm;background:#fff;color:var(--doc-ink);margin:0 auto;
+  .doc{width:210mm;min-height:297mm;background:#fff;color:var(--doc-ink);margin:auto;flex:none;
     padding:18mm 16mm;transform-origin:top center;box-shadow:0 20px 60px rgba(0,0,0,.5);
     font-size:10.5pt;line-height:1.5;position:relative}
   .doc *{margin:0}
@@ -237,13 +243,13 @@
   /* ===== Impression ===== */
   @media print{
     @page{size:A4;margin:0}
-    body{background:#fff}
+    body{background:#fff;height:auto;overflow:visible;display:block}
     body::before{display:none}
     .topbar,.editor,.preview-bar,.no-print{display:none!important}
-    .shell{display:block;padding:0;max-width:none}
-    .preview-col{position:static}
-    .preview-scroll{border:none;border-radius:0;background:#fff;padding:0;overflow:visible;max-height:none}
-    .doc{width:210mm;min-height:297mm;box-shadow:none;margin:0;transform:none!important;
+    .shell{display:block;padding:0;max-width:none;height:auto}
+    .preview-col{position:static;display:block}
+    .preview-scroll{border:none;border-radius:0;background:#fff;padding:0;overflow:visible;display:block}
+    .doc{width:210mm;min-height:297mm;box-shadow:none;margin:0;transform:none!important;zoom:1!important;
       -webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
 </style>
@@ -372,6 +378,7 @@
           <button type="button" onclick="zoomStep(-1)" aria-label="Dézoomer">−</button>
           <span id="zoomVal" style="min-width:38px;text-align:center" class="num-t">75%</span>
           <button type="button" onclick="zoomStep(1)" aria-label="Zoomer">+</button>
+          <button type="button" onclick="zoomFit()" title="Ajuster à l'écran" style="width:auto;padding:0 9px;font-size:11px">Ajuster</button>
         </span>
         <button class="btn btn-ghost btn-sm" onclick="exportJSON()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> JSON</button>
       </div>
@@ -606,6 +613,7 @@ function render(){
     <div class="d-legal">${esc(legalBits.join('\n'))}</div>
     <div class="d-foot">${esc(s.emit.name||'')}${s.emit.name&&s.emit.siret?' · ':''}${s.emit.siret?'SIRET '+esc(s.emit.siret):''}${(s.emit.name||s.emit.siret)&&s.emit.tva?' · ':''}${s.emit.tva?'TVA '+esc(s.emit.tva):''}</div>
   `;
+  if(manualZoom==null) applyZoom();
 }
 
 /* ============ Rendu des lignes (éditeur) ============ */
@@ -789,12 +797,31 @@ document.getElementById('fileInput').addEventListener('change', e=>{
   r.readAsText(file); e.target.value='';
 });
 
-/* ============ Zoom aperçu ============ */
-let zoom=0.75;
-function applyZoom(){ document.getElementById('doc').style.transform='scale('+zoom+')'; document.getElementById('zoomVal').textContent=Math.round(zoom*100)+'%';
-  // ajuster la hauteur du conteneur pour éviter le vide dû au scale
+/* ============ Zoom / ajustement de l'aperçu ============ */
+let manualZoom=null;   // null = ajustement automatique (toute la page visible)
+function computeFit(){
+  const doc=document.getElementById('doc'), wrap=document.querySelector('.preview-scroll');
+  if(!doc||!wrap) return 0.7;
+  const prev=doc.style.zoom; doc.style.zoom='1';
+  const w=doc.offsetWidth||794, h=doc.offsetHeight||1123;
+  doc.style.zoom=prev;
+  const availW=Math.max(60, wrap.clientWidth-24);
+  let s=availW/w;
+  if(window.innerWidth>1080){ const availH=Math.max(60, wrap.clientHeight-24); s=Math.min(s, availH/h); }
+  return Math.max(0.2, Math.min(1, s));
 }
-function zoomStep(d){ zoom=Math.min(1.2,Math.max(0.4, +(zoom+d*0.1).toFixed(2))); applyZoom(); }
+function applyZoom(){
+  const scale = (manualZoom!=null) ? manualZoom : computeFit();
+  document.getElementById('doc').style.zoom=scale;
+  const z=document.getElementById('zoomVal'); if(z) z.textContent=Math.round(scale*100)+'%';
+}
+function zoomStep(d){
+  const cur = (manualZoom!=null) ? manualZoom : computeFit();
+  manualZoom = Math.max(0.3, Math.min(1.6, +(cur + d*0.1).toFixed(2)));
+  applyZoom();
+}
+function zoomFit(){ manualZoom=null; applyZoom(); }
+window.addEventListener('resize', function(){ if(manualZoom==null) applyZoom(); });
 
 /* ============ Toast ============ */
 let toastTimer=null;
