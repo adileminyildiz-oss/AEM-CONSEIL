@@ -395,6 +395,9 @@
   .ft-top h4{font-family:'Inter Tight';font-size:14px;font-weight:600;margin:0 0 15px}
   .ft-col nav{position:static;background:none;border:none;backdrop-filter:none;display:flex;flex-direction:column;gap:10px;font-size:14px}
   .ft-col a{color:var(--txt2)}.ft-col a:hover{color:#fff}
+  .ft-col .soon-link{display:inline-flex;align-items:center;gap:8px;color:#5a6488;cursor:not-allowed;opacity:.7}
+  .ft-col .soon-link .soon-tag{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--peri);
+    background:rgba(109,134,255,.12);border:1px solid var(--line-2);padding:2px 7px;border-radius:999px}
   .ft-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:42px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--txt2)}
   .ft-bottom a{color:var(--txt2)}.ft-bottom a:hover{color:#fff}
 
@@ -1120,7 +1123,7 @@
             <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>
             <a href="tel:+33665908325">06 65 90 83 25</a>
             <a href="#contact">Prendre rendez-vous</a>
-            <a href="espace/">Espace client</a>
+            <span class="soon-link" aria-disabled="true" title="Bientôt disponible">Espace client <span class="soon-tag">Bientôt disponible</span></span>
           </nav>
         </div>
       </div>
