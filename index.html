@@ -784,6 +784,28 @@
     .gd-sec p{font-size:15px}
     .cmp-table th,.cmp-table td{padding:11px 13px;font-size:12.5px}
   }
+
+  /* ===== Effets visuels mobile (aucun changement fonctionnel) ===== */
+  @keyframes mUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes mShine{from{background-position:0 0}to{background-position:220% 0}}
+  @keyframes mGlow{0%,100%{box-shadow:0 12px 32px rgba(43,69,255,.4)}50%{box-shadow:0 14px 48px rgba(43,69,255,.72)}}
+  @media(max-width:600px){
+    /* Retour tactile sur les éléments cliquables (sans transform, pour ne pas gêner les apparitions) */
+    .svc:active,.mitem:active,.dsub:active,.sm-opt:active,.cmp-chip:active,.sp-back:active,.row:active{filter:brightness(1.15)}
+  }
+  @media(max-width:600px) and (prefers-reduced-motion:no-preference){
+    /* Apparition des cartes en cascade quand la section entre à l'écran */
+    .svc-grid.in>.svc,.stats-band.in>.stat,.engage.in .eng,.meth-methods.in .meth-card,.onb.in .onb-step{animation:mUp .55s cubic-bezier(.22,1,.36,1) both}
+    .svc-grid.in>.svc:nth-child(2),.stats-band.in>.stat:nth-child(2),.engage.in .eng:nth-child(2),.meth-methods.in .meth-card:nth-child(2),.onb.in .onb-step:nth-child(2){animation-delay:.08s}
+    .svc-grid.in>.svc:nth-child(3),.stats-band.in>.stat:nth-child(3),.engage.in .eng:nth-child(3),.onb.in .onb-step:nth-child(3){animation-delay:.16s}
+    .svc-grid.in>.svc:nth-child(4),.stats-band.in>.stat:nth-child(4),.engage.in .eng:nth-child(4),.onb.in .onb-step:nth-child(4){animation-delay:.24s}
+    .svc-grid.in>.svc:nth-child(5),.engage.in .eng:nth-child(5){animation-delay:.32s}
+    .svc-grid.in>.svc:nth-child(6),.engage.in .eng:nth-child(6){animation-delay:.40s}
+    /* Scintillement doux des chiffres clés */
+    #chiffres .stat .num{background:linear-gradient(100deg,var(--peri) 26%,#fff 50%,var(--peri) 74%);-webkit-background-clip:text;background-clip:text;background-size:220% 100%;animation:mShine 5s linear infinite}
+    /* Souffle lumineux sur le CTA principal */
+    .cta-band .btn-pri{animation:mGlow 3.4s ease-in-out infinite}
+  }
 </style>
 </head>
 <body class="loading">
