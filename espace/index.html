@@ -16,6 +16,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
   :root{
     --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
@@ -23,7 +25,7 @@
     --line:rgba(150,168,255,.11); --line-2:rgba(150,168,255,.18);
     --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06);
     --txt:#f2f4ff; --txt2:#8b98bd; --pos:#3ee9a4;
-    --sidebar:264px;
+    --sidebar:186px;
   }
   *{box-sizing:border-box;margin:0}
   html,body{height:100%}
@@ -38,19 +40,19 @@
     border-right:1px solid var(--line);
     background:linear-gradient(180deg,rgba(11,14,26,.9),rgba(5,7,14,.94));
     z-index:70}
-  .sb-logo{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line)}
-  .sb-logo img{height:28px;filter:brightness(1.14) drop-shadow(0 0 8px rgba(169,184,255,.4))}
-  .sb-logo .t{font-family:'Inter Tight';font-weight:600;font-size:14px;line-height:1.1}
-  .sb-logo .t small{display:block;font-weight:400;font-size:11px;color:var(--txt2)}
+  .sb-logo{display:flex;align-items:center;gap:8px;padding:9px 11px;border-bottom:1px solid var(--line)}
+  .sb-logo img{height:20px;filter:brightness(1.14) drop-shadow(0 0 8px rgba(169,184,255,.4))}
+  .sb-logo .t{font-family:'Inter Tight';font-weight:600;font-size:11px;line-height:1.1}
+  .sb-logo .t small{display:block;font-weight:400;font-size:8.5px;color:var(--txt2)}
 
-  .sb-section{padding:16px 14px 6px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#5a6488;font-weight:600}
-  .snav{display:flex;flex-direction:column;gap:3px;padding:0 12px;overflow-y:auto}
-  .snav .item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;
-    font-family:'Inter Tight';font-weight:500;font-size:14px;color:var(--txt2);cursor:pointer;border:none;background:none;width:100%;text-align:left;
+  .sb-section{padding:10px 11px 3px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:#5a6488;font-weight:600}
+  .snav{display:flex;flex-direction:column;gap:2px;padding:0 8px;overflow-y:auto}
+  .snav .item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:8px;
+    font-family:'Inter Tight';font-weight:500;font-size:11.5px;color:var(--txt2);cursor:pointer;border:none;background:none;width:100%;text-align:left;
     transition:background .16s,color .16s;position:relative}
-  .snav .item .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none;
+  .snav .item .ic{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;flex:none;
     background:var(--glass);border:1px solid var(--line);color:var(--peri);transition:.16s}
-  .snav .item .ic svg{width:17px;height:17px}
+  .snav .item .ic svg{width:12px;height:12px}
   .snav .item .lbl{flex:1;min-width:0}
   .snav .item:hover{background:var(--glass);color:#fff}
   .snav .item.active{background:var(--glass-2);color:#fff}
@@ -61,16 +63,16 @@
   .snav .item .pill{font-size:9px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;
     background:rgba(109,134,255,.12);border:1px solid var(--line-2);color:var(--peri);flex:none}
 
-  .sb-foot{margin-top:auto;padding:12px;border-top:1px solid var(--line)}
-  .sb-foot .item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-family:'Inter Tight';font-weight:500;font-size:14px;color:var(--txt2);transition:.16s}
+  .sb-foot{margin-top:auto;padding:8px;border-top:1px solid var(--line)}
+  .sb-foot .item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:8px;font-family:'Inter Tight';font-weight:500;font-size:11.5px;color:var(--txt2);transition:.16s}
   .sb-foot .item:hover{background:var(--glass);color:#fff}
-  .sb-foot .item .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none;background:var(--glass);border:1px solid var(--line);color:var(--txt2)}
-  .sb-foot .item .ic svg{width:17px;height:17px}
-  .sb-user{display:flex;align-items:center;gap:11px;padding:10px 12px;margin-top:4px}
-  .sb-user .av{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:'Inter Tight';font-weight:700;font-size:13px;color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff)}
+  .sb-foot .item .ic{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;flex:none;background:var(--glass);border:1px solid var(--line);color:var(--txt2)}
+  .sb-foot .item .ic svg{width:12px;height:12px}
+  .sb-user{display:flex;align-items:center;gap:8px;padding:5px 8px;margin-top:2px}
+  .sb-user .av{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:'Inter Tight';font-weight:700;font-size:9.5px;color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff)}
   .sb-user .u{min-width:0;display:flex;flex-direction:column}
-  .sb-user .u .n{font-size:13px;font-weight:600;font-family:'Inter Tight';white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sb-user .u .r{font-size:11px;color:var(--txt2)}
+  .sb-user .u .n{font-size:11px;font-weight:600;font-family:'Inter Tight';white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sb-user .u .r{font-size:9.5px;color:var(--txt2)}
 
   /* ===== Zone principale ===== */
   .main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--noir)}
@@ -118,9 +120,68 @@
     .mtop{display:flex}
   }
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  /* ===== Écran d'authentification ===== */
+  #authGate{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:20px;overflow:auto;
+    background:radial-gradient(720px 500px at 50% -5%,rgba(43,69,255,.2),transparent 60%),var(--noir)}
+  body.authed #authGate{display:none}
+  body:not(.authed) .app{display:none}
+  body.auth-loading #authGate,body.auth-loading .app{visibility:hidden}
+  .auth-card{width:100%;max-width:376px;border:1px solid var(--line);border-radius:16px;background:var(--noir2);
+    padding:26px 24px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .auth-logo{height:28px;display:block;margin:0 auto 16px;filter:brightness(1.14) drop-shadow(0 0 8px rgba(169,184,255,.4))}
+  .auth-card h1{font-family:'Inter Tight';font-weight:600;font-size:18px;text-align:center;letter-spacing:-.01em}
+  .auth-sub{text-align:center;color:var(--txt2);font-size:12.5px;margin:6px 0 18px}
+  .auth-card form{display:flex;flex-direction:column;gap:3px}
+  .auth-card label{font-size:11px;color:var(--txt2);font-weight:500;margin-top:9px}
+  .auth-card input{width:100%;font-family:inherit;font-size:13.5px;color:var(--txt);background:var(--noir3);
+    border:1px solid var(--line-2);border-radius:9px;padding:9px 11px;transition:border-color .18s}
+  .auth-card input:focus{border-color:var(--azur);outline:none}
+  .auth-btn{margin-top:16px;font-family:'Inter Tight';font-weight:600;font-size:13.5px;color:#05061a;cursor:pointer;
+    background:linear-gradient(135deg,#c2ccff,#2b45ff);border:none;border-radius:10px;padding:11px;transition:filter .2s}
+  .auth-btn:hover{filter:brightness(1.06)}
+  .auth-btn:disabled{opacity:.6;cursor:default}
+  .auth-link{background:none;border:none;color:var(--peri);font-size:12px;cursor:pointer;margin:11px auto 0;display:block}
+  .auth-link:hover{text-decoration:underline}
+  .auth-switch{text-align:center;font-size:12.5px;color:var(--txt2);margin-top:15px;padding-top:14px;border-top:1px solid var(--line)}
+  .auth-switch button{background:none;border:none;color:var(--peri);font-weight:600;cursor:pointer;font-size:12.5px}
+  .auth-switch button:hover{text-decoration:underline}
+  .auth-msg{font-size:12.5px;border-radius:9px;padding:9px 11px;margin-bottom:12px;display:none;line-height:1.45}
+  .auth-msg.show{display:block}
+  .auth-msg.err{background:rgba(255,107,125,.1);border:1px solid rgba(255,107,125,.3);color:#ffb3bd}
+  .auth-msg.ok{background:rgba(62,233,164,.1);border:1px solid rgba(62,233,164,.3);color:#8ff0c9}
+  .auth-msg.info{background:rgba(109,134,255,.1);border:1px solid var(--line-2);color:var(--peri)}
+  .auth-spin{width:14px;height:14px;border:2px solid rgba(5,6,26,.35);border-top-color:#05061a;border-radius:50%;display:inline-block;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:6px}
+  .sb-logout{margin-left:auto;flex:none;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;background:none;border:1px solid transparent;color:var(--txt2);cursor:pointer;transition:.16s}
+  .sb-logout:hover{color:#ffb3bd;background:rgba(255,107,125,.1);border-color:rgba(255,107,125,.24)}
+  .sb-logout svg{width:15px;height:15px}
 </style>
 </head>
 <body>
+
+<!-- Écran d'authentification -->
+<div id="authGate">
+  <div class="auth-card">
+    <img class="auth-logo" src="../assets/logo-full.png" alt="AEM CONSEIL">
+    <h1 id="authTitle">Connexion à votre espace</h1>
+    <p class="auth-sub" id="authSub">Accédez à vos factures et documents.</p>
+    <div class="auth-msg" id="authMsg"></div>
+    <form id="authForm" novalidate>
+      <label for="authEmail">Email</label>
+      <input type="email" id="authEmail" required autocomplete="email" placeholder="vous@exemple.fr">
+      <label for="authPass">Mot de passe</label>
+      <input type="password" id="authPass" required minlength="6" autocomplete="current-password" placeholder="••••••••">
+      <div id="authPass2Wrap" hidden>
+        <label for="authPass2">Confirmer le mot de passe</label>
+        <input type="password" id="authPass2" autocomplete="new-password" placeholder="••••••••">
+      </div>
+      <button type="submit" class="auth-btn" id="authSubmit">Se connecter</button>
+    </form>
+    <button class="auth-link" id="authForgot" type="button">Mot de passe oublié ?</button>
+    <div class="auth-switch"><span id="authSwitchTxt">Pas encore de compte&nbsp;?</span> <button type="button" id="authToggle">Créer un compte</button></div>
+  </div>
+</div>
+
 <div class="app">
 
   <!-- Barre latérale -->
@@ -152,8 +213,9 @@
         <span class="lbl">Retour au site</span>
       </a>
       <div class="sb-user">
-        <span class="av">AC</span>
-        <span class="u"><span class="n">AEM-CONSEIL</span><span class="r">Espace client</span></span>
+        <span class="av" id="userAv">AC</span>
+        <span class="u"><span class="n" id="userName">AEM-CONSEIL</span><span class="r" id="userEmail">Espace client</span></span>
+        <button class="sb-logout" id="btnLogout" type="button" title="Se déconnecter" aria-label="Se déconnecter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button>
       </div>
     </div>
   </aside>
@@ -206,6 +268,7 @@
   }
 
   function route(){
+    if(!document.body.classList.contains('authed')) return;
     var key = currentKey();
     // surbrillance nav
     document.querySelectorAll('.snav .item').forEach(function(b){
@@ -262,7 +325,103 @@
 
   window.addEventListener('hashchange', route);
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') toggleNav(false); });
-  route();
+
+  /* ===== Authentification (Supabase) ===== */
+  var SUPABASE_URL = 'https://ammmyhtxnwyoopfxtans.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_VBYOMpnF3kv7kkcrMLczZQ_v2e4_RHo';
+  var sb = null, authMode = 'login';
+
+  function $(id){ return document.getElementById(id); }
+  function authMsg(txt, cls){
+    var m=$('authMsg');
+    if(!txt){ m.className='auth-msg'; m.textContent=''; return; }
+    m.textContent=txt; m.className='auth-msg show '+(cls||'info');
+  }
+  function showApp(user){
+    document.body.classList.add('authed');
+    if(user){
+      var em=user.email||'';
+      $('userEmail').textContent=em;
+      $('userName').textContent=(em.split('@')[0])||'Mon compte';
+      $('userAv').textContent=(em[0]||'A').toUpperCase();
+    }
+    route();
+  }
+  function showGate(){ document.body.classList.remove('authed'); }
+  function setAuthMode(mode){
+    authMode=mode; var s=(mode==='signup');
+    $('authTitle').textContent = s?'Créer votre compte':'Connexion à votre espace';
+    $('authSub').textContent = s?'Renseignez votre email et un mot de passe (6 caractères min.).':'Accédez à vos factures et documents.';
+    $('authSubmit').textContent = s?'Créer mon compte':'Se connecter';
+    $('authPass2Wrap').hidden = !s;
+    $('authPass').setAttribute('autocomplete', s?'new-password':'current-password');
+    $('authSwitchTxt').innerHTML = s?'Déjà un compte&nbsp;?':'Pas encore de compte&nbsp;?';
+    $('authToggle').textContent = s?'Se connecter':'Créer un compte';
+    $('authForgot').style.display = s?'none':'block';
+    authMsg('');
+  }
+  function frErr(m){
+    m=String(m||'');
+    if(/Invalid login credentials/i.test(m)) return 'Email ou mot de passe incorrect.';
+    if(/already registered|already been registered|User already/i.test(m)) return 'Un compte existe déjà avec cet email. Connectez-vous.';
+    if(/Email not confirmed/i.test(m)) return 'Email non confirmé : cliquez sur le lien reçu par mail, puis connectez-vous.';
+    if(/Password should be at least/i.test(m)) return 'Le mot de passe doit faire au moins 6 caractères.';
+    if(/rate limit|too many/i.test(m)) return 'Trop de tentatives. Réessayez dans quelques minutes.';
+    if(/Unable to validate email|invalid.*email/i.test(m)) return 'Adresse email invalide.';
+    return m;
+  }
+  function initAuth(){
+    if(typeof window.supabase==='undefined'){
+      showGate(); $('authForm').style.display='none';
+      authMsg('Impossible de charger le module de connexion. Vérifiez votre connexion internet et rechargez la page.','err');
+      return;
+    }
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    setAuthMode('login');
+
+    sb.auth.getSession().then(function(res){
+      var session = res && res.data && res.data.session;
+      if(session){ showApp(session.user); } else { showGate(); }
+    });
+    sb.auth.onAuthStateChange(function(event, session){
+      if(session && session.user){ showApp(session.user); }
+      else if(event==='SIGNED_OUT'){ showGate(); }
+    });
+
+    $('authToggle').addEventListener('click', function(){ setAuthMode(authMode==='login'?'signup':'login'); });
+    $('authForgot').addEventListener('click', function(){
+      var email=$('authEmail').value.trim();
+      if(!email){ authMsg('Entrez d\'abord votre email ci-dessus.','err'); return; }
+      sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname}).then(function(r){
+        authMsg(r.error?frErr(r.error.message):'Email de réinitialisation envoyé. Consultez votre boîte mail.', r.error?'err':'ok');
+      });
+    });
+    $('authForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var email=$('authEmail').value.trim(), pass=$('authPass').value;
+      var btn=$('authSubmit'), orig=btn.textContent;
+      if(!email || !pass){ authMsg('Renseignez votre email et votre mot de passe.','err'); return; }
+      if(authMode==='signup'){
+        if(pass.length<6){ authMsg('Le mot de passe doit faire au moins 6 caractères.','err'); return; }
+        if(pass!==$('authPass2').value){ authMsg('Les deux mots de passe ne correspondent pas.','err'); return; }
+      }
+      btn.disabled=true; btn.innerHTML='<span class="auth-spin"></span>Veuillez patienter…'; authMsg('');
+      var op = authMode==='signup'
+        ? sb.auth.signUp({email:email,password:pass,options:{emailRedirectTo:location.origin+location.pathname}})
+        : sb.auth.signInWithPassword({email:email,password:pass});
+      op.then(function(r){
+        btn.disabled=false; btn.textContent=orig;
+        if(r.error){ authMsg(frErr(r.error.message),'err'); return; }
+        if(authMode==='signup' && !(r.data && r.data.session)){
+          authMsg('Compte créé ! Un email de confirmation vous a été envoyé — cliquez sur le lien, puis connectez-vous.','ok');
+          setAuthMode('login');
+        }
+        // en cas de session active, onAuthStateChange affiche l'espace
+      }).catch(function(){ btn.disabled=false; btn.textContent=orig; authMsg('Une erreur est survenue. Réessayez.','err'); });
+    });
+    $('btnLogout').addEventListener('click', function(){ if(sb) sb.auth.signOut(); });
+  }
+  initAuth();
 </script>
 </body>
 </html>
