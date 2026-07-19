@@ -87,6 +87,19 @@
   .frame-load.hide{opacity:0;visibility:hidden}
   .frame-load .sp{width:34px;height:34px;border-radius:50%;border:3px solid var(--line-2);border-top-color:var(--azur);animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
+  .frame-empty{position:absolute;inset:0;display:grid;place-items:center;background:var(--noir);padding:24px;z-index:1}
+  .frame-empty[hidden]{display:none}
+  .frame-empty .fe{text-align:center;max-width:440px}
+  .frame-empty .fe-ic{width:66px;height:66px;margin:0 auto 18px;border-radius:18px;display:grid;place-items:center;
+    background:linear-gradient(135deg,rgba(109,134,255,.24),rgba(43,69,255,.2));border:1px solid var(--line-2);color:var(--peri)}
+  .frame-empty .fe-ic svg{width:30px;height:30px}
+  .frame-empty .fe-badge{display:inline-block;margin-bottom:14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--peri);background:rgba(109,134,255,.12);border:1px solid var(--line-2);padding:4px 12px;border-radius:999px}
+  .frame-empty h2{font-family:'Inter Tight';font-weight:600;font-size:22px;letter-spacing:-.01em;margin-bottom:10px}
+  .frame-empty p{color:var(--txt2);font-size:14.5px;margin-bottom:22px;line-height:1.55}
+  .frame-empty .fe-btn{font-family:'Inter Tight';font-weight:600;font-size:14px;color:#05061a;cursor:pointer;
+    background:linear-gradient(135deg,#c2ccff,#2b45ff);border:none;border-radius:11px;padding:11px 20px;transition:filter .2s,transform .16s}
+  .frame-empty .fe-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
 
   /* ===== Overlay mobile ===== */
   .ov{position:fixed;inset:0;z-index:65;background:rgba(0,0,0,.6);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.28s}
@@ -123,15 +136,13 @@
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span>
         <span class="lbl">Facturation</span>
       </button>
-      <button class="item soon" data-module="documents" aria-disabled="true">
+      <button class="item" data-module="documents">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M9 13h6M9 17h6"/></svg></span>
         <span class="lbl">Mes documents</span>
-        <span class="pill">Bientôt</span>
       </button>
-      <button class="item soon" data-module="suivi" aria-disabled="true">
+      <button class="item" data-module="suivi">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg></span>
         <span class="lbl">Suivi &amp; échéances</span>
-        <span class="pill">Bientôt</span>
       </button>
     </nav>
 
@@ -158,6 +169,15 @@
     </div>
     <div class="frame-wrap">
       <div class="frame-load" id="frameLoad"><span class="sp"></span></div>
+      <div class="frame-empty" id="frameEmpty" hidden>
+        <div class="fe">
+          <div class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <span class="fe-badge">En préparation</span>
+          <h2 id="feTitle">Module</h2>
+          <p id="feDesc">Ce module arrive prochainement dans votre espace.</p>
+          <button class="fe-btn" type="button" onclick="location.hash='facturation'">Aller à la facturation</button>
+        </div>
+      </div>
       <iframe class="module" id="moduleFrame" title="Module" src="about:blank"></iframe>
     </div>
   </div>
@@ -171,8 +191,8 @@
   /* Configuration des modules */
   var MODULES = {
     facturation: { title:'Facturation', url:'../facturation/?embed=1', enabled:true },
-    documents:   { title:'Mes documents', enabled:false },
-    suivi:       { title:'Suivi & échéances', enabled:false }
+    documents:   { title:'Mes documents', enabled:true, desc:'Consultez et téléchargez vos bilans, déclarations et pièces comptables.' },
+    suivi:       { title:'Suivi & échéances', enabled:true, desc:'Gardez un œil sur vos échéances fiscales et sociales et l\'avancement de vos dossiers.' }
   };
   var DEFAULT = 'facturation';
   var current = null;
@@ -194,10 +214,23 @@
     var mod = MODULES[key];
     document.getElementById('mtTitle').textContent = mod.title;
     document.title = mod.title + ' — Espace AEM-CONSEIL';
-    if(key!==current){
+    var empty = document.getElementById('frameEmpty');
+    if(mod.url){
+      empty.hidden = true;
+      frame.style.display = '';
+      if(key!==current){
+        current = key;
+        frameLoad.classList.remove('hide');
+        frame.src = mod.url;
+      }
+    } else {
+      // Module en préparation : on affiche un écran dédié, pas d'iframe
       current = key;
-      frameLoad.classList.remove('hide');
-      frame.src = mod.url;
+      frameLoad.classList.add('hide');
+      frame.style.display = 'none';
+      document.getElementById('feTitle').textContent = mod.title;
+      document.getElementById('feDesc').textContent = mod.desc || 'Ce module arrive prochainement dans votre espace.';
+      empty.hidden = false;
     }
     toggleNav(false);
   }
