@@ -548,9 +548,18 @@
   section[id],header[id]{scroll-margin-top:86px}
 
   /* Barre de progression de lecture */
-  #bottomBlur{position:fixed;left:0;right:0;bottom:0;height:96px;z-index:50;pointer-events:none;
-    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
-    -webkit-mask-image:linear-gradient(to top,#000 0%,#000 22%,transparent 100%);mask-image:linear-gradient(to top,#000 0%,#000 22%,transparent 100%)}
+  #bottomBlur{position:fixed;left:0;right:0;bottom:0;height:132px;z-index:50;pointer-events:none;transition:opacity .45s ease}
+  #bottomBlur.hide{opacity:0}
+  #bottomBlur>span{position:absolute;inset:0;display:block}
+  #bottomBlur>span:nth-child(1){backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+    -webkit-mask-image:linear-gradient(to top,#000 0%,#000 14%,transparent 40%);mask-image:linear-gradient(to top,#000 0%,#000 14%,transparent 40%)}
+  #bottomBlur>span:nth-child(2){backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+    -webkit-mask-image:linear-gradient(to top,transparent 10%,#000 30%,#000 46%,transparent 66%);mask-image:linear-gradient(to top,transparent 10%,#000 30%,#000 46%,transparent 66%)}
+  #bottomBlur>span:nth-child(3){backdrop-filter:blur(2.5px);-webkit-backdrop-filter:blur(2.5px);
+    -webkit-mask-image:linear-gradient(to top,transparent 34%,#000 56%,#000 72%,transparent 90%);mask-image:linear-gradient(to top,transparent 34%,#000 56%,#000 72%,transparent 90%)}
+  #bottomBlur>span:nth-child(4){backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);
+    -webkit-mask-image:linear-gradient(to top,transparent 60%,#000 82%,transparent 100%);mask-image:linear-gradient(to top,transparent 60%,#000 82%,transparent 100%)}
+  #bottomBlur::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(4,5,11,.5),transparent 72%)}
   @media(prefers-reduced-motion:reduce){#bottomBlur{display:none}}
   #scrollbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;pointer-events:none;
     background:linear-gradient(90deg,var(--outremer),var(--azur),var(--peri));box-shadow:0 0 10px rgba(43,69,255,.6);transition:width .12s linear}
@@ -829,7 +838,7 @@
 <div id="loader" aria-hidden="true"><img src="assets/logo-full.png" alt="AEM CONSEIL"></div>
 <div class="beam" aria-hidden="true"></div>
 <div id="scrollbar" aria-hidden="true"></div>
-<div id="bottomBlur" aria-hidden="true"></div>
+<div id="bottomBlur" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
 <div id="app">
   <nav id="nav">
@@ -1830,15 +1839,17 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
   var countIO=new IntersectionObserver(function(en){en.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;countIO.unobserve(el);var to=parseInt(el.dataset.to,10)||0,suf=el.dataset.suffix||'',dur=1400,t0=performance.now();var tick=function(now){var p=Math.min(1,(now-t0)/dur),ea=1-Math.pow(1-p,3);el.textContent=Math.round(to*ea)+suf;if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);});},{threshold:.6});
   document.querySelectorAll('.aem-count').forEach(function(el){countIO.observe(el);});
 
-  var nav=document.getElementById('nav'),toTop=document.getElementById('toTop'),scrollbar=document.getElementById('scrollbar');
+  var nav=document.getElementById('nav'),toTop=document.getElementById('toTop'),scrollbar=document.getElementById('scrollbar'),bblur=document.getElementById('bottomBlur');
   var links=[].slice.call(document.querySelectorAll('.nlinks > a, .nlinks > .mega-wrap > a'));
   var secs=links.map(function(a){var h=a.getAttribute('href');return (h&&/^#[\w-]+$/.test(h))?document.querySelector(h):null;});
   var ticking=false;
   function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(function(){
     var y=window.scrollY||window.pageYOffset;
+    var docH=document.documentElement.scrollHeight, vh=window.innerHeight;
     nav.classList.toggle('scrolled',y>10);
     if(toTop)toTop.classList.toggle('show',y>600);
-    if(scrollbar){var h=document.documentElement.scrollHeight-window.innerHeight;scrollbar.style.width=(h>0?Math.min(100,y/h*100):0)+'%';}
+    if(scrollbar){var h=docH-vh;scrollbar.style.width=(h>0?Math.min(100,y/h*100):0)+'%';}
+    if(bblur)bblur.classList.toggle('hide',(y+vh)>=(docH-140));
     var cur=-1;for(var i=0;i<secs.length;i++){if(secs[i]&&secs[i].getBoundingClientRect().top<=140)cur=i;}
     links.forEach(function(a,i){a.classList.toggle('active',i===cur);});
     ticking=false;});}
