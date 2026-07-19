@@ -51,6 +51,13 @@
   .topbar .brand .tag{font-family:'Inter Tight';font-weight:600;font-size:14.5px;letter-spacing:-.01em}
   .topbar .brand .tag small{display:block;font-family:'Inter';font-weight:400;font-size:11px;color:var(--txt2);letter-spacing:.02em}
   .topbar .actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  /* Mode intégré dans l'espace (shell) : on masque la marque, le shell fournit la navigation */
+  body.embed .topbar .brand{display:none}
+  body.embed .topbar{justify-content:flex-end}
+  body.embed .topbar .embed-title{display:inline-flex;margin-right:auto;align-items:center;gap:10px;font-family:'Inter Tight';font-weight:600;font-size:15px}
+  .topbar .embed-title{display:none}
+  .topbar .embed-title .ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:rgba(43,69,255,.16);color:var(--peri)}
+  .topbar .embed-title .ic svg{width:16px;height:16px}
 
   /* ===== Boutons ===== */
   .btn{position:relative;font-family:'Inter Tight',sans-serif;font-weight:600;cursor:pointer;border:none;
@@ -250,6 +257,7 @@
     <span class="sep"></span>
     <span class="tag">Facturation<small>Factures &amp; devis · AEM-CONSEIL</small></span>
   </a>
+  <span class="embed-title"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Facturation</span>
   <div class="actions">
     <span class="save-state" id="saveState"><span class="dot"></span> Enregistré</span>
     <button class="btn btn-ghost btn-sm" onclick="newDoc()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Nouveau</button>
@@ -797,6 +805,8 @@ function toast(msg){
 
 /* ============ Init ============ */
 function init(){
+  // Mode intégré dans l'espace (shell) : masque la marque, garde les actions
+  if(new URLSearchParams(location.search).has('embed')) document.body.classList.add('embed');
   // bindings
   bind('f-number','number'); bind('f-date','date'); bind('f-due','due');
   bind('e-name','emit.name'); bind('e-addr','emit.addr'); bind('e-siret','emit.siret'); bind('e-tva','emit.tva');
