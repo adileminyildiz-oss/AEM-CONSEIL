@@ -686,6 +686,29 @@
   .meth-reasons li b{font-family:'Inter Tight';font-weight:600;color:var(--txt)}
   .meth-note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--txt2);line-height:1.6}
   @media(max-width:760px){.meth-grid{grid-template-columns:1fr}.meth-reasons{grid-template-columns:1fr}}
+
+  /* ===== Nos engagements (À propos) ===== */
+  .engage{margin-top:56px}
+  .engage-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+  .eng{border:1px solid var(--line);border-radius:18px;padding:26px 24px;background:var(--glass);backdrop-filter:blur(16px) saturate(150%)}
+  .eng .ei{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:var(--peri);background:linear-gradient(150deg,rgba(43,69,255,.26),rgba(43,69,255,.08));border:1px solid var(--line-2)}
+  .eng h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px;letter-spacing:-.01em;margin-top:16px}
+  .eng p{margin-top:8px;color:var(--txt2);font-size:14px;line-height:1.55}
+  @media(max-width:860px){.engage-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.engage-grid{grid-template-columns:1fr}}
+
+  /* ===== Prise de contact : comment ça se passe ===== */
+  .onb{margin-top:52px}
+  .onb-head{text-align:center;max-width:560px;margin:0 auto 30px}
+  .onb-head h3{font-family:'Inter Tight';font-weight:600;font-size:clamp(20px,2.6vw,26px);letter-spacing:-.02em}
+  .onb-head p{margin-top:8px;color:var(--txt2);font-size:15px;line-height:1.6}
+  .onb-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .onb-step{position:relative;border:1px solid var(--line);border-radius:16px;padding:24px 22px;background:var(--glass)}
+  .onb-step .n{font-family:'Instrument Serif';font-style:italic;font-size:26px;color:var(--peri)}
+  .onb-step h4{font-family:'Inter Tight';font-weight:600;font-size:15.5px;margin-top:8px}
+  .onb-step p{margin-top:7px;color:var(--txt2);font-size:13.5px;line-height:1.5}
+  @media(max-width:860px){.onb-steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:460px){.onb-steps{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="loading">
@@ -906,6 +929,18 @@
         </div>
         <div class="vs" aria-hidden="true">vs</div>
       </div>
+
+      <div class="engage reveal">
+        <div class="sh"><span class="kick">Nos engagements</span><h2>Ce sur quoi vous pouvez <span class="ital">compter</span></h2><p>Six principes qui guident chaque dossier que nous prenons en charge.</p></div>
+        <div class="engage-grid">
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0112 0M16 5.5a3 3 0 010 5.5M21 20a6 6 0 00-4-5.6"/></svg></span><h3>Proximité</h3><p>Un cabinet à taille humaine : on vous connaît, on connaît votre dossier — et vous gardez le même interlocuteur.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><h3>Réactivité</h3><p>Une réponse sous 24 h ouvrées, sans avoir à relancer ni à tout réexpliquer à chaque échange.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Transparence</h3><p>Un devis clair, des honoraires sans surprise et des explications à chaque étape de votre dossier.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span><h3>Confidentialité</h3><p>Secret professionnel et données hébergées de façon sécurisée, en conformité avec le RGPD.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><h3>Pédagogie</h3><p>Des conseils clairs, sans jargon : vous comprenez vos chiffres et les décisions à prendre.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M7 12h10M10 18h4"/></svg></span><h3>Sur-mesure</h3><p>Un accompagnement adapté à votre activité, votre taille et vos objectifs — jamais un dossier standard.</p></div>
+        </div>
+      </div>
     </section>
 
     <!-- CHIFFRES + MARQUEE -->
@@ -1014,6 +1049,16 @@
           <p id="formStatus" role="status" aria-live="polite"></p>
           <p class="form-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>Vos informations restent confidentielles.</p>
         </form>
+      </div>
+
+      <div class="onb reveal">
+        <div class="onb-head"><h3>Et ensuite, comment ça se passe&nbsp;?</h3><p>Un parcours simple et sans engagement, de votre premier message à la mise en route.</p></div>
+        <div class="onb-steps">
+          <div class="onb-step spot"><span class="n">01</span><h4>Le premier échange</h4><p>Offert et sans engagement. On prend le temps de comprendre votre situation et vos besoins.</p></div>
+          <div class="onb-step spot"><span class="n">02</span><h4>L'étude de votre besoin</h4><p>Nous analysons votre dossier et identifions l'accompagnement le plus adapté.</p></div>
+          <div class="onb-step spot"><span class="n">03</span><h4>Une proposition claire</h4><p>Un devis transparent et une lettre de mission détaillée — vous savez exactement ce qui est inclus.</p></div>
+          <div class="onb-step spot"><span class="n">04</span><h4>La mise en route</h4><p>Reprise de votre dossier et installation de vos outils, sans interruption de service.</p></div>
+        </div>
       </div>
     </section>
   </div>
@@ -1298,7 +1343,10 @@ var ABOUT_POINTS=['Des conseils clairs, sans jargon','Une équipe disponible et 
 var REVIEWS=[
   {initials:'SL',name:'Sophie L.',role:'Gérante, commerce',quote:'Un accompagnement vraiment humain. Mes comptes sont enfin clairs et je gagne un temps précieux chaque mois.'},
   {initials:'KM',name:'Karim M.',role:'Fondateur, startup',quote:'Réactifs, pédagogues et toujours disponibles. Ils m’ont accompagné de la création au développement de ma société.'},
-  {initials:'EP',name:'Élodie P.',role:'Dirigeante, PME',quote:'Des conseils stratégiques qui ont un vrai impact sur ma rentabilité. Je recommande sans hésiter.'}
+  {initials:'EP',name:'Élodie P.',role:'Dirigeante, PME',quote:'Des conseils stratégiques qui ont un vrai impact sur ma rentabilité. Je recommande sans hésiter.'},
+  {initials:'TB',name:'Thomas B.',role:'Restaurateur',quote:'La reprise de ma comptabilité s’est faite sans le moindre stress. Un vrai interlocuteur qui connaît mon dossier.'},
+  {initials:'NC',name:'Nadia C.',role:'Consultante indépendante',quote:'Enfin des réponses claires à mes questions, sans jargon. Je sais toujours où j’en suis et ce que je dois anticiper.'},
+  {initials:'RaM',name:'Rachid M.',role:'Artisan du bâtiment',quote:'Paie, TVA, bilan : tout est géré dans les délais. Je me concentre sur mon métier l’esprit tranquille.'}
 ];
 var FAQS=[
   {q:'Le premier rendez-vous est-il vraiment gratuit ?',a:'Oui, totalement. Le premier échange sert à comprendre votre situation et vos besoins, sans aucun engagement ni frais.'},
@@ -1306,7 +1354,12 @@ var FAQS=[
   {q:'Mes documents et mes données sont-ils en sécurité ?',a:'Vos données sont hébergées sur des serveurs sécurisés et chiffrés, conformes au RGPD. Vous gardez un accès permanent via un espace en ligne dédié.'},
   {q:'Travaillez-vous à distance ou en présentiel ?',a:'Les deux. Nous privilégions des outils digitaux modernes pour un suivi à distance fluide, tout en restant disponibles en présentiel quand vous le souhaitez.'},
   {q:'Quels types d’entreprises accompagnez-vous ?',a:'Nous accompagnons les entrepreneurs individuels, indépendants, TPE et PME, quel que soit leur secteur et leur stade de développement.'},
-  {q:'Comment se passe la reprise de ma comptabilité ?',a:'Nous récupérons votre FEC et vos pièces comptables, réalisons un point complet, puis reprenons la tenue sans interruption de service.'}
+  {q:'Comment se passe la reprise de ma comptabilité ?',a:'Nous récupérons votre FEC et vos pièces comptables, réalisons un point complet, puis reprenons la tenue sans interruption de service.'},
+  {q:'Comment sont fixés vos honoraires ?',a:'Chaque mission fait l’objet d’un devis clair et d’une lettre de mission, établis selon votre activité, votre volume et vos besoins. Pas de mauvaise surprise : vous savez à l’avance ce qui est inclus.'},
+  {q:'Dois-je me déplacer au cabinet ?',a:'Non, sauf si vous le souhaitez. Tout se fait à distance via des outils sécurisés — transmission des pièces, échanges, signature. Nous restons disponibles en présentiel quand c’est utile.'},
+  {q:'Quels logiciels et outils utilisez-vous ?',a:'Nous travaillons avec des outils comptables et collaboratifs modernes, conformes au RGPD. Vous disposez d’un espace en ligne pour déposer vos pièces et suivre votre dossier à tout moment.'},
+  {q:'Sous quel délai obtiendrai-je une réponse ?',a:'Nous nous engageons à répondre à toute demande sous 24 h ouvrées. Votre interlocuteur dédié connaît votre dossier : pas besoin de tout réexpliquer à chaque fois.'},
+  {q:'Accompagnez-vous la création d’entreprise ?',a:'Oui, de A à Z : choix du statut, rédaction des statuts, formalités, prévisionnel et démarrage. Nous vous aidons à partir sur des bases solides, puis assurons le suivi comptable.'}
 ];
 
 /* ===== Pages Services (méga-menu) ===== */
