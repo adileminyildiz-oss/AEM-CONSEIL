@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Espace — AEM-CONSEIL</title>
+<meta name="description" content="Espace en ligne AEM-CONSEIL : facturation et modules de gestion.">
+<meta name="theme-color" content="#04050b">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
+    --outremer:#2b45ff; --azur:#6d86ff; --peri:#a9b8ff;
+    --line:rgba(150,168,255,.11); --line-2:rgba(150,168,255,.18);
+    --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06);
+    --txt:#f2f4ff; --txt2:#8b98bd; --pos:#3ee9a4;
+    --sidebar:264px;
+  }
+  *{box-sizing:border-box;margin:0}
+  html,body{height:100%}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5;overflow:hidden}
+  a{color:inherit;text-decoration:none}
+  .disp{font-family:'Inter Tight',sans-serif;letter-spacing:-.02em}
+
+  .app{display:flex;height:100vh;height:100dvh}
+
+  /* ===== Barre latérale ===== */
+  .sidebar{width:var(--sidebar);flex:none;display:flex;flex-direction:column;
+    border-right:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(11,14,26,.9),rgba(5,7,14,.94));
+    z-index:70}
+  .sb-logo{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line)}
+  .sb-logo img{height:28px;filter:brightness(1.14) drop-shadow(0 0 8px rgba(169,184,255,.4))}
+  .sb-logo .t{font-family:'Inter Tight';font-weight:600;font-size:14px;line-height:1.1}
+  .sb-logo .t small{display:block;font-weight:400;font-size:11px;color:var(--txt2)}
+
+  .sb-section{padding:16px 14px 6px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#5a6488;font-weight:600}
+  .snav{display:flex;flex-direction:column;gap:3px;padding:0 12px;overflow-y:auto}
+  .snav .item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;
+    font-family:'Inter Tight';font-weight:500;font-size:14px;color:var(--txt2);cursor:pointer;border:none;background:none;width:100%;text-align:left;
+    transition:background .16s,color .16s;position:relative}
+  .snav .item .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none;
+    background:var(--glass);border:1px solid var(--line);color:var(--peri);transition:.16s}
+  .snav .item .ic svg{width:17px;height:17px}
+  .snav .item .lbl{flex:1;min-width:0}
+  .snav .item:hover{background:var(--glass);color:#fff}
+  .snav .item.active{background:var(--glass-2);color:#fff}
+  .snav .item.active .ic{background:linear-gradient(135deg,rgba(109,134,255,.28),rgba(43,69,255,.24));border-color:var(--line-2);color:#fff}
+  .snav .item.active{box-shadow:inset 3px 0 0 0 var(--azur)}
+  .snav .item.soon{cursor:not-allowed;opacity:.55}
+  .snav .item.soon:hover{background:none;color:var(--txt2)}
+  .snav .item .pill{font-size:9px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;
+    background:rgba(109,134,255,.12);border:1px solid var(--line-2);color:var(--peri);flex:none}
+
+  .sb-foot{margin-top:auto;padding:12px;border-top:1px solid var(--line)}
+  .sb-foot .item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-family:'Inter Tight';font-weight:500;font-size:14px;color:var(--txt2);transition:.16s}
+  .sb-foot .item:hover{background:var(--glass);color:#fff}
+  .sb-foot .item .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none;background:var(--glass);border:1px solid var(--line);color:var(--txt2)}
+  .sb-foot .item .ic svg{width:17px;height:17px}
+  .sb-user{display:flex;align-items:center;gap:11px;padding:10px 12px;margin-top:4px}
+  .sb-user .av{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:'Inter Tight';font-weight:700;font-size:13px;color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff)}
+  .sb-user .u{min-width:0;display:flex;flex-direction:column}
+  .sb-user .u .n{font-size:13px;font-weight:600;font-family:'Inter Tight';white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sb-user .u .r{font-size:11px;color:var(--txt2)}
+
+  /* ===== Zone principale ===== */
+  .main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--noir)}
+  .mtop{display:none;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(12,16,30,.9),rgba(7,9,18,.8));-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+  .burger{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:10px;background:var(--glass);border:1px solid var(--line-2);color:var(--txt);cursor:pointer}
+  .burger svg{width:20px;height:20px}
+  .mtop .mt-title{display:flex;align-items:center;gap:9px;font-family:'Inter Tight';font-weight:600;font-size:15px}
+  .mtop .mt-logo{margin-left:auto;height:24px;filter:brightness(1.14)}
+
+  .frame-wrap{flex:1;position:relative;min-height:0}
+  iframe.module{width:100%;height:100%;border:0;display:block;background:var(--noir)}
+  .frame-load{position:absolute;inset:0;display:grid;place-items:center;background:var(--noir);transition:opacity .4s,visibility .4s;z-index:2}
+  .frame-load.hide{opacity:0;visibility:hidden}
+  .frame-load .sp{width:34px;height:34px;border-radius:50%;border:3px solid var(--line-2);border-top-color:var(--azur);animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .frame-empty{position:absolute;inset:0;display:grid;place-items:center;background:var(--noir);padding:24px;z-index:1}
+  .frame-empty[hidden]{display:none}
+  .frame-empty .fe{text-align:center;max-width:440px}
+  .frame-empty .fe-ic{width:66px;height:66px;margin:0 auto 18px;border-radius:18px;display:grid;place-items:center;
+    background:linear-gradient(135deg,rgba(109,134,255,.24),rgba(43,69,255,.2));border:1px solid var(--line-2);color:var(--peri)}
+  .frame-empty .fe-ic svg{width:30px;height:30px}
+  .frame-empty .fe-badge{display:inline-block;margin-bottom:14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--peri);background:rgba(109,134,255,.12);border:1px solid var(--line-2);padding:4px 12px;border-radius:999px}
+  .frame-empty h2{font-family:'Inter Tight';font-weight:600;font-size:22px;letter-spacing:-.01em;margin-bottom:10px}
+  .frame-empty p{color:var(--txt2);font-size:14.5px;margin-bottom:22px;line-height:1.55}
+  .frame-empty .fe-btn{font-family:'Inter Tight';font-weight:600;font-size:14px;color:#05061a;cursor:pointer;
+    background:linear-gradient(135deg,#c2ccff,#2b45ff);border:none;border-radius:11px;padding:11px 20px;transition:filter .2s,transform .16s}
+  .frame-empty .fe-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+
+  /* ===== Overlay mobile ===== */
+  .ov{position:fixed;inset:0;z-index:65;background:rgba(0,0,0,.6);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.28s}
+  .ov.open{opacity:1;visibility:visible}
+
+  /* ===== Toast ===== */
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(18px);z-index:200;
+    background:var(--noir3);border:1px solid var(--line-2);color:var(--txt);padding:11px 18px;border-radius:11px;font-size:13.5px;
+    box-shadow:0 16px 40px rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:.26s;display:flex;align-items:center;gap:9px}
+  .toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .toast .d{width:7px;height:7px;border-radius:50%;background:var(--peri)}
+
+  @media(max-width:860px){
+    .sidebar{position:fixed;top:0;left:0;height:100vh;height:100dvh;transform:translateX(-100%);transition:transform .3s cubic-bezier(.22,1,.36,1);box-shadow:0 0 60px rgba(0,0,0,.6)}
+    .sidebar.open{transform:none}
+    .mtop{display:flex}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Barre latérale -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <img src="../assets/logo-full.png" alt="AEM CONSEIL">
+      <span class="t">Espace<small>AEM-CONSEIL</small></span>
+    </div>
+
+    <div class="sb-section">Modules</div>
+    <nav class="snav" id="snav" aria-label="Modules de l'espace">
+      <button class="item" data-module="facturation">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span>
+        <span class="lbl">Facturation</span>
+      </button>
+      <button class="item" data-module="documents">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M9 13h6M9 17h6"/></svg></span>
+        <span class="lbl">Mes documents</span>
+      </button>
+      <button class="item" data-module="suivi">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg></span>
+        <span class="lbl">Suivi &amp; échéances</span>
+      </button>
+    </nav>
+
+    <div class="sb-foot">
+      <a class="item" href="../index.html">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></span>
+        <span class="lbl">Retour au site</span>
+      </a>
+      <div class="sb-user">
+        <span class="av">AC</span>
+        <span class="u"><span class="n">AEM-CONSEIL</span><span class="r">Espace client</span></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Zone principale -->
+  <div class="main">
+    <div class="mtop">
+      <button class="burger" type="button" aria-label="Ouvrir le menu" onclick="toggleNav(true)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <span class="mt-title" id="mtTitle">Facturation</span>
+      <img class="mt-logo" src="../assets/logo-full.png" alt="AEM CONSEIL">
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-load" id="frameLoad"><span class="sp"></span></div>
+      <div class="frame-empty" id="frameEmpty" hidden>
+        <div class="fe">
+          <div class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <span class="fe-badge">En préparation</span>
+          <h2 id="feTitle">Module</h2>
+          <p id="feDesc">Ce module arrive prochainement dans votre espace.</p>
+          <button class="fe-btn" type="button" onclick="location.hash='facturation'">Aller à la facturation</button>
+        </div>
+      </div>
+      <iframe class="module" id="moduleFrame" title="Module" src="about:blank"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<div class="ov" id="ov" onclick="toggleNav(false)"></div>
+<div class="toast" id="toast"><span class="d"></span><span id="toastMsg"></span></div>
+
+<script>
+  /* Configuration des modules */
+  var MODULES = {
+    facturation: { title:'Facturation', url:'../facturation/?embed=1', enabled:true },
+    documents:   { title:'Mes documents', enabled:true, desc:'Consultez et téléchargez vos bilans, déclarations et pièces comptables.' },
+    suivi:       { title:'Suivi & échéances', enabled:true, desc:'Gardez un œil sur vos échéances fiscales et sociales et l\'avancement de vos dossiers.' }
+  };
+  var DEFAULT = 'facturation';
+  var current = null;
+
+  var frame = document.getElementById('moduleFrame');
+  var frameLoad = document.getElementById('frameLoad');
+
+  function currentKey(){
+    var h = (location.hash||'').replace(/^#/,'');
+    return (MODULES[h] && MODULES[h].enabled) ? h : DEFAULT;
+  }
+
+  function route(){
+    var key = currentKey();
+    // surbrillance nav
+    document.querySelectorAll('.snav .item').forEach(function(b){
+      b.classList.toggle('active', b.dataset.module===key);
+    });
+    var mod = MODULES[key];
+    document.getElementById('mtTitle').textContent = mod.title;
+    document.title = mod.title + ' — Espace AEM-CONSEIL';
+    var empty = document.getElementById('frameEmpty');
+    if(mod.url){
+      empty.hidden = true;
+      frame.style.display = '';
+      if(key!==current){
+        current = key;
+        frameLoad.classList.remove('hide');
+        frame.src = mod.url;
+      }
+    } else {
+      // Module en préparation : on affiche un écran dédié, pas d'iframe
+      current = key;
+      frameLoad.classList.add('hide');
+      frame.style.display = 'none';
+      document.getElementById('feTitle').textContent = mod.title;
+      document.getElementById('feDesc').textContent = mod.desc || 'Ce module arrive prochainement dans votre espace.';
+      empty.hidden = false;
+    }
+    toggleNav(false);
+  }
+
+  frame.addEventListener('load', function(){
+    if(frame.src && frame.src!=='about:blank' && !frame.src.endsWith('about:blank'))
+      frameLoad.classList.add('hide');
+  });
+
+  document.getElementById('snav').addEventListener('click', function(e){
+    var b = e.target.closest('.item'); if(!b) return;
+    var key = b.dataset.module;
+    if(!MODULES[key] || !MODULES[key].enabled){ toast('Module « '+MODULES[key].title+' » bientôt disponible'); return; }
+    if(('#'+key)!==location.hash){ location.hash = key; } else { route(); }
+  });
+
+  /* Navigation mobile */
+  function toggleNav(open){
+    document.getElementById('sidebar').classList.toggle('open', open);
+    document.getElementById('ov').classList.toggle('open', open);
+  }
+
+  /* Toast */
+  var toastTimer=null;
+  function toast(msg){
+    var t=document.getElementById('toast'); document.getElementById('toastMsg').textContent=msg;
+    t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.classList.remove('show');},2400);
+  }
+
+  window.addEventListener('hashchange', route);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') toggleNav(false); });
+  route();
+</script>
+</body>
+</html>
