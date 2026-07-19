@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mes documents — AEM-CONSEIL</title>
+<meta name="description" content="Bibliothèque de documents AEM-CONSEIL : bilans, déclarations, paie et pièces comptables.">
+<meta name="theme-color" content="#04050b">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
+    --outremer:#2b45ff; --azur:#6d86ff; --peri:#a9b8ff;
+    --line:rgba(150,168,255,.11); --line-2:rgba(150,168,255,.18);
+    --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06);
+    --txt:#f2f4ff; --txt2:#8b98bd; --pos:#3ee9a4; --danger:#ff6b7d; --warn:#ffcf7a;
+    --max:1000px;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(820px 600px at 50% -12%, rgba(43,69,255,.18), transparent 60%),
+      radial-gradient(640px 520px at 90% 22%, rgba(43,69,255,.07), transparent 62%),
+      linear-gradient(180deg,#05060e,#04050b)}
+  a{color:inherit;text-decoration:none}
+  .disp{font-family:'Inter Tight',sans-serif;letter-spacing:-.02em}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+  .num-t{font-variant-numeric:tabular-nums}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:clamp(20px,3.4vw,40px) clamp(16px,3vw,32px) 60px}
+
+  /* En-tête */
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+  .head .kick{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--peri);margin-bottom:9px}
+  .head h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(26px,4vw,34px);letter-spacing:-.02em;line-height:1.05}
+  .head p{color:var(--txt2);font-size:14px;margin-top:8px;max-width:52ch}
+  .head .sum{display:flex;gap:10px;flex-wrap:wrap}
+  .head .sum .chip{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:12px;
+    background:var(--glass);border:1px solid var(--line);font-size:12.5px;color:var(--txt2);font-weight:500}
+  .head .sum .chip b{font-family:'Inter Tight';color:var(--txt);font-weight:600}
+  .head .sum .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--azur)}
+  .head .sum .chip.new .dot{background:var(--pos)}
+
+  /* Barre d'outils */
+  .tools{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+  .search{position:relative;flex:1;min-width:220px}
+  .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--txt2)}
+  .search input{width:100%;padding:12px 14px 12px 40px;border-radius:13px;border:1px solid var(--line);
+    background:var(--glass);color:var(--txt);font-family:inherit;font-size:14px;transition:border-color .16s,background .16s}
+  .search input::placeholder{color:#5a6488}
+  .search input:focus{outline:none;border-color:var(--line-2);background:var(--glass-2)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap}
+  .filters .f{font-family:'Inter Tight';font-weight:500;font-size:13px;color:var(--txt2);cursor:pointer;
+    padding:9px 14px;border-radius:999px;background:var(--glass);border:1px solid var(--line);transition:.16s;white-space:nowrap}
+  .filters .f:hover{color:#fff;border-color:var(--line-2)}
+  .filters .f.on{color:#fff;background:linear-gradient(135deg,rgba(109,134,255,.24),rgba(43,69,255,.2));border-color:var(--line-2)}
+  .filters .f .c{opacity:.7;font-variant-numeric:tabular-nums}
+
+  /* Liste de documents */
+  .doclist{display:grid;grid-template-columns:1fr;gap:10px}
+  .doc{display:flex;align-items:center;gap:16px;padding:15px 16px;border-radius:15px;
+    background:var(--glass);border:1px solid var(--line);transition:border-color .16s,background .16s,transform .16s}
+  .doc:hover{border-color:var(--line-2);background:var(--glass-2);transform:translateY(-1px)}
+  .doc .ico{width:44px;height:44px;flex:none;border-radius:12px;display:grid;place-items:center;position:relative;
+    background:linear-gradient(135deg,rgba(109,134,255,.16),rgba(43,69,255,.13));border:1px solid var(--line-2);color:var(--peri)}
+  .doc .ico svg{width:21px;height:21px}
+  .doc .ico .ext{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-family:'Inter Tight';font-weight:700;
+    font-size:8.5px;letter-spacing:.03em;padding:1.5px 5px;border-radius:5px;background:var(--outremer);color:#fff}
+  .doc .meta{flex:1;min-width:0}
+  .doc .meta .nm{font-family:'Inter Tight';font-weight:600;font-size:14.5px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .doc .meta .nm .badge{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;
+    background:rgba(62,233,164,.14);border:1px solid rgba(62,233,164,.3);color:var(--pos)}
+  .doc .meta .sub{font-size:12.5px;color:var(--txt2);margin-top:3px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .doc .meta .sub .s{display:inline-flex;align-items:center;gap:5px}
+  .doc .meta .sub .s::before{content:"";width:3px;height:3px;border-radius:50%;background:#4a5478}
+  .doc .meta .sub .s:first-child::before{display:none}
+  .doc .cat-tag{font-size:11px;font-weight:500;color:var(--peri);padding:4px 10px;border-radius:999px;
+    background:rgba(109,134,255,.1);border:1px solid var(--line);flex:none;white-space:nowrap}
+  .doc .dl{width:40px;height:40px;flex:none;border-radius:11px;display:grid;place-items:center;cursor:pointer;
+    background:var(--glass);border:1px solid var(--line-2);color:var(--txt2);transition:.16s}
+  .doc .dl:hover{color:#fff;background:linear-gradient(135deg,#c2ccff,#2b45ff);border-color:transparent}
+  .doc .dl svg{width:18px;height:18px}
+
+  .empty{display:none;text-align:center;padding:56px 20px;color:var(--txt2)}
+  .empty.show{display:block}
+  .empty svg{width:40px;height:40px;color:#3a4362;margin-bottom:14px}
+  .empty h3{font-family:'Inter Tight';font-weight:600;font-size:17px;color:var(--txt);margin-bottom:6px}
+
+  /* Toast */
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(18px);z-index:200;
+    background:var(--noir3);border:1px solid var(--line-2);color:var(--txt);padding:11px 18px;border-radius:12px;font-size:13.5px;
+    box-shadow:0 16px 40px rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:.26s;display:flex;align-items:center;gap:9px}
+  .toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .toast .d{width:7px;height:7px;border-radius:50%;background:var(--pos)}
+
+  @media(max-width:620px){
+    .doc{gap:12px;padding:13px 13px}
+    .doc .cat-tag{display:none}
+    .doc .ico{width:40px;height:40px}
+    .head .sum{width:100%}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div>
+      <div class="kick">Bibliothèque</div>
+      <h1 class="disp">Mes documents</h1>
+      <p>Retrouvez, filtrez et téléchargez l'ensemble des pièces de votre dossier — bilans, déclarations, bulletins et actes juridiques.</p>
+    </div>
+    <div class="sum">
+      <span class="chip"><span class="dot"></span><b id="totCount">0</b>&nbsp;documents</span>
+      <span class="chip new"><span class="dot"></span><b id="newCount">0</b>&nbsp;nouveaux</span>
+    </div>
+  </div>
+
+  <div class="tools">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="search" id="q" placeholder="Rechercher un document…" autocomplete="off">
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+
+  <div class="doclist" id="list"></div>
+
+  <div class="empty" id="empty">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <h3>Aucun document trouvé</h3>
+    <p>Essayez un autre mot-clé ou une autre catégorie.</p>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"><span class="d"></span><span id="toastMsg"></span></div>
+
+<script>
+  /* Catégories */
+  var CATS = [
+    {key:'all',   label:'Tous'},
+    {key:'bilan', label:'Bilans & comptes'},
+    {key:'fisc',  label:'Déclarations fiscales'},
+    {key:'paie',  label:'Paie & social'},
+    {key:'juri',  label:'Juridique'},
+    {key:'fact',  label:'Factures'}
+  ];
+
+  /* Jeu de documents de démonstration */
+  var DOCS = [
+    {nm:'Bilan comptable 2025',            cat:'bilan', date:'2026-06-30', size:'1,4 Mo', ext:'PDF', isNew:true},
+    {nm:'Compte de résultat 2025',         cat:'bilan', date:'2026-06-30', size:'820 Ko', ext:'PDF', isNew:true},
+    {nm:'Liasse fiscale 2025',             cat:'fisc',  date:'2026-06-28', size:'2,1 Mo', ext:'PDF', isNew:true},
+    {nm:'Déclaration de TVA — Juin 2026',  cat:'fisc',  date:'2026-07-12', size:'340 Ko', ext:'PDF', isNew:false},
+    {nm:'Déclaration de TVA — Mai 2026',   cat:'fisc',  date:'2026-06-12', size:'336 Ko', ext:'PDF', isNew:false},
+    {nm:'Bulletins de paie — Juin 2026',   cat:'paie',  date:'2026-06-28', size:'512 Ko', ext:'PDF', isNew:false},
+    {nm:'DSN — Juin 2026',                 cat:'paie',  date:'2026-07-05', size:'128 Ko', ext:'XML', isNew:false},
+    {nm:'Contrat de travail — M. Durand',  cat:'juri',  date:'2026-05-14', size:'240 Ko', ext:'PDF', isNew:false},
+    {nm:'Statuts de la société',           cat:'juri',  date:'2025-09-02', size:'610 Ko', ext:'PDF', isNew:false},
+    {nm:'Procès-verbal AG 2025',           cat:'juri',  date:'2026-06-15', size:'190 Ko', ext:'PDF', isNew:false},
+    {nm:'Grand livre 2025',                cat:'bilan', date:'2026-06-30', size:'3,2 Mo', ext:'PDF', isNew:false},
+    {nm:'Facture AEM-CONSEIL — Juin 2026', cat:'fact',  date:'2026-07-01', size:'86 Ko',  ext:'PDF', isNew:false},
+    {nm:'Facture AEM-CONSEIL — Mai 2026',  cat:'fact',  date:'2026-06-01', size:'84 Ko',  ext:'PDF', isNew:false},
+    {nm:'Déclaration IS — Solde 2025',     cat:'fisc',  date:'2026-05-15', size:'220 Ko', ext:'PDF', isNew:false}
+  ];
+
+  var state = {cat:'all', q:''};
+
+  var MONTHS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  function fmtDate(iso){
+    var p = iso.split('-'); return parseInt(p[2],10)+' '+MONTHS[parseInt(p[1],10)-1]+' '+p[0];
+  }
+  function catLabel(k){ for(var i=0;i<CATS.length;i++){ if(CATS[i].key===k) return CATS[i].label; } return ''; }
+
+  var FILE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7"/></svg>';
+  var DL_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>';
+
+  function filtered(){
+    var q = state.q.trim().toLowerCase();
+    return DOCS.filter(function(d){
+      if(state.cat!=='all' && d.cat!==state.cat) return false;
+      if(q && d.nm.toLowerCase().indexOf(q)<0 && catLabel(d.cat).toLowerCase().indexOf(q)<0) return false;
+      return true;
+    });
+  }
+
+  function render(){
+    var list = document.getElementById('list');
+    var items = filtered();
+    list.innerHTML = items.map(function(d){
+      return '<div class="doc">'+
+        '<div class="ico">'+FILE_SVG+'<span class="ext">'+d.ext+'</span></div>'+
+        '<div class="meta">'+
+          '<div class="nm">'+d.nm+(d.isNew?'<span class="badge">Nouveau</span>':'')+'</div>'+
+          '<div class="sub"><span class="s">'+fmtDate(d.date)+'</span><span class="s">'+d.size+'</span></div>'+
+        '</div>'+
+        '<span class="cat-tag">'+catLabel(d.cat)+'</span>'+
+        '<button class="dl" type="button" aria-label="Télécharger" data-nm="'+d.nm.replace(/"/g,'&quot;')+'">'+DL_SVG+'</button>'+
+      '</div>';
+    }).join('');
+    document.getElementById('empty').classList.toggle('show', items.length===0);
+  }
+
+  function renderFilters(){
+    var f = document.getElementById('filters');
+    f.innerHTML = CATS.map(function(c){
+      var n = c.key==='all' ? DOCS.length : DOCS.filter(function(d){return d.cat===c.key;}).length;
+      return '<button class="f'+(c.key===state.cat?' on':'')+'" data-cat="'+c.key+'">'+c.label+' <span class="c">'+n+'</span></button>';
+    }).join('');
+  }
+
+  /* Événements */
+  document.getElementById('filters').addEventListener('click', function(e){
+    var b = e.target.closest('.f'); if(!b) return;
+    state.cat = b.dataset.cat;
+    renderFilters(); render();
+  });
+  document.getElementById('q').addEventListener('input', function(e){ state.q = e.target.value; render(); });
+  document.getElementById('list').addEventListener('click', function(e){
+    var b = e.target.closest('.dl'); if(!b) return;
+    toast('« '+b.dataset.nm+' » — téléchargement (démonstration)');
+  });
+
+  /* Toast */
+  var toastTimer=null;
+  function toast(msg){
+    var t=document.getElementById('toast'); document.getElementById('toastMsg').textContent=msg;
+    t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.classList.remove('show');},2600);
+  }
+
+  /* Compteurs */
+  document.getElementById('totCount').textContent = DOCS.length;
+  document.getElementById('newCount').textContent = DOCS.filter(function(d){return d.isNew;}).length;
+
+  renderFilters();
+  render();
+</script>
+</body>
+</html>

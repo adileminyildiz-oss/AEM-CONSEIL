@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Suivi & échéances — AEM-CONSEIL</title>
+<meta name="description" content="Suivi des échéances fiscales et sociales et avancement des dossiers — Espace AEM-CONSEIL.">
+<meta name="theme-color" content="#04050b">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
+    --outremer:#2b45ff; --azur:#6d86ff; --peri:#a9b8ff;
+    --line:rgba(150,168,255,.11); --line-2:rgba(150,168,255,.18);
+    --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06);
+    --txt:#f2f4ff; --txt2:#8b98bd; --pos:#3ee9a4; --danger:#ff6b7d; --warn:#ffcf7a;
+    --max:1000px;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(820px 600px at 50% -12%, rgba(43,69,255,.18), transparent 60%),
+      radial-gradient(640px 520px at 90% 22%, rgba(43,69,255,.07), transparent 62%),
+      linear-gradient(180deg,#05060e,#04050b)}
+  a{color:inherit;text-decoration:none}
+  .disp{font-family:'Inter Tight',sans-serif;letter-spacing:-.02em}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+  .num-t{font-variant-numeric:tabular-nums}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:clamp(20px,3.4vw,40px) clamp(16px,3vw,32px) 60px}
+
+  /* En-tête */
+  .head{margin-bottom:24px}
+  .head .kick{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--peri);margin-bottom:9px}
+  .head h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(26px,4vw,34px);letter-spacing:-.02em;line-height:1.05}
+  .head p{color:var(--txt2);font-size:14px;margin-top:8px;max-width:56ch}
+
+  /* KPI */
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:30px}
+  .kpi{padding:18px;border-radius:16px;background:var(--glass);border:1px solid var(--line);position:relative;overflow:hidden}
+  .kpi::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120px 80px at 100% 0%,rgba(109,134,255,.12),transparent 70%)}
+  .kpi .kl{font-size:12px;color:var(--txt2);font-weight:500;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .kpi .kl .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--glass);border:1px solid var(--line);color:var(--peri)}
+  .kpi .kl .ic svg{width:15px;height:15px}
+  .kpi .kv{font-family:'Inter Tight';font-weight:600;font-size:26px;letter-spacing:-.02em;line-height:1}
+  .kpi .kv small{font-size:14px;color:var(--txt2);font-weight:500}
+  .kpi .ks{font-size:12.5px;color:var(--txt2);margin-top:6px}
+  .kpi.urgent .kv{color:var(--warn)}
+
+  /* Sections */
+  .sec{margin-bottom:32px}
+  .sec-h{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px}
+  .sec-h h2{font-family:'Inter Tight';font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .sec-h .lg{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--txt2)}
+  .sec-h .lg span{display:inline-flex;align-items:center;gap:6px}
+  .sec-h .lg i{width:8px;height:8px;border-radius:50%;font-style:normal}
+  .lg .u{background:var(--warn)} .lg .a{background:var(--azur)} .lg .d{background:var(--pos)}
+
+  /* Échéances */
+  .ech{display:grid;grid-template-columns:1fr;gap:10px}
+  .row{display:flex;align-items:center;gap:16px;padding:14px 16px;border-radius:15px;
+    background:var(--glass);border:1px solid var(--line);border-left:3px solid var(--azur);transition:border-color .16s,background .16s}
+  .row:hover{background:var(--glass-2)}
+  .row.urgent{border-left-color:var(--warn)}
+  .row.done{border-left-color:var(--pos);opacity:.72}
+  .row .date{width:56px;flex:none;text-align:center;font-family:'Inter Tight'}
+  .row .date .d{font-weight:700;font-size:22px;line-height:1}
+  .row .date .m{font-size:11px;color:var(--txt2);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+  .row .info{flex:1;min-width:0}
+  .row .info .t{font-family:'Inter Tight';font-weight:600;font-size:14.5px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .row .info .t .tag{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;
+    background:rgba(109,134,255,.12);border:1px solid var(--line);color:var(--peri)}
+  .row .info .desc{font-size:12.5px;color:var(--txt2);margin-top:3px}
+  .row .st{flex:none;font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:999px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+  .row .st.a{background:rgba(109,134,255,.12);border:1px solid var(--line-2);color:var(--peri)}
+  .row .st.u{background:rgba(255,207,122,.13);border:1px solid rgba(255,207,122,.3);color:var(--warn)}
+  .row .st.d{background:rgba(62,233,164,.13);border:1px solid rgba(62,233,164,.3);color:var(--pos)}
+  .row .st svg{width:13px;height:13px}
+
+  /* Avancement des dossiers */
+  .dossiers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .dcard{padding:16px 18px;border-radius:16px;background:var(--glass);border:1px solid var(--line)}
+  .dcard .dt{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .dcard .dt .nm{font-family:'Inter Tight';font-weight:600;font-size:14.5px}
+  .dcard .dt .pc{font-family:'Inter Tight';font-weight:700;font-size:14px;color:var(--peri);font-variant-numeric:tabular-nums}
+  .dcard .bar{height:8px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden;border:1px solid var(--line)}
+  .dcard .bar span{display:block;height:100%;border-radius:999px;width:0;
+    background:linear-gradient(90deg,#6d86ff,#2b45ff);transition:width 1s cubic-bezier(.22,1,.36,1)}
+  .dcard.ok .bar span{background:linear-gradient(90deg,#3ee9a4,#1fb47a)}
+  .dcard .sub{font-size:12px;color:var(--txt2);margin-top:10px;display:flex;align-items:center;gap:7px}
+  .dcard .sub .dot{width:6px;height:6px;border-radius:50%;background:var(--azur);flex:none}
+  .dcard.ok .sub .dot{background:var(--pos)}
+
+  @media(max-width:760px){ .dossiers{grid-template-columns:1fr} }
+  @media(max-width:620px){
+    .kpis{grid-template-columns:1fr;gap:10px}
+    .kpi{display:flex;align-items:center;gap:14px}
+    .kpi .kl{margin-bottom:0;flex:1}
+    .kpi::after{display:none}
+    .row{gap:12px;padding:12px 13px}
+    .row .st{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.dcard .bar span{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div class="kick">Pilotage</div>
+    <h1 class="disp">Suivi &amp; échéances</h1>
+    <p>Gardez une longueur d'avance : vos prochaines échéances fiscales et sociales, et l'avancement des dossiers pris en charge par le cabinet.</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi urgent">
+      <div class="kl"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>Prochaine échéance</div>
+      <div class="kv">21 juil.</div>
+      <div class="ks">Déclaration de TVA — dans 2 jours</div>
+    </div>
+    <div class="kpi">
+      <div class="kl"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>Ce mois-ci</div>
+      <div class="kv">3 <small>échéances</small></div>
+      <div class="ks">2 fiscales · 1 sociale</div>
+    </div>
+    <div class="kpi">
+      <div class="kl"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>Dossiers en cours</div>
+      <div class="kv">4 <small>actifs</small></div>
+      <div class="ks">Avancement global 78 %</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h">
+      <h2>Échéances à venir</h2>
+      <div class="lg">
+        <span><i class="u"></i> Urgent</span>
+        <span><i class="a"></i> À venir</span>
+        <span><i class="d"></i> Traité</span>
+      </div>
+    </div>
+    <div class="ech" id="ech"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>Avancement des dossiers</h2></div>
+    <div class="dossiers" id="dossiers"></div>
+  </div>
+
+</div>
+
+<script>
+  var MONTHS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+
+  /* état : u = urgent, a = à venir, d = traité */
+  var ECH = [
+    {d:21, m:6, t:'Déclaration de TVA', tag:'Fiscal', desc:'Régime réel normal — période de juin 2026', st:'u'},
+    {d:25, m:6, t:'Cotisations URSSAF', tag:'Social', desc:'Paiement des cotisations du 2ᵉ trimestre', st:'a'},
+    {d:31, m:6, t:'Acompte d\'IS', tag:'Fiscal', desc:'3ᵉ acompte d\'impôt sur les sociétés', st:'a'},
+    {d:12, m:6, t:'DSN mensuelle', tag:'Social', desc:'Déclaration sociale nominative — juin 2026', st:'d'},
+    {d:5,  m:7, t:'Déclaration de TVA', tag:'Fiscal', desc:'Régime réel normal — période de juillet 2026', st:'a'}
+  ];
+
+  var DOSSIERS = [
+    {nm:'Bilan comptable 2025', pc:100, sub:'Clôturé et transmis', ok:true},
+    {nm:'Liasse fiscale 2025', pc:85, sub:'En cours de validation'},
+    {nm:'Révision TVA — 2ᵉ trimestre', pc:60, sub:'Contrôle des écritures'},
+    {nm:'Paie — Juillet 2026', pc:40, sub:'Collecte des variables en cours'}
+  ];
+
+  var CHK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+  var CLK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+  var STLABEL = {u:'Urgent', a:'À venir', d:'Traité'};
+
+  document.getElementById('ech').innerHTML = ECH.map(function(e){
+    var rowc = e.st==='u'?'urgent':(e.st==='d'?'done':'');
+    var ic = e.st==='d'?CHK:CLK;
+    return '<div class="row '+rowc+'">'+
+      '<div class="date"><div class="d">'+e.d+'</div><div class="m">'+MONTHS[e.m]+'</div></div>'+
+      '<div class="info"><div class="t">'+e.t+'<span class="tag">'+e.tag+'</span></div><div class="desc">'+e.desc+'</div></div>'+
+      '<span class="st '+e.st+'">'+ic+STLABEL[e.st]+'</span>'+
+    '</div>';
+  }).join('');
+
+  document.getElementById('dossiers').innerHTML = DOSSIERS.map(function(d){
+    return '<div class="dcard'+(d.ok?' ok':'')+'">'+
+      '<div class="dt"><span class="nm">'+d.nm+'</span><span class="pc">'+d.pc+'%</span></div>'+
+      '<div class="bar"><span data-pc="'+d.pc+'"></span></div>'+
+      '<div class="sub"><span class="dot"></span>'+d.sub+'</div>'+
+    '</div>';
+  }).join('');
+
+  /* Animation des barres */
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  requestAnimationFrame(function(){
+    document.querySelectorAll('.dcard .bar span').forEach(function(s){
+      s.style.width = reduce ? (s.dataset.pc+'%') : '0%';
+    });
+    if(!reduce){
+      setTimeout(function(){
+        document.querySelectorAll('.dcard .bar span').forEach(function(s){ s.style.width = s.dataset.pc+'%'; });
+      }, 180);
+    }
+  });
+</script>
+</body>
+</html>
