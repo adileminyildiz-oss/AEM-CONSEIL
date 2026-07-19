@@ -648,6 +648,33 @@
   .sp-final p{margin:14px auto 0;max-width:500px;color:#c3cdf0;font-size:15.5px;line-height:1.6}
   .sp-final .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
   @media(max-width:640px){.sp-inc{grid-template-columns:1fr}}
+  .sp-wrap.wide{max-width:1060px}
+  /* Layout B — hero scindé */
+  .sp-split{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
+  .sp-split-txt{text-align:left}
+  .sp-split-txt h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(29px,4vw,46px);letter-spacing:-.03em;margin-top:12px;line-height:1.05;text-wrap:balance}
+  .sp-split-txt p{margin-top:16px;color:var(--txt2);font-size:16px;line-height:1.7}
+  .sp-split-txt .cta-actions{justify-content:flex-start;margin-top:24px}
+  .sp-split-card{border:1px solid var(--line-2);border-radius:20px;padding:28px 26px;
+    background:linear-gradient(160deg,rgba(20,26,48,.55),rgba(9,13,26,.7));backdrop-filter:blur(20px) saturate(150%);box-shadow:0 30px 70px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.07)}
+  .sp-split-card h3{font-family:'Inter Tight';font-weight:600;font-size:16px;margin-bottom:16px}
+  .sp-check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+  .sp-check li{display:flex;gap:11px;align-items:flex-start;font-size:14px;line-height:1.45;color:#cfd7ee}
+  .sp-check li svg{flex:none;color:var(--azur);margin-top:2px}
+  @media(max-width:820px){.sp-split{grid-template-columns:1fr;gap:24px}.sp-split-txt{text-align:center}.sp-split-txt .cta-actions{justify-content:center}}
+  /* Layout C — bento + étapes numérotées */
+  .sp-bento{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .sp-bento .tile{border:1px solid var(--line);border-radius:20px;padding:26px 24px;background:var(--glass);backdrop-filter:blur(14px) saturate(140%)}
+  .sp-bento .tile.wide{grid-column:1/-1}
+  .sp-bento .tile.accent{border-color:rgba(109,134,255,.42);background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03))}
+  .sp-bento .tile h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px;margin-bottom:14px}
+  .sp-bento .tile p{color:var(--txt2);font-size:14.5px;line-height:1.6}
+  .sp-steplist{list-style:none;margin:28px auto 0;padding:0;counter-reset:sl;display:flex;flex-direction:column;gap:14px;max-width:760px}
+  .sp-steplist li{counter-increment:sl;position:relative;padding:18px 20px 18px 62px;border:1px solid var(--line);border-radius:14px;background:var(--glass)}
+  .sp-steplist li::before{content:counter(sl,decimal-leading-zero);position:absolute;left:20px;top:16px;font-family:'Instrument Serif';font-style:italic;font-size:22px;color:var(--peri)}
+  .sp-steplist li b{font-family:'Inter Tight';font-weight:600;font-size:15.5px;display:block}
+  .sp-steplist li span{display:block;margin-top:4px;color:var(--txt2);font-size:13.5px;line-height:1.5}
+  @media(max-width:640px){.sp-bento{grid-template-columns:1fr}}
 
   /* ===== Comparateur de statuts ===== */
   .cmp-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
@@ -1517,19 +1544,19 @@ var SERVICE_PAGES=[
     process:[{t:'Reprise & FEC',d:'Récupération de vos pièces et de votre FEC, puis point complet de votre situation.'},{t:'Tenue en continu',d:'Saisie, lettrage et rapprochements tout au long de l’exercice.'},{t:'Révision',d:'Contrôle de cohérence et arrêté des comptes avant clôture.'},{t:'Bilan & conseil',d:'Bilan, liasse fiscale et rendez-vous de pilotage pour préparer la suite.'}],
     audience:['Indépendants','TPE','PME','Professions libérales','Commerçants','Artisans'],
     faq:[{q:'Puis-je vous confier ma compta en cours d’année ?',a:'Oui. Nous récupérons votre dossier auprès de votre ancien cabinet et reprenons la tenue sans interruption de service.'},{q:'À quelle fréquence ai-je un point sur mes comptes ?',a:'Selon la formule : au minimum au moment du bilan, et idéalement via des tableaux de bord réguliers tout au long de l’année.'}]},
-  {slug:'paie-social',icon:IC.users,cat:'Social',title:'Paie & social',menu:'Bulletins, DSN et obligations employeur',
+  {slug:'paie-social',layout:'B',icon:IC.users,cat:'Social',title:'Paie & social',menu:'Bulletins, DSN et obligations employeur',
     lead:'La gestion complète de vos salariés, du bulletin de paie aux déclarations sociales — sans erreur et dans les délais.',
     includes:['Bulletins de paie mensuels','Déclarations sociales (DSN)','Gestion des entrées et sorties','Suivi des congés et absences','Contrats et documents de fin de contrat','Conseil en droit social','Veille sur la réglementation sociale'],
     process:[{t:'Paramétrage',d:'Mise en place de votre dossier social et de votre convention collective.'},{t:'Collecte',d:'Recueil mensuel des variables de paie (heures, primes, absences).'},{t:'Édition',d:'Établissement et contrôle des bulletins de paie.'},{t:'Déclarations',d:'Télétransmission des DSN et suivi des échéances sociales.'}],
     audience:['Employeurs','TPE avec salariés','PME','Associations','Commerces'],
     faq:[{q:'À partir de combien de salariés m’accompagnez-vous ?',a:'Dès le premier salarié — y compris pour votre toute première embauche et les formalités associées.'},{q:'La DSN est-elle incluse ?',a:'Oui, l’établissement et la télétransmission des déclarations sociales nominatives font partie de la mission paie.'}]},
-  {slug:'fiscalite',icon:IC.trend,cat:'Fiscalité',title:'Fiscalité & TVA',menu:'Déclarations, optimisation et veille',
+  {slug:'fiscalite',layout:'C',icon:IC.trend,cat:'Fiscalité',title:'Fiscalité & TVA',menu:'Déclarations, optimisation et veille',
     lead:'Une fiscalité optimisée et sécurisée, en parfaite conformité — pour ne payer ni trop, ni au mauvais moment.',
     includes:['Déclarations de TVA','Déclarations fiscales annuelles','Optimisation fiscale adaptée à votre situation','Contrôle de cohérence de votre FEC','Choix et suivi du régime d’imposition','Veille réglementaire permanente','Assistance en cas de contrôle'],
     process:[{t:'Diagnostic',d:'Analyse de votre situation et de votre régime fiscal.'},{t:'Déclarations',d:'Établissement et dépôt de vos déclarations périodiques.'},{t:'Optimisation',d:'Recommandations légales pour alléger et lisser votre charge fiscale.'},{t:'Veille',d:'Alertes sur les évolutions qui vous concernent.'}],
     audience:['Toutes entreprises assujetties','Dirigeants','Indépendants','Sociétés'],
     faq:[{q:'Quel régime de TVA est adapté à mon activité ?',a:'Cela dépend de votre chiffre d’affaires et de votre activité. Nous étudions votre cas pour choisir le régime le plus avantageux.'},{q:'Que se passe-t-il en cas de contrôle fiscal ?',a:'Nous vous assistons à chaque étape : préparation des pièces, réponses à l’administration et accompagnement dans les échanges.'}]},
-  {slug:'conseil-gestion',icon:IC.case,cat:'Pilotage',title:'Conseil & gestion',menu:'Tableaux de bord et prévisionnels',
+  {slug:'conseil-gestion',layout:'B',icon:IC.case,cat:'Pilotage',title:'Conseil & gestion',menu:'Tableaux de bord et prévisionnels',
     lead:'Un accompagnement stratégique pour piloter, anticiper et développer votre activité en toute confiance.',
     includes:['Tableaux de bord personnalisés','Prévisionnels et budgets','Analyse de rentabilité et de marges','Suivi de trésorerie','Aide à la prise de décision','Business plan','Points réguliers avec votre conseiller'],
     process:[{t:'Cadrage',d:'Définition de vos objectifs et des indicateurs clés à suivre.'},{t:'Mise en place',d:'Construction de vos tableaux de bord et prévisionnels.'},{t:'Suivi',d:'Points périodiques pour comparer réalisé et objectifs.'},{t:'Recommandations',d:'Conseils concrets pour ajuster et gagner en rentabilité.'}],
@@ -1541,7 +1568,7 @@ var SERVICE_PAGES=[
     process:[{t:'Étude du projet',d:'Analyse de votre projet, de vos objectifs et de votre situation.'},{t:'Choix du statut',d:'Comparaison des formes juridiques et fiscales pour la plus adaptée.'},{t:'Formalités',d:'Rédaction des statuts, immatriculation et démarches administratives.'},{t:'Démarrage',d:'Mise en place de vos outils et accompagnement des premiers mois.'}],
     audience:['Futurs entrepreneurs','Porteurs de projet','Créateurs de société','Repreneurs'],
     faq:[{q:'Quel statut juridique choisir ?',a:'Cela dépend de votre projet, de vos associés et de votre régime social souhaité. Nous vous guidons vers le statut le plus pertinent.'},{q:'Quels sont les délais de création ?',a:'Une fois le dossier complet, l’immatriculation intervient généralement sous quelques jours ouvrés.'}]},
-  {slug:'juridique',icon:IC.scale,cat:'Juridique',title:'Juridique & formalités',menu:'Statuts, assemblées et secrétariat',
+  {slug:'juridique',layout:'C',icon:IC.scale,cat:'Juridique',title:'Juridique & formalités',menu:'Statuts, assemblées et secrétariat',
     lead:'Le suivi juridique de votre société tout au long de sa vie — statuts, modifications et obligations, sans y penser.',
     includes:['Rédaction et mise à jour des statuts','Approbation annuelle des comptes','Tenue des assemblées générales','Modifications statutaires','Transfert de siège social','Secrétariat juridique annuel','Formalités auprès du greffe'],
     process:[{t:'Point annuel',d:'Revue de vos obligations juridiques de l’année.'},{t:'Préparation',d:'Rédaction des actes, convocations et procès-verbaux.'},{t:'Assemblées',d:'Tenue des assemblées et formalisation des décisions.'},{t:'Formalités',d:'Dépôts au greffe et mise à jour de vos registres.'}],
@@ -1719,22 +1746,51 @@ function closeCGU(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;v
 
 /* ===== Pages Services : routeur par ancre (#services/slug) ===== */
 var SP_BASE_TITLE=document.title;
+/* Fragments partagés */
+function spBar(){return '<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>';}
+function spCtas(){return '<div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Estimer mon besoin <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div>';}
+function spInc(s){return '<ul class="sp-inc">'+s.includes.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>';}
+function spCheck(s){return '<ul class="sp-check">'+s.includes.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>';}
+function spSteps(s){return '<div class="sp-steps">'+s.process.map(function(p,i){return '<div class="sp-stepcard"><span class="n">'+('0'+(i+1)).slice(-2)+'</span><h3>'+esc(p.t)+'</h3><p>'+esc(p.d)+'</p></div>';}).join('')+'</div>';}
+function spStepsList(s){return '<ol class="sp-steplist">'+s.process.map(function(p){return '<li><b>'+esc(p.t)+'</b><span>'+esc(p.d)+'</span></li>';}).join('')+'</ol>';}
+function spAud(s){return '<div class="sp-aud">'+s.audience.map(function(a){return '<span>'+esc(a)+'</span>';}).join('')+'</div>';}
+function spFaq(s){return '<div class="sp-faq faq-list">'+s.faq.map(function(f){return '<div class="faq spot"><button type="button" onclick="toggleFaq(this)">'+esc(f.q)+'<span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="faq-panel"><p>'+esc(f.a)+'</p></div></div>';}).join('')+'</div>';}
+function spFinal(s){return '<div class="sp-final"><h2>Parlons de votre '+esc(s.title.toLowerCase())+'</h2><p>Premier rendez-vous offert, réponse sous 24 h et sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis gratuit <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Prendre rendez-vous</a></div></div>';}
+function spHero(s){return '<div class="sp-hero"><span class="sp-kick">'+esc(s.cat)+'</span><h1>'+esc(s.title)+'</h1><p>'+esc(s.lead)+'</p>'+spCtas()+'</div>';}
+
+/* Layout A — classique empilé */
+function spLayoutA(s){return spHero(s)
+  +'<div class="sp-sec"><h2>Ce que comprend la mission</h2>'+spInc(s)+'</div>'
+  +'<div class="sp-sec"><h2>Comment ça se passe</h2><p class="sub">Un processus clair, rythmé par vos échéances.</p>'+spSteps(s)+'</div>'
+  +'<div class="sp-sec"><h2>Pour qui&nbsp;?</h2>'+spAud(s)+'</div>'
+  +(s.slug==='creation'?cmpBlock():'')
+  +'<div class="sp-sec"><h2>Questions fréquentes</h2>'+spFaq(s)+'</div>'
+  +spFinal(s);}
+
+/* Layout B — hero scindé + carte mission */
+function spLayoutB(s){return '<div class="sp-split">'
+    +'<div class="sp-split-txt"><span class="sp-kick">'+esc(s.cat)+'</span><h1>'+esc(s.title)+'</h1><p>'+esc(s.lead)+'</p>'+spCtas()+'</div>'
+    +'<div class="sp-split-card"><h3>Ce que comprend la mission</h3>'+spCheck(s)+'</div>'
+  +'</div>'
+  +'<div class="sp-sec"><h2>Comment ça se passe</h2><p class="sub">Un processus clair, rythmé par vos échéances.</p>'+spSteps(s)+'</div>'
+  +'<div class="sp-sec"><h2>Pour qui&nbsp;?</h2>'+spAud(s)+'</div>'
+  +'<div class="sp-sec"><h2>Questions fréquentes</h2>'+spFaq(s)+'</div>'
+  +spFinal(s);}
+
+/* Layout C — bento éditorial + étapes numérotées */
+function spLayoutC(s){return spHero(s)
+  +'<div class="sp-bento">'
+    +'<div class="tile wide"><h3>Ce que comprend la mission</h3>'+spCheck(s)+'</div>'
+    +'<div class="tile"><h3>Pour qui&nbsp;?</h3>'+spAud(s)+'</div>'
+    +'<div class="tile accent"><h3>Notre engagement</h3><p>Un interlocuteur unique et dédié, une réponse sous 24 h et des conseils clairs, sans jargon — sur toute la durée de votre mission.</p></div>'
+  +'</div>'
+  +'<div class="sp-sec"><h2>Comment ça se passe</h2>'+spStepsList(s)+'</div>'
+  +'<div class="sp-sec"><h2>Questions fréquentes</h2>'+spFaq(s)+'</div>'
+  +spFinal(s);}
+
 function spServicePageHTML(s){
-  var inc=s.includes.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('');
-  var steps=s.process.map(function(p,i){return '<div class="sp-stepcard"><span class="n">'+('0'+(i+1)).slice(-2)+'</span><h3>'+esc(p.t)+'</h3><p>'+esc(p.d)+'</p></div>';}).join('');
-  var aud=s.audience.map(function(a){return '<span>'+esc(a)+'</span>';}).join('');
-  var faq=s.faq.map(function(f){return '<div class="faq spot"><button type="button" onclick="toggleFaq(this)">'+esc(f.q)+'<span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="faq-panel"><p>'+esc(f.a)+'</p></div></div>';}).join('');
-  return ''
-    +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
-    +'<div class="sp-wrap">'
-      +'<div class="sp-hero"><span class="sp-kick">'+esc(s.cat)+'</span><h1>'+esc(s.title)+'</h1><p>'+esc(s.lead)+'</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Estimer mon besoin <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div></div>'
-      +'<div class="sp-sec"><h2>Ce que comprend la mission</h2><ul class="sp-inc">'+inc+'</ul></div>'
-      +'<div class="sp-sec"><h2>Comment ça se passe</h2><p class="sub">Un processus clair, rythmé par vos échéances.</p><div class="sp-steps">'+steps+'</div></div>'
-      +'<div class="sp-sec"><h2>Pour qui&nbsp;?</h2><div class="sp-aud">'+aud+'</div></div>'
-      +(s.slug==='creation'?cmpBlock():'')
-      +'<div class="sp-sec"><h2>Questions fréquentes</h2><div class="sp-faq faq-list">'+faq+'</div></div>'
-      +'<div class="sp-final"><h2>Parlons de votre '+esc(s.title.toLowerCase())+'</h2><p>Premier rendez-vous offert, réponse sous 24 h et sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis gratuit <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Prendre rendez-vous</a></div></div>'
-    +'</div>';
+  var L=s.layout||'A', inner=(L==='B')?spLayoutB(s):(L==='C')?spLayoutC(s):spLayoutA(s);
+  return spBar()+'<div class="sp-wrap'+(L==='A'?'':' wide')+'">'+inner+'</div>';
 }
 function spGuidePageHTML(g){
   var secs=g.sections.map(function(s){
