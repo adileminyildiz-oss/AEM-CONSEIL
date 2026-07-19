@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Espace client — AEM-CONSEIL</title>
+<meta name="description" content="Votre espace AEM-CONSEIL : facturation, documents et suivi. Accédez à vos outils en ligne.">
+<meta name="theme-color" content="#04050b">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
+    --outremer:#2b45ff; --azur:#6d86ff; --peri:#a9b8ff;
+    --line:rgba(150,168,255,.11); --line-2:rgba(150,168,255,.18);
+    --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06);
+    --txt:#f2f4ff; --txt2:#8b98bd; --pos:#3ee9a4;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  html,body{overflow-x:clip}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(820px 600px at 50% -10%, rgba(43,69,255,.22), transparent 60%),
+      radial-gradient(640px 520px at 88% 20%, rgba(43,69,255,.09), transparent 62%),
+      radial-gradient(680px 560px at 6% 70%, rgba(43,69,255,.08), transparent 62%),
+      linear-gradient(180deg,#05060e,#04050b)}
+  .beam{position:fixed;top:-28%;left:50%;width:42vw;height:120vh;transform:translateX(-50%) rotate(8deg);z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(80,110,255,.12),transparent 70%);filter:blur(54px);animation:sway 16s ease-in-out infinite}
+  @keyframes sway{0%,100%{transform:translateX(-50%) rotate(8deg)}50%{transform:translateX(-46%) rotate(4deg)}}
+
+  a{color:inherit;text-decoration:none}
+  .disp{font-family:'Inter Tight',sans-serif;letter-spacing:-.03em}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(18px,4vw,34px)}
+  .kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--azur);font-weight:500}
+
+  /* Boutons */
+  .btn{position:relative;overflow:hidden;font-family:'Inter Tight',sans-serif;font-weight:600;cursor:pointer;border:none;
+    display:inline-flex;align-items:center;gap:9px;transition:transform .16s cubic-bezier(.22,1,.36,1),filter .2s,box-shadow .2s,background .2s;
+    padding:12px 22px;border-radius:12px;font-size:14px}
+  .btn svg{width:17px;height:17px;flex:none}
+  .btn::after{content:"";position:absolute;inset:0;left:-60%;width:44%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-16deg);transition:left .55s;pointer-events:none}
+  .btn:hover::after{left:135%}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:translateY(0) scale(.97)}
+  .btn-pri{color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff);box-shadow:0 10px 30px rgba(43,69,255,.42)}
+  .btn-pri:hover{filter:brightness(1.06)}
+  .btn-ghost{color:var(--txt);background:var(--glass);border:1px solid var(--line-2)}
+  .btn-ghost:hover{background:var(--glass-2)}
+  .btn:focus-visible,a:focus-visible{outline:2px solid var(--azur);outline-offset:3px}
+
+  /* Barre supérieure */
+  .topbar{position:sticky;top:0;z-index:60;padding:14px 0;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(12,16,30,.78),rgba(7,9,18,.66));
+    -webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%)}
+  .topbar .in{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:13px}
+  .brand img{height:30px;display:block;filter:brightness(1.14) drop-shadow(0 0 8px rgba(169,184,255,.4))}
+  .brand .sep{width:1px;height:24px;background:var(--line-2)}
+  .brand .tag{font-family:'Inter Tight';font-weight:600;font-size:14px}
+  .brand .tag small{display:block;font-family:'Inter';font-weight:400;font-size:11px;color:var(--txt2)}
+  .back{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:var(--txt2);padding:8px 12px;border-radius:10px;transition:.18s}
+  .back:hover{color:#fff;background:var(--glass)}
+  .back svg{width:16px;height:16px}
+
+  /* Hero */
+  .hero{text-align:center;padding:clamp(48px,8vw,88px) 0 clamp(30px,4vw,44px)}
+  .badge{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--glass);font-size:12.5px;color:#c8d2f2;backdrop-filter:blur(14px)}
+  .dot{position:relative;width:7px;height:7px;border-radius:50%;background:var(--pos);box-shadow:0 0 9px var(--pos)}
+  .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--pos);animation:dotPulse 2.4s ease-out infinite}
+  @keyframes dotPulse{0%{transform:scale(.7);opacity:.6}100%{transform:scale(2.4);opacity:0}}
+  .badge.soon .dot{background:var(--azur);box-shadow:0 0 9px var(--azur)}
+  .badge.soon .dot::after{border-color:var(--azur)}
+  .hero h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(34px,6vw,60px);line-height:1.02;letter-spacing:-.035em;margin:20px auto 0;max-width:16ch;text-wrap:balance}
+  .hero h1 .ital{color:var(--peri)}
+  .hero .lead{margin:20px auto 0;max-width:520px;font-size:16.5px;color:var(--txt2)}
+
+  /* Grille de modules */
+  .modules{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding-bottom:clamp(40px,6vw,72px)}
+  @media(max-width:720px){.modules{grid-template-columns:1fr}}
+  .mod{position:relative;display:flex;flex-direction:column;gap:14px;padding:26px;border-radius:18px;
+    border:1px solid var(--line);background:var(--glass);overflow:hidden;transition:transform .2s cubic-bezier(.22,1,.36,1),border-color .2s,background .2s}
+  .mod::before{content:"";position:absolute;inset:0;background:radial-gradient(420px 200px at 20% -10%,rgba(43,69,255,.14),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+  .mod.active{cursor:pointer}
+  .mod.active:hover{transform:translateY(-3px);border-color:var(--line-2);background:var(--glass-2)}
+  .mod.active:hover::before{opacity:1}
+  .mod .ic{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;
+    background:linear-gradient(135deg,rgba(109,134,255,.24),rgba(43,69,255,.2));color:var(--peri);border:1px solid var(--line-2)}
+  .mod .ic svg{width:24px;height:24px}
+  .mod h3{font-family:'Inter Tight';font-weight:600;font-size:19px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .mod p{font-size:14px;color:var(--txt2);flex:1}
+  .mod .go{display:inline-flex;align-items:center;gap:8px;font-family:'Inter Tight';font-weight:600;font-size:14px;color:var(--peri);margin-top:2px}
+  .mod .go svg{width:16px;height:16px;transition:transform .2s}
+  .mod.active:hover .go svg{transform:translateX(4px)}
+  .pill{font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;flex:none}
+  .pill.on{background:rgba(62,233,164,.14);color:var(--pos);border:1px solid rgba(62,233,164,.3)}
+  .pill.soon{background:rgba(109,134,255,.14);color:var(--peri);border:1px solid var(--line-2)}
+  .mod.soon{opacity:.72}
+  .mod.soon .ic{filter:grayscale(.2);opacity:.85}
+
+  /* Bandeau info sous-domaine */
+  .info{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;border-radius:16px;
+    border:1px solid var(--line);background:linear-gradient(180deg,rgba(43,69,255,.08),rgba(43,69,255,.02));margin-bottom:clamp(40px,6vw,64px)}
+  .info .ii{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(43,69,255,.18);color:var(--peri);flex:none}
+  .info .ii svg{width:18px;height:18px}
+  .info h4{font-family:'Inter Tight';font-weight:600;font-size:14.5px;margin-bottom:3px}
+  .info p{font-size:13px;color:var(--txt2)}
+  .info code{font-family:'Inter Tight';font-weight:600;color:var(--peri);background:rgba(109,134,255,.12);padding:1px 7px;border-radius:6px;font-size:12.5px}
+
+  /* Footer */
+  .ft{border-top:1px solid var(--line);padding:26px 0;color:var(--txt2);font-size:13px}
+  .ft .in{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .ft a:hover{color:#fff}
+
+  /* Entrée */
+  .hero .badge,.hero h1,.hero .lead,.mod,.info{opacity:0;animation:up .8s cubic-bezier(.22,1,.36,1) forwards}
+  .hero h1{animation-delay:.08s}.hero .lead{animation-delay:.16s}
+  .info{animation-delay:.2s}
+  .mod:nth-child(1){animation-delay:.26s}.mod:nth-child(2){animation-delay:.34s}
+  .mod:nth-child(3){animation-delay:.42s}.mod:nth-child(4){animation-delay:.5s}
+  @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important}
+    html{scroll-behavior:auto}
+    .hero .badge,.hero h1,.hero .lead,.mod,.info{opacity:1;transform:none}
+    .mod.soon{opacity:.72}
+  }
+</style>
+</head>
+<body>
+<span class="beam" aria-hidden="true"></span>
+
+<div class="topbar">
+  <div class="wrap in">
+    <a class="brand" href="../index.html" aria-label="AEM-CONSEIL — Accueil">
+      <img src="../assets/logo-full.png" alt="AEM CONSEIL">
+      <span class="sep"></span>
+      <span class="tag">Espace client<small>AEM-CONSEIL</small></span>
+    </a>
+    <a class="back" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</a>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="badge soon"><span class="dot"></span> Bientôt sur yada.aemconseil.eu</span>
+    <h1 class="disp">Votre <span class="ital">espace</span> AEM-CONSEIL</h1>
+    <p class="lead">Retrouvez ici vos outils en ligne. La facturation est déjà disponible ; d'autres services arrivent prochainement.</p>
+  </section>
+
+  <div class="info">
+    <span class="ii" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+    <div>
+      <h4>Espace en préparation</h4>
+      <p>Cet espace sera bientôt accessible depuis son adresse dédiée <code>yada.aemconseil.eu</code>. En attendant, vous pouvez déjà l'utiliser ici.</p>
+    </div>
+  </div>
+
+  <section class="modules" aria-label="Vos modules">
+    <!-- Facturation (actif) -->
+    <a class="mod active" href="../facturation/">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span>
+      <h3>Facturation <span class="pill on">Disponible</span></h3>
+      <p>Créez vos factures et devis à la charte du cabinet, calcul automatique de la TVA, aperçu A4 et export PDF.</p>
+      <span class="go">Ouvrir la facturation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <!-- Contact (actif, vers le site) -->
+    <a class="mod active" href="../index.html#contact">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+      <h3>Contacter le cabinet <span class="pill on">Disponible</span></h3>
+      <p>Une question, un rendez-vous, un devis&nbsp;? Écrivez-nous ou demandez à être rappelé sous 24&nbsp;h.</p>
+      <span class="go">Nous contacter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <!-- Documents (à venir) -->
+    <div class="mod soon" aria-disabled="true">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M9 13h6M9 17h6"/></svg></span>
+      <h3>Mes documents <span class="pill soon">Bientôt</span></h3>
+      <p>Consultez et téléchargez vos bilans, déclarations et pièces comptables au même endroit.</p>
+      <span class="go" style="color:var(--txt2)">À venir</span>
+    </div>
+
+    <!-- Suivi (à venir) -->
+    <div class="mod soon" aria-disabled="true">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg></span>
+      <h3>Suivi &amp; échéances <span class="pill soon">Bientôt</span></h3>
+      <p>Gardez un œil sur vos échéances fiscales et sociales et l'avancement de vos dossiers.</p>
+      <span class="go" style="color:var(--txt2)">À venir</span>
+    </div>
+  </section>
+</main>
+
+<footer class="ft">
+  <div class="wrap in">
+    <span>© 2026 AEM-CONSEIL — Espace client</span>
+    <span style="display:flex;gap:18px;flex-wrap:wrap">
+      <a href="../index.html">Site principal</a>
+      <a href="../facturation/">Facturation</a>
+      <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
