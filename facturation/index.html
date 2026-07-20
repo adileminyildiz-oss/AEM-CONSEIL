@@ -16,6 +16,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
   :root{
     --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
@@ -322,6 +324,10 @@
       <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> Client</h3>
       <p class="hint">Le destinataire du document.</p>
       <div class="grid2">
+        <div class="field col-2" id="c-picker-wrap" style="display:none">
+          <label for="c-picker">Client enregistré</label>
+          <select id="c-picker"><option value="">— Saisie manuelle —</option></select>
+        </div>
         <div class="field col-2"><label for="c-name">Nom / Société</label><input id="c-name" placeholder="Société Cliente SARL"></div>
         <div class="field col-2"><label for="c-addr">Adresse</label><textarea id="c-addr" placeholder="3 avenue du Client&#10;69000 Lyon"></textarea></div>
         <div class="field"><label for="c-siret">SIRET (optionnel)</label><input id="c-siret" placeholder="000 000 000 00000"></div>
@@ -945,6 +951,41 @@ function toast(msg){
   t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
 }
 
+/* ============ Sélecteur de client (carnet Tiers — Supabase) ============ */
+async function initClientPicker(){
+  var wrap=document.getElementById('c-picker-wrap');
+  var sel=document.getElementById('c-picker');
+  if(!wrap||!sel||typeof window.supabase==='undefined') return;
+  var SB_URL='https://ammmyhtxnwyoopfxtans.supabase.co';
+  var SB_KEY='sb_publishable_VBYOMpnF3kv7kkcrMLczZQ_v2e4_RHo';
+  var clients=[];
+  try{
+    var sb=window.supabase.createClient(SB_URL,SB_KEY);
+    var ses=await sb.auth.getSession();
+    var session=ses&&ses.data&&ses.data.session;
+    if(!session||!session.user) return;
+    var q=await sb.from('tiers').select('*').eq('user_id',session.user.id).eq('type','client');
+    if(q.error||!q.data||!q.data.length) return;
+    clients=q.data.slice().sort(function(a,b){return String(a.nom||'').localeCompare(String(b.nom||''),'fr');});
+  }catch(e){ return; }
+  var byId={};
+  sel.innerHTML='<option value="">— Saisie manuelle —</option>'+clients.map(function(c){
+    byId[c.id]=c; return '<option value="'+esc(c.id)+'">'+esc(c.nom)+'</option>';
+  }).join('');
+  wrap.style.display='';
+  sel.addEventListener('change',function(){
+    var c=byId[sel.value]; if(!c) return;
+    var addr=[c.adr, [c.cp,c.ville].filter(Boolean).join(' ')].filter(Boolean).join('\n');
+    document.getElementById('c-name').value=c.nom||'';
+    document.getElementById('c-addr').value=addr;
+    document.getElementById('c-siret').value=c.siret||'';
+    document.getElementById('c-email').value=c.email||'';
+    state.client={name:c.nom||'',addr:addr,siret:c.siret||'',email:c.email||''};
+    render(); scheduleSave();
+    toast('Client « '+(c.nom||'')+' » importé');
+  });
+}
+
 /* ============ Init ============ */
 function init(){
   // Mode intégré dans l'espace (shell) : masque la marque, garde les actions
@@ -969,6 +1010,8 @@ function init(){
   }
   fillForm(); render(); applyZoom(); markSaved(true);
   if(!cur) persist();
+
+  initClientPicker();
 
   window.addEventListener('beforeunload', ()=>{ if(dirty) persist(); });
 }
