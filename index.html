@@ -165,8 +165,22 @@
   .hero-bg .o2{top:6%;right:9%;width:30%;aspect-ratio:1;background:radial-gradient(circle,rgba(109,134,255,.42),transparent 62%);animation:heroFloat 26s ease-in-out infinite reverse}
   @keyframes heroFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(3%,4%) scale(1.12)}}
   .hero h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(44px,7.4vw,88px);line-height:1;letter-spacing:-.035em;margin:24px auto 0;max-width:14ch;text-wrap:balance}
-  .hero h1 .ital{background:linear-gradient(100deg,#8ea6ff 22%,#eef2ff 46%,#8ea6ff 70%);background-size:230% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShimmer 7s linear infinite}
-  @keyframes heroShimmer{to{background-position:-230% 0}}
+  /* Mots blancs : apparition douce, du flou au net */
+  .hero h1 .hw{display:inline-block;will-change:filter,opacity}
+  body.loaded .hero h1 .hw{opacity:0;filter:blur(15px);animation:heroFocus 1.6s cubic-bezier(.2,.7,.15,1) .28s forwards}
+  body.loaded .hero h1 .hw.w2{animation-delay:.66s}
+  @keyframes heroFocus{0%{opacity:0;filter:blur(15px)}55%{opacity:1}100%{opacity:1;filter:blur(0)}}
+  /* Mots accent : rendu chromé (métal poli) avec reflet qui balaie */
+  .hero h1 .ital{
+    background-image:linear-gradient(112deg,rgba(255,255,255,0) 36%,rgba(255,255,255,.92) 49%,rgba(255,255,255,0) 62%),
+      linear-gradient(180deg,#f6f8ff 0%,#c6d2f4 30%,#8ea6ff 47%,#5f78e6 53%,#b4c4f7 70%,#ffffff 100%);
+    background-size:250% 100%,100% 100%;background-position:200% 0,50% 0;background-repeat:no-repeat;
+    -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 1px 5px rgba(109,134,255,.32));will-change:background-position}
+  body.loaded .hero h1 .ital{opacity:0;animation:heroInk .7s ease .82s forwards,heroChrome 6.5s cubic-bezier(.5,0,.2,1) 1.2s infinite}
+  body.loaded .hero h1 .ital.i2{animation-delay:1.08s,1.55s}
+  @keyframes heroInk{from{opacity:0}to{opacity:1}}
+  @keyframes heroChrome{0%{background-position:200% 0,50% 0}45%,100%{background-position:-120% 0,50% 0}}
   .hero .lead{margin:28px auto 0;max-width:520px;font-size:17px;color:var(--txt2)}
   .hero .cta-row{display:flex;gap:13px;justify-content:center;margin-top:34px;flex-wrap:wrap}
   .badge{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--glass);font-size:13px;color:#c8d2f2;backdrop-filter:blur(14px)}
@@ -482,7 +496,7 @@
   }
   @media(max-width:520px){.steps{grid-template-columns:1fr}.hero .cta-row{flex-direction:column}.hero .cta-row .btn{width:100%;justify-content:center}}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}#app{filter:none!important;transform:none!important}*{animation-duration:.001ms!important}
-    .hero .badge,.hero h1,.hero .lead,.hero .cta-row,.hero .trust,.hero-scroll{opacity:1!important;animation:none!important}.hero h1 .ital{color:var(--peri)!important}}
+    .hero .badge,.hero h1,.hero .lead,.hero .cta-row,.hero .trust,.hero-scroll,.hero h1 .hw{opacity:1!important;animation:none!important;filter:none!important}.hero h1 .ital{color:var(--peri)!important;-webkit-text-fill-color:var(--peri)!important;background:none!important;filter:none!important;opacity:1!important;animation:none!important}}
 
   /* ===== Simulateur de devis ===== */
   .sim{position:relative;max-width:760px;margin:0 auto;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;
@@ -905,7 +919,7 @@
     <header id="top" class="hero">
       <div class="hero-bg" aria-hidden="true"><span class="g"></span><span class="orb o1"></span><span class="orb o2"></span></div>
       <span class="badge"><span class="dot"></span> Cabinet disponible · Réponse sous 24 h</span>
-      <h1 class="disp">Des comptes <span class="ital">justes.</span> Des décisions <span class="ital">claires.</span></h1>
+      <h1 class="disp"><span class="hw">Des comptes</span> <span class="ital">justes.</span> <span class="hw w2">Des décisions</span> <span class="ital i2">claires.</span></h1>
       <p class="lead">AEM-CONSEIL accompagne entrepreneurs, TPE et PME dans leur comptabilité, leur gestion et leurs décisions — avec rigueur, proximité et une exigence de clarté à chaque ligne.</p>
       <div class="cta-row">
         <a href="#devis" class="btn btn-pri">Demander un devis gratuit <span aria-hidden="true">→</span></a>
