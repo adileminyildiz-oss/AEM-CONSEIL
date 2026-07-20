@@ -14,7 +14,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
   :root{
@@ -152,9 +152,9 @@
   @media(max-width:1080px){.preview-scroll{display:block;overflow:visible}}
 
   /* ===== Le document (A4) ===== */
-  .doc{width:210mm;min-height:297mm;background:#fff;color:var(--doc-ink);margin:auto;flex:none;
-    padding:18mm 16mm;transform-origin:top center;box-shadow:0 20px 60px rgba(0,0,0,.5);
-    font-size:10.5pt;line-height:1.5;position:relative}
+  .doc{width:210mm;min-height:297mm;background:#fff;margin:auto;flex:none;
+    transform-origin:top center;box-shadow:0 20px 60px rgba(0,0,0,.5);
+    position:relative;overflow:hidden}
   .doc *{margin:0}
   .doc .d-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:2px solid var(--doc-accent)}
   .doc .d-emit{max-width:58%}
@@ -249,8 +249,9 @@
     .shell{display:block;padding:0;max-width:none;height:auto}
     .preview-col{position:static;display:block}
     .preview-scroll{border:none;border-radius:0;background:#fff;padding:0;overflow:visible;display:block}
-    .doc{width:210mm;min-height:297mm;box-shadow:none;margin:0;transform:none!important;zoom:1!important;
+    .doc{width:210mm;min-height:297mm;box-shadow:none;margin:0;transform:none!important;zoom:1!important;overflow:visible;
       -webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .doc *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
 </style>
 </head>
@@ -372,7 +373,14 @@
   <!-- APERÇU -->
   <div class="preview-col">
     <div class="preview-bar no-print">
-      <span class="disp" style="font-size:14px;color:var(--txt2)">Aperçu · A4</span>
+      <span style="display:inline-flex;align-items:center;gap:8px">
+        <span class="disp" style="font-size:12.5px;color:var(--txt2)">Modèle</span>
+        <select id="tplSel" onchange="setTemplate(this.value)" style="width:auto;font-size:12.5px;padding:6px 26px 6px 10px;border-radius:9px">
+          <option value="2C">Corporate bleu</option>
+          <option value="2B">Luxe noir &amp; or</option>
+          <option value="1A">Épuré éditorial</option>
+        </select>
+      </span>
       <div style="display:flex;gap:10px;align-items:center">
         <span class="zoom">
           <button type="button" onclick="zoomStep(-1)" aria-label="Dézoomer">−</button>
@@ -421,6 +429,7 @@ function blankState(){
   return {
     id: 'doc_' + Date.now().toString(36) + Math.floor(performance.now()).toString(36),
     kind: 'facture',
+    template: '2C',
     number: '',
     date: todayISO(),
     due: '',
@@ -501,120 +510,223 @@ function fmtDate(iso){ if(!iso) return '—'; const [y,m,d]=iso.split('-'); retu
 
 function render(){
   const s=state, t=computeTotals(s);
-  const isDevis = s.kind==='devis';
-  const kindLabel = isDevis ? 'Devis' : 'Facture';
-
-  const emitMeta=[
-    s.emit.addr,
-    s.emit.siret && ('SIRET : '+s.emit.siret),
-    s.emit.tva && ('TVA : '+s.emit.tva),
-    [s.emit.email, s.emit.phone].filter(Boolean).join(' · ')
-  ].filter(Boolean).join('\n');
-
-  const clientAddr=[
-    s.client.addr,
-    s.client.siret && ('SIRET : '+s.client.siret),
-    s.client.email
-  ].filter(Boolean).join('\n');
-
-  const rows = s.lines.filter(l=>l.desc||lineHT(l)>0).map(l=>{
-    const rate = s.vatExempt ? '—' : (nf2.format(Number(l.vat)||0)+' %');
-    return `<tr>
-      <td><span class="d-desc">${esc(l.desc)||'<span class="empty-hint">Désignation…</span>'}</span></td>
-      <td>${nf2.format(Number(l.qty)||0)}</td>
-      <td>${euro.format(Number(l.pu)||0)}</td>
-      <td>${rate}</td>
-      <td>${euro.format(lineHT(l))}</td>
-    </tr>`;
-  }).join('') || `<tr><td colspan="5" style="text-align:center;padding:22px"><span class="empty-hint">Ajoutez des prestations pour les voir apparaître ici.</span></td></tr>`;
-
-  const vatRowsHTML = s.vatExempt
-    ? ''
-    : t.vatRows.map(v=>`<div class="r"><span>TVA ${nf2.format(v.rate)} %</span><span>${euro.format(v.amount)}</span></div>`).join('');
-
-  const discountHTML = t.discAmt>0
-    ? `<div class="r"><span>Remise${s.discountType==='pct'?' ('+nf2.format(s.discount)+' %)':''}</span><span>− ${euro.format(t.discAmt)}</span></div>`
-    : '';
-
-  const depositHTML = t.deposit>0
-    ? `<div class="sub-sep"></div><div class="r"><span>Acompte versé</span><span>− ${euro.format(t.deposit)}</span></div>
-       <div class="r due"><span>Net à payer</span><span>${euro.format(t.due)}</span></div>`
-    : '';
-
-  const dateLabel = isDevis ? 'Valable jusqu\'au' : 'Échéance';
-  const payBlock = (!isDevis && (s.emit.iban || s.terms)) ? `
-    <div class="d-pay">
-      <div class="lbl">Règlement</div>
-      ${s.terms?`<div>${esc(s.terms)}</div>`:''}
-      ${s.emit.iban?`<div class="iban" style="margin-top:6px">IBAN&nbsp;: ${esc(s.emit.iban)}</div>`:''}
-      ${s.emit.bic?`<div style="margin-top:2px">BIC&nbsp;: ${esc(s.emit.bic)}</div>`:''}
-    </div>` : (isDevis && s.terms ? `<div class="d-pay"><div class="lbl">Conditions</div><div>${esc(s.terms)}</div></div>`:'');
-
-  const legalBits=[];
-  if(s.vatExempt) legalBits.push('TVA non applicable, art. 293 B du CGI.');
-  if(!isDevis){
-    legalBits.push('En cas de retard de paiement, une pénalité au taux légal en vigueur sera appliquée, ainsi qu’une indemnité forfaitaire de 40 € pour frais de recouvrement (art. L441-10 et D441-5 du Code de commerce).');
-    legalBits.push('Pas d’escompte pour paiement anticipé.');
-  } else {
-    legalBits.push('Devis valable 30 jours. Bon pour accord (date et signature) :');
-  }
-
-  document.getElementById('doc').innerHTML = `
-    <div class="d-top">
-      <div class="d-emit">
-        <img class="logo" src="../assets/logo-full.png" alt="" onerror="this.style.display='none'">
-        <div class="nm">${esc(s.emit.name)||'<span class="empty-hint">Votre société</span>'}</div>
-        <div class="meta">${esc(emitMeta)}</div>
-      </div>
-      <div class="d-title">
-        <div class="kind">${kindLabel}</div>
-        <div class="no">${esc(s.number)||'<span class="empty-hint">N° —</span>'}</div>
-        <div class="dates">
-          <div>Émis le <b>${fmtDate(s.date)}</b></div>
-          ${s.due?`<div>${dateLabel} le <b>${fmtDate(s.due)}</b></div>`:''}
-        </div>
-      </div>
-    </div>
-
-    <div class="d-parties">
-      <div class="d-box">
-        <div class="lbl">Émetteur</div>
-        <div class="who">${esc(s.emit.name)||'—'}</div>
-      </div>
-      <div class="d-box client">
-        <div class="lbl">${isDevis?'Devis pour':'Facturé à'}</div>
-        <div class="who">${esc(s.client.name)||'<span class="empty-hint">Nom du client</span>'}</div>
-        <div class="addr">${esc(clientAddr)}</div>
-      </div>
-    </div>
-
-    <table class="items">
-      <thead><tr><th>Désignation</th><th>Qté</th><th>P.U. HT</th><th>TVA</th><th>Total HT</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-
-    <div class="d-bottom">
-      <div class="d-notes">
-        ${s.notes?`<div class="lbl">Notes</div><p>${esc(s.notes)}</p>`:''}
-      </div>
-      <div class="d-tot">
-        <div class="r"><span>Sous-total HT</span><span>${euro.format(t.subHT)}</span></div>
-        ${discountHTML}
-        ${t.discAmt>0?`<div class="r"><span>Total HT net</span><span>${euro.format(t.netHT)}</span></div>`:''}
-        ${vatRowsHTML}
-        ${!s.vatExempt?`<div class="r"><span>Total TVA</span><span>${euro.format(t.totalVAT)}</span></div>`:''}
-        <div class="r grand"><span>Total ${s.vatExempt?'net':'TTC'}</span><span>${euro.format(t.totalTTC)}</span></div>
-        ${depositHTML}
-      </div>
-    </div>
-
-    ${payBlock}
-
-    <div class="d-legal">${esc(legalBits.join('\n'))}</div>
-    <div class="d-foot">${esc(s.emit.name||'')}${s.emit.name&&s.emit.siret?' · ':''}${s.emit.siret?'SIRET '+esc(s.emit.siret):''}${(s.emit.name||s.emit.siret)&&s.emit.tva?' · ':''}${s.emit.tva?'TVA '+esc(s.emit.tva):''}</div>
-  `;
+  const D=buildDocData(s,t);
+  const tpl = TEMPLATES[s.template] || TEMPLATES['2C'];
+  document.getElementById('doc').innerHTML = tpl(D);
   if(manualZoom==null) applyZoom();
 }
+
+/* Données communes formatées pour tous les modèles */
+function buildDocData(s,t){
+  const isDevis = s.kind==='devis';
+  const br = v => esc(v||'').replace(/\n/g,'<br>');
+  const lines = s.lines.filter(l=>l.desc||lineHT(l)>0).map(l=>({
+    desc: esc(l.desc),
+    qtyF: nf2.format(Number(l.qty)||0),
+    puF: euro.format(Number(l.pu)||0),
+    totalF: euro.format(lineHT(l))
+  }));
+  return {
+    s, t, isDevis,
+    kind: isDevis?'Devis':'Facture',
+    number: esc(s.number)||'—',
+    dateEmis: fmtDate(s.date),
+    dueLabel: isDevis?'Valable jusqu’au':'Échéance',
+    dueDate: s.due?fmtDate(s.due):'',
+    emitName: esc(s.emit.name)||'Votre société',
+    emitAddr: br(s.emit.addr),
+    emitSiret: esc(s.emit.siret||''),
+    emitTva: esc(s.emit.tva||''),
+    emitContact: esc([s.emit.email,s.emit.phone].filter(Boolean).join(' · ')),
+    iban: esc(s.emit.iban||''), bic: esc(s.emit.bic||''),
+    clientName: esc(s.client.name)||'Nom du client',
+    clientAddr: br(s.client.addr),
+    clientSiret: esc(s.client.siret||''),
+    clientEmail: esc(s.client.email||''),
+    terms: esc(s.terms||''),
+    notes: br(s.notes),
+    vatExempt: s.vatExempt,
+    vatRate: (t.vatRows.length===1)?nf2.format(t.vatRows[0].rate):null,
+    subHT: euro.format(t.subHT),
+    discAmt: t.discAmt>0?euro.format(t.discAmt):'',
+    discLabel: 'Remise'+(s.discountType==='pct'?' ('+nf2.format(s.discount)+' %)':''),
+    totalVAT: euro.format(t.totalVAT),
+    totalTTC: euro.format(t.totalTTC),
+    ttcLabel: s.vatExempt?'Total net':'Total TTC',
+    deposit: t.deposit>0?euro.format(t.deposit):'',
+    due: euro.format(t.due),
+    lines: lines
+  };
+}
+
+function legalText(D){
+  const bits=[];
+  if(D.vatExempt) bits.push('TVA non applicable, art. 293 B du CGI.');
+  if(!D.isDevis) bits.push('Pénalités de retard : 3× le taux légal · indemnité forfaitaire de recouvrement 40 €.');
+  else bits.push('Devis valable 30 jours. Bon pour accord (date &amp; signature).');
+  return bits.join(' · ');
+}
+
+const TEMPLATES = {
+  /* 2C · Corporate — barre latérale bleue */
+  '2C': function(D){
+    const rows = D.lines.length ? D.lines.map(l=>`
+      <div style="display:grid;grid-template-columns:1fr 50px 92px 108px;gap:10px;padding:13px 0;border-bottom:1px solid #eef2f6;font-size:12.5px;align-items:baseline;">
+        <div style="font-weight:600;color:#0f172a;">${l.desc||'<span style="color:#cbd5e1;font-style:italic;">Désignation…</span>'}</div>
+        <div style="text-align:right;color:#475569;">${l.qtyF}</div>
+        <div style="text-align:right;color:#475569;">${l.puF}</div>
+        <div style="text-align:right;font-weight:700;color:#0f172a;">${l.totalF}</div>
+      </div>`).join('') : `<div style="padding:26px;text-align:center;color:#cbd5e1;font-style:italic;font-size:12px;">Ajoutez des prestations pour les voir apparaître ici.</div>`;
+    const tot = [
+      `<div style="display:flex;justify-content:space-between;padding:6px 0;color:#64748b;"><span>Sous-total HT</span><span>${D.subHT}</span></div>`,
+      D.discAmt?`<div style="display:flex;justify-content:space-between;padding:6px 0;color:#64748b;"><span>${D.discLabel}</span><span>− ${D.discAmt}</span></div>`:'',
+      !D.vatExempt?`<div style="display:flex;justify-content:space-between;padding:6px 0;color:#64748b;"><span>TVA${D.vatRate?' '+D.vatRate+' %':''}</span><span>${D.totalVAT}</span></div>`:''
+    ].join('');
+    const dep = D.deposit?`<div style="display:flex;justify-content:space-between;padding:9px 2px 0;color:#64748b;font-size:12px;"><span>Acompte versé</span><span>− ${D.deposit}</span></div><div style="display:flex;justify-content:space-between;padding:4px 2px 0;font-weight:700;color:#0f172a;"><span>Net à payer</span><span>${D.due}</span></div>`:'';
+    return `<div style="width:100%;min-height:297mm;background:#fff;display:flex;font-family:'Inter',sans-serif;color:#1e293b;">
+      <div style="width:206px;background:#0f172a;color:#cbd5e1;padding:40px 24px;display:flex;flex-direction:column;box-sizing:border-box;flex:none;">
+        <div style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-.01em;line-height:1.2;">${D.emitName}</div>
+        <div style="height:1px;background:#1e293b;margin:22px 0;"></div>
+        <div style="font-size:9px;letter-spacing:.14em;color:#64748b;text-transform:uppercase;">Émetteur</div>
+        <div style="font-size:11.5px;line-height:1.7;margin-top:7px;color:#cbd5e1;">${D.emitAddr||'—'}</div>
+        ${(D.emitSiret||D.emitTva)?`<div style="font-size:10px;line-height:1.7;margin-top:8px;color:#94a3b8;">${[D.emitSiret&&'SIRET '+D.emitSiret,D.emitTva&&'TVA '+D.emitTva].filter(Boolean).join('<br>')}</div>`:''}
+        ${D.iban?`<div style="font-size:9px;letter-spacing:.14em;color:#64748b;text-transform:uppercase;margin-top:24px;">Paiement</div><div style="font-size:10px;line-height:1.7;margin-top:7px;color:#94a3b8;word-break:break-word;">IBAN ${D.iban}${D.bic?'<br>BIC '+D.bic:''}</div>`:''}
+        ${D.emitContact?`<div style="margin-top:auto;font-size:10px;color:#475569;line-height:1.7;padding-top:24px;">${D.emitContact}</div>`:''}
+      </div>
+      <div style="flex:1;padding:40px 38px;display:flex;flex-direction:column;box-sizing:border-box;min-width:0;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div><div style="font-size:27px;font-weight:800;letter-spacing:-.02em;color:#0f172a;">${D.kind}</div>
+          <div style="font-size:12.5px;color:#64748b;margin-top:4px;">N° ${D.number}</div></div>
+          <div style="text-align:right;font-size:12.5px;color:#475569;line-height:1.9;">
+            <div><span style="color:#94a3b8;">Date&nbsp;&nbsp;</span>${D.dateEmis}</div>
+            ${D.dueDate?`<div><span style="color:#94a3b8;">${D.dueLabel}&nbsp;&nbsp;</span>${D.dueDate}</div>`:''}
+          </div>
+        </div>
+        <div style="margin-top:22px;background:#f1f5f9;border-radius:10px;padding:15px 18px;">
+          <div style="font-size:9px;letter-spacing:.14em;color:#94a3b8;text-transform:uppercase;">${D.isDevis?'Devis pour':'Facturé à'}</div>
+          <div style="font-size:14.5px;font-weight:700;color:#0f172a;margin-top:5px;">${D.clientName}</div>
+          <div style="font-size:12px;color:#64748b;margin-top:3px;line-height:1.55;">${[D.clientAddr,D.clientSiret&&'SIRET '+D.clientSiret,D.clientEmail].filter(Boolean).join(' · ')}</div>
+        </div>
+        <div style="margin-top:24px;">
+          <div style="display:grid;grid-template-columns:1fr 50px 92px 108px;gap:10px;padding-bottom:10px;border-bottom:2px solid #0f172a;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#64748b;">
+            <div>Désignation</div><div style="text-align:right;">Qté</div><div style="text-align:right;">P.U.</div><div style="text-align:right;">Total</div>
+          </div>${rows}
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:20px;">
+          <div style="width:262px;font-size:13px;">${tot}
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;background:#3b82f6;color:#fff;border-radius:8px;padding:12px 15px;"><span style="font-weight:600;">${D.ttcLabel}</span><span style="font-size:19px;font-weight:800;">${D.totalTTC}</span></div>${dep}
+          </div>
+        </div>
+        ${D.notes?`<div style="margin-top:22px;font-size:11.5px;color:#64748b;line-height:1.6;"><span style="color:#475569;font-weight:600;">Notes — </span>${D.notes}</div>`:''}
+        <div style="margin-top:auto;padding-top:28px;font-size:10.5px;color:#94a3b8;line-height:1.7;">${D.terms?esc(D.terms)+' · ':''}${legalText(D)}</div>
+      </div>
+    </div>`;
+  },
+
+  /* 2B · Luxe — noir profond & or */
+  '2B': function(D){
+    const rows = D.lines.length ? D.lines.map(l=>`
+      <div style="display:grid;grid-template-columns:1fr 54px 100px 116px;gap:12px;padding:15px 0;border-bottom:1px solid #26241f;font-size:13.5px;align-items:baseline;">
+        <div style="color:#f4f1e9;font-weight:600;">${l.desc||'<span style="color:#6b6558;font-style:italic;">Désignation…</span>'}</div>
+        <div style="text-align:right;color:#b8b2a4;">${l.qtyF}</div>
+        <div style="text-align:right;color:#b8b2a4;">${l.puF}</div>
+        <div style="text-align:right;color:#f4f1e9;font-weight:600;">${l.totalF}</div>
+      </div>`).join('') : `<div style="padding:26px;text-align:center;color:#6b6558;font-style:italic;font-size:12px;">Ajoutez des prestations pour les voir apparaître ici.</div>`;
+    const tot=[
+      `<div style="display:flex;justify-content:space-between;padding:7px 0;color:#8f8a7e;"><span>Sous-total HT</span><span style="color:#eae6dd;">${D.subHT}</span></div>`,
+      D.discAmt?`<div style="display:flex;justify-content:space-between;padding:7px 0;color:#8f8a7e;"><span>${D.discLabel}</span><span style="color:#eae6dd;">− ${D.discAmt}</span></div>`:'',
+      !D.vatExempt?`<div style="display:flex;justify-content:space-between;padding:7px 0;color:#8f8a7e;"><span>TVA${D.vatRate?' '+D.vatRate+' %':''}</span><span style="color:#eae6dd;">${D.totalVAT}</span></div>`:''
+    ].join('');
+    const dep = D.deposit?`<div style="display:flex;justify-content:space-between;padding:9px 0 0;color:#8f8a7e;font-size:12.5px;"><span>Acompte versé</span><span>− ${D.deposit}</span></div><div style="display:flex;justify-content:space-between;color:#f4f1e9;font-weight:600;padding-top:3px;"><span>Net à payer</span><span>${D.due}</span></div>`:'';
+    return `<div style="width:100%;min-height:297mm;background:#12110f;color:#eae6dd;font-family:'Inter Tight',sans-serif;display:flex;flex-direction:column;box-sizing:border-box;">
+      <div style="padding:52px 60px 34px;text-align:center;border-bottom:1px solid #2a2823;">
+        <div style="font-family:'Fraunces',serif;font-size:13px;letter-spacing:.42em;color:#c8a35b;text-transform:uppercase;padding-left:.42em;">${D.kind}</div>
+        <div style="font-family:'Fraunces',serif;font-size:33px;font-weight:400;color:#f4f1e9;margin-top:12px;">${D.emitName}</div>
+        ${D.emitAddr?`<div style="font-size:12px;color:#8f8a7e;margin-top:8px;">${D.emitAddr.replace(/<br>/g,' · ')}</div>`:''}
+      </div>
+      <div style="padding:34px 60px;flex:1;display:flex;flex-direction:column;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:#b8b2a4;">
+          <div><div style="font-size:9px;letter-spacing:.18em;color:#6b6558;text-transform:uppercase;margin-bottom:6px;">${D.isDevis?'Devis pour':'Facturé à'}</div><div style="color:#f4f1e9;font-weight:600;font-size:15px;">${D.clientName}</div><div style="margin-top:3px;line-height:1.6;">${[D.clientAddr,D.clientSiret&&'SIRET '+D.clientSiret].filter(Boolean).join('<br>')}</div></div>
+          <div style="text-align:right;"><div style="font-size:9px;letter-spacing:.18em;color:#6b6558;text-transform:uppercase;margin-bottom:6px;">Détails</div><div>N° ${D.number}</div><div style="margin-top:3px;">Émise le ${D.dateEmis}</div>${D.dueDate?`<div style="margin-top:3px;">${D.dueLabel} ${D.dueDate}</div>`:''}</div>
+        </div>
+        <div style="margin-top:30px;">
+          <div style="display:grid;grid-template-columns:1fr 54px 100px 116px;gap:12px;padding-bottom:12px;border-bottom:1px solid #c8a35b;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#c8a35b;">
+            <div>Prestation</div><div style="text-align:right;">Qté</div><div style="text-align:right;">P.U.</div><div style="text-align:right;">Total</div>
+          </div>${rows}
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:24px;">
+          <div style="width:290px;font-size:14px;">${tot}
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:13px;border-top:1px solid #c8a35b;"><span style="font-family:'Fraunces',serif;font-size:16px;color:#f4f1e9;">${D.ttcLabel}</span><span style="font-family:'Fraunces',serif;font-size:25px;color:#c8a35b;">${D.totalTTC}</span></div>${dep}
+          </div>
+        </div>
+        ${D.notes?`<div style="margin-top:22px;font-size:11.5px;color:#8f8a7e;line-height:1.6;text-align:center;">${D.notes}</div>`:''}
+        <div style="margin-top:auto;padding-top:40px;font-size:11px;color:#6b6558;line-height:1.8;text-align:center;">${D.iban?`IBAN ${D.iban}${D.bic?' · BIC '+D.bic:''}<br>`:''}${D.terms?esc(D.terms)+' · ':''}${legalText(D)}</div>
+      </div>
+    </div>`;
+  },
+
+  /* 1A · Épuré — éditorial */
+  '1A': function(D){
+    const rows = D.lines.length ? D.lines.map(l=>`
+      <div style="display:grid;grid-template-columns:1fr 58px 100px 112px;gap:12px;padding:15px 0;border-bottom:1px solid #eae7dd;font-size:14px;align-items:baseline;">
+        <div style="font-weight:600;color:#1a1a1a;">${l.desc||'<span style="color:#c9c5b8;font-style:italic;">Désignation…</span>'}</div>
+        <div style="text-align:right;font-variant-numeric:tabular-nums;color:#26241d;">${l.qtyF}</div>
+        <div style="text-align:right;font-variant-numeric:tabular-nums;color:#26241d;">${l.puF}</div>
+        <div style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:#1a1a1a;">${l.totalF}</div>
+      </div>`).join('') : `<div style="padding:26px;text-align:center;color:#c9c5b8;font-style:italic;font-size:12.5px;">Ajoutez des prestations pour les voir apparaître ici.</div>`;
+    const tot=[
+      `<div style="display:flex;justify-content:space-between;font-size:14px;"><span style="color:#7a776d;">Sous-total HT</span><span style="font-variant-numeric:tabular-nums;">${D.subHT}</span></div>`,
+      D.discAmt?`<div style="display:flex;justify-content:space-between;font-size:14px;"><span style="color:#7a776d;">${D.discLabel}</span><span style="font-variant-numeric:tabular-nums;">− ${D.discAmt}</span></div>`:'',
+      !D.vatExempt?`<div style="display:flex;justify-content:space-between;font-size:14px;"><span style="color:#7a776d;">TVA${D.vatRate?' '+D.vatRate+' %':''}</span><span style="font-variant-numeric:tabular-nums;">${D.totalVAT}</span></div>`:''
+    ].join('');
+    const dep = D.deposit?`<div style="display:flex;justify-content:space-between;font-size:13px;color:#7a776d;padding-top:2px;"><span>Acompte versé</span><span>− ${D.deposit}</span></div><div style="display:flex;justify-content:space-between;font-weight:600;color:#1a1a1a;"><span>Net à payer</span><span>${D.due}</span></div>`:'';
+    return `<div style="width:100%;min-height:297mm;background:#faf9f6;padding:60px 58px;box-sizing:border-box;color:#26241d;font-family:'Inter Tight',sans-serif;display:flex;flex-direction:column;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:500;letter-spacing:-.01em;color:#1a1a1a;">${D.emitName}</div>
+          ${D.emitAddr?`<div style="font-size:12.5px;color:#7a776d;line-height:1.6;">${D.emitAddr}</div>`:''}
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:400;letter-spacing:.04em;color:#c0392b;">${D.kind}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#7a776d;margin-top:4px;">N° ${D.number}</div>
+        </div>
+      </div>
+      <div style="height:1px;background:#e2dfd5;margin:30px 0 26px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#b0ac9f;margin-bottom:8px;">${D.isDevis?'Devis pour':'Facturé à'}</div>
+          <div style="font-size:15px;font-weight:600;color:#1a1a1a;">${D.clientName}</div>
+          <div style="font-size:12.5px;color:#7a776d;line-height:1.6;margin-top:3px;">${[D.clientAddr,D.clientSiret&&'SIRET '+D.clientSiret,D.clientEmail].filter(Boolean).join('<br>')}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:#b0ac9f;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;">Date</span><span>${D.dateEmis}</span></div>
+          ${D.dueDate?`<div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:#b0ac9f;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;">${D.dueLabel}</span><span>${D.dueDate}</span></div>`:''}
+        </div>
+      </div>
+      <div style="margin-top:36px;">
+        <div style="display:grid;grid-template-columns:1fr 58px 100px 112px;gap:12px;padding-bottom:12px;border-bottom:1.5px solid #1a1a1a;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#7a776d;">
+          <div>Désignation</div><div style="text-align:right;">Qté</div><div style="text-align:right;">P.U. HT</div><div style="text-align:right;">Total HT</div>
+        </div>${rows}
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:24px;">
+        <div style="width:280px;display:flex;flex-direction:column;gap:10px;">${tot}
+          <div style="height:1px;background:#e2dfd5;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-family:'Fraunces',serif;font-size:16px;color:#1a1a1a;">${D.ttcLabel}</span><span style="font-family:'Fraunces',serif;font-size:23px;color:#c0392b;font-variant-numeric:tabular-nums;">${D.totalTTC}</span></div>${dep}
+        </div>
+      </div>
+      <div style="margin-top:auto;padding-top:38px;display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#b0ac9f;margin-bottom:8px;">Paiement</div>
+          <div style="font-size:12px;color:#7a776d;line-height:1.7;">${D.terms||'Par virement'}${D.iban?'<br>IBAN '+D.iban:''}${D.bic?'<br>BIC '+D.bic:''}</div>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#b0ac9f;margin-bottom:8px;">Mentions</div>
+          <div style="font-size:12px;color:#7a776d;line-height:1.7;">${[D.emitSiret&&'SIRET '+D.emitSiret,D.emitTva&&'TVA '+D.emitTva].filter(Boolean).join(' · ')}${(D.emitSiret||D.emitTva)?'<br>':''}${legalText(D)}${D.notes?'<br>'+D.notes:''}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+};
 
 /* ============ Rendu des lignes (éditeur) ============ */
 function renderLines(){
@@ -677,6 +789,8 @@ function fillForm(){
   document.getElementById('f-vat-exempt').checked=s.vatExempt;
   document.getElementById('f-terms').value=s.terms;
   document.getElementById('f-notes').value=s.notes;
+  if(!s.template) s.template='2C';
+  document.getElementById('tplSel').value=s.template;
   updateKindUI();
   renderLines();
 }
@@ -821,6 +935,7 @@ function zoomStep(d){
   applyZoom();
 }
 function zoomFit(){ manualZoom=null; applyZoom(); }
+function setTemplate(v){ state.template=v; const sel=document.getElementById('tplSel'); if(sel) sel.value=v; render(); scheduleSave(); }
 window.addEventListener('resize', function(){ if(manualZoom==null) applyZoom(); });
 
 /* ============ Toast ============ */
