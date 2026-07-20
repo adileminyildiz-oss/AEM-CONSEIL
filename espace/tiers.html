@@ -16,6 +16,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
   :root{
     --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
@@ -51,6 +53,9 @@
   .head .sum .chip b{font-family:'Inter Tight';color:var(--txt);font-weight:600}
   .head .sum .chip .dot{width:7px;height:7px;border-radius:50%}
   .head .sum .chip.c .dot{background:var(--cli)} .head .sum .chip.f .dot{background:var(--four)}
+  .head .sum .chip.sync .dot{background:var(--pos)}
+  .head .sum .chip.sync.local .dot{background:var(--warn)}
+  .head .sum .chip.sync.local{color:var(--warn)}
 
   /* Barre d'outils */
   .tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px}
@@ -168,6 +173,7 @@
     <div class="sum">
       <span class="chip c"><span class="dot"></span><b id="cliCount">0</b>&nbsp;clients</span>
       <span class="chip f"><span class="dot"></span><b id="fourCount">0</b>&nbsp;fournisseurs</span>
+      <span class="chip sync" id="syncChip" hidden></span>
     </div>
   </div>
 
@@ -260,7 +266,15 @@
   var STORE = 'aem_tiers_v1';
   var $ = function(id){ return document.getElementById(id); };
 
-  /* Données de démonstration (premier lancement) */
+  /* Supabase — mêmes identifiants que le shell de l'espace.
+     Les tiers sont scellés par utilisateur (user_id) via les règles RLS. */
+  var SB_URL = 'https://ammmyhtxnwyoopfxtans.supabase.co';
+  var SB_KEY = 'sb_publishable_VBYOMpnF3kv7kkcrMLczZQ_v2e4_RHo';
+  var TABLE  = 'tiers';
+  var FIELDS = ['type','nom','siret','email','tel','adr','cp','ville','notes'];
+  var sb = null, user = null, cloud = false, busy = false;
+
+  /* Données de démonstration (mode local uniquement, hors connexion) */
   var SEED = [
     {id:'s1', type:'client', nom:'Boulangerie Martin', siret:'81234567800019', email:'contact@boulangerie-martin.fr', tel:'01 42 55 10 20', adr:'12 rue des Lilas', cp:'75011', ville:'Paris', notes:'Règlement à 30 jours.'},
     {id:'s2', type:'client', nom:'Studio Kova', siret:'90123456700025', email:'hello@studiokova.fr', tel:'06 11 22 33 44', adr:'8 quai de Seine', cp:'69002', ville:'Lyon', notes:''},
@@ -268,17 +282,52 @@
     {id:'s4', type:'fournisseur', nom:'Cloud Hosting FR', siret:'', email:'facturation@cloudhosting.fr', tel:'', adr:'', cp:'', ville:'Nantes', notes:'Abonnement mensuel serveurs.'}
   ];
 
-  var tiers = load();
+  var tiers = [];
   var state = {type:'all', q:''};
   var editingId = null;
   var formType = 'client';
 
-  function load(){
+  /* --- Stockage local (repli hors connexion) --- */
+  function loadLocal(){
     try{ var raw = localStorage.getItem(STORE); if(raw){ return JSON.parse(raw); } }catch(e){}
-    save(SEED); return SEED.slice();
+    saveLocal(SEED); return SEED.slice();
   }
-  function save(arr){ try{ localStorage.setItem(STORE, JSON.stringify(arr!==undefined?arr:tiers)); }catch(e){} }
-  function uid(){ return 't'+(tiers.reduce(function(m,t){var n=parseInt((t.id||'').replace(/\D/g,''),10)||0;return n>m?n:m;},0)+1); }
+  function saveLocal(arr){ try{ localStorage.setItem(STORE, JSON.stringify(arr!==undefined?arr:tiers)); }catch(e){} }
+  function uid(){ return 't'+(tiers.reduce(function(m,t){var n=parseInt((''+(t.id||'')).replace(/\D/g,''),10)||0;return n>m?n:m;},0)+1); }
+
+  /* --- Indicateur de synchronisation --- */
+  function setSync(mode){
+    var c = $('syncChip'); if(!c) return; c.hidden = false;
+    if(mode==='cloud'){ c.className='chip sync'; c.innerHTML='<span class="dot"></span>Synchronisé'; c.title='Enregistré sur votre compte'; }
+    else { c.className='chip sync local'; c.innerHTML='<span class="dot"></span>Local'; c.title='Stockage local — compte non connecté'; }
+  }
+
+  /* --- Initialisation : Supabase si session, sinon local --- */
+  async function initStore(){
+    if(typeof window.supabase!=='undefined'){
+      try{
+        sb = window.supabase.createClient(SB_URL, SB_KEY);
+        var res = await sb.auth.getSession();
+        var session = res && res.data && res.data.session;
+        if(session && session.user){ user = session.user; cloud = true; }
+      }catch(e){ cloud = false; }
+    }
+    if(cloud){
+      setSync('cloud');
+      try{
+        var q = await sb.from(TABLE).select('*').eq('user_id', user.id);
+        if(q.error) throw q.error;
+        tiers = q.data || [];
+      }catch(e){
+        cloud = false; setSync('local'); tiers = loadLocal();
+        toast('Mode local : synchronisation indisponible');
+      }
+    } else {
+      setSync('local');
+      tiers = loadLocal();
+    }
+    render();
+  }
 
   function initials(nm){
     var p = (nm||'').trim().split(/\s+/).filter(Boolean);
@@ -379,14 +428,10 @@
   }
   function closeModal(){ $('modal').classList.remove('open'); editingId=null; }
 
-  function submitForm(e){
-    e.preventDefault();
-    var nom = $('nom').value.trim();
-    if(!nom){ $('f-nom').classList.add('err'); $('nom').focus(); toast('Le nom est obligatoire.'); return; }
-    var rec = {
-      id: editingId || uid(),
+  function collect(){
+    return {
       type: formType,
-      nom: nom,
+      nom: $('nom').value.trim(),
       siret: $('siret').value.trim(),
       tel: $('tel').value.trim(),
       email: $('email').value.trim(),
@@ -395,21 +440,60 @@
       ville: $('ville').value.trim(),
       notes: $('notes').value.trim()
     };
-    if(editingId){
-      tiers = tiers.map(function(t){ return t.id===editingId ? rec : t; });
-      toast('« '+rec.nom+' » mis à jour');
-    } else {
-      tiers.push(rec);
-      toast('« '+rec.nom+' » ajouté');
-    }
-    save(); closeModal(); render();
   }
 
-  function removeTier(id){
+  async function submitForm(e){
+    e.preventDefault();
+    if(busy) return;
+    if(!$('nom').value.trim()){ $('f-nom').classList.add('err'); $('nom').focus(); toast('Le nom est obligatoire.'); return; }
+    var rec = collect();
+    var btn = $('saveBtn'), orig = btn.textContent;
+    busy = true; btn.disabled = true; btn.textContent = 'Enregistrement…';
+    try{
+      if(editingId){
+        if(cloud){
+          var u = await sb.from(TABLE).update(rec).eq('id', editingId).eq('user_id', user.id).select().single();
+          if(u.error) throw u.error;
+          tiers = tiers.map(function(t){ return t.id===editingId ? u.data : t; });
+        } else {
+          rec.id = editingId;
+          tiers = tiers.map(function(t){ return t.id===editingId ? rec : t; });
+          saveLocal();
+        }
+        toast('« '+rec.nom+' » mis à jour');
+      } else {
+        if(cloud){
+          var row = {}; FIELDS.forEach(function(f){ row[f] = rec[f]; }); row.user_id = user.id;
+          var i = await sb.from(TABLE).insert(row).select().single();
+          if(i.error) throw i.error;
+          tiers.push(i.data);
+        } else {
+          rec.id = uid(); tiers.push(rec); saveLocal();
+        }
+        toast('« '+rec.nom+' » ajouté');
+      }
+      closeModal(); render();
+    }catch(err){
+      toast('Enregistrement impossible. Réessayez.');
+    }finally{
+      busy = false; btn.disabled = false; btn.textContent = orig;
+    }
+  }
+
+  async function removeTier(id){
     var t = tiers.filter(function(x){return x.id===id;})[0];
-    tiers = tiers.filter(function(x){ return x.id!==id; });
-    save(); render();
-    toast('« '+(t?t.nom:'Tiers')+' » supprimé');
+    try{
+      if(cloud){
+        var d = await sb.from(TABLE).delete().eq('id', id).eq('user_id', user.id);
+        if(d.error) throw d.error;
+      }
+      tiers = tiers.filter(function(x){ return x.id!==id; });
+      if(!cloud) saveLocal();
+      render();
+      toast('« '+(t?t.nom:'Tiers')+' » supprimé');
+    }catch(e){
+      toast('Suppression impossible. Réessayez.');
+    }
   }
 
   /* ===== Événements ===== */
@@ -444,7 +528,7 @@
     t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.classList.remove('show');},2600);
   }
 
-  render();
+  initStore();
 </script>
 </body>
 </html>
