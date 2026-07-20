@@ -164,7 +164,8 @@
   .hero-bg .o1{top:-2%;left:11%;width:34%;aspect-ratio:1;background:radial-gradient(circle,rgba(43,69,255,.5),transparent 62%);animation:heroFloat 22s ease-in-out infinite}
   .hero-bg .o2{top:6%;right:9%;width:30%;aspect-ratio:1;background:radial-gradient(circle,rgba(109,134,255,.42),transparent 62%);animation:heroFloat 26s ease-in-out infinite reverse}
   @keyframes heroFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(3%,4%) scale(1.12)}}
-  .hero h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(44px,7.4vw,88px);line-height:1;letter-spacing:-.035em;margin:24px auto 0;max-width:14ch;text-wrap:balance}
+  .hero h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(40px,7vw,84px);line-height:1.04;letter-spacing:-.035em;margin:24px auto 0;max-width:min(96vw,1180px)}
+  .hero h1 .hl{display:block;white-space:nowrap}
   /* Mots blancs : apparition douce, du flou au net */
   .hero h1 .hw{display:inline-block;will-change:filter,opacity}
   body.loaded .hero h1 .hw{opacity:0;filter:blur(15px);animation:heroFocus 1.6s cubic-bezier(.2,.7,.15,1) .28s forwards}
@@ -780,7 +781,8 @@
     .kick{font-size:10.5px;letter-spacing:.2em}
     /* Hero */
     .hero{padding-top:34px}
-    .hero h1{font-size:33px;margin-top:14px}
+    .hero h1{font-size:34px;margin-top:14px}
+    .hero h1 .hl{white-space:normal}
     .hero .lead{font-size:14.5px;margin-top:14px}
     .hero .badge{font-size:11.5px;padding:7px 13px}
     .hero .trust{gap:10px 16px;font-size:12px}
@@ -919,7 +921,7 @@
     <header id="top" class="hero">
       <div class="hero-bg" aria-hidden="true"><span class="g"></span><span class="orb o1"></span><span class="orb o2"></span></div>
       <span class="badge"><span class="dot"></span> Cabinet disponible · Réponse sous 24 h</span>
-      <h1 class="disp"><span class="hw">Des comptes</span> <span class="ital">justes.</span> <span class="hw w2">Des décisions</span> <span class="ital i2">claires.</span></h1>
+      <h1 class="disp"><span class="hl"><span class="hw">Des comptes</span> <span class="ital">justes.</span></span> <span class="hl"><span class="hw w2">Des décisions</span> <span class="ital i2">claires.</span></span></h1>
       <p class="lead">AEM-CONSEIL accompagne entrepreneurs, TPE et PME dans leur comptabilité, leur gestion et leurs décisions — avec rigueur, proximité et une exigence de clarté à chaque ligne.</p>
       <div class="cta-row">
         <a href="#devis" class="btn btn-pri">Demander un devis gratuit <span aria-hidden="true">→</span></a>
