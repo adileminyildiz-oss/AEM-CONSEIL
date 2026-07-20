@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tiers — AEM-CONSEIL</title>
+<meta name="description" content="Carnet des tiers AEM-CONSEIL : enregistrez et gérez vos clients et fournisseurs.">
+<meta name="theme-color" content="#04050b">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
+    --outremer:#2b45ff; --azur:#6d86ff; --peri:#a9b8ff;
+    --line:rgba(150,168,255,.11); --line-2:rgba(150,168,255,.18);
+    --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06);
+    --txt:#f2f4ff; --txt2:#8b98bd; --pos:#3ee9a4; --danger:#ff6b7d; --warn:#ffcf7a;
+    --cli:#6d86ff; --four:#3ee9a4;
+    --max:940px;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(820px 600px at 50% -12%, rgba(43,69,255,.18), transparent 60%),
+      radial-gradient(640px 520px at 90% 22%, rgba(43,69,255,.07), transparent 62%),
+      linear-gradient(180deg,#05060e,#04050b)}
+  a{color:inherit;text-decoration:none}
+  .disp{font-family:'Inter Tight',sans-serif;letter-spacing:-.02em}
+  .num-t{font-variant-numeric:tabular-nums}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:clamp(15px,2.4vw,28px) clamp(14px,2.6vw,26px) 44px}
+
+  /* En-tête */
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .head .kick{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--peri);margin-bottom:7px}
+  .head h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(21px,3.2vw,27px);letter-spacing:-.02em;line-height:1.05}
+  .head p{color:var(--txt2);font-size:13px;margin-top:7px;max-width:54ch}
+  .head .sum{display:flex;gap:8px;flex-wrap:wrap}
+  .head .sum .chip{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:10px;
+    background:var(--glass);border:1px solid var(--line);font-size:12px;color:var(--txt2);font-weight:500}
+  .head .sum .chip b{font-family:'Inter Tight';color:var(--txt);font-weight:600}
+  .head .sum .chip .dot{width:7px;height:7px;border-radius:50%}
+  .head .sum .chip.c .dot{background:var(--cli)} .head .sum .chip.f .dot{background:var(--four)}
+
+  /* Barre d'outils */
+  .tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+  .search{position:relative;flex:1;min-width:180px}
+  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--txt2)}
+  .search input{width:100%;padding:9px 12px 9px 35px;border-radius:11px;border:1px solid var(--line);
+    background:var(--glass);color:var(--txt);font-family:inherit;font-size:13px;transition:border-color .16s,background .16s}
+  .search input::placeholder{color:#5a6488}
+  .search input:focus{outline:none;border-color:var(--line-2);background:var(--glass-2)}
+  .filters{display:flex;gap:6px;flex-wrap:wrap}
+  .filters .f{font-family:'Inter Tight';font-weight:500;font-size:12px;color:var(--txt2);cursor:pointer;
+    padding:7px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--line);transition:.16s;white-space:nowrap}
+  .filters .f:hover{color:#fff;border-color:var(--line-2)}
+  .filters .f.on{color:#fff;background:linear-gradient(135deg,rgba(109,134,255,.24),rgba(43,69,255,.2));border-color:var(--line-2)}
+  .filters .f .c{opacity:.7;font-variant-numeric:tabular-nums}
+  .add{font-family:'Inter Tight';font-weight:600;font-size:12.5px;color:#05061a;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+    background:linear-gradient(135deg,#c2ccff,#2b45ff);border:none;border-radius:11px;padding:9px 15px;transition:filter .2s,transform .16s;white-space:nowrap}
+  .add:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .add svg{width:15px;height:15px}
+
+  /* Liste des tiers */
+  .list{display:grid;grid-template-columns:1fr;gap:8px}
+  .tier{display:flex;align-items:center;gap:13px;padding:11px 13px;border-radius:12px;min-width:0;
+    background:var(--glass);border:1px solid var(--line);border-left:3px solid var(--cli);transition:border-color .16s,background .16s,transform .16s}
+  .tier.four{border-left-color:var(--four)}
+  .tier:hover{background:var(--glass-2);transform:translateY(-1px)}
+  .tier .av{width:38px;height:38px;flex:none;border-radius:11px;display:grid;place-items:center;font-family:'Inter Tight';font-weight:700;font-size:13px;
+    color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff)}
+  .tier.four .av{background:linear-gradient(135deg,#a9f5d6,#1fb47a)}
+  .tier .meta{flex:1;min-width:0}
+  .tier .meta .nm{font-family:'Inter Tight';font-weight:600;font-size:13.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .tier .meta .nm .badge{font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;flex:none}
+  .tier .meta .nm .badge.c{background:rgba(109,134,255,.14);border:1px solid var(--line-2);color:var(--peri)}
+  .tier .meta .nm .badge.f{background:rgba(62,233,164,.14);border:1px solid rgba(62,233,164,.3);color:var(--four)}
+  .tier .meta .sub{font-size:11.5px;color:var(--txt2);margin-top:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;overflow:hidden}
+  .tier .meta .sub .s{display:inline-flex;align-items:center;gap:5px;min-width:0;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tier .meta .sub .s::before{content:"";width:3px;height:3px;border-radius:50%;background:#4a5478;flex:none}
+  .tier .meta .sub .s:first-child::before{display:none}
+  .tier .meta .sub svg{width:12px;height:12px;flex:none;opacity:.75}
+  .tier .acts{display:flex;gap:6px;flex:none}
+  .tier .acts button{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;cursor:pointer;
+    background:var(--glass);border:1px solid var(--line-2);color:var(--txt2);transition:.16s}
+  .tier .acts button svg{width:15px;height:15px}
+  .tier .acts .edit:hover{color:#fff;border-color:var(--azur);background:rgba(109,134,255,.14)}
+  .tier .acts .del:hover{color:#ffb3bd;border-color:rgba(255,107,125,.4);background:rgba(255,107,125,.1)}
+
+  .empty{display:none;text-align:center;padding:48px 20px;color:var(--txt2)}
+  .empty.show{display:block}
+  .empty svg{width:38px;height:38px;color:#3a4362;margin-bottom:12px}
+  .empty h3{font-family:'Inter Tight';font-weight:600;font-size:16px;color:var(--txt);margin-bottom:5px}
+  .empty p{font-size:12.5px;margin-bottom:16px}
+  .empty .add{margin:0 auto}
+
+  /* ===== Modal formulaire ===== */
+  .modal{position:fixed;inset:0;z-index:120;display:none;place-items:center;padding:18px;overflow:auto;
+    background:rgba(2,3,10,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .modal.open{display:grid}
+  .sheet{width:100%;max-width:520px;border:1px solid var(--line-2);border-radius:16px;background:var(--noir2);
+    box-shadow:0 30px 70px rgba(0,0,0,.55);animation:pop .22s cubic-bezier(.22,1,.36,1)}
+  @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+  .sheet-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line)}
+  .sheet-h h2{font-family:'Inter Tight';font-weight:600;font-size:16px}
+  .sheet-h .x{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;cursor:pointer;background:var(--glass);border:1px solid var(--line);color:var(--txt2);transition:.16s}
+  .sheet-h .x:hover{color:#fff;border-color:var(--line-2)}
+  .sheet-h .x svg{width:16px;height:16px}
+  .sheet-b{padding:16px 18px}
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px;border-radius:11px;background:var(--noir3);border:1px solid var(--line);margin-bottom:14px}
+  .seg button{font-family:'Inter Tight';font-weight:600;font-size:12.5px;color:var(--txt2);cursor:pointer;padding:8px;border-radius:8px;background:none;border:none;transition:.16s;display:flex;align-items:center;justify-content:center;gap:7px}
+  .seg button .d{width:7px;height:7px;border-radius:50%}
+  .seg button[data-t="client"] .d{background:var(--cli)} .seg button[data-t="fournisseur"] .d{background:var(--four)}
+  .seg button.on{color:#fff;background:var(--glass-2);box-shadow:inset 0 0 0 1px var(--line-2)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field.full{grid-column:1/-1}
+  .field label{font-size:11px;color:var(--txt2);font-weight:500}
+  .field label .req{color:var(--peri)}
+  .field input,.field textarea{width:100%;font-family:inherit;font-size:13px;color:var(--txt);background:var(--noir3);
+    border:1px solid var(--line-2);border-radius:9px;padding:9px 11px;transition:border-color .16s;resize:vertical}
+  .field input::placeholder,.field textarea::placeholder{color:#5a6488}
+  .field input:focus,.field textarea:focus{border-color:var(--azur);outline:none}
+  .field.err input{border-color:rgba(255,107,125,.55)}
+  .sheet-f{display:flex;align-items:center;justify-content:flex-end;gap:9px;padding:14px 18px;border-top:1px solid var(--line)}
+  .btn-g{font-family:'Inter Tight';font-weight:500;font-size:13px;color:var(--txt2);cursor:pointer;background:var(--glass);border:1px solid var(--line);border-radius:10px;padding:9px 15px;transition:.16s}
+  .btn-g:hover{color:#fff;border-color:var(--line-2)}
+  .btn-p{font-family:'Inter Tight';font-weight:600;font-size:13px;color:#05061a;cursor:pointer;background:linear-gradient(135deg,#c2ccff,#2b45ff);border:none;border-radius:10px;padding:9px 18px;transition:filter .2s}
+  .btn-p:hover{filter:brightness(1.06)}
+  .del-hint{margin-right:auto;font-size:12px;color:var(--txt2)}
+  .del-hint button{background:none;border:none;color:#ffb3bd;font-weight:600;cursor:pointer;font-size:12px;font-family:inherit}
+  .del-hint button:hover{text-decoration:underline}
+
+  /* Toast */
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(18px);z-index:200;
+    background:var(--noir3);border:1px solid var(--line-2);color:var(--txt);padding:11px 18px;border-radius:12px;font-size:13px;
+    box-shadow:0 16px 40px rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:.26s;display:flex;align-items:center;gap:9px}
+  .toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .toast .d{width:7px;height:7px;border-radius:50%;background:var(--pos)}
+
+  @media(max-width:600px){
+    .grid{grid-template-columns:1fr}
+    .tier .meta .sub .siret{display:none}
+    .head .sum{width:100%}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div>
+      <div class="kick">Carnet</div>
+      <h1 class="disp">Tiers</h1>
+      <p>Enregistrez et retrouvez vos clients et vos fournisseurs — coordonnées, SIRET et informations utiles pour la facturation.</p>
+    </div>
+    <div class="sum">
+      <span class="chip c"><span class="dot"></span><b id="cliCount">0</b>&nbsp;clients</span>
+      <span class="chip f"><span class="dot"></span><b id="fourCount">0</b>&nbsp;fournisseurs</span>
+    </div>
+  </div>
+
+  <div class="tools">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="search" id="q" placeholder="Rechercher un tiers…" autocomplete="off">
+    </div>
+    <div class="filters" id="filters"></div>
+    <button class="add" type="button" id="addBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Ajouter un tiers
+    </button>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <div class="empty" id="empty">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <h3 id="emptyTitle">Aucun tiers enregistré</h3>
+    <p id="emptyDesc">Ajoutez votre premier client ou fournisseur pour commencer.</p>
+    <button class="add" type="button" id="addBtn2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Ajouter un tiers
+    </button>
+  </div>
+
+</div>
+
+<!-- Modal ajout / édition -->
+<div class="modal" id="modal">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-h">
+      <h2 id="sheetTitle">Nouveau tiers</h2>
+      <button class="x" type="button" id="closeBtn" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <form id="form" novalidate>
+      <div class="sheet-b">
+        <div class="seg" id="seg">
+          <button type="button" data-t="client" class="on"><span class="d"></span>Client</button>
+          <button type="button" data-t="fournisseur"><span class="d"></span>Fournisseur</button>
+        </div>
+        <div class="grid">
+          <div class="field full" id="f-nom">
+            <label for="nom">Nom / Raison sociale <span class="req">*</span></label>
+            <input id="nom" type="text" placeholder="Ex. Dupont SARL" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="siret">SIRET</label>
+            <input id="siret" type="text" inputmode="numeric" placeholder="14 chiffres" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="tel">Téléphone</label>
+            <input id="tel" type="tel" placeholder="01 23 45 67 89" autocomplete="off">
+          </div>
+          <div class="field full">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="contact@exemple.fr" autocomplete="off">
+          </div>
+          <div class="field full">
+            <label for="adr">Adresse</label>
+            <input id="adr" type="text" placeholder="N° et voie" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="cp">Code postal</label>
+            <input id="cp" type="text" inputmode="numeric" placeholder="75001" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="ville">Ville</label>
+            <input id="ville" type="text" placeholder="Paris" autocomplete="off">
+          </div>
+          <div class="field full">
+            <label for="notes">Notes</label>
+            <textarea id="notes" rows="2" placeholder="Conditions de règlement, interlocuteur…"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-f">
+        <span class="del-hint" id="delHint" hidden>Supprimer&nbsp;: <button type="button" id="delBtn">retirer ce tiers</button></span>
+        <button type="button" class="btn-g" id="cancelBtn">Annuler</button>
+        <button type="submit" class="btn-p" id="saveBtn">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="d"></span><span id="toastMsg"></span></div>
+
+<script>
+  var STORE = 'aem_tiers_v1';
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* Données de démonstration (premier lancement) */
+  var SEED = [
+    {id:'s1', type:'client', nom:'Boulangerie Martin', siret:'81234567800019', email:'contact@boulangerie-martin.fr', tel:'01 42 55 10 20', adr:'12 rue des Lilas', cp:'75011', ville:'Paris', notes:'Règlement à 30 jours.'},
+    {id:'s2', type:'client', nom:'Studio Kova', siret:'90123456700025', email:'hello@studiokova.fr', tel:'06 11 22 33 44', adr:'8 quai de Seine', cp:'69002', ville:'Lyon', notes:''},
+    {id:'s3', type:'fournisseur', nom:'Fournitures Pro', siret:'44987654300012', email:'commandes@fournitures-pro.fr', tel:'03 20 40 50 60', adr:'ZI du Nord, allée 4', cp:'59000', ville:'Lille', notes:'Livraison sous 48 h.'},
+    {id:'s4', type:'fournisseur', nom:'Cloud Hosting FR', siret:'', email:'facturation@cloudhosting.fr', tel:'', adr:'', cp:'', ville:'Nantes', notes:'Abonnement mensuel serveurs.'}
+  ];
+
+  var tiers = load();
+  var state = {type:'all', q:''};
+  var editingId = null;
+  var formType = 'client';
+
+  function load(){
+    try{ var raw = localStorage.getItem(STORE); if(raw){ return JSON.parse(raw); } }catch(e){}
+    save(SEED); return SEED.slice();
+  }
+  function save(arr){ try{ localStorage.setItem(STORE, JSON.stringify(arr!==undefined?arr:tiers)); }catch(e){} }
+  function uid(){ return 't'+(tiers.reduce(function(m,t){var n=parseInt((t.id||'').replace(/\D/g,''),10)||0;return n>m?n:m;},0)+1); }
+
+  function initials(nm){
+    var p = (nm||'').trim().split(/\s+/).filter(Boolean);
+    if(!p.length) return '?';
+    return (p[0][0] + (p[1]?p[1][0]:'')).toUpperCase();
+  }
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  var IC_MAIL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>';
+  var IC_TEL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.5a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>';
+  var IC_EDIT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+  var IC_DEL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14"/></svg>';
+
+  function counts(){
+    return {
+      cli: tiers.filter(function(t){return t.type==='client';}).length,
+      four: tiers.filter(function(t){return t.type==='fournisseur';}).length
+    };
+  }
+
+  function filtered(){
+    var q = state.q.trim().toLowerCase();
+    return tiers.filter(function(t){
+      if(state.type!=='all' && t.type!==state.type) return false;
+      if(q){
+        var hay = (t.nom+' '+(t.ville||'')+' '+(t.email||'')+' '+(t.siret||'')).toLowerCase();
+        if(hay.indexOf(q)<0) return false;
+      }
+      return true;
+    }).sort(function(a,b){ return a.nom.localeCompare(b.nom,'fr'); });
+  }
+
+  function renderFilters(){
+    var c = counts();
+    var defs = [{k:'all',l:'Tous',n:tiers.length},{k:'client',l:'Clients',n:c.cli},{k:'fournisseur',l:'Fournisseurs',n:c.four}];
+    $('filters').innerHTML = defs.map(function(d){
+      return '<button class="f'+(d.k===state.type?' on':'')+'" data-type="'+d.k+'">'+d.l+' <span class="c">'+d.n+'</span></button>';
+    }).join('');
+  }
+
+  function render(){
+    var c = counts();
+    $('cliCount').textContent = c.cli;
+    $('fourCount').textContent = c.four;
+    renderFilters();
+    var items = filtered();
+    $('list').innerHTML = items.map(function(t){
+      var isF = t.type==='fournisseur';
+      var sub = [];
+      if(t.email) sub.push('<span class="s">'+IC_MAIL+esc(t.email)+'</span>');
+      if(t.tel)   sub.push('<span class="s">'+IC_TEL+esc(t.tel)+'</span>');
+      if(t.ville) sub.push('<span class="s">'+esc(t.ville)+(t.cp?' ('+esc(t.cp)+')':'')+'</span>');
+      if(t.siret) sub.push('<span class="s siret">SIRET '+esc(t.siret)+'</span>');
+      if(!sub.length) sub.push('<span class="s">Aucune coordonnée</span>');
+      return '<div class="tier'+(isF?' four':'')+'" data-id="'+t.id+'">'+
+        '<div class="av">'+esc(initials(t.nom))+'</div>'+
+        '<div class="meta">'+
+          '<div class="nm">'+esc(t.nom)+'<span class="badge '+(isF?'f':'c')+'">'+(isF?'Fournisseur':'Client')+'</span></div>'+
+          '<div class="sub">'+sub.join('')+'</div>'+
+        '</div>'+
+        '<div class="acts">'+
+          '<button class="edit" type="button" data-act="edit" aria-label="Modifier">'+IC_EDIT+'</button>'+
+          '<button class="del" type="button" data-act="del" aria-label="Supprimer">'+IC_DEL+'</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+    var noResults = items.length===0;
+    var e = $('empty');
+    e.classList.toggle('show', noResults);
+    if(noResults){
+      if(tiers.length===0){
+        $('emptyTitle').textContent = 'Aucun tiers enregistré';
+        $('emptyDesc').textContent = 'Ajoutez votre premier client ou fournisseur pour commencer.';
+        $('addBtn2').style.display='';
+      } else {
+        $('emptyTitle').textContent = 'Aucun résultat';
+        $('emptyDesc').textContent = 'Essayez un autre mot-clé ou une autre catégorie.';
+        $('addBtn2').style.display='none';
+      }
+    }
+  }
+
+  /* ===== Modal ===== */
+  function setFormType(t){
+    formType = t;
+    [].forEach.call($('seg').children, function(b){ b.classList.toggle('on', b.dataset.t===t); });
+  }
+  function openModal(rec){
+    editingId = rec ? rec.id : null;
+    $('sheetTitle').textContent = rec ? 'Modifier le tiers' : 'Nouveau tiers';
+    $('saveBtn').textContent = rec ? 'Enregistrer' : 'Ajouter';
+    setFormType(rec ? rec.type : 'client');
+    ['nom','siret','tel','email','adr','cp','ville','notes'].forEach(function(k){ $(k).value = rec ? (rec[k]||'') : ''; });
+    $('f-nom').classList.remove('err');
+    $('delHint').hidden = !rec;
+    $('modal').classList.add('open');
+    setTimeout(function(){ $('nom').focus(); }, 60);
+  }
+  function closeModal(){ $('modal').classList.remove('open'); editingId=null; }
+
+  function submitForm(e){
+    e.preventDefault();
+    var nom = $('nom').value.trim();
+    if(!nom){ $('f-nom').classList.add('err'); $('nom').focus(); toast('Le nom est obligatoire.'); return; }
+    var rec = {
+      id: editingId || uid(),
+      type: formType,
+      nom: nom,
+      siret: $('siret').value.trim(),
+      tel: $('tel').value.trim(),
+      email: $('email').value.trim(),
+      adr: $('adr').value.trim(),
+      cp: $('cp').value.trim(),
+      ville: $('ville').value.trim(),
+      notes: $('notes').value.trim()
+    };
+    if(editingId){
+      tiers = tiers.map(function(t){ return t.id===editingId ? rec : t; });
+      toast('« '+rec.nom+' » mis à jour');
+    } else {
+      tiers.push(rec);
+      toast('« '+rec.nom+' » ajouté');
+    }
+    save(); closeModal(); render();
+  }
+
+  function removeTier(id){
+    var t = tiers.filter(function(x){return x.id===id;})[0];
+    tiers = tiers.filter(function(x){ return x.id!==id; });
+    save(); render();
+    toast('« '+(t?t.nom:'Tiers')+' » supprimé');
+  }
+
+  /* ===== Événements ===== */
+  $('filters').addEventListener('click', function(e){
+    var b = e.target.closest('.f'); if(!b) return;
+    state.type = b.dataset.type; render();
+  });
+  $('q').addEventListener('input', function(e){ state.q = e.target.value; render(); });
+  $('list').addEventListener('click', function(e){
+    var b = e.target.closest('[data-act]'); if(!b) return;
+    var id = b.closest('.tier').dataset.id;
+    var rec = tiers.filter(function(t){return t.id===id;})[0];
+    if(b.dataset.act==='edit'){ openModal(rec); }
+    else if(b.dataset.act==='del'){ if(confirm('Supprimer « '+(rec?rec.nom:'')+' » ?')) removeTier(id); }
+  });
+  $('addBtn').addEventListener('click', function(){ openModal(null); });
+  $('addBtn2').addEventListener('click', function(){ openModal(null); });
+  $('seg').addEventListener('click', function(e){ var b=e.target.closest('button'); if(b) setFormType(b.dataset.t); });
+  $('closeBtn').addEventListener('click', closeModal);
+  $('cancelBtn').addEventListener('click', closeModal);
+  $('delBtn').addEventListener('click', function(){
+    if(editingId && confirm('Supprimer ce tiers ?')){ var id=editingId; closeModal(); removeTier(id); }
+  });
+  $('modal').addEventListener('click', function(e){ if(e.target===$('modal')) closeModal(); });
+  $('form').addEventListener('submit', submitForm);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && $('modal').classList.contains('open')) closeModal(); });
+
+  /* Toast */
+  var toastTimer=null;
+  function toast(msg){
+    var t=$('toast'); $('toastMsg').textContent=msg;
+    t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.classList.remove('show');},2600);
+  }
+
+  render();
+</script>
+</body>
+</html>
