@@ -795,6 +795,22 @@
   .ot-res .k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--peri);font-weight:600}
   .ot-res .v{font-family:'Inter Tight';font-weight:700;font-size:21px;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
   .ot-note{margin-top:16px;font-size:12px;color:#5a6488;text-align:center}
+  /* Tarifs / formules */
+  .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--max);margin:0 auto;align-items:stretch}
+  .plan{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;padding:26px 24px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .plan.reco{border-color:var(--line-2);background:linear-gradient(180deg,rgba(43,69,255,.14),rgba(11,14,26,.4) 60%),var(--glass);box-shadow:0 22px 50px rgba(0,0,0,.4)}
+  .plan .tag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff);padding:4px 12px;border-radius:999px;white-space:nowrap}
+  .plan .pname{font-family:'Inter Tight';font-weight:600;font-size:17px;letter-spacing:-.01em}
+  .plan .pdesc{font-size:13px;color:var(--txt2);margin-top:4px;min-height:36px;line-height:1.4}
+  .plan .pfrom{margin-top:16px;font-size:11px;color:var(--peri);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+  .plan .price{margin:2px 0 0;display:flex;align-items:baseline;gap:6px}
+  .plan .price .amt{font-family:'Inter Tight';font-weight:700;font-size:34px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .plan .price .per{font-size:13px;color:var(--txt2)}
+  .plan ul{list-style:none;margin:18px 0 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .plan ul li{display:flex;gap:10px;font-size:13.5px;color:#dbe3f7;line-height:1.4}
+  .plan ul li svg{flex:none;width:16px;height:16px;color:var(--pos);margin-top:2px}
+  .plan .btn{width:100%;justify-content:center}
+  .pricing-note{max-width:var(--max);margin:18px auto 0;text-align:center;font-size:12.5px;color:#5a6488}
   @media(max-width:860px){.engage-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.engage-grid{grid-template-columns:1fr}}
 
@@ -854,6 +870,7 @@
     .ot-out{grid-template-columns:1fr}
     .ot-tab{font-size:12.5px;padding:9px}
     .ot-panel{padding:18px}
+    .pricing{grid-template-columns:1fr;gap:22px}
     .eng .ei{width:38px;height:38px}
     /* Chiffres */
     #chiffres .stat{padding:18px 10px;border-radius:16px}
@@ -957,7 +974,7 @@
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </div>
-      <a href="#contact" class="btn btn-pri">Prendre rendez-vous</a>
+      <a href="https://calendly.com/aemconseil-sas" target="_blank" rel="noopener" class="btn btn-pri">Prendre rendez-vous</a>
       <button class="burger" type="button" aria-label="Ouvrir le menu" onclick="openNav()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </nav>
@@ -1111,6 +1128,55 @@
           <span>Réactivité</span><span>Proximité</span><span>Transparence</span><span>Rigueur</span><span>Accompagnement sur-mesure</span><span>Sans jargon</span><span>Interlocuteur dédié</span><span>Conseil stratégique</span>
         </div>
       </div>
+    </section>
+
+    <!-- TARIFS — prix et prestations indicatifs, à modifier librement -->
+    <section id="tarifs">
+      <div class="sh reveal"><span class="kick">Nos formules</span><h2>Des tarifs <span class="ital">clairs</span>, sans surprise</h2><p>Un accompagnement adapté à votre activité. Tarifs indicatifs HT — votre devis personnalisé est gratuit.</p></div>
+      <div class="pricing reveal">
+        <div class="plan">
+          <div class="pname">Micro-entreprise</div>
+          <div class="pdesc">Pour les auto-entrepreneurs qui veulent rester sereins.</div>
+          <div class="pfrom">À partir de</div>
+          <div class="price"><span class="amt">39 €</span><span class="per">/ mois HT</span></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Déclarations (URSSAF, TVA si concerné)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Suivi de vos seuils</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Espace client en ligne</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Accompagnement par e-mail</li>
+          </ul>
+          <a href="#devis" class="btn btn-ghost">Demander un devis</a>
+        </div>
+        <div class="plan">
+          <div class="pname">Indépendant / EI</div>
+          <div class="pdesc">Pour les professions libérales et entreprises individuelles.</div>
+          <div class="pfrom">À partir de</div>
+          <div class="price"><span class="amt">69 €</span><span class="per">/ mois HT</span></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Tenue comptable</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Déclarations fiscales</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Bilan annuel</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Interlocuteur dédié</li>
+          </ul>
+          <a href="#devis" class="btn btn-ghost">Demander un devis</a>
+        </div>
+        <div class="plan reco">
+          <span class="tag">Le plus choisi</span>
+          <div class="pname">Société</div>
+          <div class="pdesc">SASU, SARL, SAS… la gestion complète de votre société.</div>
+          <div class="pfrom">À partir de</div>
+          <div class="price"><span class="amt">129 €</span><span class="per">/ mois HT</span></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Tenue comptable &amp; bilan annuel</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Déclarations fiscales &amp; TVA</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Conseil &amp; pilotage</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Juridique (assemblée générale)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Rendez-vous illimités</li>
+          </ul>
+          <a href="https://calendly.com/aemconseil-sas" target="_blank" rel="noopener" class="btn btn-pri">Réserver un appel</a>
+        </div>
+      </div>
+      <p class="pricing-note">Tarifs indicatifs, ajustés selon le volume et vos besoins réels. Le premier rendez-vous est offert et sans engagement.</p>
     </section>
 
     <!-- OUTILS GRATUITS -->
@@ -1269,6 +1335,7 @@
               <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Réponse sous 24 h</span>
               <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Un interlocuteur dédié</span>
             </div>
+            <a href="https://calendly.com/aemconseil-sas" target="_blank" rel="noopener" class="btn btn-pri" style="width:100%;justify-content:center;margin-top:16px">Réserver un appel <span aria-hidden="true">→</span></a>
           </div>
           <form id="callbackForm" class="callback" novalidate>
             <b><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.8 2z"/></svg> Pas le temps d'écrire ?</b>
@@ -1350,7 +1417,7 @@
   <a href="#devis" onclick="closeNav()">Devis</a>
   <a href="#faq" onclick="closeNav()">FAQ</a>
   <a href="#contact" onclick="closeNav()">Contact</a>
-  <a href="#contact" class="btn btn-pri" onclick="closeNav()">Prendre rendez-vous</a>
+  <a href="https://calendly.com/aemconseil-sas" target="_blank" rel="noopener" class="btn btn-pri" onclick="closeNav()">Prendre rendez-vous</a>
 </aside>
 
 <!-- Page Service dédiée -->
