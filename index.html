@@ -772,6 +772,29 @@
     color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff);border-radius:12px;padding:12px 20px;transition:filter .2s,transform .16s}
   .efact-cta:hover{filter:brightness(1.06);transform:translateY(-1px)}
   .efact-cta svg{width:16px;height:16px}
+  /* Outils gratuits (calculateurs) */
+  .ot-wrap{max-width:760px;margin:0 auto}
+  .ot-card{border:1px solid var(--line-2);border-radius:22px;overflow:hidden;background:var(--glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+  .ot-tabs{display:flex;gap:4px;padding:8px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .ot-tab{flex:1;font-family:'Inter Tight';font-weight:600;font-size:14px;color:var(--txt2);cursor:pointer;padding:11px;border-radius:12px;background:none;border:none;transition:background .16s,color .16s}
+  .ot-tab:hover{color:#fff}
+  .ot-tab.on{color:#fff;background:linear-gradient(135deg,rgba(109,134,255,.24),rgba(43,69,255,.2));box-shadow:inset 0 0 0 1px var(--line-2)}
+  .ot-panel{display:none;padding:24px}
+  .ot-panel.on{display:block}
+  .ot-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .ot-f{display:flex;flex-direction:column;gap:6px}
+  .ot-f.full{grid-column:1/-1}
+  .ot-f label{font-size:12px;color:var(--txt2);font-weight:500}
+  .ot-f input,.ot-f select{width:100%;font-family:inherit;font-size:15px;color:var(--txt);background:var(--noir3);border:1px solid var(--line-2);border-radius:11px;padding:11px 13px}
+  .ot-f input:focus,.ot-f select:focus{outline:none;border-color:var(--azur)}
+  .ot-seg{display:inline-flex;gap:4px;padding:4px;border-radius:11px;background:var(--noir3);border:1px solid var(--line)}
+  .ot-seg button{font-family:'Inter Tight';font-weight:600;font-size:12.5px;color:var(--txt2);cursor:pointer;padding:7px 12px;border-radius:8px;background:none;border:none;transition:.16s}
+  .ot-seg button.on{color:#fff;background:var(--glass-2);box-shadow:inset 0 0 0 1px var(--line-2)}
+  .ot-out{margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .ot-res{padding:16px 12px;border-radius:14px;background:rgba(43,69,255,.08);border:1px solid var(--line-2);text-align:center}
+  .ot-res .k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--peri);font-weight:600}
+  .ot-res .v{font-family:'Inter Tight';font-weight:700;font-size:21px;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .ot-note{margin-top:16px;font-size:12px;color:#5a6488;text-align:center}
   @media(max-width:860px){.engage-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.engage-grid{grid-template-columns:1fr}}
 
@@ -827,6 +850,10 @@
     .eng p{font-size:12.5px}
     .efact-band{padding:20px;flex-direction:column;align-items:flex-start;gap:16px}
     .efact-cta{width:100%;justify-content:center}
+    .ot-fields{grid-template-columns:1fr}
+    .ot-out{grid-template-columns:1fr}
+    .ot-tab{font-size:12.5px;padding:9px}
+    .ot-panel{padding:18px}
     .eng .ei{width:38px;height:38px}
     /* Chiffres */
     #chiffres .stat{padding:18px 10px;border-radius:16px}
@@ -1085,6 +1112,82 @@
         </div>
       </div>
     </section>
+
+    <!-- OUTILS GRATUITS -->
+    <section id="outils">
+      <div class="sh reveal"><span class="kick">Outils gratuits</span><h2>Des réponses <span class="ital">en un clic</span></h2><p>Estimez votre TVA, votre marge ou votre tarif journalier — gratuitement, sans inscription.</p></div>
+      <div class="ot-wrap reveal">
+        <div class="ot-card">
+          <div class="ot-tabs" role="tablist">
+            <button class="ot-tab on" data-tab="tva" type="button">TVA</button>
+            <button class="ot-tab" data-tab="marge" type="button">Marge commerciale</button>
+            <button class="ot-tab" data-tab="tjm" type="button">TJM freelance</button>
+          </div>
+          <div class="ot-panel on" data-panel="tva">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="tvaAmount">Montant (€)</label><input id="tvaAmount" type="number" inputmode="decimal" value="1000"></div>
+              <div class="ot-f"><label for="tvaRate">Taux de TVA</label><select id="tvaRate"><option value="20">20 %</option><option value="10">10 %</option><option value="5.5">5,5 %</option><option value="2.1">2,1 %</option></select></div>
+              <div class="ot-f full"><label>Le montant saisi est…</label>
+                <div class="ot-seg" id="tvaMode"><button class="on" data-m="ht" type="button">Hors taxe (HT)</button><button data-m="ttc" type="button">Toutes taxes (TTC)</button></div></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">HT</div><div class="v" id="tvaHT">—</div></div>
+              <div class="ot-res"><div class="k">TVA</div><div class="v" id="tvaTVA">—</div></div>
+              <div class="ot-res"><div class="k">TTC</div><div class="v" id="tvaTTC">—</div></div>
+            </div>
+          </div>
+          <div class="ot-panel" data-panel="marge">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="mAchat">Prix d'achat HT (€)</label><input id="mAchat" type="number" inputmode="decimal" value="60"></div>
+              <div class="ot-f"><label for="mVente">Prix de vente HT (€)</label><input id="mVente" type="number" inputmode="decimal" value="100"></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">Marge</div><div class="v" id="mMarge">—</div></div>
+              <div class="ot-res"><div class="k">Taux de marge</div><div class="v" id="mTaux">—</div></div>
+              <div class="ot-res"><div class="k">Coefficient</div><div class="v" id="mCoef">—</div></div>
+            </div>
+          </div>
+          <div class="ot-panel" data-panel="tjm">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="tCA">Chiffre d'affaires visé / an (€)</label><input id="tCA" type="number" inputmode="decimal" value="60000"></div>
+              <div class="ot-f"><label for="tJours">Jours facturables / an</label><input id="tJours" type="number" inputmode="numeric" value="200"></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">TJM</div><div class="v" id="tTJM">—</div></div>
+              <div class="ot-res"><div class="k">Revenu / mois</div><div class="v" id="tMois">—</div></div>
+              <div class="ot-res"><div class="k">Par semaine</div><div class="v" id="tSem">—</div></div>
+            </div>
+          </div>
+          <p class="ot-note">Estimations indicatives à titre informatif — pour un chiffrage précis, <a href="#contact" style="color:var(--peri)">demandez votre devis</a>.</p>
+        </div>
+      </div>
+    </section>
+    <script>
+    (function(){
+      var eur=function(n){return isFinite(n)?n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €':'—';};
+      var pct=function(n){return isFinite(n)?n.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})+' %':'—';};
+      var coef=function(n){return isFinite(n)?n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';};
+      var $=function(id){return document.getElementById(id);};
+      var tabs=document.querySelectorAll('#outils .ot-tab');
+      tabs.forEach(function(t){t.addEventListener('click',function(){
+        tabs.forEach(function(x){x.classList.remove('on');});t.classList.add('on');
+        document.querySelectorAll('#outils .ot-panel').forEach(function(p){p.classList.toggle('on',p.dataset.panel===t.dataset.tab);});});});
+      var tvaMode='ht';
+      document.querySelectorAll('#tvaMode button').forEach(function(b){b.addEventListener('click',function(){
+        document.querySelectorAll('#tvaMode button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');tvaMode=b.dataset.m;tva();});});
+      function tva(){var a=parseFloat($('tvaAmount').value)||0;var r=parseFloat($('tvaRate').value)/100;var ht,ttc,t;
+        if(tvaMode==='ht'){ht=a;t=a*r;ttc=a+t;}else{ttc=a;ht=a/(1+r);t=ttc-ht;}
+        $('tvaHT').textContent=eur(ht);$('tvaTVA').textContent=eur(t);$('tvaTTC').textContent=eur(ttc);}
+      ['tvaAmount','tvaRate'].forEach(function(id){$(id).addEventListener('input',tva);});
+      function marge(){var pa=parseFloat($('mAchat').value)||0;var pv=parseFloat($('mVente').value)||0;var m=pv-pa;
+        $('mMarge').textContent=eur(m);$('mTaux').textContent=pv?pct(m/pv*100):'—';$('mCoef').textContent=pa?coef(pv/pa):'—';}
+      ['mAchat','mVente'].forEach(function(id){$(id).addEventListener('input',marge);});
+      function tjm(){var ca=parseFloat($('tCA').value)||0;var j=parseFloat($('tJours').value)||0;
+        $('tTJM').textContent=j?eur(ca/j):'—';$('tMois').textContent=eur(ca/12);$('tSem').textContent=j?eur(ca/(j/5)):'—';}
+      ['tCA','tJours'].forEach(function(id){$(id).addEventListener('input',tjm);});
+      tva();marge();tjm();
+    })();
+    </script>
 
     <!-- AVIS -->
     <section id="avis">
