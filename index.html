@@ -649,7 +649,7 @@
     opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,transform .22s ease}
   .mega-wrap:hover .mega,.mega-wrap:focus-within .mega{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
   .mega-inner{background:linear-gradient(160deg,rgba(15,20,38,.98),rgba(8,11,22,.98));border:1px solid var(--line-2);border-radius:18px;padding:12px;
-    display:grid;grid-template-columns:1fr 1fr;gap:5px;box-shadow:0 34px 80px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.06)}
+    display:grid;grid-template-columns:1fr 1fr;gap:5px;max-height:min(72vh,560px);overflow-y:auto;box-shadow:0 34px 80px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.06)}
   .mega .mitem{display:flex;gap:12px;align-items:flex-start;padding:12px 13px;border-radius:13px;transition:background .18s;color:var(--txt)}
   .mega .mitem:hover{background:var(--glass-2)}
   .mega .mitem .mi{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--peri);
@@ -2094,6 +2094,42 @@ var GUIDES=[
       {h:'La meilleure préparation : une compta tenue',p:['Un contrôle se prépare toute l’année, pas au dernier moment. Une comptabilité sincère, des justificatifs classés et un fichier des écritures comptables (FEC) conforme constituent la meilleure des protections. C’est précisément ce que garantit un suivi régulier.']},
       {h:'Comment ça se déroule',p:['Après l’avis, l’administration examine vos documents et peut poser des questions. Vous y répondez, pièces à l’appui. En cas de désaccord, une phase d’échanges (contradictoire) permet de faire valoir vos arguments avant toute conclusion. Beaucoup de points se règlent à ce stade.']},
       {h:'Notre rôle à vos côtés',p:['Nous préparons les pièces, structurons les réponses et vous représentons dans les échanges avec l’administration. L’objectif : que vous restiez concentré sur votre activité pendant que nous gérons la procédure. Un contrôle en cours ou une simple inquiétude ? Le premier échange est offert.']}
+    ]},
+  {slug:'logiciel-facturation',cat:'Gestion',read:'6 min',title:'Choisir son logiciel de facturation',
+    lead:'Un bon outil de facturation fait gagner du temps, sécurise vos encaissements et vous prépare à la facturation électronique. Comment le choisir.',
+    sections:[
+      {h:'Pourquoi c’est un choix stratégique',p:['Facturer proprement, c’est être payé plus vite et présenter une image sérieuse. Avec la généralisation de la facturation électronique, votre outil doit aussi être conforme aux nouvelles obligations : mieux vaut choisir dès maintenant une solution à jour.']},
+      {h:'Les fonctions essentielles',p:['Au-delà de créer une facture, un bon logiciel vous fait gagner sur toute la chaîne :'],list:['Devis convertibles en factures en un clic','Calcul automatique de la TVA et des totaux','Numérotation continue et mentions légales conformes','Relances automatiques des impayés','Export comptable et suivi des règlements']},
+      {h:'La conformité avant tout',p:['Facture électronique, mentions obligatoires, inaltérabilité des données : la réglementation encadre de plus en plus la facturation. Un outil non conforme vous expose. Vérifiez que la solution est à jour des obligations en vigueur.']},
+      {h:'L’interconnexion avec la comptabilité',p:['Le vrai gain de temps vient de l’intégration : quand vos factures alimentent automatiquement votre comptabilité, plus de double saisie ni d’oubli. C’est aussi ce qui permet à votre expert-comptable de suivre votre activité en temps quasi réel.']},
+      {h:'Notre conseil',p:['Le bon outil dépend de votre activité, de votre volume et de vos habitudes. Nous mettons à votre disposition un outil de facturation intégré à votre espace client et vous accompagnons sur la mise en conformité. Parlons de votre cas lors d’un premier échange offert.']}
+    ]},
+  {slug:'bilan-compte-resultat',cat:'Comptabilité',read:'7 min',title:'Comprendre son bilan et son compte de résultat',
+    lead:'Deux documents, deux regards complémentaires sur votre entreprise. Apprenez à les lire pour piloter plutôt que subir.',
+    sections:[
+      {h:'Deux documents complémentaires',p:['Le bilan et le compte de résultat forment le cœur de vos comptes annuels. Le premier est une photo à un instant donné, le second un film de l’année écoulée. Ensemble, ils racontent la santé et la performance de votre entreprise.']},
+      {h:'Le bilan : ce que vous possédez et ce que vous devez',p:['Le bilan présente d’un côté l’actif (ce que l’entreprise possède : immobilisations, stocks, créances, trésorerie) et de l’autre le passif (ses ressources : capitaux propres et dettes). Les deux colonnes s’équilibrent toujours — d’où le nom.']},
+      {h:'Le compte de résultat : comment vous avez gagné (ou perdu)',p:['Le compte de résultat récapitule les produits (ce que vous avez facturé) et les charges (ce que vous avez dépensé) sur l’exercice. La différence, c’est votre résultat : bénéfice ou perte.']},
+      {h:'Les indicateurs à surveiller',p:['Quelques chiffres suffisent à prendre le pouls de votre activité :'],list:['La marge : ce qui reste après les coûts directs','L’excédent brut d’exploitation : la rentabilité de votre cœur d’activité','Le résultat net : ce qui reste vraiment au bout du compte','La trésorerie : l’argent réellement disponible']},
+      {h:'Lire ses comptes pour décider',p:['Ces documents ne servent pas qu’au fisc : bien lus, ils vous disent où vous gagnez de l’argent, où vous en perdez, et ce qu’il faut ajuster. Le rendez-vous bilan est le moment idéal pour en parler. Un premier échange est offert.']}
+    ]},
+  {slug:'frais-professionnels',cat:'Fiscalité',read:'6 min',title:'Les frais professionnels déductibles',
+    lead:'Bien déduire ses frais réduit son résultat imposable — à condition de respecter les règles. Ce qu’il faut savoir.',
+    sections:[
+      {h:'Le principe',p:['Une charge est déductible si elle est engagée dans l’intérêt de l’entreprise, correspond à une dépense réelle et est appuyée par un justificatif. Elle vient alors diminuer votre résultat imposable, donc votre impôt.']},
+      {h:'Les conditions à respecter',p:['Trois règles simples encadrent la déduction :'],list:['La dépense sert réellement l’activité (pas un usage personnel)','Elle est justifiée par une facture ou un reçu','Son montant reste raisonnable au regard de l’activité']},
+      {h:'Les frais les plus courants',p:['De nombreux frais du quotidien sont déductibles : déplacements professionnels, repas d’affaires, matériel et fournitures, loyer et charges du local, abonnements et logiciels, frais de télétravail, formation. Chacun a ses conditions précises.']},
+      {h:'Les limites et cas particuliers',p:['Certaines dépenses sont plafonnées ou partiellement déductibles : véhicules de tourisme, frais de réception, cadeaux d’affaires. D’autres sont totalement exclues. En cas de doute, mieux vaut demander avant de déduire.']},
+      {h:'Bien conserver ses justificatifs',p:['Pas de justificatif, pas de déduction — et un risque en cas de contrôle. Prenez l’habitude de photographier et classer vos reçus au fil de l’eau, idéalement dans votre espace en ligne. Nous vous aidons à ne rien laisser passer, en toute sécurité.']}
+    ]},
+  {slug:'sci-comment-ca-marche',cat:'Juridique',read:'7 min',title:'La SCI : comment ça marche ?',
+    lead:'La société civile immobilière est un outil souple pour détenir, gérer et transmettre un bien immobilier. Le point sur son fonctionnement.',
+    sections:[
+      {h:'Qu’est-ce qu’une SCI',p:['La SCI est une société civile dont l’objet est de détenir et gérer un ou plusieurs biens immobiliers. Au lieu de posséder le bien en direct, les associés détiennent des parts de la société, qui elle-même possède le bien.']},
+      {h:'À quoi elle sert',p:['La SCI répond à plusieurs besoins :'],list:['Acheter et gérer un bien à plusieurs, avec des règles claires','Faciliter la transmission (donation progressive de parts)','Séparer le patrimoine immobilier de l’activité professionnelle','Organiser la détention en famille']},
+      {h:'Le choix fiscal : IR ou IS',p:['Par défaut, une SCI relève de l’impôt sur le revenu : les résultats sont imposés chez les associés. Elle peut aussi opter pour l’impôt sur les sociétés, ce qui change la donne (amortissement du bien, imposition des plus-values…). Ce choix, souvent irréversible, mérite d’être étudié avec soin.']},
+      {h:'Le fonctionnement au quotidien',p:['La SCI a des statuts, un gérant et des associés. Les décisions importantes se prennent en assemblée, et la société tient une comptabilité — plus ou moins détaillée selon son régime fiscal. Le secrétariat juridique annuel (approbation des comptes, assemblée) fait partie de ses obligations.']},
+      {h:'Avantages et points de vigilance',p:['Souplesse de gestion et de transmission d’un côté ; formalisme, obligations comptables et responsabilité des associés de l’autre. La SCI est un bon outil quand elle est bien montée et bien suivie. Nous vous accompagnons de la création au suivi — un premier échange est offert.']}
     ]}
 ];
 var GUIDE_BY_SLUG={}; GUIDES.forEach(function(g){GUIDE_BY_SLUG[g.slug]=g;});
