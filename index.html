@@ -850,6 +850,14 @@
   .bcard .bcat{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--peri);background:rgba(109,134,255,.1);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
   .bcard h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px;letter-spacing:-.01em;line-height:1.25;flex:1}
   .bcard .bmeta{font-size:12.5px;color:var(--azur);font-weight:500}
+  .blog-cats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:var(--max);margin:0 auto 26px}
+  .bchip{font-family:inherit;font-size:13px;font-weight:500;color:var(--txt2);background:var(--glass);border:1px solid var(--line);padding:7px 15px;border-radius:999px;cursor:pointer;transition:border-color .16s,background .16s,color .16s}
+  .bchip:hover{border-color:var(--line-2);color:var(--txt)}
+  .bchip.on{color:var(--txt);border-color:var(--azur);background:rgba(109,134,255,.14)}
+  .blog-more-wrap{display:flex;justify-content:center;margin-top:26px}
+  .blog-more{font-family:inherit;font-size:14px;font-weight:500;color:var(--txt);background:var(--glass);border:1px solid var(--line-2);padding:11px 24px;border-radius:999px;cursor:pointer;transition:border-color .16s,background .16s}
+  .blog-more:hover{border-color:var(--azur);background:var(--glass-2)}
+  .blog-more[hidden]{display:none}
   /* Newsletter */
   .news{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
     border:1px solid var(--line-2);border-radius:22px;padding:28px 32px;background:linear-gradient(120deg,rgba(43,69,255,.12),rgba(11,14,26,.4) 62%),var(--glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
@@ -1347,7 +1355,9 @@
     <!-- ACTUALITÉS / BLOG -->
     <section id="actualites">
       <div class="sh reveal"><span class="kick">Le blog</span><h2>Nos <span class="ital">guides</span> &amp; actualités</h2><p>Des articles clairs pour comprendre la comptabilité, la fiscalité et la création d'entreprise — sans jargon.</p></div>
+      <div class="blog-cats reveal" id="blog-cats" role="tablist" aria-label="Filtrer les articles par thème"></div>
       <div class="blog-grid reveal" id="blog-grid"></div>
+      <div class="blog-more-wrap reveal"><button type="button" class="blog-more" id="blog-more">Voir plus d'articles</button></div>
     </section>
 
     <!-- AVIS -->
@@ -2508,9 +2518,25 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
     return '<a class="dsub" href="#ressources/'+g.slug+'" onclick="closeNav()">'+esc(g.title)+'</a>';
   }).join('');}
   var bg=document.getElementById('blog-grid');
-  if(bg){bg.innerHTML=GUIDES.map(function(g){
-    return '<a class="bcard" href="#ressources/'+g.slug+'"><span class="bcat">'+esc(g.cat)+'</span><h3>'+esc(g.title)+'</h3><span class="bmeta">'+esc(g.read)+' de lecture · Lire l\'article →</span></a>';
-  }).join('');}
+  if(bg){
+    var bcats=document.getElementById('blog-cats'),bmore=document.getElementById('blog-more');
+    var STEP=9,curCat='Tous',shown=STEP;
+    var cats=['Tous'];GUIDES.forEach(function(g){if(cats.indexOf(g.cat)<0)cats.push(g.cat);});
+    function cardHTML(g){return '<a class="bcard" href="#ressources/'+g.slug+'"><span class="bcat">'+esc(g.cat)+'</span><h3>'+esc(g.title)+'</h3><span class="bmeta">'+esc(g.read)+' de lecture · Lire l\'article →</span></a>';}
+    function filtered(){return curCat==='Tous'?GUIDES:GUIDES.filter(function(g){return g.cat===curCat;});}
+    function renderBlog(){
+      var list=filtered();
+      bg.innerHTML=list.slice(0,shown).map(cardHTML).join('');
+      if(bmore){var more=list.length>shown;bmore.hidden=!more;bmore.textContent='Voir plus d\'articles ('+(list.length-shown)+')';}
+    }
+    if(bcats){bcats.innerHTML=cats.map(function(c,i){return '<button type="button" role="tab" class="bchip'+(i===0?' on':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('');
+      bcats.addEventListener('click',function(e){var b=e.target.closest('.bchip');if(!b)return;
+        curCat=b.getAttribute('data-cat');shown=STEP;
+        Array.prototype.forEach.call(bcats.children,function(x){x.classList.toggle('on',x===b);});
+        renderBlog();});}
+    if(bmore){bmore.addEventListener('click',function(){shown+=STEP;renderBlog();});}
+    renderBlog();
+  }
   var nf=document.getElementById('newsForm');
   if(nf){nf.addEventListener('submit',function(e){e.preventDefault();
     var st=document.getElementById('newsStatus'),btn=document.getElementById('newsBtn'),email=(nf.email.value||'').trim();
