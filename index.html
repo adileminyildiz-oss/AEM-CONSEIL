@@ -807,8 +807,8 @@
   /* Outils gratuits (calculateurs) */
   .ot-wrap{max-width:760px;margin:0 auto}
   .ot-card{border:1px solid var(--line-2);border-radius:22px;overflow:hidden;background:var(--glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
-  .ot-tabs{display:flex;gap:4px;padding:8px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
-  .ot-tab{flex:1;font-family:'Inter Tight';font-weight:600;font-size:14px;color:var(--txt2);cursor:pointer;padding:11px;border-radius:12px;background:none;border:none;transition:background .16s,color .16s}
+  .ot-tabs{display:flex;flex-wrap:wrap;gap:4px;padding:8px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .ot-tab{flex:1 1 auto;min-width:82px;font-family:'Inter Tight';font-weight:600;font-size:13.5px;color:var(--txt2);cursor:pointer;padding:11px 10px;border-radius:12px;background:none;border:none;transition:background .16s,color .16s}
   .ot-tab:hover{color:#fff}
   .ot-tab.on{color:#fff;background:linear-gradient(135deg,rgba(109,134,255,.24),rgba(43,69,255,.2));box-shadow:inset 0 0 0 1px var(--line-2)}
   .ot-panel{display:none;padding:24px}
@@ -843,6 +843,24 @@
   .plan ul li svg{flex:none;width:16px;height:16px;color:var(--pos);margin-top:2px}
   .plan .btn{width:100%;justify-content:center}
   .pricing-note{max-width:var(--max);margin:18px auto 0;text-align:center;font-size:12.5px;color:#5a6488}
+  /* Blog / actualités */
+  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:var(--max);margin:0 auto}
+  .bcard{display:flex;flex-direction:column;gap:11px;padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--glass);min-height:170px;transition:border-color .16s,background .16s,transform .16s}
+  .bcard:hover{border-color:var(--line-2);background:var(--glass-2);transform:translateY(-2px)}
+  .bcard .bcat{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--peri);background:rgba(109,134,255,.1);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+  .bcard h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px;letter-spacing:-.01em;line-height:1.25;flex:1}
+  .bcard .bmeta{font-size:12.5px;color:var(--azur);font-weight:500}
+  /* Newsletter */
+  .news{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:22px;padding:28px 32px;background:linear-gradient(120deg,rgba(43,69,255,.12),rgba(11,14,26,.4) 62%),var(--glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+  .news-txt{flex:1;min-width:min(100%,280px)}
+  .news-txt .kick{margin-bottom:8px}
+  .news-txt h3{font-family:'Inter Tight';font-weight:600;font-size:clamp(19px,2.4vw,23px);letter-spacing:-.01em}
+  .news-txt p{color:var(--txt2);font-size:14px;margin-top:8px;max-width:52ch}
+  .news-form{display:flex;flex-wrap:wrap;gap:10px;align-items:center;flex:none}
+  .news-form input[type=email]{font-family:inherit;font-size:14px;color:var(--txt);background:var(--noir3);border:1px solid var(--line-2);border-radius:12px;padding:12px 15px;min-width:220px}
+  .news-form input[type=email]:focus{outline:none;border-color:var(--azur)}
+  .news-status{flex-basis:100%;font-size:12.5px;color:var(--peri);margin:0;min-height:1px}
   @media(max-width:860px){.engage-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.engage-grid{grid-template-columns:1fr}}
 
@@ -903,6 +921,10 @@
     .ot-tab{font-size:12.5px;padding:9px}
     .ot-panel{padding:18px}
     .pricing{grid-template-columns:1fr;gap:22px}
+    .blog-grid{grid-template-columns:1fr}
+    .news{flex-direction:column;align-items:flex-start;padding:20px;gap:16px}
+    .news-form{width:100%}
+    .news-form input[type=email],.news-form .btn{width:100%;min-width:0}
     /* Masquer la barre de défilement verticale sur mobile (défilement conservé) */
     html{scrollbar-width:none;-ms-overflow-style:none}
     html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
@@ -1003,6 +1025,8 @@
           <a href="#ressources/creer-son-entreprise">Ressources <svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
           <div class="mega"><div class="mega-inner" id="megaRes"></div></div>
         </div>
+        <a href="#outils">Outils</a>
+        <a href="#tarifs">Tarifs</a>
         <a href="#apropos">À propos</a>
         <a href="#avis">Avis</a>
         <a href="#devis">Devis</a>
@@ -1223,6 +1247,8 @@
             <button class="ot-tab on" data-tab="tva" type="button">TVA</button>
             <button class="ot-tab" data-tab="marge" type="button">Marge commerciale</button>
             <button class="ot-tab" data-tab="tjm" type="button">TJM freelance</button>
+            <button class="ot-tab" data-tab="seuil" type="button">Seuil de rentabilité</button>
+            <button class="ot-tab" data-tab="cout" type="button">Coût salarié</button>
           </div>
           <div class="ot-panel on" data-panel="tva">
             <div class="ot-fields">
@@ -1259,6 +1285,28 @@
               <div class="ot-res"><div class="k">Par semaine</div><div class="v" id="tSem">—</div></div>
             </div>
           </div>
+          <div class="ot-panel" data-panel="seuil">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="sFixes">Charges fixes / an (€)</label><input id="sFixes" type="number" inputmode="decimal" value="30000"></div>
+              <div class="ot-f"><label for="sMarge">Taux de marge (%)</label><input id="sMarge" type="number" inputmode="decimal" value="60"></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">Seuil / an</div><div class="v" id="sAn">—</div></div>
+              <div class="ot-res"><div class="k">Seuil / mois</div><div class="v" id="sMois">—</div></div>
+              <div class="ot-res"><div class="k">Seuil / semaine</div><div class="v" id="sSem">—</div></div>
+            </div>
+          </div>
+          <div class="ot-panel" data-panel="cout">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="cBrut">Salaire brut mensuel (€)</label><input id="cBrut" type="number" inputmode="decimal" value="2500"></div>
+              <div class="ot-f"><label for="cTaux">Charges patronales (%)</label><input id="cTaux" type="number" inputmode="decimal" value="42"></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">Charges patronales</div><div class="v" id="cCharges">—</div></div>
+              <div class="ot-res"><div class="k">Coût total / mois</div><div class="v" id="cMois">—</div></div>
+              <div class="ot-res"><div class="k">Coût total / an</div><div class="v" id="cAn">—</div></div>
+            </div>
+          </div>
           <p class="ot-note">Estimations indicatives à titre informatif — pour un chiffrage précis, <a href="#contact" style="color:var(--peri)">demandez votre devis</a>.</p>
         </div>
       </div>
@@ -1286,9 +1334,21 @@
       function tjm(){var ca=parseFloat($('tCA').value)||0;var j=parseFloat($('tJours').value)||0;
         $('tTJM').textContent=j?eur(ca/j):'—';$('tMois').textContent=eur(ca/12);$('tSem').textContent=j?eur(ca/(j/5)):'—';}
       ['tCA','tJours'].forEach(function(id){$(id).addEventListener('input',tjm);});
-      tva();marge();tjm();
+      function seuil(){var cf=parseFloat($('sFixes').value)||0;var tm=parseFloat($('sMarge').value)||0;var s=tm>0?cf/(tm/100):NaN;
+        $('sAn').textContent=eur(s);$('sMois').textContent=isFinite(s)?eur(s/12):'—';$('sSem').textContent=isFinite(s)?eur(s/52):'—';}
+      ['sFixes','sMarge'].forEach(function(id){$(id).addEventListener('input',seuil);});
+      function cout(){var br=parseFloat($('cBrut').value)||0;var tx=parseFloat($('cTaux').value)||0;var ch=br*tx/100;var tot=br+ch;
+        $('cCharges').textContent=eur(ch);$('cMois').textContent=eur(tot);$('cAn').textContent=eur(tot*12);}
+      ['cBrut','cTaux'].forEach(function(id){$(id).addEventListener('input',cout);});
+      tva();marge();tjm();seuil();cout();
     })();
     </script>
+
+    <!-- ACTUALITÉS / BLOG -->
+    <section id="actualites">
+      <div class="sh reveal"><span class="kick">Le blog</span><h2>Nos <span class="ital">guides</span> &amp; actualités</h2><p>Des articles clairs pour comprendre la comptabilité, la fiscalité et la création d'entreprise — sans jargon.</p></div>
+      <div class="blog-grid reveal" id="blog-grid"></div>
+    </section>
 
     <!-- AVIS -->
     <section id="avis">
@@ -1348,6 +1408,23 @@
           <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Réponse sous 24 h</span>
           <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Interlocuteur dédié</span>
         </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section id="newsletter">
+      <div class="news reveal">
+        <div class="news-txt">
+          <span class="kick">Newsletter</span>
+          <h3>Recevez nos conseils, sans spam.</h3>
+          <p>Actualités comptables, échéances à ne pas manquer et astuces de gestion — une fois par mois.</p>
+        </div>
+        <form id="newsForm" class="news-form" novalidate>
+          <input type="email" name="email" required placeholder="Votre e-mail" aria-label="Votre adresse e-mail">
+          <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="btn btn-pri" id="newsBtn">S'inscrire</button>
+          <p id="newsStatus" class="news-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
@@ -1445,6 +1522,8 @@
   <button class="dclose" aria-label="Fermer" onclick="closeNav()">✕</button>
   <a href="#services" onclick="closeNav()">Services</a>
   <a href="#methode" onclick="closeNav()">Méthode</a>
+  <a href="#outils" onclick="closeNav()">Outils</a>
+  <a href="#tarifs" onclick="closeNav()">Tarifs</a>
   <a href="#apropos" onclick="closeNav()">À propos</a>
   <a href="#avis" onclick="closeNav()">Avis</a>
   <a href="#devis" onclick="closeNav()">Devis</a>
@@ -1998,6 +2077,21 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
   if(dr){dr.innerHTML='<span class="dlabel">Ressources & guides</span>'+GUIDES.map(function(g){
     return '<a class="dsub" href="#ressources/'+g.slug+'" onclick="closeNav()">'+esc(g.title)+'</a>';
   }).join('');}
+  var bg=document.getElementById('blog-grid');
+  if(bg){bg.innerHTML=GUIDES.map(function(g){
+    return '<a class="bcard" href="#ressources/'+g.slug+'"><span class="bcat">'+esc(g.cat)+'</span><h3>'+esc(g.title)+'</h3><span class="bmeta">'+esc(g.read)+' de lecture · Lire l\'article →</span></a>';
+  }).join('');}
+  var nf=document.getElementById('newsForm');
+  if(nf){nf.addEventListener('submit',function(e){e.preventDefault();
+    var st=document.getElementById('newsStatus'),btn=document.getElementById('newsBtn'),email=(nf.email.value||'').trim();
+    if(nf._honey.value)return;
+    if(!email){st.textContent='Entrez votre e-mail.';return;}
+    btn.disabled=true;var o=btn.textContent;btn.textContent='…';
+    fetch('https://formsubmit.co/ajax/aemconseil.sas@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:email,_subject:'Newsletter — nouvelle inscription'})})
+      .then(function(r){return r.json();}).then(function(){st.textContent='Merci ! Votre inscription est bien prise en compte.';nf.reset();})
+      .catch(function(){st.textContent='Une erreur est survenue. Réessayez.';})
+      .then(function(){btn.disabled=false;btn.textContent=o;});
+  });}
 })();
 
 /* ===== Interactions ===== */
