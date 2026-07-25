@@ -3,7 +3,7 @@
    - Navigations (HTML)  → réseau d'abord, repli sur le cache (mode hors-ligne)
    - Ressources statiques → cache d'abord, mis à jour en arrière-plan
    Incrémente CACHE_VERSION à chaque mise en production pour purger l'ancien cache. */
-const CACHE_VERSION = 'aem-v117';
+const CACHE_VERSION = 'aem-v118';
 const CACHE_NAME = `aem-conseil-${CACHE_VERSION}`;
 
 /* Fichiers du « shell » applicatif, mis en cache à l'installation. */
@@ -48,16 +48,20 @@ self.addEventListener('fetch', (event) => {
   // On ne gère que les GET.
   if (request.method !== 'GET') return;
 
-  // Navigations (pages HTML) : réseau d'abord (sans cache HTTP), repli cache.
+  // Navigations (pages HTML) : réseau d'abord, mise en cache par URL, repli cache.
+  // Chaque page (accueil SPA + pages statiques /ressources|/theme) est mise en
+  // cache sous SA propre URL ; repli sur cette page, puis l'accueil hors-ligne.
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request, { cache: 'no-store' })
         .then((response) => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', copy));
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
           return response;
         })
-        .catch(() => caches.match('./index.html').then((cached) => cached || caches.match('./')))
+        .catch(() => caches.match(request)
+          .then((cached) => cached || caches.match('./index.html'))
+          .then((c) => c || caches.match('./')))
     );
     return;
   }
