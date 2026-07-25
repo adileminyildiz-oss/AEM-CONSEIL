@@ -854,6 +854,7 @@
   .ot-res .k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--peri);font-weight:600}
   .ot-res .v{font-family:'Inter Tight';font-weight:700;font-size:21px;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
   .ot-note{margin-top:16px;font-size:12px;color:#5a6488;text-align:center}
+  .ot-hint{margin-top:14px;font-size:12.5px;color:var(--txt2);line-height:1.5;max-width:560px}
   /* Tarifs / formules */
   .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--max);margin:0 auto;align-items:stretch}
   .plan{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;padding:26px 24px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
@@ -1315,7 +1316,7 @@
 
     <!-- OUTILS GRATUITS -->
     <section id="outils">
-      <div class="sh reveal"><span class="kick">Outils gratuits</span><h2>Des réponses <span class="ital">en un clic</span></h2><p>Estimez votre TVA, votre marge ou votre tarif journalier — gratuitement, sans inscription.</p></div>
+      <div class="sh reveal"><span class="kick">Outils gratuits</span><h2>Des réponses <span class="ital">en un clic</span></h2><p>TVA, marge, TJM, seuil de rentabilité, coût d'un salarié, micro-entreprise, mensualité de prêt — estimez tout gratuitement, sans inscription.</p></div>
       <div class="ot-wrap reveal">
         <div class="ot-card">
           <div class="ot-tabs" role="tablist">
@@ -1324,6 +1325,8 @@
             <button class="ot-tab" data-tab="tjm" type="button">TJM freelance</button>
             <button class="ot-tab" data-tab="seuil" type="button">Seuil de rentabilité</button>
             <button class="ot-tab" data-tab="cout" type="button">Coût salarié</button>
+            <button class="ot-tab" data-tab="micro" type="button">Micro-entreprise</button>
+            <button class="ot-tab" data-tab="pret" type="button">Mensualité de prêt</button>
           </div>
           <div class="ot-panel on" data-panel="tva">
             <div class="ot-fields">
@@ -1382,6 +1385,31 @@
               <div class="ot-res"><div class="k">Coût total / an</div><div class="v" id="cAn">—</div></div>
             </div>
           </div>
+          <div class="ot-panel" data-panel="micro">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="miCA">Chiffre d'affaires encaissé / an (€)</label><input id="miCA" type="number" inputmode="decimal" value="40000"></div>
+              <div class="ot-f"><label for="miTaux">Taux de cotisations sociales (%)</label><input id="miTaux" type="number" inputmode="decimal" value="22"></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">Cotisations / an</div><div class="v" id="miCot">—</div></div>
+              <div class="ot-res"><div class="k">Après cotisations / an</div><div class="v" id="miNet">—</div></div>
+              <div class="ot-res"><div class="k">Après cotisations / mois</div><div class="v" id="miMois">—</div></div>
+            </div>
+            <p class="ot-hint">Le taux dépend de votre activité (vente, service, libéral). Ajustez-le selon votre régime. Estimation avant impôt sur le revenu.</p>
+          </div>
+          <div class="ot-panel" data-panel="pret">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="prMontant">Montant emprunté (€)</label><input id="prMontant" type="number" inputmode="decimal" value="50000"></div>
+              <div class="ot-f"><label for="prTaux">Taux annuel (%)</label><input id="prTaux" type="number" inputmode="decimal" value="4"></div>
+              <div class="ot-f"><label for="prDuree">Durée (années)</label><input id="prDuree" type="number" inputmode="decimal" value="5"></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">Mensualité</div><div class="v" id="prMens">—</div></div>
+              <div class="ot-res"><div class="k">Coût du crédit</div><div class="v" id="prCout">—</div></div>
+              <div class="ot-res"><div class="k">Total remboursé</div><div class="v" id="prTotal">—</div></div>
+            </div>
+            <p class="ot-hint">Hors assurance et frais de dossier. Le coût réel d'un crédit intègre ces éléments en plus des intérêts.</p>
+          </div>
           <p class="ot-note">Estimations indicatives à titre informatif — pour un chiffrage précis, <a href="#contact" style="color:var(--peri)">demandez votre devis</a>.</p>
         </div>
       </div>
@@ -1415,7 +1443,16 @@
       function cout(){var br=parseFloat($('cBrut').value)||0;var tx=parseFloat($('cTaux').value)||0;var ch=br*tx/100;var tot=br+ch;
         $('cCharges').textContent=eur(ch);$('cMois').textContent=eur(tot);$('cAn').textContent=eur(tot*12);}
       ['cBrut','cTaux'].forEach(function(id){$(id).addEventListener('input',cout);});
-      tva();marge();tjm();seuil();cout();
+      function micro(){var ca=parseFloat($('miCA').value)||0;var tx=parseFloat($('miTaux').value)||0;var cot=ca*tx/100;var net=ca-cot;
+        $('miCot').textContent=eur(cot);$('miNet').textContent=eur(net);$('miMois').textContent=eur(net/12);}
+      ['miCA','miTaux'].forEach(function(id){$(id).addEventListener('input',micro);});
+      function pret(){var p=parseFloat($('prMontant').value)||0;var ta=parseFloat($('prTaux').value)||0;var an=parseFloat($('prDuree').value)||0;
+        var n=Math.round(an*12);var r=ta/100/12;var m;
+        if(n<=0){m=NaN;}else if(r===0){m=p/n;}else{m=p*r/(1-Math.pow(1+r,-n));}
+        var total=isFinite(m)?m*n:NaN;var cout=isFinite(total)?total-p:NaN;
+        $('prMens').textContent=eur(m);$('prCout').textContent=eur(cout);$('prTotal').textContent=eur(total);}
+      ['prMontant','prTaux','prDuree'].forEach(function(id){$(id).addEventListener('input',pret);});
+      tva();marge();tjm();seuil();cout();micro();pret();
     })();
     </script>
 
