@@ -917,6 +917,8 @@
   /* Retour en haut */
   .to-top{position:fixed;right:20px;bottom:20px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:var(--glass-2);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s,border-color .16s}
   .to-top.show{opacity:1;pointer-events:auto;transform:none}
+  .skip-link{position:fixed;top:10px;left:10px;z-index:200;background:var(--outremer);color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;transform:translateY(-140%);transition:transform .18s}
+  .skip-link:focus{transform:none;outline:2px solid #fff;outline-offset:2px}
   .to-top:hover{border-color:var(--azur)}
   @media(max-width:600px){.to-top{right:14px;bottom:14px}}
   /* Page thème */
@@ -1081,6 +1083,7 @@
 </style>
 </head>
 <body class="loading">
+<a href="#top" class="skip-link">Aller au contenu</a>
 
 <div id="loader" aria-hidden="true"><img src="assets/logo-full.png" alt="AEM CONSEIL"></div>
 <div class="beam" aria-hidden="true"></div>
@@ -1319,14 +1322,14 @@
       <div class="sh reveal"><span class="kick">Outils gratuits</span><h2>Des réponses <span class="ital">en un clic</span></h2><p>TVA, marge, TJM, seuil de rentabilité, coût d'un salarié, micro-entreprise, mensualité de prêt — estimez tout gratuitement, sans inscription.</p></div>
       <div class="ot-wrap reveal">
         <div class="ot-card">
-          <div class="ot-tabs" role="tablist">
-            <button class="ot-tab on" data-tab="tva" type="button">TVA</button>
-            <button class="ot-tab" data-tab="marge" type="button">Marge commerciale</button>
-            <button class="ot-tab" data-tab="tjm" type="button">TJM freelance</button>
-            <button class="ot-tab" data-tab="seuil" type="button">Seuil de rentabilité</button>
-            <button class="ot-tab" data-tab="cout" type="button">Coût salarié</button>
-            <button class="ot-tab" data-tab="micro" type="button">Micro-entreprise</button>
-            <button class="ot-tab" data-tab="pret" type="button">Mensualité de prêt</button>
+          <div class="ot-tabs" role="tablist" aria-label="Choisir un outil">
+            <button class="ot-tab on" data-tab="tva" type="button" role="tab" aria-selected="true">TVA</button>
+            <button class="ot-tab" data-tab="marge" type="button" role="tab" aria-selected="false">Marge commerciale</button>
+            <button class="ot-tab" data-tab="tjm" type="button" role="tab" aria-selected="false">TJM freelance</button>
+            <button class="ot-tab" data-tab="seuil" type="button" role="tab" aria-selected="false">Seuil de rentabilité</button>
+            <button class="ot-tab" data-tab="cout" type="button" role="tab" aria-selected="false">Coût salarié</button>
+            <button class="ot-tab" data-tab="micro" type="button" role="tab" aria-selected="false">Micro-entreprise</button>
+            <button class="ot-tab" data-tab="pret" type="button" role="tab" aria-selected="false">Mensualité de prêt</button>
           </div>
           <div class="ot-panel on" data-panel="tva">
             <div class="ot-fields">
@@ -1422,7 +1425,7 @@
       var $=function(id){return document.getElementById(id);};
       var tabs=document.querySelectorAll('#outils .ot-tab');
       tabs.forEach(function(t){t.addEventListener('click',function(){
-        tabs.forEach(function(x){x.classList.remove('on');});t.classList.add('on');
+        tabs.forEach(function(x){x.classList.remove('on');x.setAttribute('aria-selected','false');});t.classList.add('on');t.setAttribute('aria-selected','true');
         document.querySelectorAll('#outils .ot-panel').forEach(function(p){p.classList.toggle('on',p.dataset.panel===t.dataset.tab);});});});
       var tvaMode='ht';
       document.querySelectorAll('#tvaMode button').forEach(function(b){b.addEventListener('click',function(){
@@ -2215,10 +2218,10 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
       if(bnores)bnores.hidden=list.length>0;
       if(bmore){var more=list.length>shown;bmore.hidden=!more;bmore.textContent='Voir plus d\'articles ('+(list.length-shown)+')';}
     }
-    if(bcats){bcats.innerHTML=cats.map(function(c,i){return '<button type="button" role="tab" class="bchip'+(i===0?' on':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('');
+    if(bcats){bcats.innerHTML=cats.map(function(c,i){return '<button type="button" role="tab" aria-selected="'+(i===0?'true':'false')+'" class="bchip'+(i===0?' on':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('');
       bcats.addEventListener('click',function(e){var b=e.target.closest('.bchip');if(!b)return;
         curCat=b.getAttribute('data-cat');shown=STEP;
-        Array.prototype.forEach.call(bcats.children,function(x){x.classList.toggle('on',x===b);});
+        Array.prototype.forEach.call(bcats.children,function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-selected',on?'true':'false');});
         renderBlog();});}
     if(bsearch){bsearch.addEventListener('input',function(){
         curQuery=bsearch.value;shown=curQuery?60:STEP;
@@ -2244,7 +2247,7 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
   if(tt){
     var onScroll=function(){tt.classList.toggle('show',window.pageYOffset>600);};
     window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    tt.addEventListener('click',function(){var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;window.scrollTo({top:0,behavior:rm?'auto':'smooth'});});
   }
 })();
 
