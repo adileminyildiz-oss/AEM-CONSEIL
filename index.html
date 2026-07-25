@@ -78,6 +78,33 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "AEM-CONSEIL",
+  "url": "https://aemconseil.eu/",
+  "inLanguage": "fr-FR",
+  "publisher": {"@type": "Organization", "name": "AEM-CONSEIL", "logo": {"@type": "ImageObject", "url": "https://aemconseil.eu/assets/logo-full.png"}},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {"@type": "EntryPoint", "urlTemplate": "https://aemconseil.eu/?q={search_term_string}#ressources"},
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Le blog AEM-CONSEIL — Guides & actualités",
+  "description": "Des guides clairs pour comprendre la comptabilité, la fiscalité, la gestion, le social, le juridique et la création d'entreprise, sans jargon.",
+  "url": "https://aemconseil.eu/#actualites",
+  "inLanguage": "fr-FR",
+  "publisher": {"@type": "Organization", "name": "AEM-CONSEIL", "logo": {"@type": "ImageObject", "url": "https://aemconseil.eu/assets/logo-full.png"}},
+  "about": ["Comptabilité","Fiscalité","Gestion","Social","Juridique","Création d'entreprise","Trésorerie","Paie"]
+}
+</script>
 
 <style id="fonts">
 @font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/bricolage-grotesque-600-normal.woff2) format('woff2')}
@@ -2271,6 +2298,24 @@ function spGuidePageHTML(g,secs){
       +'<div class="sp-final"><h2>Une question sur ce sujet&nbsp;?</h2><p>Le premier rendez-vous est offert. Parlons de votre situation, sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div></div>'
     +'</div>';
 }
+/* ===== SEO dynamique par route (partage + données structurées) ===== */
+var __seoDef=null;
+function seoMeta(k,attr,val){var el=document.head.querySelector('meta['+attr+'="'+k+'"]'); if(el&&val!=null)el.setAttribute('content',val);}
+function seoLD(obj){var s=document.getElementById('ld-route'); if(!obj){if(s)s.remove();return;} if(!s){s=document.createElement('script');s.type='application/ld+json';s.id='ld-route';document.head.appendChild(s);} s.textContent=JSON.stringify(obj);}
+function seoApply(title,desc,url){
+  if(!__seoDef){var m=document.head.querySelector('meta[name="description"]');__seoDef={title:document.title,desc:m?m.getAttribute('content'):''};}
+  seoMeta('description','name',desc);
+  seoMeta('og:title','property',title); seoMeta('og:description','property',desc); seoMeta('og:url','property',url);
+  seoMeta('twitter:title','name',title); seoMeta('twitter:description','name',desc);
+}
+function seoReset(){
+  if(!__seoDef)return;
+  seoMeta('description','name',__seoDef.desc);
+  seoMeta('og:title','property',__seoDef.title); seoMeta('og:description','property',__seoDef.desc); seoMeta('og:url','property','https://aemconseil.eu/');
+  seoMeta('twitter:title','name',__seoDef.title); seoMeta('twitter:description','name',__seoDef.desc);
+  seoLD(null);
+}
+var PUBLISHER_LD={"@type":"Organization","name":"AEM-CONSEIL","logo":{"@type":"ImageObject","url":"https://aemconseil.eu/assets/logo-full.png"}};
 function spCloseDevis(){var dp=document.getElementById('devisPage'); if(dp)dp.classList.remove('open');}
 function spCloseSvc(){var el=document.getElementById('svcPage'); if(el){el.classList.remove('open');el.innerHTML='';}}
 function spShow(html,title){
@@ -2279,7 +2324,11 @@ function spShow(html,title){
   el.innerHTML=html; el.classList.add('open'); el.scrollTop=0;
   document.body.classList.add('page-open'); document.title=title+' — AEM-CONSEIL';
 }
-function spOpenService(slug){var s=SP_BY_SLUG[slug]; if(!s){spClose();return;} spShow(spServicePageHTML(s),s.title); if(slug==='creation')initComparateur();}
+function spOpenService(slug){var s=SP_BY_SLUG[slug]; if(!s){spClose();return;} spShow(spServicePageHTML(s),s.title); if(slug==='creation')initComparateur();
+  var url='https://aemconseil.eu/#services/'+slug;
+  seoApply(s.title+' — AEM-CONSEIL', s.lead, url);
+  seoLD({"@context":"https://schema.org","@type":"Service","name":s.title,"description":s.lead,"serviceType":s.cat,"provider":PUBLISHER_LD,"areaServed":"FR","url":url});
+}
 var __articlesReq=null;
 function loadArticles(cb){
   if(window.ARTICLE_SECTIONS){cb();return;}
@@ -2293,6 +2342,9 @@ function loadArticles(cb){
 }
 function spOpenGuide(slug){var g=GUIDE_BY_SLUG[slug]; if(!g){spClose();return;}
   loadArticles(function(){ var secs=(window.ARTICLE_SECTIONS&&window.ARTICLE_SECTIONS[slug])||[]; spShow(spGuidePageHTML(g,secs),g.title); });
+  var url='https://aemconseil.eu/#ressources/'+slug;
+  seoApply(g.title+' — AEM-CONSEIL', g.lead, url);
+  seoLD({"@context":"https://schema.org","@type":"Article","headline":g.title,"description":g.lead,"articleSection":g.cat,"inLanguage":"fr-FR","url":url,"author":PUBLISHER_LD,"publisher":PUBLISHER_LD,"isPartOf":{"@type":"Blog","name":"Le blog AEM-CONSEIL","url":"https://aemconseil.eu/#actualites"}});
 }
 function spThemePageHTML(t){
   var arts=GUIDES.filter(function(g){return g.cat===t.name;});
@@ -2310,7 +2362,11 @@ function spThemePageHTML(t){
       +'<div class="sp-final"><h2>Une question sur ce thème&nbsp;?</h2><p>Le premier rendez-vous est offert. Parlons de votre situation, sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div></div>'
     +'</div>';
 }
-function spOpenTheme(slug){var t=THEME_BY_SLUG[slug]; if(!t){spClose();return;} spShow(spThemePageHTML(t),t.name);}
+function spOpenTheme(slug){var t=THEME_BY_SLUG[slug]; if(!t){spClose();return;} spShow(spThemePageHTML(t),t.name);
+  var url='https://aemconseil.eu/#theme/'+slug;
+  seoApply(t.name+' — Guides AEM-CONSEIL', t.tag, url);
+  seoLD({"@context":"https://schema.org","@type":"CollectionPage","name":t.name+' — Guides AEM-CONSEIL',"description":t.tag,"inLanguage":"fr-FR","url":url,"isPartOf":{"@type":"WebSite","name":"AEM-CONSEIL","url":"https://aemconseil.eu/"}});
+}
 function spOpenDevis(){
   spCloseSvc();
   var dp=document.getElementById('devisPage'); if(!dp)return;
@@ -2320,6 +2376,7 @@ function spOpenDevis(){
 function spClose(){
   spCloseSvc(); spCloseDevis();
   document.body.classList.remove('page-open'); document.title=SP_BASE_TITLE;
+  seoReset();
 }
 function spRoute(){
   var h=location.hash||'';
