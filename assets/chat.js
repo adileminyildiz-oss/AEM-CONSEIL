@@ -56,9 +56,9 @@
   /* ---------- Base de connaissances (intents) ----------------------------- */
   /* Chaque entrée : kw (mots-clés / synonymes), a (réponse HTML), chips ? */
   var KB = [
-    { id: 'rdv', kw: 'rendez vous rdv gratuit premier echange offert appel decouverte contact prendre',
-      a: 'Le <b>premier rendez-vous est offert et sans engagement</b>. C\'est l\'occasion de faire le point sur votre situation et de voir concrètement comment nous pouvons vous aider. Vous pouvez nous joindre par téléphone au <a href="' + TEL_HREF + '">' + TEL_TXT + '</a>, par e-mail à <a href="mailto:' + MAIL + '">' + MAIL + '</a>, ou demander un devis en ligne.',
-      chips: [['Demander un devis', anchor('devis')], ['Nous écrire', anchor('contact')]] },
+    { id: 'rdv', kw: 'rendez vous rdv gratuit premier echange offert appel decouverte contact prendre reserver creneau disponibilite',
+      a: 'Le <b>premier rendez-vous est offert et sans engagement</b>. C\'est l\'occasion de faire le point sur votre situation et de voir concrètement comment nous pouvons vous aider. Vous pouvez réserver un créneau en ligne, nous appeler au <a href="' + TEL_HREF + '">' + TEL_TXT + '</a> ou nous écrire à <a href="mailto:' + MAIL + '">' + MAIL + '</a>.',
+      chips: [['Prendre rendez-vous', anchor('rdv')], ['Être recontacté', '@lead']] },
 
     { id: 'tarif', kw: 'prix tarif tarifs cout couts coute coutent couter couteux honoraires devis combien facturation forfait abonnement mensuel payer budget',
       a: 'Nos honoraires sont établis <b>sur-mesure</b> : chaque mission fait l\'objet d\'un devis clair et d\'une lettre de mission, selon votre activité, votre volume et vos besoins. Pas de mauvaise surprise, vous savez à l\'avance ce qui est inclus.',
@@ -118,7 +118,7 @@
 
     { id: 'contact', kw: 'contact contacter joindre telephone mail email ecrire appeler numero coordonnees',
       a: 'Vous pouvez nous joindre par téléphone au <a href="' + TEL_HREF + '">' + TEL_TXT + '</a> ou par e-mail à <a href="mailto:' + MAIL + '">' + MAIL + '</a>. Réponse assurée sous 24 h ouvrées.',
-      chips: [['Formulaire de contact', anchor('contact')], ['Demander un devis', anchor('devis')]] }
+      chips: [['Être recontacté', '@lead'], ['Prendre rendez-vous', anchor('rdv')]] }
   ];
   // Pré-calcul des tokens de mots-clés
   KB.forEach(function (e) { e._t = tokens(e.kw); });
@@ -172,11 +172,24 @@
     return { entry: best, score: bestScore };
   }
 
+  // Détection d'une demande de mise en relation (rappel / laisser ses coordonnées)
+  var LEAD_KW = tokens('rappel rappelez rappeler recontacter recontactez recontacte recontact laisser coordonnees rappelle');
+  var EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
+  function wantsLead(q, qt) {
+    if (EMAIL_RE.test(q)) return true;
+    for (var i = 0; i < qt.length; i++) if (LEAD_KW.indexOf(qt[i]) !== -1) return true;
+    return false;
+  }
+
   function localAnswer(q) {
     var qt = tokens(q);
     if (!qt.length) {
       return { html: 'Je peux vous renseigner sur nos <b>services</b>, nos <b>tarifs</b>, la <b>prise de rendez-vous</b> ou vous orienter vers un <b>article</b>. Que souhaitez-vous savoir ?',
         chips: defaultChips() };
+    }
+    // Demande explicite d'être recontacté → on propose de laisser ses coordonnées
+    if (wantsLead(q, qt)) {
+      return { html: 'Avec plaisir. Laissez-moi vos coordonnées ci-dessous : notre équipe vous recontacte sous 24 h ouvrées.', lead: true, chips: [] };
     }
     var r = bestIntent(qt);
     var arts = searchArticles(qt, 3);
@@ -208,8 +221,8 @@
     return {
       html: 'Je n\'ai pas d\'information précise sur ce point, mais notre équipe se fera un plaisir de vous répondre. ' +
         'Le <b>premier échange est gratuit et sans engagement</b> : appelez-nous au <a href="' + TEL_HREF + '">' + TEL_TXT +
-        '</a> ou écrivez-nous à <a href="mailto:' + MAIL + '">' + MAIL + '</a>.',
-      chips: [['Formulaire de contact', anchor('contact')], ['Demander un devis', anchor('devis')]]
+        '</a>, écrivez-nous à <a href="mailto:' + MAIL + '">' + MAIL + '</a>, ou laissez-moi vos coordonnées.',
+      chips: [['Être recontacté', '@lead'], ['Prendre rendez-vous', anchor('rdv')]]
     };
   }
 
@@ -297,6 +310,17 @@
   '.aem-chips{display:flex;flex-wrap:wrap;gap:7px;padding:2px 2px 4px}' +
   '.aem-chip{font-family:inherit;font-size:12.5px;color:#cdd8ff;cursor:pointer;padding:7px 12px;border-radius:20px;background:rgba(120,140,255,.1);border:1px solid rgba(120,140,255,.26);transition:background .15s,border-color .15s}' +
   '.aem-chip:hover{background:rgba(120,140,255,.2);border-color:rgba(150,170,255,.5)}' +
+  '.aem-lead{max-width:100%;width:100%}' +
+  '.aem-lead form{display:flex;flex-direction:column;gap:9px}' +
+  '.aem-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
+  '.aem-lead label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#a9b8e8;font-weight:600}' +
+  '.aem-lead input,.aem-lead textarea{font-family:inherit;font-size:13.5px;color:#eef2ff;background:rgba(8,12,30,.7);border:1px solid rgba(120,140,255,.28);border-radius:10px;padding:9px 11px;outline:none;resize:none}' +
+  '.aem-lead input:focus,.aem-lead textarea:focus{border-color:rgba(150,170,255,.6)}' +
+  '.aem-lead input::placeholder,.aem-lead textarea::placeholder{color:#7f8fc4}' +
+  '.aem-lead button[type=submit]{margin-top:2px;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;cursor:pointer;padding:11px;border-radius:11px;border:none;background:linear-gradient(180deg,#2b45ff,#2036cc)}' +
+  '.aem-lead button[type=submit]:hover{filter:brightness(1.12)}.aem-lead button[type=submit]:disabled{opacity:.5;cursor:default}' +
+  '.aem-lead-note{font-size:11px;color:#7f8fc4;text-align:center}' +
+  '.aem-lead-status{font-size:12px;text-align:center}.aem-lead-status.err{color:#ff9c9c}' +
   '.aem-typing{align-self:flex-start;display:flex;gap:4px;padding:13px 15px;background:rgba(130,150,255,.11);border:1px solid rgba(130,150,255,.2);border-radius:15px;border-bottom-left-radius:5px}' +
   '.aem-typing i{width:7px;height:7px;border-radius:50%;background:#9fb0e6;animation:aem-bl 1.2s infinite}' +
   '.aem-typing i:nth-child(2){animation-delay:.2s}.aem-typing i:nth-child(3){animation-delay:.4s}' +
@@ -399,7 +423,10 @@
       var chip = el('button', 'aem-chip', esc(label));
       chip.type = 'button';
       chip.addEventListener('click', function () {
-        if (typeof target === 'string' && (target.charAt(0) === '#' || target.indexOf('/') === 0 || target.indexOf('tel:') === 0 || target.indexOf('mailto:') === 0)) {
+        if (target === '@lead') {
+          // Formulaire de mise en relation dans le chat
+          renderLead();
+        } else if (typeof target === 'string' && (target.charAt(0) === '#' || target.indexOf('/') === 0 || target.indexOf('tel:') === 0 || target.indexOf('mailto:') === 0)) {
           // Lien : on navigue et on ferme
           if (target.indexOf('tel:') === 0 || target.indexOf('mailto:') === 0) {
             window.location.href = target;
@@ -421,6 +448,75 @@
     // Sur la SPA, un hash déclenche la route ; sinon navigation normale.
     window.location.href = target;
   }
+
+  /* ---------- Formulaire de mise en relation (lead) ----------------------- */
+  var LEAD_ENDPOINT = 'https://formsubmit.co/ajax/' + MAIL;
+  var leadOpen = false;
+  function renderLead() {
+    if (leadOpen) return;               // évite les doublons
+    leadOpen = true;
+    var wrap = el('div', 'aem-msg aem-bot aem-lead');
+    wrap.innerHTML =
+      '<form novalidate>' +
+        '<input type="text" class="aem-hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+        '<label>Prénom<input type="text" name="nom" required autocomplete="given-name" placeholder="Votre prénom"></label>' +
+        '<label>E-mail<input type="email" name="email" autocomplete="email" placeholder="vous@exemple.fr"></label>' +
+        '<label>Téléphone<input type="tel" name="telephone" autocomplete="tel" placeholder="06 12 34 56 78"></label>' +
+        '<label>Votre demande (facultatif)<textarea name="message" rows="2" placeholder="En quelques mots…"></textarea></label>' +
+        '<button type="submit">Être recontacté</button>' +
+        '<div class="aem-lead-note">E-mail ou téléphone requis. Réponse sous 24 h ouvrées.</div>' +
+        '<div class="aem-lead-status" role="status" aria-live="polite"></div>' +
+      '</form>';
+    body.appendChild(wrap);
+    scrollDown();
+    var form = wrap.querySelector('form');
+    var statusEl = wrap.querySelector('.aem-lead-status');
+    var submitBtn = wrap.querySelector('button[type=submit]');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (form._honey && form._honey.value) return;
+      var nom = form.nom.value.trim();
+      var email = form.email.value.trim();
+      var tel = form.telephone.value.trim();
+      if (!nom || (!email && !tel)) {
+        statusEl.textContent = 'Merci d\'indiquer votre prénom et un e-mail ou un téléphone.';
+        statusEl.className = 'aem-lead-status err';
+        return;
+      }
+      submitBtn.disabled = true;
+      var orig = submitBtn.textContent;
+      submitBtn.textContent = 'Envoi…';
+      statusEl.textContent = '';
+      statusEl.className = 'aem-lead-status';
+      var payload = {
+        nom: nom, email: email, telephone: tel,
+        message: form.message.value.trim(),
+        _subject: 'Demande de rappel — assistant du site AEM-CONSEIL',
+        _template: 'table', _captcha: 'false'
+      };
+      fetch(LEAD_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (res.ok && (res.d.success === undefined || String(res.d.success) === 'true')) {
+            wrap.remove();
+            leadOpen = false;
+            addBot('Merci ' + esc(nom) + '&nbsp;! Votre demande est bien enregistrée. Notre équipe vous recontacte sous 24 h ouvrées. 😊',
+              [['Voir nos services', anchor('services')], ['Nos outils gratuits', anchor('outils')]]);
+          } else { throw new Error('refus'); }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = orig;
+          statusEl.textContent = 'Une erreur est survenue. Écrivez-nous à ' + MAIL + '.';
+          statusEl.className = 'aem-lead-status err';
+        });
+    });
+    setTimeout(function () { var f = form.querySelector('input[name=nom]'); if (f) f.focus(); }, 60);
+  }
   function showTyping() {
     var t = el('div', 'aem-typing');
     t.innerHTML = '<i></i><i></i><i></i>';
@@ -440,6 +536,7 @@
     answer(q, function (res) {
       typing.remove();
       addBot(res.html, res.chips);
+      if (res.lead) renderLead();
     });
   }
   function submit() {

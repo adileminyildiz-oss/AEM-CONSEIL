@@ -15,6 +15,8 @@
 <meta name="apple-mobile-web-app-title" content="AEM-CONSEIL">
 <meta name="application-name" content="AEM-CONSEIL">
 
+<link rel="preconnect" href="https://formsubmit.co" crossorigin>
+<link rel="dns-prefetch" href="https://formsubmit.co">
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
@@ -500,7 +502,7 @@
   .modal .m-legal p{margin:0 0 4px;font-size:14px;line-height:1.6;color:var(--txt2)}
 
   /* ===== Retour haut ===== */
-  #toTop{position:fixed;right:22px;bottom:22px;z-index:90;display:grid;place-items:center;width:46px;height:46px;border-radius:13px;
+  #toTop{position:fixed;right:27px;bottom:92px;z-index:90;display:grid;place-items:center;width:46px;height:46px;border-radius:13px;
     background:rgba(11,14,26,.7);border:1px solid var(--line-2);color:var(--peri);cursor:pointer;backdrop-filter:blur(16px);
     opacity:0;visibility:hidden;transform:translateY(10px);transition:.3s}
   #toTop.show{opacity:1;visibility:visible;transform:none}
@@ -691,9 +693,43 @@
   .drawer .dlabel{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--azur);margin-top:8px;font-weight:600}
 
   /* ===== Page Service dédiée ===== */
-  #svcPage,#devisPage{position:fixed;inset:0;z-index:130;display:none;overflow-y:auto;overflow-x:hidden;
+  #svcPage,#devisPage,#rdvPage{position:fixed;inset:0;z-index:130;display:none;overflow-y:auto;overflow-x:hidden;
     background:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.16),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
-  #svcPage.open,#devisPage.open{display:block}
+  #svcPage.open,#devisPage.open,#rdvPage.open{display:block}
+  /* Prise de rendez-vous */
+  .rdv{max-width:1000px;margin:0 auto}
+  .rdv-grid{display:grid;grid-template-columns:1.55fr .95fr;gap:22px;align-items:start}
+  .rdv-block{margin-bottom:24px}
+  .rdv-lab{font-family:'Inter Tight';font-weight:600;font-size:15px;color:var(--txt);margin-bottom:12px}
+  .rdv-opts{display:flex;flex-wrap:wrap;gap:10px}
+  .rdv-opt{display:inline-flex;align-items:center;gap:10px;font-family:'Inter Tight';font-size:14.5px;font-weight:500;color:var(--txt);cursor:pointer;
+    padding:13px 16px;border-radius:13px;border:1px solid var(--line);background:var(--glass);transition:border-color .18s,background .18s}
+  .rdv-opt .ri{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:rgba(43,69,255,.14);border:1px solid var(--line-2);color:var(--peri);flex:none}
+  .rdv-opt:hover{border-color:var(--line-2)}
+  .rdv-opt.on{border-color:rgba(109,134,255,.7);background:rgba(43,69,255,.16)}
+  .rdv-opt.mini{padding:11px 15px}
+  .rdv-date{width:100%;max-width:320px;font-family:'Inter Tight';font-size:15px;color:var(--txt);background:var(--glass);border:1px solid var(--line);border-radius:12px;padding:13px 15px;color-scheme:dark}
+  .rdv-date:focus{outline:none;border-color:rgba(109,134,255,.7)}
+  .rdv-hint{margin-top:9px;font-size:13px;color:var(--txt2)}
+  .rdv-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .rdv-fields .sm-fld{margin-top:0}
+  .rdv-fields .sm-fld-full{grid-column:1 / -1}
+  .rdv-side{position:sticky;top:96px}
+  .rdv-card{border:1px solid rgba(109,134,255,.4);border-radius:20px;padding:24px 22px;background:linear-gradient(180deg,rgba(43,69,255,.12),rgba(255,255,255,.02))}
+  .rdv-card h3{font-family:'Inter Tight';font-weight:600;font-size:18px;margin-bottom:16px}
+  .rdv-recap{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:20px}
+  .rdv-recap li{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+  .rdv-recap li:last-child{border-bottom:none;padding-bottom:0}
+  .rdv-recap li span{color:var(--txt2)}
+  .rdv-recap li b{color:var(--txt);text-align:right;font-weight:600}
+  .rdv-submit{width:100%;justify-content:center}
+  .rdv-reassure{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+  .rdv-reassure span{font-size:12.5px;color:#cdd7f5}
+  .rdv-status{margin-top:12px;font-size:13.5px;text-align:center;min-height:18px;color:var(--txt2)}
+  .rdv-status.err{color:#ff9c9c}.rdv-status.ok{color:#8ff0c0}
+  .rdv-done{max-width:560px;margin:10px auto 0;text-align:center;padding:20px}
+  @media(max-width:820px){.rdv-grid{grid-template-columns:1fr}.rdv-side{position:static}}
+  @media(max-width:560px){.rdv-fields{grid-template-columns:1fr}}
   body.page-open{overflow:hidden}
   .sp-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;
     padding:14px clamp(16px,5vw,40px);background:rgba(4,5,11,.72);backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid var(--line)}
@@ -1114,7 +1150,7 @@
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </div>
-      <a href="https://calendly.com/aemconseil-sas" target="_blank" rel="noopener" class="btn btn-pri">Prendre rendez-vous</a>
+      <a href="#rdv" class="btn btn-pri">Prendre rendez-vous</a>
       <button class="burger" type="button" aria-label="Ouvrir le menu" onclick="openNav()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </nav>
@@ -1313,7 +1349,7 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Juridique (assemblée générale)</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Rendez-vous illimités</li>
           </ul>
-          <a href="https://calendly.com/aemconseil-sas" target="_blank" rel="noopener" class="btn btn-pri">Réserver un appel</a>
+          <a href="#rdv" class="btn btn-pri">Réserver un appel</a>
         </div>
       </div>
       <p class="pricing-note">Tarifs indicatifs, ajustés selon le volume et vos besoins réels. Le premier rendez-vous est offert et sans engagement.</p>
@@ -1575,7 +1611,7 @@
               <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Réponse sous 24 h</span>
               <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Un interlocuteur dédié</span>
             </div>
-            <a href="https://calendly.com/aemconseil-sas" target="_blank" rel="noopener" class="btn btn-pri" style="width:100%;justify-content:center;margin-top:16px">Réserver un appel <span aria-hidden="true">→</span></a>
+            <a href="#rdv" class="btn btn-pri" style="width:100%;justify-content:center;margin-top:16px">Réserver un appel <span aria-hidden="true">→</span></a>
           </div>
           <form id="callbackForm" class="callback" novalidate>
             <b><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.8 2z"/></svg> Pas le temps d'écrire ?</b>
@@ -1641,7 +1677,7 @@
           <nav aria-label="Contact">
             <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>
             <a href="tel:+33665908325">06 65 90 83 25</a>
-            <a href="#contact">Prendre rendez-vous</a>
+            <a href="#rdv">Prendre rendez-vous</a>
             <a href="https://yada.aemconseil.eu/">Espace client</a>
           </nav>
         </div>
@@ -1667,7 +1703,7 @@
   <a href="#devis" onclick="closeNav()">Devis</a>
   <a href="#faq" onclick="closeNav()">FAQ</a>
   <a href="#contact" onclick="closeNav()">Contact</a>
-  <a href="https://calendly.com/aemconseil-sas" target="_blank" rel="noopener" class="btn btn-pri" onclick="closeNav()">Prendre rendez-vous</a>
+  <a href="#rdv" class="btn btn-pri" onclick="closeNav()">Prendre rendez-vous</a>
 </aside>
 
 <!-- Retour en haut -->
@@ -1766,6 +1802,75 @@
         </div>
       </form>
       </div>
+</div>
+
+<!-- Prise de rendez-vous -->
+<div id="rdvPage" role="dialog" aria-modal="true" aria-label="Prendre rendez-vous">
+  <div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash='#top'"><a href="tel:+33665908325" class="btn btn-pri">Nous appeler</a></div>
+  <div class="sp-wrap">
+    <div class="sh"><span class="kick">Rendez-vous</span><h2>Réservez votre <span class="ital">premier échange</span> — offert</h2><p>Choisissez le format et le moment qui vous conviennent. Nous confirmons votre créneau sous 24 h ouvrées, sans engagement.</p></div>
+    <form class="rdv" id="rdvForm" novalidate>
+      <input type="text" class="sm-hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="rdv-grid">
+        <div class="rdv-main">
+          <div class="rdv-block">
+            <div class="rdv-lab">1 · Format de l'échange</div>
+            <div class="rdv-opts" id="rdvFormat">
+              <button type="button" class="rdv-opt" data-val="Par téléphone"><span class="ri"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.8 2z"/></svg></span><b>Téléphone</b></button>
+              <button type="button" class="rdv-opt" data-val="En visioconférence"><span class="ri"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></svg></span><b>Visio</b></button>
+              <button type="button" class="rdv-opt" data-val="En présentiel"><span class="ri"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Présentiel</b></button>
+            </div>
+          </div>
+          <div class="rdv-block">
+            <div class="rdv-lab">2 · Date souhaitée</div>
+            <input type="date" id="rdvDate" class="rdv-date" aria-label="Date souhaitée">
+            <div class="rdv-hint">Du lundi au vendredi. Nous vous proposerons l'horaire le plus proche de votre choix.</div>
+          </div>
+          <div class="rdv-block">
+            <div class="rdv-lab">3 · Créneau préféré</div>
+            <div class="rdv-opts chips" id="rdvSlot">
+              <button type="button" class="rdv-opt mini" data-val="09h – 10h">09h – 10h</button>
+              <button type="button" class="rdv-opt mini" data-val="10h – 11h">10h – 11h</button>
+              <button type="button" class="rdv-opt mini" data-val="11h – 12h">11h – 12h</button>
+              <button type="button" class="rdv-opt mini" data-val="14h – 15h">14h – 15h</button>
+              <button type="button" class="rdv-opt mini" data-val="15h – 16h">15h – 16h</button>
+              <button type="button" class="rdv-opt mini" data-val="16h – 17h">16h – 17h</button>
+              <button type="button" class="rdv-opt mini" data-val="17h – 18h">17h – 18h</button>
+              <button type="button" class="rdv-opt mini" data-val="Indifférent">Indifférent</button>
+            </div>
+          </div>
+          <div class="rdv-block">
+            <div class="rdv-lab">4 · Vos coordonnées</div>
+            <div class="rdv-fields">
+              <div class="sm-fld"><label for="rdv-nom">Prénom &amp; nom</label><input type="text" id="rdv-nom" name="nom" placeholder="Votre nom" autocomplete="name"></div>
+              <div class="sm-fld"><label for="rdv-tel">Téléphone</label><input type="tel" id="rdv-tel" name="telephone" placeholder="06 12 34 56 78" autocomplete="tel"></div>
+              <div class="sm-fld sm-fld-full"><label for="rdv-email">E-mail</label><input type="email" id="rdv-email" name="email" placeholder="vous@exemple.fr" autocomplete="email"></div>
+              <div class="sm-fld sm-fld-full"><label for="rdv-msg">Objet de l'échange (facultatif)</label><textarea id="rdv-msg" name="message" rows="2" placeholder="Création, changement de cabinet, question précise…"></textarea></div>
+            </div>
+          </div>
+        </div>
+        <aside class="rdv-side">
+          <div class="rdv-card">
+            <h3>Votre rendez-vous</h3>
+            <ul class="rdv-recap" id="rdvRecap">
+              <li><span>Format</span><b data-k="format">—</b></li>
+              <li><span>Date</span><b data-k="date">—</b></li>
+              <li><span>Créneau</span><b data-k="slot">—</b></li>
+            </ul>
+            <button type="submit" class="btn btn-pri rdv-submit" id="rdvBtn">Réserver mon rendez-vous</button>
+            <div class="rdv-reassure"><span>✔ Offert &amp; sans engagement</span><span>✔ Confirmation sous 24 h</span><span>✔ Interlocuteur dédié</span></div>
+            <div class="rdv-status" id="rdvStatus" role="status" aria-live="polite"></div>
+          </div>
+        </aside>
+      </div>
+      <div class="rdv-done" id="rdvDone" hidden>
+        <div class="sm-badge"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>Votre demande de rendez-vous est envoyée</h3>
+        <p>Merci ! Nous confirmons votre créneau sous 24 h ouvrées. À très vite.</p>
+        <div class="sm-reassure"><span>✔ Sans engagement</span><span>✔ Premier RDV offert</span><span>✔ Réponse sous 24 h</span></div>
+      </div>
+    </form>
+  </div>
 </div>
 
 
@@ -1963,8 +2068,6 @@
     </div>
   </div>
 </div>
-
-<button id="toTop" type="button" aria-label="Revenir en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
 
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentement aux cookies" aria-hidden="true">
   <div class="ck-head"><span class="ck-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5h.01"/><path d="M16 15.5h.01"/><path d="M12 18h.01"/><path d="M11 12h.01"/><path d="M15 11h.01"/></svg></span><b>Cookies</b></div>
@@ -2294,7 +2397,7 @@ function spSteps(s){return '<div class="sp-steps">'+s.process.map(function(p,i){
 function spStepsList(s){return '<ol class="sp-steplist">'+s.process.map(function(p){return '<li><b>'+esc(p.t)+'</b><span>'+esc(p.d)+'</span></li>';}).join('')+'</ol>';}
 function spAud(s){return '<div class="sp-aud">'+s.audience.map(function(a){return '<span>'+esc(a)+'</span>';}).join('')+'</div>';}
 function spFaq(s){return '<div class="sp-faq faq-list">'+s.faq.map(function(f){return '<div class="faq spot"><button type="button" onclick="toggleFaq(this)">'+esc(f.q)+'<span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="faq-panel"><p>'+esc(f.a)+'</p></div></div>';}).join('')+'</div>';}
-function spFinal(s){return '<div class="sp-final"><h2>Parlons de votre '+esc(s.title.toLowerCase())+'</h2><p>Premier rendez-vous offert, réponse sous 24 h et sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis gratuit <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Prendre rendez-vous</a></div></div>';}
+function spFinal(s){return '<div class="sp-final"><h2>Parlons de votre '+esc(s.title.toLowerCase())+'</h2><p>Premier rendez-vous offert, réponse sous 24 h et sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis gratuit <span aria-hidden="true">→</span></a><a href="#rdv" class="btn btn-ghost" onclick="spGo(event,\'#rdv\')">Prendre rendez-vous</a></div></div>';}
 function spHero(s){return '<div class="sp-hero"><span class="sp-kick">'+esc(s.cat)+'</span><h1>'+esc(s.title)+'</h1><p>'+esc(s.lead)+'</p>'+spCtas()+'</div>';}
 
 /* Layout A — classique empilé */
@@ -2427,14 +2530,23 @@ function spOpenDevis(){
   dp.classList.add('open'); dp.scrollTop=0;
   document.body.classList.add('page-open'); document.title='Demande de devis — AEM-CONSEIL';
 }
+function spCloseRdv(){var rp=document.getElementById('rdvPage'); if(rp)rp.classList.remove('open');}
+function spOpenRdv(){
+  spCloseSvc();
+  var rp=document.getElementById('rdvPage'); if(!rp)return;
+  rp.classList.add('open'); rp.scrollTop=0;
+  document.body.classList.add('page-open'); document.title='Prendre rendez-vous — AEM-CONSEIL';
+  if(window.rdvInit)window.rdvInit();
+}
 function spClose(){
-  spCloseSvc(); spCloseDevis();
+  spCloseSvc(); spCloseDevis(); spCloseRdv();
   document.body.classList.remove('page-open'); document.title=SP_BASE_TITLE;
   seoReset();
 }
 function spRoute(){
   var h=location.hash||'';
   if(h==='#devis'){ spOpenDevis(); return; }
+  if(h==='#rdv'){ spOpenRdv(); return; }
   var m=h.match(/^#(services|ressources|theme)\/([a-z0-9-]+)$/);
   if(m){ if(m[1]==='services'){spOpenService(m[2]);} else if(m[1]==='theme'){spOpenTheme(m[2]);} else {spOpenGuide(m[2]);} return; }
   spClose();
@@ -2480,6 +2592,47 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
     fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
       .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
       .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.reset();btn.innerHTML='Demande envoyée ✓';setStatus('✓ Merci ! Nous vous rappelons sous 24 h.','ok');setTimeout(function(){btn.innerHTML=original;btn.disabled=false;},2600);}else{throw new Error('refus');}})
+      .catch(function(){setStatus('Une erreur est survenue. Appelez-nous au 06 65 90 83 25.','err');btn.innerHTML=original;btn.disabled=false;});
+  });
+})();
+
+/* ===== Prise de rendez-vous (FormSubmit) ===== */
+(function(){
+  var form=document.getElementById('rdvForm');if(!form)return;
+  var ENDPOINT='https://formsubmit.co/ajax/aemconseil.sas@gmail.com';
+  var sel={format:'',date:'',slot:''};
+  var recap=document.getElementById('rdvRecap');
+  var btn=document.getElementById('rdvBtn'),status=document.getElementById('rdvStatus');
+  var dateInput=document.getElementById('rdvDate');
+  var done=document.getElementById('rdvDone');
+  function setStatus(m,t){status.textContent=m;status.className='rdv-status '+(t||'');}
+  function setRecap(k,v){var b=recap.querySelector('[data-k="'+k+'"]');if(b)b.textContent=v||'—';}
+  function fmtDate(v){if(!v)return '';var p=v.split('-');if(p.length!==3)return v;var d=new Date(p[0],p[1]-1,p[2]);var days=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];var mon=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];return days[d.getDay()]+' '+d.getDate()+' '+mon[d.getMonth()];}
+  // Sélection exclusive dans un groupe
+  function group(id,key,after){
+    var wrap=document.getElementById(id);
+    wrap.addEventListener('click',function(e){
+      var b=e.target.closest('.rdv-opt');if(!b)return;
+      wrap.querySelectorAll('.rdv-opt').forEach(function(o){o.classList.remove('on');});
+      b.classList.add('on');sel[key]=b.getAttribute('data-val');if(after)after();
+    });
+  }
+  group('rdvFormat','format',function(){setRecap('format',sel.format);});
+  group('rdvSlot','slot',function(){setRecap('slot',sel.slot);});
+  dateInput.addEventListener('change',function(){sel.date=dateInput.value;setRecap('date',fmtDate(sel.date));});
+  // Initialise la date minimale (aujourd'hui) à l'ouverture
+  window.rdvInit=function(){try{var t=new Date();var m=String(t.getMonth()+1).padStart(2,'0');var d=String(t.getDate()).padStart(2,'0');dateInput.min=t.getFullYear()+'-'+m+'-'+d;}catch(e){}};
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(form._honey&&form._honey.value)return;
+    var nom=form.nom.value.trim(),email=form.email.value.trim(),tel=form.telephone.value.trim();
+    if(!sel.format){setStatus('Choisissez un format d\'échange.','err');return;}
+    if(!nom||(!email&&!tel)){setStatus('Indiquez votre nom et un e-mail ou un téléphone.','err');return;}
+    var original=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spin"></span>&nbsp;Envoi…';setStatus('','');
+    var payload={nom:nom,email:email,telephone:tel,format:sel.format,date_souhaitee:fmtDate(sel.date)||'Non précisée',creneau:sel.slot||'Indifférent',message:form.message.value.trim(),_subject:'Demande de rendez-vous — site AEM-CONSEIL',_template:'table',_captcha:'false'};
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
+      .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.querySelector('.rdv-grid').style.display='none';done.hidden=false;done.scrollIntoView({block:'center'});}else{throw new Error('refus');}})
       .catch(function(){setStatus('Une erreur est survenue. Appelez-nous au 06 65 90 83 25.','err');btn.innerHTML=original;btn.disabled=false;});
   });
 })();
