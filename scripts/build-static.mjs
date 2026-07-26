@@ -71,6 +71,7 @@ function head({ title, desc, url, ogType, ld }) {
 <link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/article.css">
 ${ld.map(o => '<script type="application/ld+json">' + JSON.stringify(o) + '</script>').join('\n')}
+<script src="/assets/chat.js" defer></script>
 </head>
 <body>
 <a href="#content" class="skip-link">Aller au contenu</a>
@@ -170,6 +171,15 @@ for (const t of THEMES) {
   write(`/ressources/index.html`, page);
 }
 
+/* --- Index de connaissances de l'assistant (chat) ---
+   Liste compacte des articles pour la recherche locale du widget de chat.
+   Consommé par assets/chat.js (fetch /assets/chat-index.json à la 1re ouverture). */
+{
+  const articles = GUIDES.map(g => ({ t: g.title, u: `/ressources/${g.slug}/`, c: g.cat, l: g.lead }));
+  const chatIndex = { site: SITE, count: articles.length, articles };
+  write('/assets/chat-index.json', JSON.stringify(chatIndex));
+}
+
 /* --- Sitemap --- */
 const urls = [
   { loc: SITE + '/', p: '1.0', f: 'weekly' },
@@ -184,4 +194,4 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
   `\n</urlset>\n`;
 writeFileSync(ROOT + '/sitemap.xml', sitemap);
 
-console.log(`Généré : ${nArticles} articles + ${THEMES.length} thèmes + 1 index + sitemap (${urls.length} URL).`);
+console.log(`Généré : ${nArticles} articles + ${THEMES.length} thèmes + 1 index + chat-index.json + sitemap (${urls.length} URL).`);
