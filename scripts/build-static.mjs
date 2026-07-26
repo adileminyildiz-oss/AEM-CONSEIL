@@ -58,12 +58,14 @@ function head({ title, desc, url, ogType, ld }) {
 <meta property="og:type" content="${ogType}">
 <meta property="og:url" content="${url}">
 <meta property="og:site_name" content="AEM-CONSEIL">
-<meta property="og:image" content="${SITE}/assets/favicon-512.png">
+<meta property="og:image" content="${SITE}/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="fr_FR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${escA(title)}">
 <meta name="twitter:description" content="${escA(desc)}">
-<meta name="twitter:image" content="${SITE}/assets/favicon-512.png">
+<meta name="twitter:image" content="${SITE}/assets/og-image.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
 <link rel="stylesheet" href="/assets/fonts.css">
