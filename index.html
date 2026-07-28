@@ -142,19 +142,19 @@
   }
   /* ===== Thème clair ===== */
   :root[data-theme="light"]{
-    --noir:#f3f4fb; --noir2:#ffffff; --noir3:#eaecf6;
-    --outremer:#2b45ff; --azur:#4a5cf5; --peri:#6a3ce0;
-    --violet:#6a3ce0; --iris:#8a5cf0;
-    --accent-grad:linear-gradient(120deg,#2b45ff,#6a3ce0);
-    --line:rgba(24,32,72,.09); --line-2:rgba(24,32,72,.15);
-    --glass:rgba(24,32,72,.028); --glass-2:rgba(24,32,72,.05);
-    --txt:#0f1430; --txt2:#586079; --pos:#0a9b63; --read:#28304e;
-    --page-grad:radial-gradient(1000px 520px at 50% -22%,rgba(43,69,255,.06),transparent 60%),radial-gradient(720px 500px at 88% 8%,rgba(124,58,255,.05),transparent 62%),linear-gradient(180deg,#f7f8fd,#eff1f8);
-    --nav-bg:rgba(255,255,255,.85); --panel-bg:#ffffff; --dialog-grad:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.05),transparent 60%),linear-gradient(180deg,#f7f8fd,#f1f2f9); --bar-bg:rgba(255,255,255,.82);
+    --noir:#e6e7f3; --noir2:#f4f4fb; --noir3:#dcdeec;
+    --outremer:#2136e6; --azur:#3548d8; --peri:#5433c8;
+    --violet:#6a2ce0; --iris:#7a48e0;
+    --accent-grad:linear-gradient(120deg,#2136e6,#6a2ce0);
+    --line:rgba(18,22,54,.14); --line-2:rgba(18,22,54,.22);
+    --glass:rgba(18,22,54,.04); --glass-2:rgba(18,22,54,.07);
+    --txt:#0a0b14; --txt2:#3b4056; --pos:#087a4e; --read:#161826;
+    --page-grad:radial-gradient(1020px 580px at 50% -16%,rgba(43,69,255,.18),transparent 60%),radial-gradient(780px 540px at 88% 8%,rgba(124,58,255,.17),transparent 62%),radial-gradient(780px 580px at 4% 70%,rgba(64,110,255,.11),transparent 62%),linear-gradient(180deg,#eaebf6,#dcdeec);
+    --nav-bg:rgba(238,239,249,.85); --panel-bg:#f4f4fb; --dialog-grad:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.12),transparent 60%),linear-gradient(180deg,#eaebf6,#dee0ee); --bar-bg:rgba(233,234,246,.85);
   }
-  /* Thème clair : cartes blanches + ombres douces (profondeur premium) */
-  :root[data-theme="light"] :is(.svc,.bcard,.kit-card,.faq,.meth-card,.ot-card,.onb-step,.plan,.tile,.eng,.sp-stepcard,.theme-card,.arev,.faq-help,.rdv-card){background:#fff;box-shadow:0 1px 3px rgba(20,28,64,.05),0 12px 30px rgba(20,28,64,.07);border-color:rgba(24,32,72,.07)}
-  :root[data-theme="light"] :is(.svc,.bcard,.kit-card,.meth-card,.onb-step,.plan,.tile,.eng,.theme-card,.faq-help):hover{box-shadow:0 3px 8px rgba(20,28,64,.08),0 18px 42px rgba(20,28,64,.11)}
+  /* Thème clair : cartes blanc cassé + ombres douces (profondeur, sans blanc éblouissant) */
+  :root[data-theme="light"] :is(.svc,.bcard,.kit-card,.faq,.meth-card,.ot-card,.onb-step,.plan,.tile,.eng,.sp-stepcard,.theme-card,.arev,.faq-help,.rdv-card){background:var(--noir2);box-shadow:0 1px 2px rgba(16,20,50,.06),0 12px 30px rgba(16,20,50,.1);border-color:rgba(18,22,54,.09)}
+  :root[data-theme="light"] :is(.svc,.bcard,.kit-card,.meth-card,.onb-step,.plan,.tile,.eng,.theme-card,.faq-help):hover{box-shadow:0 3px 8px rgba(16,20,50,.09),0 18px 44px rgba(16,20,50,.14)}
   :root[data-theme="light"] .hero-scroll,:root[data-theme="light"] .beam{opacity:.5}
   /* Textes forts (hover/actifs) : blanc en sombre, encre foncée en clair via token */
   :root[data-theme="light"] :is(.nav-search,.sm-btn-ghost,.cmp-filt,.cmp-chip,.kit-x,.srch-close):hover,
