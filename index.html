@@ -960,6 +960,36 @@
   .ot-compbar .ct b{display:block;font-family:'Inter Tight';font-weight:600;font-size:15.5px;color:#fff}
   .ot-compbar .ct span{display:block;font-size:13px;color:var(--txt2);margin-top:2px}
   .ot-compbar .ca{flex:none;color:var(--peri);font-size:20px}
+  /* Ressources gratuites (lead magnets) */
+  .kit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:0 auto}
+  .kit-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:26px 24px;border:1px solid var(--line);border-radius:20px;
+    background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));transition:border-color .18s,transform .18s}
+  .kit-card:hover{border-color:var(--line-2);transform:translateY(-3px)}
+  .kit-ic{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;background:rgba(43,69,255,.14);border:1px solid var(--line-2);color:var(--peri)}
+  .kit-ic.big{width:60px;height:60px;margin:0 auto}
+  .kit-ic.ok{background:rgba(56,224,166,.14);border-color:rgba(56,224,166,.4);color:#38e0a6}
+  .kit-fmt{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--peri);background:rgba(43,69,255,.1);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+  .kit-card h3{font-family:'Inter Tight';font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .kit-card p{font-size:14px;line-height:1.6;color:var(--txt2);flex:1}
+  .kit-card .btn{width:100%;justify-content:center;margin-top:4px}
+  .kit-modal{position:fixed;inset:0;z-index:210;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(4,5,11,.72);backdrop-filter:blur(6px)}
+  .kit-modal.open{display:flex}
+  .kit-box{position:relative;width:min(440px,100%);border-radius:22px;border:1px solid var(--line-2);background:linear-gradient(180deg,#0c1024,#080a1a);box-shadow:0 30px 80px rgba(3,5,16,.7);padding:34px 30px 28px}
+  .kit-x{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--txt2);cursor:pointer;padding:6px;border-radius:8px}
+  .kit-x:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .kit-body,.kit-done{text-align:center}
+  .kit-body h3,.kit-done h3{font-family:'Inter Tight';font-weight:600;font-size:21px;margin-top:14px}
+  .kit-body p,.kit-done p{font-size:14px;line-height:1.6;color:var(--txt2);margin-top:8px}
+  .kit-done a{color:var(--azur)}
+  #kitFormEl{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+  #kitFormEl input[type=email]{font-family:'Inter Tight';font-size:15px;color:#eef2ff;background:rgba(8,12,30,.7);border:1px solid var(--line-2);border-radius:12px;padding:13px 15px;outline:none}
+  #kitFormEl input[type=email]:focus{border-color:rgba(150,170,255,.6)}
+  .kit-opt{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--txt2);text-align:left;line-height:1.45;cursor:pointer}
+  .kit-opt input{margin-top:2px;accent-color:var(--outremer)}
+  .kit-status{font-size:13px;min-height:16px}.kit-status.err{color:#ff9c9c}
+  .kit-legal{margin-top:14px;font-size:11px;color:#6f7fb5}
+  .kit-done .btn{margin-top:18px}
+  @media(max-width:820px){.kit-grid{grid-template-columns:1fr;max-width:420px}}
   .ot-hint{margin-top:14px;font-size:12.5px;color:var(--txt2);line-height:1.5;max-width:560px}
   /* Tarifs / formules */
   .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--max);margin:0 auto;align-items:stretch}
@@ -1705,6 +1735,34 @@
       </div>
     </section>
 
+    <!-- RESSOURCES GRATUITES -->
+    <section id="kit">
+      <div class="sh reveal"><span class="kick">Ressources gratuites</span><h2>Des <span class="ital">modèles</span> prêts à l'emploi</h2><p>Téléchargez gratuitement nos outils pour gérer votre activité sereinement. Faits par des experts-comptables, à personnaliser en quelques minutes.</p></div>
+      <div class="kit-grid reveal">
+        <div class="kit-card">
+          <span class="kit-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span>
+          <span class="kit-fmt">Excel · XLSX</span>
+          <h3>Modèle de facture</h3>
+          <p>Facture conforme avec mentions obligatoires, calcul automatique de la TVA et des totaux.</p>
+          <button type="button" class="btn btn-pri" onclick="openKit('facture')">Télécharger <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="kit-card">
+          <span class="kit-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg></span>
+          <span class="kit-fmt">Excel · XLSX</span>
+          <h3>Suivi de trésorerie</h3>
+          <p>Plan de trésorerie sur 12 mois : encaissements, décaissements et soldes calculés automatiquement.</p>
+          <button type="button" class="btn btn-pri" onclick="openKit('tresorerie')">Télécharger <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="kit-card">
+          <span class="kit-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+          <span class="kit-fmt">PDF</span>
+          <h3>Checklist création d'entreprise</h3>
+          <p>De l'idée à l'immatriculation, toutes les étapes à cocher pour ne rien oublier.</p>
+          <button type="button" class="btn btn-pri" onclick="openKit('checklist')">Télécharger <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </section>
+
     <!-- NEWSLETTER -->
     <section id="newsletter">
       <div class="news reveal">
@@ -2225,6 +2283,32 @@
       <p>Toute réclamation peut être adressée par écrit à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>. À défaut d'accord amiable, le Client consommateur peut recourir gratuitement à un médiateur de la consommation. Les présentes CGV sont soumises au droit français ; à défaut de résolution amiable, tout litige relève de la compétence des tribunaux français compétents.</p>
 
       <p style="margin-top:16px;font-size:13px;opacity:.7">Modèle à faire valider et à compléter selon votre situation (forme juridique, SIRET, n° d'inscription à l'Ordre des experts-comptables, médiateur désigné, taux et délais spécifiques).</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modale de téléchargement (lead magnet) -->
+<div class="kit-modal" id="kitModal" aria-hidden="true" onclick="closeKit(event)">
+  <div class="kit-box" role="dialog" aria-modal="true" aria-labelledby="kitTitle" onclick="event.stopPropagation()">
+    <button type="button" class="kit-x" aria-label="Fermer" onclick="closeKit()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <div class="kit-body" id="kitForm">
+      <span class="kit-ic big"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7 10l5 5 5-5M5 21h14"/></svg></span>
+      <h3 id="kitTitle">Recevez votre ressource</h3>
+      <p id="kitDesc">Indiquez votre e-mail : le téléchargement démarre aussitôt et vous recevrez nos meilleurs conseils (désinscription en un clic).</p>
+      <form id="kitFormEl" novalidate>
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="email" id="kitEmail" name="email" required placeholder="vous@exemple.fr" aria-label="Votre e-mail" autocomplete="email">
+        <label class="kit-opt"><input type="checkbox" id="kitNews" checked> Je souhaite aussi recevoir la newsletter (1 e-mail / mois).</label>
+        <button type="submit" class="btn btn-pri" id="kitSubmit">Télécharger maintenant</button>
+        <div class="kit-status" id="kitStatus" role="status" aria-live="polite"></div>
+      </form>
+      <p class="kit-legal">Vos données ne sont jamais revendues. Conforme RGPD.</p>
+    </div>
+    <div class="kit-done" id="kitDone" hidden>
+      <span class="kit-ic big ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+      <h3>C'est parti&nbsp;!</h3>
+      <p>Votre téléchargement a démarré. S'il ne se lance pas, <a id="kitDirect" href="#" download>cliquez ici</a>.</p>
+      <a href="#rdv" class="btn btn-ghost" onclick="closeKit()">Besoin d'aide ? Premier RDV offert</a>
     </div>
   </div>
 </div>
@@ -2915,6 +2999,43 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
     if((e.metaKey||e.ctrlKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();ov.classList.contains('open')?closeSearch():openSearch();}
     else if(e.key==='Escape'&&ov.classList.contains('open')){closeSearch();}
   });
+})();
+
+/* ===== Ressources gratuites (lead magnets) ===== */
+(function(){
+  var KIT={
+    facture:{file:'/assets/ressources/modele-facture.xlsx',title:'Modèle de facture',name:'modele-facture.xlsx'},
+    tresorerie:{file:'/assets/ressources/suivi-tresorerie.xlsx',title:'Suivi de trésorerie',name:'suivi-tresorerie.xlsx'},
+    checklist:{file:'/assets/ressources/checklist-creation-entreprise.pdf',title:'Checklist création d\'entreprise',name:'checklist-creation-entreprise.pdf'}
+  };
+  var modal=document.getElementById('kitModal'); if(!modal)return;
+  var formWrap=document.getElementById('kitForm'),done=document.getElementById('kitDone'),formEl=document.getElementById('kitFormEl'),
+      emailEl=document.getElementById('kitEmail'),statusEl=document.getElementById('kitStatus'),submitEl=document.getElementById('kitSubmit'),
+      titleEl=document.getElementById('kitTitle'),directEl=document.getElementById('kitDirect'),newsEl=document.getElementById('kitNews');
+  var current=null,curId=null;
+  function download(res){var a=document.createElement('a');a.href=res.file;a.download=res.name;document.body.appendChild(a);a.click();a.remove();}
+  window.openKit=function(id){current=KIT[id];curId=id;if(!current)return;
+    formWrap.hidden=false;done.hidden=true;statusEl.textContent='';statusEl.className='kit-status';emailEl.value='';
+    titleEl.textContent='Recevez : '+current.title;modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+    setTimeout(function(){emailEl.focus();},60);T('lead_magnet_open',{resource:id});};
+  window.closeKit=function(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');};
+  formEl.addEventListener('submit',function(e){e.preventDefault();
+    if(formEl._honey&&formEl._honey.value)return;
+    var email=emailEl.value.trim();
+    if(!email||email.indexOf('@')<1){statusEl.textContent='Merci d\'entrer un e-mail valide.';statusEl.className='kit-status err';return;}
+    submitEl.disabled=true;var o=submitEl.textContent;submitEl.textContent='Envoi…';
+    var payload={email:email,ressource:current.title,newsletter:newsEl.checked?'oui':'non',_subject:'Téléchargement ressource — '+current.title,_template:'table',_captcha:'false'};
+    fetch('https://formsubmit.co/ajax/aemconseil.sas@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){return r.json().catch(function(){return{};});}).catch(function(){})
+      .then(function(){
+        submitEl.disabled=false;submitEl.textContent=o;
+        directEl.href=current.file;directEl.setAttribute('download',current.name);
+        download(current);
+        T('lead_magnet_download',{resource:curId});T('generate_lead',{method:'lead_magnet'});if(newsEl.checked)T('newsletter_signup');
+        formWrap.hidden=true;done.hidden=false;
+      });
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))closeKit();});
 })();
 
 /* ===== Cookies + analytics ===== */
