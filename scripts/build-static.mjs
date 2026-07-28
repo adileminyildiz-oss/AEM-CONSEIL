@@ -47,6 +47,7 @@ function head({ title, desc, url, ogType, ld }) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>(function(){try{var t=localStorage.getItem('aem_theme');if(t!=='light'&&t!=='dark')t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <title>${esc(title)}</title>
 <meta name="description" content="${escA(desc)}">
 <link rel="canonical" href="${url}">
@@ -76,11 +77,12 @@ ${ld.map(o => '<script type="application/ld+json">' + JSON.stringify(o) + '</scr
 </head>
 <body>
 <a href="#content" class="skip-link">Aller au contenu</a>
-<div class="sp-bar"><div class="sp-brand"><a class="sp-back" href="/">${CHEV} Retour au site</a></div><a href="/"><img src="/assets/logo-full.png" alt="AEM-CONSEIL"></a><a href="/#devis" class="btn btn-pri">Demander un devis</a></div>`;
+<div class="sp-bar"><div class="sp-brand"><a class="sp-back" href="/">${CHEV} Retour au site</a></div><a href="/"><img src="/assets/logo-full.png" alt="AEM-CONSEIL"></a><div style="display:flex;align-items:center;gap:12px"><button class="theme-toggle" type="button" aria-label="Basculer le thème clair / sombre" onclick="aemToggleTheme()"><svg class="ic-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><svg class="ic-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><a href="/#devis" class="btn btn-pri">Demander un devis</a></div></div>`;
 }
 
 function footer() {
   return `<footer class="sf"><div class="fl"><a href="/">Accueil</a><a href="/ressources/">Tous les articles</a><a href="/#outils">Outils gratuits</a><a href="/#contact">Contact</a></div><div>© AEM-CONSEIL — Cabinet de conseil &amp; expertise comptable. Informations générales à titre indicatif, ne constituant pas un conseil personnalisé.</div></footer>
+<script>function aemThemeLogo(){var dark=document.documentElement.getAttribute('data-theme')!=='light';document.querySelectorAll('img[src*="logo-full"]').forEach(function(im){im.src=dark?'/assets/logo-full.png':'/assets/logo-full-dark.png';});var mc=document.querySelector('meta[name=theme-color]');if(mc)mc.setAttribute('content',dark?'#04050b':'#eef1f9');}function aemToggleTheme(){var n=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('aem_theme',n);}catch(e){}aemThemeLogo();}aemThemeLogo();</script>
 <script>document.addEventListener('click',function(e){var b=e.target.closest('.gs-copy');if(!b)return;var u=b.getAttribute('data-url');var s=b.querySelector('span');var done=function(){if(s){var o=s.textContent;s.textContent='Lien copié \\u2713';b.classList.add('ok');setTimeout(function(){s.textContent=o;b.classList.remove('ok');},1800);}};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(done).catch(function(){window.prompt('Copiez le lien :',u);});}else{window.prompt('Copiez le lien :',u);}});</script>
 </body>
 </html>`;
