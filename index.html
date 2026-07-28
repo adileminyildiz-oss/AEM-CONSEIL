@@ -197,6 +197,32 @@
   .nlinks a:hover,.nlinks a.active{color:#fff}
   .nlinks a:hover::after,.nlinks a.active::after{right:0}
   .burger{display:none;place-items:center;width:44px;height:44px;border-radius:11px;background:var(--glass);border:1px solid var(--line-2);color:var(--txt);cursor:pointer}
+  /* Recherche : déclencheur d'en-tête */
+  .nav-search{display:inline-flex;align-items:center;gap:9px;font-family:'Inter Tight';font-size:13px;color:var(--txt2);cursor:pointer;
+    padding:8px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--line-2);transition:border-color .16s,color .16s}
+  .nav-search:hover{color:#fff;border-color:rgba(150,168,255,.4)}
+  .nav-search .ns-kbd{font-family:'Inter Tight';font-size:11px;color:var(--txt2);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+  /* Recherche : superposition */
+  #searchOverlay{position:fixed;inset:0;z-index:200;display:none;padding:12vh 16px 16px;background:rgba(4,5,11,.72);backdrop-filter:blur(6px)}
+  #searchOverlay.open{display:block}
+  .srch-box{max-width:600px;margin:0 auto;border-radius:18px;overflow:hidden;border:1px solid var(--line-2);background:linear-gradient(180deg,#0c1024,#080a1a);box-shadow:0 30px 80px rgba(3,5,16,.7)}
+  .srch-top{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);color:var(--peri)}
+  .srch-top input{flex:1;background:none;border:none;outline:none;color:#eef2ff;font-family:'Inter Tight';font-size:16px}
+  .srch-top input::placeholder{color:#7f8fc4}
+  .srch-close{background:none;border:none;cursor:pointer;padding:0}
+  .srch-close kbd,.srch-foot kbd{font-family:'Inter Tight';font-size:11px;color:var(--txt2);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+  .srch-results{max-height:52vh;overflow-y:auto;padding:8px}
+  .srch-item{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:12px;cursor:pointer;text-decoration:none}
+  .srch-item:hover,.srch-item.sel{background:rgba(109,134,255,.13)}
+  .srch-item .si-cat{flex:none;font-size:11px;font-weight:600;color:var(--peri);background:rgba(43,69,255,.14);border:1px solid var(--line-2);border-radius:7px;padding:3px 8px}
+  .srch-item .si-t{flex:1;min-width:0;color:#e6ebff;font-size:14.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .srch-item .si-r{flex:none;font-size:12px;color:var(--txt2)}
+  .srch-empty{padding:26px 16px;text-align:center;color:var(--txt2);font-size:14px}
+  .srch-empty b{color:var(--txt)}
+  .srch-foot{display:flex;gap:16px;align-items:center;padding:11px 18px;border-top:1px solid var(--line);font-size:12px;color:var(--txt2)}
+  .srch-foot kbd{margin-right:2px}
+  .srch-foot span:last-child{margin-left:auto}
+  @media(max-width:920px){.nav-search .ns-txt,.nav-search .ns-kbd{display:none}.nav-search{padding:10px}}
   .drawer{position:fixed;inset:0 0 0 auto;width:min(320px,84vw);z-index:80;background:var(--noir2);border-left:1px solid var(--line);
     padding:26px 22px;display:flex;flex-direction:column;gap:6px;transform:translateX(100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
   .drawer.open{transform:none}
@@ -204,6 +230,8 @@
   .drawer a:hover{background:var(--glass)}
   .drawer .btn-pri{margin-top:14px;justify-content:center}
   .drawer .dclose{align-self:flex-end;background:none;border:none;color:var(--txt2);font-size:24px;cursor:pointer;margin-bottom:6px}
+  .drawer-search{display:flex;align-items:center;gap:10px;padding:13px 14px;margin-bottom:6px;border-radius:11px;font-family:'Inter Tight';font-weight:600;font-size:14.5px;color:#cdd8ff;cursor:pointer;background:var(--glass);border:1px solid var(--line-2)}
+  .drawer-search:hover{border-color:rgba(150,168,255,.4)}
   .overlay{position:fixed;inset:0;z-index:75;background:rgba(0,0,0,.6);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.3s}
   .overlay.open{opacity:1;visibility:visible}
 
@@ -693,9 +721,27 @@
   .drawer .dlabel{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--azur);margin-top:8px;font-weight:600}
 
   /* ===== Page Service dédiée ===== */
-  #svcPage,#devisPage,#rdvPage{position:fixed;inset:0;z-index:130;display:none;overflow-y:auto;overflow-x:hidden;
+  #svcPage,#devisPage,#rdvPage,#compPage{position:fixed;inset:0;z-index:130;display:none;overflow-y:auto;overflow-x:hidden;
     background:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.16),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
-  #svcPage.open,#devisPage.open,#rdvPage.open{display:block}
+  #svcPage.open,#devisPage.open,#rdvPage.open,#compPage.open{display:block}
+  /* Comparateur de statuts */
+  .cmp-filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:26px}
+  .cmp-filt{font-family:'Inter Tight';font-weight:600;font-size:14px;color:var(--txt2);cursor:pointer;padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--glass);transition:all .16s}
+  .cmp-filt:hover{color:#fff;border-color:var(--line-2)}
+  .cmp-filt.on{color:#fff;background:linear-gradient(135deg,rgba(109,134,255,.26),rgba(43,69,255,.22));border-color:rgba(109,134,255,.6)}
+  .cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+  .cmp-table{border-collapse:separate;border-spacing:0;width:100%;min-width:640px}
+  .cmp-table th,.cmp-table td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.5}
+  .cmp-table thead th{position:sticky;top:0;background:#0a0c18;z-index:2}
+  .cmp-table thead th.crit{background:transparent}
+  .cmp-table th.stat{font-family:'Inter Tight';font-weight:700;font-size:15px;color:#fff;border-bottom:1px solid var(--line-2)}
+  .cmp-table th.stat span{display:block;font-weight:500;font-size:12px;color:var(--peri);margin-top:3px}
+  .cmp-table td.crit,.cmp-table th.crit{font-weight:600;color:var(--txt);white-space:nowrap;background:rgba(255,255,255,.015)}
+  .cmp-table td{color:var(--txt2)}
+  .cmp-table tbody tr:hover td{background:rgba(109,134,255,.05)}
+  .cmp-table .col-hl{background:rgba(43,69,255,.08)}
+  .cmp-note{margin-top:18px;font-size:12.5px;color:var(--txt2);text-align:center}
+  .cmp-cta{margin-top:8px}
   /* Prise de rendez-vous */
   .rdv{max-width:1000px;margin:0 auto}
   .rdv-grid{display:grid;grid-template-columns:1.55fr .95fr;gap:22px;align-items:start}
@@ -810,8 +856,21 @@
   /* ===== Page Guide (article) ===== */
   .gd-wrap{max-width:760px}
   .gd-read{display:inline-block;margin-top:18px;font-size:12.5px;letter-spacing:.04em;color:var(--azur);border:1px solid var(--line-2);border-radius:999px;padding:6px 14px}
-  .gd-body{margin-top:52px}
-  .gd-sec{margin-top:38px}
+  .gd-share{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+  .gd-share .gs-lab{font-size:13px;font-weight:600;color:var(--txt2);margin-right:2px}
+  .gd-share a,.gd-share .gs-copy{display:inline-flex;align-items:center;gap:7px;color:var(--txt2);cursor:pointer;
+    padding:8px 12px;border-radius:10px;background:var(--glass);border:1px solid var(--line-2);font-family:'Inter Tight';font-size:13px;text-decoration:none;transition:color .16s,border-color .16s}
+  .gd-share a:hover,.gd-share .gs-copy:hover{color:#fff;border-color:rgba(150,168,255,.5)}
+  .gd-share .gs-copy.ok{color:#8ff0c0;border-color:rgba(56,224,166,.5)}
+  .gd-toc{margin-top:30px;border:1px solid var(--line-2);border-radius:16px;padding:20px 22px;background:rgba(255,255,255,.02)}
+  .gd-toc-t{font-family:'Inter Tight';font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--peri)}
+  .gd-toc ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:toc;display:grid;gap:2px}
+  .gd-toc li{counter-increment:toc}
+  .gd-toc button{width:100%;text-align:left;background:none;border:none;cursor:pointer;color:#cfd7ee;font-family:'Inter Tight';font-size:14.5px;line-height:1.5;padding:8px 6px;border-radius:8px;display:flex;gap:10px}
+  .gd-toc button::before{content:counter(toc,decimal-leading-zero);color:var(--peri);font-weight:600;flex:none}
+  .gd-toc button:hover{background:rgba(109,134,255,.1);color:#fff}
+  .gd-body{margin-top:36px}
+  .gd-sec{margin-top:38px;scroll-margin-top:80px}
   .gd-sec:first-child{margin-top:0}
   .gd-sec h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(20px,2.6vw,26px);letter-spacing:-.02em;margin-bottom:14px}
   .gd-sec p{color:#cfd7ee;font-size:16px;line-height:1.75;margin-bottom:14px}
@@ -892,6 +951,14 @@
   .ot-res .k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--peri);font-weight:600}
   .ot-res .v{font-family:'Inter Tight';font-weight:700;font-size:21px;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
   .ot-note{margin-top:16px;font-size:12px;color:#5a6488;text-align:center}
+  .ot-compbar{margin-top:16px;display:flex;align-items:center;gap:15px;padding:18px 20px;border-radius:18px;border:1px solid var(--line-2);
+    background:linear-gradient(135deg,rgba(43,69,255,.14),rgba(255,255,255,.02));text-decoration:none;transition:border-color .18s,transform .18s}
+  .ot-compbar:hover{border-color:rgba(109,134,255,.6);transform:translateY(-2px)}
+  .ot-compbar .ci{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:rgba(43,69,255,.16);border:1px solid var(--line-2);color:var(--peri)}
+  .ot-compbar .ct{flex:1;min-width:0}
+  .ot-compbar .ct b{display:block;font-family:'Inter Tight';font-weight:600;font-size:15.5px;color:#fff}
+  .ot-compbar .ct span{display:block;font-size:13px;color:var(--txt2);margin-top:2px}
+  .ot-compbar .ca{flex:none;color:var(--peri);font-size:20px}
   .ot-hint{margin-top:14px;font-size:12.5px;color:var(--txt2);line-height:1.5;max-width:560px}
   /* Tarifs / formules */
   .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--max);margin:0 auto;align-items:stretch}
@@ -1150,6 +1217,7 @@
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </div>
+      <button class="nav-search" type="button" aria-label="Rechercher un article" onclick="openSearch()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span class="ns-txt">Rechercher</span><kbd class="ns-kbd">⌘K</kbd></button>
       <a href="#rdv" class="btn btn-pri">Prendre rendez-vous</a>
       <button class="burger" type="button" aria-label="Ouvrir le menu" onclick="openNav()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
@@ -1357,7 +1425,7 @@
 
     <!-- OUTILS GRATUITS -->
     <section id="outils">
-      <div class="sh reveal"><span class="kick">Outils gratuits</span><h2>Des réponses <span class="ital">en un clic</span></h2><p>TVA, marge, TJM, seuil de rentabilité, coût d'un salarié, micro-entreprise, mensualité de prêt — estimez tout gratuitement, sans inscription.</p></div>
+      <div class="sh reveal"><span class="kick">Outils gratuits</span><h2>Des réponses <span class="ital">en un clic</span></h2><p>TVA, marge, TJM, seuil de rentabilité, coût d'un salarié, micro-entreprise, prêt, brut/net, dividendes ou salaire, coût d'une embauche — estimez tout gratuitement, sans inscription.</p></div>
       <div class="ot-wrap reveal">
         <div class="ot-card">
           <div class="ot-tabs" role="tablist" aria-label="Choisir un outil">
@@ -1368,6 +1436,9 @@
             <button class="ot-tab" data-tab="cout" type="button" role="tab" aria-selected="false">Coût salarié</button>
             <button class="ot-tab" data-tab="micro" type="button" role="tab" aria-selected="false">Micro-entreprise</button>
             <button class="ot-tab" data-tab="pret" type="button" role="tab" aria-selected="false">Mensualité de prêt</button>
+            <button class="ot-tab" data-tab="bn" type="button" role="tab" aria-selected="false">Brut → Net</button>
+            <button class="ot-tab" data-tab="ds" type="button" role="tab" aria-selected="false">Dividendes / salaire</button>
+            <button class="ot-tab" data-tab="rec" type="button" role="tab" aria-selected="false">Coût d'une embauche</button>
           </div>
           <div class="ot-panel on" data-panel="tva">
             <div class="ot-fields">
@@ -1451,8 +1522,52 @@
             </div>
             <p class="ot-hint">Hors assurance et frais de dossier. Le coût réel d'un crédit intègre ces éléments en plus des intérêts.</p>
           </div>
+          <div class="ot-panel" data-panel="bn">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="bnBrut">Salaire brut mensuel (€)</label><input id="bnBrut" type="number" inputmode="decimal" value="2500"></div>
+              <div class="ot-f"><label for="bnTaux">Cotisations salariales (%)</label><select id="bnTaux"><option value="22">22 % — non-cadre</option><option value="25">25 % — cadre</option></select></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">Net avant impôt / mois</div><div class="v" id="bnNet">—</div></div>
+              <div class="ot-res"><div class="k">Cotisations / mois</div><div class="v" id="bnCot">—</div></div>
+              <div class="ot-res"><div class="k">Net avant impôt / an</div><div class="v" id="bnAn">—</div></div>
+            </div>
+            <p class="ot-hint">Estimation avant prélèvement à la source. Le taux exact dépend de votre statut et de votre convention collective.</p>
+          </div>
+          <div class="ot-panel" data-panel="ds">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="dsMontant">Montant à arbitrer / an (€)</label><input id="dsMontant" type="number" inputmode="decimal" value="40000"></div>
+              <div class="ot-f"><label for="dsIS">Impôt sur les sociétés (%)</label><input id="dsIS" type="number" inputmode="decimal" value="25"></div>
+              <div class="ot-f"><label for="dsCharge">Charges sur salaire (%)</label><input id="dsCharge" type="number" inputmode="decimal" value="55"></div>
+              <div class="ot-f"><label for="dsPFU">Imposition des dividendes (%)</label><input id="dsPFU" type="number" inputmode="decimal" value="30"></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">Net via salaire</div><div class="v" id="dsSal">—</div></div>
+              <div class="ot-res"><div class="k">Net via dividendes</div><div class="v" id="dsDiv">—</div></div>
+              <div class="ot-res"><div class="k">Écart</div><div class="v" id="dsEcart">—</div></div>
+            </div>
+            <p class="ot-hint">Modèle simplifié, taux modifiables. Le salaire ouvre des droits sociaux (retraite, prévoyance) que les dividendes n'offrent pas : l'arbitrage optimal dépend de votre situation. <a href="#rdv" style="color:var(--peri)">Parlons-en</a>.</p>
+          </div>
+          <div class="ot-panel" data-panel="rec">
+            <div class="ot-fields">
+              <div class="ot-f"><label for="recBrut">Salaire brut mensuel (€)</label><input id="recBrut" type="number" inputmode="decimal" value="2500"></div>
+              <div class="ot-f"><label for="recCharges">Charges patronales (%)</label><input id="recCharges" type="number" inputmode="decimal" value="42"></div>
+              <div class="ot-f"><label for="recAnnexe">Frais annexes / an (€)</label><input id="recAnnexe" type="number" inputmode="decimal" value="1500"></div>
+            </div>
+            <div class="ot-out">
+              <div class="ot-res"><div class="k">Coût chargé / mois</div><div class="v" id="recMois">—</div></div>
+              <div class="ot-res"><div class="k">Coût total / an</div><div class="v" id="recAn">—</div></div>
+              <div class="ot-res"><div class="k">Coût horaire</div><div class="v" id="recHeure">—</div></div>
+            </div>
+            <p class="ot-hint">Frais annexes = mutuelle, tickets-restaurant, matériel, formation… Coût horaire calculé sur une base de 151,67 h / mois.</p>
+          </div>
           <p class="ot-note">Estimations indicatives à titre informatif — pour un chiffrage précis, <a href="#contact" style="color:var(--peri)">demandez votre devis</a>.</p>
         </div>
+        <a href="#comparateur" class="ot-compbar" aria-label="Ouvrir le comparateur de statuts juridiques">
+          <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H4v18h16v-5"/><path d="M14 3h6v6"/><path d="M20 3l-9 9"/></svg></span>
+          <span class="ct"><b>Comparateur de statuts juridiques</b><span>Micro, EI, EURL, SASU, SARL, SAS — trouvez la forme adaptée à votre projet</span></span>
+          <span class="ca" aria-hidden="true">→</span>
+        </a>
       </div>
     </section>
     <script>
@@ -1493,7 +1608,20 @@
         var total=isFinite(m)?m*n:NaN;var cout=isFinite(total)?total-p:NaN;
         $('prMens').textContent=eur(m);$('prCout').textContent=eur(cout);$('prTotal').textContent=eur(total);}
       ['prMontant','prTaux','prDuree'].forEach(function(id){$(id).addEventListener('input',pret);});
-      tva();marge();tjm();seuil();cout();micro();pret();
+      function bn(){var br=parseFloat($('bnBrut').value)||0;var tx=parseFloat($('bnTaux').value)||0;var cot=br*tx/100;var net=br-cot;
+        $('bnNet').textContent=eur(net);$('bnCot').textContent=eur(cot);$('bnAn').textContent=eur(net*12);}
+      ['bnBrut','bnTaux'].forEach(function(id){$(id).addEventListener('input',bn);});
+      function ds(){var mt=parseFloat($('dsMontant').value)||0;var is=parseFloat($('dsIS').value)||0;var ch=parseFloat($('dsCharge').value)||0;var pfu=parseFloat($('dsPFU').value)||0;
+        var sal=mt*(1-ch/100);var div=mt*(1-is/100)*(1-pfu/100);var ec=div-sal;
+        $('dsSal').textContent=eur(sal);$('dsDiv').textContent=eur(div);
+        if(!isFinite(ec)){$('dsEcart').textContent='—';}
+        else{var abs=eur(Math.abs(ec));$('dsEcart').textContent=ec>=0?'+'+abs+' (dividendes)':'+'+abs+' (salaire)';}}
+      ['dsMontant','dsIS','dsCharge','dsPFU'].forEach(function(id){$(id).addEventListener('input',ds);});
+      function rec(){var br=parseFloat($('recBrut').value)||0;var tx=parseFloat($('recCharges').value)||0;var an=parseFloat($('recAnnexe').value)||0;
+        var charge=br*(1+tx/100);var total=charge*12+an;var heure=charge/151.67;
+        $('recMois').textContent=eur(charge);$('recAn').textContent=eur(total);$('recHeure').textContent=eur(heure);}
+      ['recBrut','recCharges','recAnnexe'].forEach(function(id){$(id).addEventListener('input',rec);});
+      tva();marge();tjm();seuil();cout();micro();pret();bn();ds();rec();
     })();
     </script>
 
@@ -1694,6 +1822,7 @@
 <div class="overlay" id="ov" onclick="closeNav()"></div>
 <aside class="drawer" id="drawer" aria-hidden="true">
   <button class="dclose" aria-label="Fermer" onclick="closeNav()">✕</button>
+  <button type="button" class="drawer-search" onclick="closeNav();openSearch()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg> Rechercher un article</button>
   <a href="#services" onclick="closeNav()">Services</a>
   <a href="#methode" onclick="closeNav()">Méthode</a>
   <a href="#outils" onclick="closeNav()">Outils</a>
@@ -1870,6 +1999,35 @@
         <div class="sm-reassure"><span>✔ Sans engagement</span><span>✔ Premier RDV offert</span><span>✔ Réponse sous 24 h</span></div>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- Comparateur de statuts juridiques -->
+<div id="compPage" role="dialog" aria-modal="true" aria-label="Comparateur de statuts juridiques">
+  <div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash='#top'"><a href="#rdv" class="btn btn-pri" onclick="spGo(event,'#rdv')">Être conseillé</a></div>
+  <div class="sp-wrap">
+    <div class="sh"><span class="kick">Comparateur</span><h2>Quel <span class="ital">statut juridique</span> pour votre projet ?</h2><p>Comparez d'un coup d'œil les principales formes juridiques. Filtrez selon que vous entreprenez seul ou à plusieurs — puis parlons du choix le mieux adapté à votre situation.</p></div>
+    <div class="cmp-filters" role="tablist" aria-label="Filtrer les statuts">
+      <button type="button" class="cmp-filt on" data-view="all" role="tab" aria-selected="true">Tous les statuts</button>
+      <button type="button" class="cmp-filt" data-view="solo" role="tab" aria-selected="false">J'entreprends seul</button>
+      <button type="button" class="cmp-filt" data-view="multi" role="tab" aria-selected="false">Nous sommes plusieurs</button>
+    </div>
+    <div class="cmp-scroll"><table class="cmp-table"><thead id="cmpHead"></thead><tbody id="cmpBody"></tbody></table></div>
+    <p class="cmp-note">Informations générales à caractère structurel, à titre indicatif — elles ne constituent pas un conseil personnalisé. Le choix d'un statut engage votre fiscalité, votre protection sociale et votre responsabilité.</p>
+    <div class="sp-final cmp-cta"><h2>Un doute sur le bon statut&nbsp;?</h2><p>Le premier rendez-vous est offert. On analyse votre projet et on vous oriente vers la forme la plus avantageuse.</p><div class="cta-actions"><a href="#rdv" class="btn btn-pri" onclick="spGo(event,'#rdv')">Prendre rendez-vous <span aria-hidden="true">→</span></a><a href="#devis" class="btn btn-ghost" onclick="spGo(event,'#devis')">Demander un devis</a></div></div>
+  </div>
+</div>
+
+<!-- Recherche globale -->
+<div id="searchOverlay" role="dialog" aria-modal="true" aria-label="Rechercher un article" aria-hidden="true" onclick="closeSearch(event)">
+  <div class="srch-box" onclick="event.stopPropagation()">
+    <div class="srch-top">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="srchInput" placeholder="Rechercher parmi nos articles…" aria-label="Votre recherche" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="srchResults">
+      <button type="button" class="srch-close" aria-label="Fermer la recherche" onclick="closeSearch()"><kbd>Échap</kbd></button>
+    </div>
+    <div class="srch-results" id="srchResults" role="listbox"></div>
+    <div class="srch-foot"><span><kbd>↑</kbd><kbd>↓</kbd> naviguer</span><span><kbd>↵</kbd> ouvrir</span><span id="srchCount"></span></div>
   </div>
 </div>
 
@@ -2434,12 +2592,34 @@ function spServicePageHTML(s){
   var L=s.layout||'A', inner=(L==='B')?spLayoutB(s):(L==='C')?spLayoutC(s):spLayoutA(s);
   return spBar()+'<div class="sp-wrap'+(L==='A'?'':' wide')+'">'+inner+'</div>';
 }
+function spScrollTo(id){var el=document.getElementById(id); if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+function spCopyLink(btn,url){
+  var done=function(){var s=btn.querySelector('span'); if(s){var o=s.textContent;s.textContent='Lien copié ✓';btn.classList.add('ok');setTimeout(function(){s.textContent=o;btn.classList.remove('ok');},1800);}};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(done).catch(function(){window.prompt('Copiez le lien :',url);});}
+  else{window.prompt('Copiez le lien :',url);}
+}
+function spShareRow(g){
+  var u='https://aemconseil.eu/ressources/'+g.slug+'/';
+  var eu=encodeURIComponent(u),et=encodeURIComponent(g.title);
+  return '<div class="gd-share"><span class="gs-lab">Partager</span>'
+    +'<a href="https://www.linkedin.com/sharing/share-offsite/?url='+eu+'" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 002.48 2.5A2.5 2.5 0 007.5 6a2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3 0-2.95-1.8-2.95s-2.07 1.4-2.07 2.85V21H10z"/></svg></a>'
+    +'<a href="https://www.facebook.com/sharer/sharer.php?u='+eu+'" target="_blank" rel="noopener" aria-label="Partager sur Facebook"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.76-1.6 1.54V12h2.7l-.43 2.9h-2.27v7A10 10 0 0022 12z"/></svg></a>'
+    +'<a href="mailto:?subject='+et+'&body='+eu+'" aria-label="Partager par e-mail"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>'
+    +'<button type="button" class="gs-copy" onclick="spCopyLink(this,\''+u+'\')" aria-label="Copier le lien"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg><span>Copier le lien</span></button>'
+    +'</div>';
+}
 function spGuidePageHTML(g,secs){
-  var secs=(secs||[]).map(function(s){
+  var heads=[];
+  var secsArr=(secs||[]);
+  var secs=secsArr.map(function(s,i){
+    heads.push(s.h);
     var ps=(s.p||[]).map(function(x){return '<p>'+esc(x)+'</p>';}).join('');
     var li=s.list?'<ul class="gd-list">'+s.list.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>':'';
-    return '<div class="gd-sec"><h2>'+esc(s.h)+'</h2>'+ps+li+'</div>';
+    return '<div class="gd-sec" id="gsec-'+i+'"><h2>'+esc(s.h)+'</h2>'+ps+li+'</div>';
   }).join('');
+  var toc=heads.length>2?'<nav class="gd-toc" aria-label="Sommaire"><span class="gd-toc-t">Dans cet article</span><ol>'
+    +heads.map(function(h,i){return '<li><button type="button" onclick="spScrollTo(\'gsec-'+i+'\')">'+esc(h)+'</button></li>';}).join('')
+    +'</ol></nav>':'';
   var related=GUIDES.filter(function(x){return x.cat===g.cat&&x.slug!==g.slug;}).slice(0,3);
   var relBlock=related.length?'<div class="gd-related"><h2>Sur le même thème</h2><div class="rel-grid">'
     +related.map(function(x){return '<a class="bcard" href="#ressources/'+x.slug+'"><span class="bcat">'+esc(x.cat)+'</span><h3>'+esc(x.title)+'</h3><span class="bmeta">'+esc(x.read)+' de lecture · Lire l\'article →</span></a>';}).join('')
@@ -2448,7 +2628,10 @@ function spGuidePageHTML(g,secs){
     +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
     +'<div class="sp-wrap gd-wrap">'
       +'<div class="sp-hero" style="text-align:left;margin:0"><span class="sp-kick">'+esc(g.cat)+' · Guide</span><h1>'+esc(g.title)+'</h1><p>'+esc(g.lead)+'</p><span class="gd-read">'+esc(g.read)+' de lecture</span></div>'
+      +spShareRow(g)
+      +toc
       +'<article class="gd-body">'+secs+'</article>'
+      +spShareRow(g)
       +relBlock
       +'<div class="sp-final"><h2>Une question sur ce sujet&nbsp;?</h2><p>Le premier rendez-vous est offert. Parlons de votre situation, sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div></div>'
     +'</div>';
@@ -2538,8 +2721,18 @@ function spOpenRdv(){
   document.body.classList.add('page-open'); document.title='Prendre rendez-vous — AEM-CONSEIL';
   if(window.rdvInit)window.rdvInit();
 }
+function spCloseComp(){var cp=document.getElementById('compPage'); if(cp)cp.classList.remove('open');}
+function spOpenComp(){
+  spCloseSvc();
+  var cp=document.getElementById('compPage'); if(!cp)return;
+  cp.classList.add('open'); cp.scrollTop=0;
+  document.body.classList.add('page-open'); document.title='Comparateur de statuts juridiques — AEM-CONSEIL';
+  var url='https://aemconseil.eu/#comparateur';
+  seoApply('Comparateur de statuts juridiques — AEM-CONSEIL','Micro, EI, EURL, SASU, SARL, SAS : comparez responsabilité, régime social, imposition et comptabilité pour choisir la forme juridique adaptée à votre projet.',url,url);
+  if(window.compInit)window.compInit();
+}
 function spClose(){
-  spCloseSvc(); spCloseDevis(); spCloseRdv();
+  spCloseSvc(); spCloseDevis(); spCloseRdv(); spCloseComp();
   document.body.classList.remove('page-open'); document.title=SP_BASE_TITLE;
   seoReset();
 }
@@ -2547,6 +2740,7 @@ function spRoute(){
   var h=location.hash||'';
   if(h==='#devis'){ spOpenDevis(); return; }
   if(h==='#rdv'){ spOpenRdv(); return; }
+  if(h==='#comparateur'){ spOpenComp(); return; }
   var m=h.match(/^#(services|ressources|theme)\/([a-z0-9-]+)$/);
   if(m){ if(m[1]==='services'){spOpenService(m[2]);} else if(m[1]==='theme'){spOpenTheme(m[2]);} else {spOpenGuide(m[2]);} return; }
   spClose();
@@ -2634,6 +2828,89 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
       .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
       .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.querySelector('.rdv-grid').style.display='none';done.hidden=false;done.scrollIntoView({block:'center'});}else{throw new Error('refus');}})
       .catch(function(){setStatus('Une erreur est survenue. Appelez-nous au 06 65 90 83 25.','err');btn.innerHTML=original;btn.disabled=false;});
+  });
+})();
+
+/* ===== Comparateur de statuts juridiques ===== */
+(function(){
+  var head=document.getElementById('cmpHead'),bodyEl=document.getElementById('cmpBody');
+  if(!head||!bodyEl)return;
+  // Données structurelles (stables, non chiffrées de façon datée)
+  var STATUTS=[
+    {n:'Micro-entreprise',t:'Entreprise individuelle',solo:true,multi:false,
+     c:['Vous seul','Patrimoine personnel protégé (statut unique de l\'EI)','TNS — cotisations calculées sur le chiffre d\'affaires','IR (micro-BIC ou micro-BNC), option versement libératoire','Aucun','Ultra-simplifiée : livre des recettes','Se lancer simplement, tester une activité, faibles charges']},
+    {n:'Entreprise individuelle',t:'EI au réel',solo:true,multi:false,
+     c:['Vous seul','Patrimoine personnel séparé du patrimoine professionnel','TNS','IR par défaut, option IS possible','Aucun','Comptabilité selon le régime réel','Activité en nom propre au-delà des plafonds micro']},
+    {n:'EURL',t:'SARL à associé unique',solo:true,multi:false,
+     c:['1 associé','Limitée aux apports','TNS (gérant associé unique)','IR par défaut, option IS','1 € minimum','Complète : bilan et compte de résultat','Entreprendre seul en société, responsabilité limitée']},
+    {n:'SASU',t:'SAS à associé unique',solo:true,multi:false,
+     c:['1 associé','Limitée aux apports','Assimilé salarié (président)','IS par défaut, option IR (5 ans)','1 € minimum','Complète','Seul, protection sociale de salarié, entrée d\'investisseurs']},
+    {n:'SARL',t:'Société à plusieurs',solo:false,multi:true,
+     c:['2 à 100 associés','Limitée aux apports','Gérant majoritaire TNS / minoritaire ou égalitaire assimilé salarié','IS par défaut, option IR sous conditions','1 € minimum','Complète','Projet à plusieurs ou familial, cadre juridique sécurisant']},
+    {n:'SAS',t:'Société par actions',solo:false,multi:true,
+     c:['2 associés ou plus','Limitée aux apports','Président assimilé salarié','IS par défaut, option IR (5 ans)','1 € minimum','Complète','S\'associer avec souplesse statutaire, lever des fonds']}
+  ];
+  var CRIT=['Associés','Responsabilité','Régime social du dirigeant','Imposition des bénéfices','Capital minimum','Comptabilité','Idéal pour'];
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function render(view){
+    var cols=STATUTS.filter(function(s){return view==='all'||(view==='solo'&&s.solo)||(view==='multi'&&s.multi);});
+    head.innerHTML='<tr><th class="crit"></th>'+cols.map(function(s){return '<th class="stat">'+esc(s.n)+'<span>'+esc(s.t)+'</span></th>';}).join('')+'</tr>';
+    bodyEl.innerHTML=CRIT.map(function(cr,i){
+      return '<tr><td class="crit">'+esc(cr)+'</td>'+cols.map(function(s){return '<td>'+esc(s.c[i])+'</td>';}).join('')+'</tr>';
+    }).join('');
+  }
+  var filts=document.querySelectorAll('#compPage .cmp-filt');
+  filts.forEach(function(f){f.addEventListener('click',function(){
+    filts.forEach(function(x){x.classList.remove('on');x.setAttribute('aria-selected','false');});
+    f.classList.add('on');f.setAttribute('aria-selected','true');render(f.dataset.view);});});
+  window.compInit=function(){render('all');};
+  render('all');
+})();
+
+/* ===== Recherche globale ===== */
+(function(){
+  var ov=document.getElementById('searchOverlay'),input=document.getElementById('srchInput'),
+      results=document.getElementById('srchResults'),count=document.getElementById('srchCount');
+  if(!ov)return;
+  function norm(s){return (s||'').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  var IDX=(window.GUIDES||[]).map(function(g){return {g:g,h:norm(g.title+' '+(g.lead||'')+' '+g.cat)};});
+  var sel=-1,cur=[];
+  function search(q){
+    var qn=norm(q).trim();
+    if(!qn){cur=IDX.slice(0,8).map(function(x){return x.g;});renderList(cur,true);return;}
+    var toks=qn.split(/\s+/);
+    var scored=[];
+    for(var i=0;i<IDX.length;i++){var s=0;for(var j=0;j<toks.length;j++){if(IDX[i].h.indexOf(toks[j])!==-1)s++;}if(s===toks.length)scored.push({g:IDX[i].g,s:s});}
+    cur=scored.map(function(o){return o.g;}).slice(0,12);
+    renderList(cur,false);
+  }
+  function renderList(list,isDefault){
+    sel=list.length?0:-1;
+    if(!list.length){results.innerHTML='<div class="srch-empty">Aucun article ne correspond.<br><b>Essayez un autre mot-clé</b> (TVA, bilan, SASU, paie…).</div>';count.textContent='';return;}
+    results.innerHTML=list.map(function(g,i){
+      return '<a class="srch-item'+(i===0?' sel':'')+'" role="option" data-slug="'+esc(g.slug)+'" href="#ressources/'+esc(g.slug)+'"><span class="si-cat">'+esc(g.cat)+'</span><span class="si-t">'+esc(g.title)+'</span><span class="si-r">'+esc(g.read)+'</span></a>';
+    }).join('');
+    count.textContent=(isDefault?'':list.length+' résultat'+(list.length>1?'s':''));
+    [].forEach.call(results.querySelectorAll('.srch-item'),function(el,i){
+      el.addEventListener('mousemove',function(){setSel(i);});
+      el.addEventListener('click',function(e){e.preventDefault();go(list[i].slug);});
+    });
+  }
+  function setSel(i){var items=results.querySelectorAll('.srch-item');if(!items.length)return;sel=(i+items.length)%items.length;
+    [].forEach.call(items,function(el,k){el.classList.toggle('sel',k===sel);});items[sel].scrollIntoView({block:'nearest'});}
+  function go(slug){closeSearch();location.hash='#ressources/'+slug;}
+  window.openSearch=function(){ov.classList.add('open');ov.setAttribute('aria-hidden','false');input.value='';search('');setTimeout(function(){input.focus();},40);};
+  window.closeSearch=function(){ov.classList.remove('open');ov.setAttribute('aria-hidden','true');};
+  input.addEventListener('input',function(){search(input.value);});
+  input.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'){e.preventDefault();setSel(sel+1);}
+    else if(e.key==='ArrowUp'){e.preventDefault();setSel(sel-1);}
+    else if(e.key==='Enter'){e.preventDefault();if(cur[sel])go(cur[sel].slug);}
+  });
+  document.addEventListener('keydown',function(e){
+    if((e.metaKey||e.ctrlKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();ov.classList.contains('open')?closeSearch():openSearch();}
+    else if(e.key==='Escape'&&ov.classList.contains('open')){closeSearch();}
   });
 })();
 

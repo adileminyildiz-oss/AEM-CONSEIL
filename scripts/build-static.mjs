@@ -80,6 +80,7 @@ ${ld.map(o => '<script type="application/ld+json">' + JSON.stringify(o) + '</scr
 
 function footer() {
   return `<footer class="sf"><div class="fl"><a href="/">Accueil</a><a href="/ressources/">Tous les articles</a><a href="/#outils">Outils gratuits</a><a href="/#contact">Contact</a></div><div>© AEM-CONSEIL — Cabinet de conseil &amp; expertise comptable. Informations générales à titre indicatif, ne constituant pas un conseil personnalisé.</div></footer>
+<script>document.addEventListener('click',function(e){var b=e.target.closest('.gs-copy');if(!b)return;var u=b.getAttribute('data-url');var s=b.querySelector('span');var done=function(){if(s){var o=s.textContent;s.textContent='Lien copié \\u2713';b.classList.add('ok');setTimeout(function(){s.textContent=o;b.classList.remove('ok');},1800);}};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(done).catch(function(){window.prompt('Copiez le lien :',u);});}else{window.prompt('Copiez le lien :',u);}});</script>
 </body>
 </html>`;
 }
@@ -96,6 +97,15 @@ function card(g) {
 function cta(kind) {
   return `<div class="sp-final"><h2>Une question sur ${kind}&nbsp;?</h2><p>Le premier rendez-vous est offert. Parlons de votre situation, sans engagement.</p><div class="cta-actions"><a href="/#devis" class="btn btn-pri">Demander un devis ${ARR}</a><a href="/#contact" class="btn btn-ghost">Nous contacter</a></div></div>`;
 }
+function shareRow(url, title) {
+  const eu = encodeURIComponent(url), et = encodeURIComponent(title);
+  return `<div class="gd-share"><span class="gs-lab">Partager</span>` +
+    `<a href="https://www.linkedin.com/sharing/share-offsite/?url=${eu}" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 002.48 2.5A2.5 2.5 0 007.5 6a2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3 0-2.95-1.8-2.95s-2.07 1.4-2.07 2.85V21H10z"/></svg></a>` +
+    `<a href="https://www.facebook.com/sharer/sharer.php?u=${eu}" target="_blank" rel="noopener" aria-label="Partager sur Facebook"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.76-1.6 1.54V12h2.7l-.43 2.9h-2.27v7A10 10 0 0022 12z"/></svg></a>` +
+    `<a href="mailto:?subject=${et}&body=${eu}" aria-label="Partager par e-mail"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>` +
+    `<button type="button" class="gs-copy" data-url="${escA(url)}" aria-label="Copier le lien"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg><span>Copier le lien</span></button>` +
+    `</div>`;
+}
 
 /* --- Pages articles --- */
 let nArticles = 0;
@@ -103,11 +113,15 @@ for (const g of GUIDES) {
   const secs = SECTIONS[g.slug] || [];
   const theme = THEME_BY_NAME[g.cat];
   const url = `${SITE}/ressources/${g.slug}/`;
-  const body = secs.map(s => {
+  const heads = [];
+  const body = secs.map((s, i) => {
+    heads.push(s.h);
     const ps = (s.p || []).map(x => `<p>${esc(x)}</p>`).join('');
     const li = s.list ? `<ul class="gd-list">` + s.list.map(x => `<li>${CHK}<span>${esc(x)}</span></li>`).join('') + `</ul>` : '';
-    return `<div class="gd-sec"><h2>${esc(s.h)}</h2>${ps}${li}</div>`;
+    return `<div class="gd-sec" id="gsec-${i}"><h2>${esc(s.h)}</h2>${ps}${li}</div>`;
   }).join('');
+  const toc = heads.length > 2 ? `<nav class="gd-toc" aria-label="Sommaire"><span class="gd-toc-t">Dans cet article</span><ol>` +
+    heads.map((h, i) => `<li><a href="#gsec-${i}">${esc(h)}</a></li>`).join('') + `</ol></nav>` : '';
   const crumb = `<nav class="crumb" aria-label="Fil d'Ariane"><a href="/">Accueil</a> › ${theme ? `<a href="/theme/${theme.slug}/">${esc(g.cat)}</a> › ` : ''}<span>${esc(g.title)}</span></nav>`;
   const ld = [
     { "@context": "https://schema.org", "@type": "Article", "headline": g.title, "description": g.lead, "articleSection": g.cat, "inLanguage": "fr-FR", "url": url, "mainEntityOfPage": url, "author": ORG, "publisher": ORG, "isPartOf": { "@type": "Blog", "name": "Le blog AEM-CONSEIL", "url": SITE + "/ressources/" } },
@@ -120,7 +134,10 @@ for (const g of GUIDES) {
   const page = head({ title: `${g.title} — AEM-CONSEIL`, desc: g.lead, url, ogType: 'article', ld }) +
     `<main id="content" class="sp-wrap gd-wrap">` +
     `<div class="sp-hero">${crumb}<span class="sp-kick">${esc(g.cat)} · Guide</span><h1>${esc(g.title)}</h1><p>${esc(g.lead)}</p><span class="gd-read">${esc(g.read)} de lecture</span></div>` +
+    shareRow(url, g.title) +
+    toc +
     `<article class="gd-body">${body}</article>` +
+    shareRow(url, g.title) +
     relatedCards(g) +
     cta('ce sujet') +
     `</main>` + footer();
