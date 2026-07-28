@@ -3,7 +3,7 @@
    - Navigations (HTML)  → réseau d'abord, repli sur le cache (mode hors-ligne)
    - Ressources statiques → cache d'abord, mis à jour en arrière-plan
    Incrémente CACHE_VERSION à chaque mise en production pour purger l'ancien cache. */
-const CACHE_VERSION = 'aem-v122';
+const CACHE_VERSION = 'aem-v123';
 const CACHE_NAME = `aem-conseil-${CACHE_VERSION}`;
 
 /* Fichiers du « shell » applicatif, mis en cache à l'installation. */
@@ -12,6 +12,7 @@ const PRECACHE_URLS = [
   './index.html',
   './assets/articles.js',
   './assets/chat.js',
+  './assets/analytics.js',
   './manifest.webmanifest',
   './assets/logo-full.png',
   './assets/logo-full-dark.png',

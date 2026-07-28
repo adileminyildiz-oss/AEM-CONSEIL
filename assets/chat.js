@@ -504,6 +504,7 @@
           if (res.ok && (res.d.success === undefined || String(res.d.success) === 'true')) {
             wrap.remove();
             leadOpen = false;
+            try { if (window.aemTrack) window.aemTrack('generate_lead', { method: 'chat' }); } catch (e) {}
             addBot('Merci ' + esc(nom) + '&nbsp;! Votre demande est bien enregistrée. Notre équipe vous recontacte sous 24 h ouvrées. 😊',
               [['Voir nos services', anchor('services')], ['Nos outils gratuits', anchor('outils')]]);
           } else { throw new Error('refus'); }
@@ -563,6 +564,7 @@
     panel.classList.add('open');
     panel.setAttribute('aria-hidden', 'false');
     btn.setAttribute('aria-expanded', 'true');
+    try { if (window.aemTrack) window.aemTrack('chat_open'); } catch (e) {}
     greet();
     setTimeout(function () { ta && ta.focus(); }, 220);
   }

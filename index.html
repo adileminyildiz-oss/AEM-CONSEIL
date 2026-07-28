@@ -17,6 +17,7 @@
 
 <link rel="preconnect" href="https://formsubmit.co" crossorigin>
 <link rel="dns-prefetch" href="https://formsubmit.co">
+<script src="/assets/analytics.js" defer></script>
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
@@ -1579,7 +1580,8 @@
       var tabs=document.querySelectorAll('#outils .ot-tab');
       tabs.forEach(function(t){t.addEventListener('click',function(){
         tabs.forEach(function(x){x.classList.remove('on');x.setAttribute('aria-selected','false');});t.classList.add('on');t.setAttribute('aria-selected','true');
-        document.querySelectorAll('#outils .ot-panel').forEach(function(p){p.classList.toggle('on',p.dataset.panel===t.dataset.tab);});});});
+        document.querySelectorAll('#outils .ot-panel').forEach(function(p){p.classList.toggle('on',p.dataset.panel===t.dataset.tab);});
+        try{if(window.aemTrack)window.aemTrack('tool_use',{tool:t.dataset.tab});}catch(e){}});});
       var tvaMode='ht';
       document.querySelectorAll('#tvaMode button').forEach(function(b){b.addEventListener('click',function(){
         document.querySelectorAll('#tvaMode button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');tvaMode=b.dataset.m;tva();});});
@@ -2512,7 +2514,7 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
     if(!email){st.textContent='Entrez votre e-mail.';return;}
     btn.disabled=true;var o=btn.textContent;btn.textContent='…';
     fetch('https://formsubmit.co/ajax/aemconseil.sas@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:email,_subject:'Newsletter — nouvelle inscription'})})
-      .then(function(r){return r.json();}).then(function(){st.textContent='Merci ! Votre inscription est bien prise en compte.';nf.reset();})
+      .then(function(r){return r.json();}).then(function(){st.textContent='Merci ! Votre inscription est bien prise en compte.';nf.reset();T('newsletter_signup');})
       .catch(function(){st.textContent='Une erreur est survenue. Réessayez.';})
       .then(function(){btn.disabled=false;btn.textContent=o;});
   });}
@@ -2729,6 +2731,7 @@ function spOpenComp(){
   document.body.classList.add('page-open'); document.title='Comparateur de statuts juridiques — AEM-CONSEIL';
   var url='https://aemconseil.eu/#comparateur';
   seoApply('Comparateur de statuts juridiques — AEM-CONSEIL','Micro, EI, EURL, SASU, SARL, SAS : comparez responsabilité, régime social, imposition et comptabilité pour choisir la forme juridique adaptée à votre projet.',url,url);
+  if(typeof T==='function')T('tool_open',{tool:'comparateur'});
   if(window.compInit)window.compInit();
 }
 function spClose(){
@@ -2766,7 +2769,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
     var payload={nom:form.nom.value,email:form.email.value,telephone:form.telephone.value,objet:form.objet?form.objet.value:'',message:form.message.value,_subject:'Nouvelle demande — site AEM-CONSEIL',_template:'table',_captcha:'false'};
     fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
       .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
-      .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.reset();btn.innerHTML='Message envoyé ✓';setStatus('✓ Merci ! Votre message a bien été envoyé. Nous vous répondons sous 24 h.','ok');setTimeout(function(){btn.innerHTML=original;btn.disabled=false;},2600);}else{throw new Error('refus');}})
+      .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.reset();btn.innerHTML='Message envoyé ✓';T('generate_lead',{method:'contact'});setStatus('✓ Merci ! Votre message a bien été envoyé. Nous vous répondons sous 24 h.','ok');setTimeout(function(){btn.innerHTML=original;btn.disabled=false;},2600);}else{throw new Error('refus');}})
       .catch(function(){setStatus('Une erreur est survenue. Écrivez-nous à aemconseil.sas@gmail.com.','err');btn.innerHTML=original;btn.disabled=false;});
   });
 })();
@@ -2785,7 +2788,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
     var payload={nom:form.nom.value,telephone:form.telephone.value,_subject:'Demande de rappel — site AEM-CONSEIL',_template:'table',_captcha:'false'};
     fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
       .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
-      .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.reset();btn.innerHTML='Demande envoyée ✓';setStatus('✓ Merci ! Nous vous rappelons sous 24 h.','ok');setTimeout(function(){btn.innerHTML=original;btn.disabled=false;},2600);}else{throw new Error('refus');}})
+      .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.reset();btn.innerHTML='Demande envoyée ✓';T('generate_lead',{method:'rappel'});setStatus('✓ Merci ! Nous vous rappelons sous 24 h.','ok');setTimeout(function(){btn.innerHTML=original;btn.disabled=false;},2600);}else{throw new Error('refus');}})
       .catch(function(){setStatus('Une erreur est survenue. Appelez-nous au 06 65 90 83 25.','err');btn.innerHTML=original;btn.disabled=false;});
   });
 })();
@@ -2826,7 +2829,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
     var payload={nom:nom,email:email,telephone:tel,format:sel.format,date_souhaitee:fmtDate(sel.date)||'Non précisée',creneau:sel.slot||'Indifférent',message:form.message.value.trim(),_subject:'Demande de rendez-vous — site AEM-CONSEIL',_template:'table',_captcha:'false'};
     fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
       .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
-      .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.querySelector('.rdv-grid').style.display='none';done.hidden=false;done.scrollIntoView({block:'center'});}else{throw new Error('refus');}})
+      .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.querySelector('.rdv-grid').style.display='none';done.hidden=false;T('generate_lead',{method:'rdv'});done.scrollIntoView({block:'center'});}else{throw new Error('refus');}})
       .catch(function(){setStatus('Une erreur est survenue. Appelez-nous au 06 65 90 83 25.','err');btn.innerHTML=original;btn.disabled=false;});
   });
 })();
@@ -2899,8 +2902,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   }
   function setSel(i){var items=results.querySelectorAll('.srch-item');if(!items.length)return;sel=(i+items.length)%items.length;
     [].forEach.call(items,function(el,k){el.classList.toggle('sel',k===sel);});items[sel].scrollIntoView({block:'nearest'});}
-  function go(slug){closeSearch();location.hash='#ressources/'+slug;}
-  window.openSearch=function(){ov.classList.add('open');ov.setAttribute('aria-hidden','false');input.value='';search('');setTimeout(function(){input.focus();},40);};
+  function go(slug){T('search_select',{slug:slug});closeSearch();location.hash='#ressources/'+slug;}
+  window.openSearch=function(){ov.classList.add('open');ov.setAttribute('aria-hidden','false');input.value='';search('');T('search_open');setTimeout(function(){input.focus();},40);};
   window.closeSearch=function(){ov.classList.remove('open');ov.setAttribute('aria-hidden','true');};
   input.addEventListener('input',function(){search(input.value);});
   input.addEventListener('keydown',function(e){
@@ -2915,11 +2918,21 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
 })();
 
 /* ===== Cookies + analytics ===== */
-var _analyticsLoaded=false, ANALYTICS_ID='';
-function loadAnalytics(){if(_analyticsLoaded||!ANALYTICS_ID)return;_analyticsLoaded=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ANALYTICS_ID;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',ANALYTICS_ID,{anonymize_ip:true});}
-function setCookieConsent(c){try{localStorage.setItem('aem_cookie_consent',c);localStorage.setItem('aem_cookie_date',String(Date.now()));}catch(e){}var el=document.getElementById('cookieBanner');if(el)el.classList.remove('show');if(c==='accepted')loadAnalytics();}
+/* Le chargement des fournisseurs de mesure est géré par assets/analytics.js.
+   Ici on ne gère que le bandeau de consentement (pour GA4, qui dépose des cookies). */
+function T(name,props){try{if(window.aemTrack)window.aemTrack(name,props||{});}catch(e){}}
+function setCookieConsent(c){try{localStorage.setItem('aem_cookie_consent',c);localStorage.setItem('aem_cookie_date',String(Date.now()));}catch(e){}var el=document.getElementById('cookieBanner');if(el)el.classList.remove('show');if(window.aemAnalyticsConsent)window.aemAnalyticsConsent(c==='accepted');}
 function reopenCookies(){var el=document.getElementById('cookieBanner');if(el)el.classList.add('show');}
-(function(){var c=null;try{c=localStorage.getItem('aem_cookie_consent');}catch(e){}if(c==='accepted'){loadAnalytics();return;}if(c==='refused')return;var el=document.getElementById('cookieBanner');if(el)setTimeout(function(){el.classList.add('show');},1200);})();
+(function(){var c=null;try{c=localStorage.getItem('aem_cookie_consent');}catch(e){}if(c==='accepted'||c==='refused')return;var el=document.getElementById('cookieBanner');if(el)setTimeout(function(){el.classList.add('show');},1200);})();
+/* Suivi délégué : clics téléphone / e-mail et CTA principaux. */
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href]'); if(!a)return;
+  var h=a.getAttribute('href')||'';
+  if(h.indexOf('tel:')===0)T('contact_click',{type:'tel'});
+  else if(h.indexOf('mailto:')===0)T('contact_click',{type:'email'});
+  else if(h==='#devis')T('cta_click',{cta:'devis'});
+  else if(h==='#rdv')T('cta_click',{cta:'rdv'});
+});
 
 /* ===== Ouverture + arrivée en haut ===== */
 try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(e){}
@@ -3106,7 +3119,7 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
     if(form._honey && form._honey.value){ show(6); return; }
     fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
       .then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); })
-      .then(function(){ sending=false; show(6); })
+      .then(function(){ sending=false; show(6); T('generate_lead',{method:'devis'}); })
       .catch(function(){ sending=false; next.textContent='Envoyer ma demande'; refresh();
         status.className='sm-status err'; status.textContent='Une erreur est survenue. Réessayez ou écrivez-nous à aemconseil.sas@gmail.com.'; });
   }

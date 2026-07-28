@@ -71,6 +71,7 @@ function head({ title, desc, url, ogType, ld }) {
 <link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/article.css">
 ${ld.map(o => '<script type="application/ld+json">' + JSON.stringify(o) + '</script>').join('\n')}
+<script src="/assets/analytics.js" defer></script>
 <script src="/assets/chat.js" defer></script>
 </head>
 <body>
