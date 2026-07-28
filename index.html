@@ -131,21 +131,25 @@
   :root{
     --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
     --outremer:#2b45ff; --azur:#6d86ff; --peri:#a9b8ff;
+    --violet:#7b52ff; --iris:#9b7bff;
+    --accent-grad:linear-gradient(120deg,#2b45ff,#7b52ff);
     --line:rgba(150,168,255,.11); --line-2:rgba(150,168,255,.18);
     --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06);
     --txt:#f2f4ff; --txt2:#8b98bd; --pos:#3ee9a4; --read:#cfd7ee;
     --max:1120px;
-    --page-grad:radial-gradient(820px 600px at 50% -10%,rgba(43,69,255,.24),transparent 60%),radial-gradient(640px 520px at 88% 26%,rgba(43,69,255,.10),transparent 62%),radial-gradient(680px 560px at 8% 62%,rgba(43,69,255,.09),transparent 62%),linear-gradient(180deg,#05060e,#04050b);
+    --page-grad:radial-gradient(880px 620px at 50% -12%,rgba(43,69,255,.26),transparent 60%),radial-gradient(660px 540px at 86% 22%,rgba(123,82,255,.15),transparent 62%),radial-gradient(720px 580px at 6% 66%,rgba(64,110,255,.10),transparent 62%),linear-gradient(180deg,#06060f,#04050b);
     --nav-bg:rgba(16,21,42,.82); --panel-bg:linear-gradient(180deg,#0c1024,#080a1a); --dialog-grad:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.16),transparent 60%),linear-gradient(180deg,#05060e,#04050b); --bar-bg:rgba(4,5,11,.72);
   }
   /* ===== Thème clair ===== */
   :root[data-theme="light"]{
-    --noir:#eef1f9; --noir2:#ffffff; --noir3:#e7ebf6;
-    --outremer:#2138e0; --azur:#3a52e6; --peri:#3f52c8;
-    --line:rgba(26,44,120,.14); --line-2:rgba(26,44,120,.22);
-    --glass:rgba(26,44,120,.04); --glass-2:rgba(26,44,120,.07);
-    --txt:#141a30; --txt2:#525d78; --pos:#0a9b63; --read:#2a3350;
-    --page-grad:radial-gradient(820px 600px at 50% -10%,rgba(43,69,255,.10),transparent 60%),radial-gradient(640px 520px at 88% 26%,rgba(43,69,255,.06),transparent 62%),radial-gradient(680px 560px at 8% 62%,rgba(43,69,255,.05),transparent 62%),linear-gradient(180deg,#f7f9ff,#eaeef9);
+    --noir:#eef0fa; --noir2:#ffffff; --noir3:#e7eaf6;
+    --outremer:#2a3ce0; --azur:#3a52e6; --peri:#4a3fc8;
+    --violet:#6a3ce0; --iris:#7d54e8;
+    --accent-grad:linear-gradient(120deg,#2a3ce0,#6a3ce0);
+    --line:rgba(38,44,120,.13); --line-2:rgba(38,44,120,.20);
+    --glass:rgba(38,44,120,.038); --glass-2:rgba(38,44,120,.065);
+    --txt:#161a33; --txt2:#565f7c; --pos:#0a9b63; --read:#2c3352;
+    --page-grad:radial-gradient(880px 620px at 50% -12%,rgba(43,69,255,.11),transparent 60%),radial-gradient(660px 540px at 86% 22%,rgba(123,82,255,.09),transparent 62%),radial-gradient(720px 580px at 6% 66%,rgba(64,110,255,.06),transparent 62%),linear-gradient(180deg,#f6f8ff,#e9ecf8);
     --nav-bg:rgba(255,255,255,.82); --panel-bg:linear-gradient(180deg,#ffffff,#f3f6ff); --dialog-grad:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.08),transparent 60%),linear-gradient(180deg,#f7f9ff,#eef2fb); --bar-bg:rgba(247,249,255,.8);
   }
   :root[data-theme="light"] .hero-scroll,:root[data-theme="light"] .beam{opacity:.5}
@@ -191,7 +195,7 @@
   .btn:hover::after{left:135%}
   .btn:hover{transform:translateY(-2px)}
   .btn:active{transform:translateY(0) scale(.97)}
-  .btn-pri{padding:13px 24px;border-radius:12px;font-size:14.5px;color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff);box-shadow:0 10px 30px rgba(43,69,255,.42)}
+  .btn-pri{padding:13px 24px;border-radius:12px;font-size:14.5px;color:#05061a;background:linear-gradient(135deg,#c6ccff 0%,#3a4dff 55%,#6a45ff 100%);box-shadow:0 10px 30px rgba(60,60,220,.4)}
   .btn-pri:hover{filter:brightness(1.06)}
   .btn-ghost{padding:13px 24px;border-radius:12px;font-size:14.5px;color:var(--txt);background:var(--glass);border:1px solid var(--line-2)}
   .btn-ghost:hover{background:var(--glass-2)}
@@ -283,7 +287,7 @@
     -webkit-mask:radial-gradient(ellipse 56% 56% at 50% 30%,#000,transparent 72%);mask:radial-gradient(ellipse 56% 56% at 50% 30%,#000,transparent 72%)}
   .hero-bg .orb{position:absolute;border-radius:50%;filter:blur(64px);mix-blend-mode:screen}
   .hero-bg .o1{top:-2%;left:11%;width:34%;aspect-ratio:1;background:radial-gradient(circle,rgba(43,69,255,.5),transparent 62%);animation:heroFloat 22s ease-in-out infinite}
-  .hero-bg .o2{top:6%;right:9%;width:30%;aspect-ratio:1;background:radial-gradient(circle,rgba(109,134,255,.42),transparent 62%);animation:heroFloat 26s ease-in-out infinite reverse}
+  .hero-bg .o2{top:6%;right:9%;width:31%;aspect-ratio:1;background:radial-gradient(circle,rgba(123,82,255,.44),transparent 62%);animation:heroFloat 26s ease-in-out infinite reverse}
   @keyframes heroFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(3%,4%) scale(1.12)}}
   .hero h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(40px,7vw,84px);line-height:1.04;letter-spacing:-.035em;margin:24px auto 0;max-width:min(96vw,1180px)}
   .hero h1 .hl{display:block;white-space:nowrap}
@@ -295,10 +299,10 @@
   /* Mots accent : rendu chromé (métal poli) avec reflet qui balaie */
   .hero h1 .ital{
     background-image:linear-gradient(112deg,rgba(255,255,255,0) 36%,rgba(255,255,255,.92) 49%,rgba(255,255,255,0) 62%),
-      linear-gradient(180deg,#f6f8ff 0%,#c6d2f4 30%,#8ea6ff 47%,#5f78e6 53%,#b4c4f7 70%,#ffffff 100%);
+      linear-gradient(180deg,#f7f8ff 0%,#cdd0f6 28%,#9a92ff 46%,#6a5ae6 53%,#b9b4f7 70%,#ffffff 100%);
     background-size:250% 100%,100% 100%;background-position:200% 0,50% 0;background-repeat:no-repeat;
     -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 1px 5px rgba(109,134,255,.32));will-change:background-position}
+    filter:drop-shadow(0 1px 6px rgba(123,82,255,.34));will-change:background-position}
   body.loaded .hero h1 .ital{opacity:0;animation:heroInk .7s ease .82s forwards,heroChrome 6.5s cubic-bezier(.5,0,.2,1) 1.2s infinite}
   body.loaded .hero h1 .ital.i2{animation-delay:1.08s,1.55s}
   @keyframes heroInk{from{opacity:0}to{opacity:1}}
@@ -514,7 +518,7 @@
     background:linear-gradient(150deg,rgba(43,69,255,.16),rgba(43,69,255,.03));box-shadow:0 30px 80px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.1)}
   .cta-band .orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(50px)}
   .cta-band .orb1{top:-70px;left:6%;width:280px;height:280px;background:radial-gradient(circle,rgba(43,69,255,.4),transparent 70%);animation:ctaPulse 9s ease-in-out infinite}
-  .cta-band .orb2{bottom:-90px;right:8%;width:300px;height:300px;background:radial-gradient(circle,rgba(109,134,255,.32),transparent 70%);animation:ctaPulse 9s ease-in-out infinite 1.6s}
+  .cta-band .orb2{bottom:-90px;right:8%;width:300px;height:300px;background:radial-gradient(circle,rgba(123,82,255,.34),transparent 70%);animation:ctaPulse 9s ease-in-out infinite 1.6s}
   @keyframes ctaPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
   .cta-band>*{position:relative;z-index:1}
   .cta-band .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--azur);font-weight:600}

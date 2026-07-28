@@ -1,21 +1,21 @@
 /* Feuille de style des pages statiques (articles & thèmes) — cohérente avec l'app. */
 :root{
   --noir:#04050b;--noir2:#070912;--noir3:#0b0e1a;
-  --outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;
+  --outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;--violet:#7b52ff;--iris:#9b7bff;
   --line:rgba(150,168,255,.11);--line-2:rgba(150,168,255,.18);
   --glass:rgba(255,255,255,.035);--glass-2:rgba(255,255,255,.06);
   --txt:#f2f4ff;--txt2:#8b98bd;--pos:#3ee9a4;--read:#cfd7ee;--max:1120px;
-  --page-grad:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.14),transparent 60%),linear-gradient(180deg,#05060e,#04050b);
+  --page-grad:radial-gradient(820px 600px at 50% -8%,rgba(43,69,255,.16),transparent 60%),radial-gradient(560px 460px at 88% 20%,rgba(123,82,255,.10),transparent 62%),linear-gradient(180deg,#06060f,#04050b);
   --bar-bg:rgba(4,5,11,.72);
 }
 :root[data-theme="light"]{
-  --noir:#eef1f9;--noir2:#ffffff;--noir3:#e7ebf6;
-  --outremer:#2138e0;--azur:#3a52e6;--peri:#3f52c8;
-  --line:rgba(26,44,120,.14);--line-2:rgba(26,44,120,.22);
-  --glass:rgba(26,44,120,.04);--glass-2:rgba(26,44,120,.07);
-  --txt:#141a30;--txt2:#525d78;--pos:#0a9b63;--read:#2a3350;
-  --page-grad:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.08),transparent 60%),linear-gradient(180deg,#f7f9ff,#eef2fb);
-  --bar-bg:rgba(247,249,255,.8);
+  --noir:#eef0fa;--noir2:#ffffff;--noir3:#e7eaf6;
+  --outremer:#2a3ce0;--azur:#3a52e6;--peri:#4a3fc8;--violet:#6a3ce0;--iris:#7d54e8;
+  --line:rgba(38,44,120,.13);--line-2:rgba(38,44,120,.20);
+  --glass:rgba(38,44,120,.038);--glass-2:rgba(38,44,120,.065);
+  --txt:#161a33;--txt2:#565f7c;--pos:#0a9b63;--read:#2c3352;
+  --page-grad:radial-gradient(820px 600px at 50% -8%,rgba(43,69,255,.09),transparent 60%),radial-gradient(560px 460px at 88% 20%,rgba(123,82,255,.07),transparent 62%),linear-gradient(180deg,#f6f8ff,#e9ecf8);
+  --bar-bg:rgba(246,248,255,.8);
 }
 :root[data-theme="light"] .sp-bar img{filter:none}
 :root[data-theme="light"] .gd-share a:hover,:root[data-theme="light"] .gd-share .gs-copy:hover,
@@ -43,7 +43,7 @@ img{max-width:100%}
 .sp-bar img{height:28px}
 
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Inter Tight',sans-serif;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:filter .16s,background .16s}
-.btn-pri{padding:13px 24px;border-radius:12px;font-size:14.5px;color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff);box-shadow:0 10px 30px rgba(43,69,255,.42)}
+.btn-pri{padding:13px 24px;border-radius:12px;font-size:14.5px;color:#05061a;background:linear-gradient(135deg,#c6ccff 0%,#3a4dff 55%,#6a45ff 100%);box-shadow:0 10px 30px rgba(60,60,220,.4)}
 .btn-pri:hover{filter:brightness(1.06)}
 .btn-ghost{padding:13px 24px;border-radius:12px;font-size:14.5px;color:var(--txt);background:var(--glass);border:1px solid var(--line-2)}
 .btn-ghost:hover{background:var(--glass-2)}
