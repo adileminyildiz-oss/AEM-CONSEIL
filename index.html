@@ -596,6 +596,14 @@
   /* ===== Reveal ===== */
   .reveal{opacity:0;transform:translateY(22px);filter:blur(6px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),filter .8s ease}
   .reveal.in{opacity:1;transform:none;filter:none}
+  /* Apparition en cascade (stagger) des grilles de cartes */
+  .stagger>*{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+  .stagger.in>*{opacity:1;transform:none}
+  .stagger.in>*:nth-child(1){transition-delay:.03s}.stagger.in>*:nth-child(2){transition-delay:.09s}
+  .stagger.in>*:nth-child(3){transition-delay:.15s}.stagger.in>*:nth-child(4){transition-delay:.21s}
+  .stagger.in>*:nth-child(5){transition-delay:.27s}.stagger.in>*:nth-child(6){transition-delay:.33s}
+  .stagger.in>*:nth-child(n+7){transition-delay:.38s}
+  @media(prefers-reduced-motion:reduce){.stagger>*{opacity:1!important;transform:none!important}}
   /* Bascule de thème : fondu doux (activé le temps du switch) */
   html.theming, html.theming *{transition:background-color .4s ease,border-color .35s ease,color .32s ease,fill .32s ease,box-shadow .35s ease !important}
 
@@ -3144,10 +3152,16 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
 /* ===== Reveal + compteurs + nav scrollspy + toTop ===== */
 (function(){
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});}
+  // Grilles de cartes → apparition en cascade (remplace le reveal en bloc)
+  ['#svc-grid','.blog-grid','.kit-grid','.alist','.onb-steps'].forEach(function(sel){
+    document.querySelectorAll(sel).forEach(function(g){g.classList.add('stagger');g.classList.remove('reveal');});
+  });
+  if(reduce){document.querySelectorAll('.reveal,.stagger').forEach(function(el){el.classList.add('in');});}
   else{
     var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
     document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+    var sio=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');sio.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -5% 0px'});
+    document.querySelectorAll('.stagger').forEach(function(el){sio.observe(el);});
   }
   var countIO=new IntersectionObserver(function(en){en.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;countIO.unobserve(el);var to=parseInt(el.dataset.to,10)||0,suf=el.dataset.suffix||'',dur=1400,t0=performance.now();var tick=function(now){var p=Math.min(1,(now-t0)/dur),ea=1-Math.pow(1-p,3);el.textContent=Math.round(to*ea)+suf;if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);});},{threshold:.6});
   document.querySelectorAll('.aem-count').forEach(function(el){countIO.observe(el);});
