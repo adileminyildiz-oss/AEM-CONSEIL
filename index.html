@@ -155,6 +155,9 @@
   /* Thème clair : cartes blanc cassé + ombres douces (profondeur, sans blanc éblouissant) */
   :root[data-theme="light"] :is(.svc,.bcard,.kit-card,.faq,.meth-card,.ot-card,.onb-step,.plan,.tile,.eng,.sp-stepcard,.theme-card,.arev,.faq-help,.rdv-card){background:var(--noir2);box-shadow:0 1px 1px rgba(16,20,50,.04),0 4px 10px rgba(16,20,50,.05),0 16px 34px rgba(16,20,50,.08);border-color:rgba(18,22,54,.08)}
   :root[data-theme="light"] :is(.svc,.bcard,.kit-card,.meth-card,.onb-step,.plan,.tile,.eng,.theme-card,.faq-help):hover{box-shadow:0 2px 4px rgba(16,20,50,.06),0 8px 18px rgba(16,20,50,.08),0 24px 50px rgba(16,20,50,.13)}
+  /* Mode sombre : profondeur & liseré premium sur les cartes */
+  :root[data-theme="dark"] :is(.svc,.bcard,.kit-card,.meth-card,.onb-step,.plan,.tile,.eng,.theme-card,.arev,.faq-help,.rdv-card,.faq){box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 14px 34px rgba(0,0,0,.26)}
+  :root[data-theme="dark"] :is(.svc,.bcard,.kit-card,.meth-card,.onb-step,.plan,.tile,.eng,.theme-card,.faq-help):hover{box-shadow:inset 0 1px 0 rgba(170,150,255,.16),0 20px 44px rgba(28,18,72,.42)}
   :root[data-theme="light"] .hero-scroll,:root[data-theme="light"] .beam{opacity:.5}
   /* Textes forts (hover/actifs) : blanc en sombre, encre foncée en clair via token */
   :root[data-theme="light"] :is(.nav-search,.sm-btn-ghost,.cmp-filt,.cmp-chip,.kit-x,.srch-close):hover,
@@ -279,7 +282,7 @@
   .sh{max-width:660px;margin:0 auto clamp(40px,5vw,56px);text-align:center}
   .sh h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(30px,4.4vw,48px);letter-spacing:-.03em;margin-top:14px;text-wrap:balance}
   .sh h2 .ital{color:var(--peri)}
-  .sh p{margin-top:16px;font-size:16px;color:var(--txt2)}
+  .sh p{margin-top:16px;font-size:16.5px;line-height:1.62;color:var(--txt2);max-width:54ch;margin-left:auto;margin-right:auto}
 
   /* ===== Hero ===== */
   .hero{position:relative;text-align:center;padding-top:clamp(48px,7vw,92px);padding-bottom:12px}
@@ -591,8 +594,10 @@
   @media(max-width:560px){.cookie-banner{left:12px;right:12px;width:auto;bottom:12px}}
 
   /* ===== Reveal ===== */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-  .reveal.in{opacity:1;transform:none}
+  .reveal{opacity:0;transform:translateY(22px);filter:blur(6px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),filter .8s ease}
+  .reveal.in{opacity:1;transform:none;filter:none}
+  /* Bascule de thème : fondu doux (activé le temps du switch) */
+  html.theming, html.theming *{transition:background-color .4s ease,border-color .35s ease,color .32s ease,fill .32s ease,box-shadow .35s ease !important}
 
   /* ===== Responsive ===== */
   @media(max-width:960px){
@@ -3110,8 +3115,11 @@ function aemThemeAssets(){
   var mc=document.querySelector('meta[name="theme-color"]'); if(mc)mc.setAttribute('content',dark?'#04050b':'#eef1f9');
 }
 function toggleTheme(){
-  var next=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';
-  document.documentElement.setAttribute('data-theme',next);
+  var el=document.documentElement;
+  var next=el.getAttribute('data-theme')==='light'?'dark':'light';
+  var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!rm){el.classList.add('theming');setTimeout(function(){el.classList.remove('theming');},480);}
+  el.setAttribute('data-theme',next);
   try{localStorage.setItem('aem_theme',next);}catch(e){}
   aemThemeAssets(); T('theme_toggle',{theme:next});
 }

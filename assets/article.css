@@ -18,6 +18,8 @@
   --bar-bg:rgba(233,234,246,.85);
 }
 :root[data-theme="light"] :is(.bcard,.gd-toc){background:var(--noir2);box-shadow:0 1px 1px rgba(16,20,50,.04),0 4px 10px rgba(16,20,50,.05),0 16px 34px rgba(16,20,50,.08);border-color:rgba(18,22,54,.08)}
+:root[data-theme="dark"] .bcard{box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 14px 34px rgba(0,0,0,.26)}
+html.theming,html.theming *{transition:background-color .4s ease,border-color .35s ease,color .32s ease,fill .32s ease,box-shadow .35s ease !important}
 :root[data-theme="light"] .sp-bar img{filter:none}
 :root[data-theme="light"] .gd-share a:hover,:root[data-theme="light"] .gd-share .gs-copy:hover,
 :root[data-theme="light"] .sp-bar .sp-back:hover{color:var(--outremer)}
