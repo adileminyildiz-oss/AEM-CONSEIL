@@ -129,27 +129,27 @@
 
 <style>
   :root{
-    --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
-    --outremer:#2b45ff; --azur:#6d86ff; --peri:#a9b8ff;
-    --violet:#7b52ff; --iris:#9b7bff;
-    --accent-grad:linear-gradient(120deg,#2b45ff,#7b52ff);
-    --line:rgba(150,168,255,.11); --line-2:rgba(150,168,255,.18);
+    --noir:#05040d; --noir2:#0a0816; --noir3:#0f0c20;
+    --outremer:#3a3dff; --azur:#7a72ff; --peri:#b6a4ff;
+    --violet:#7c3aff; --iris:#a173ff;
+    --accent-grad:linear-gradient(120deg,#3a3dff,#7c3aff);
+    --line:rgba(160,140,255,.12); --line-2:rgba(160,140,255,.2);
     --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06);
-    --txt:#f2f4ff; --txt2:#8b98bd; --pos:#3ee9a4; --read:#cfd7ee;
+    --txt:#f2f0ff; --txt2:#948fc0; --pos:#3ee9a4; --read:#d0ccf0;
     --max:1120px;
-    --page-grad:radial-gradient(880px 620px at 50% -12%,rgba(43,69,255,.26),transparent 60%),radial-gradient(660px 540px at 86% 22%,rgba(123,82,255,.15),transparent 62%),radial-gradient(720px 580px at 6% 66%,rgba(64,110,255,.10),transparent 62%),linear-gradient(180deg,#06060f,#04050b);
+    --page-grad:radial-gradient(880px 620px at 50% -12%,rgba(58,61,255,.26),transparent 60%),radial-gradient(700px 560px at 86% 20%,rgba(124,58,255,.24),transparent 62%),radial-gradient(720px 580px at 6% 66%,rgba(96,72,255,.16),transparent 62%),linear-gradient(180deg,#08061a,#05040d);
     --nav-bg:rgba(16,21,42,.82); --panel-bg:linear-gradient(180deg,#0c1024,#080a1a); --dialog-grad:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.16),transparent 60%),linear-gradient(180deg,#05060e,#04050b); --bar-bg:rgba(4,5,11,.72);
   }
   /* ===== Thème clair ===== */
   :root[data-theme="light"]{
-    --noir:#eef0fa; --noir2:#ffffff; --noir3:#e7eaf6;
-    --outremer:#2a3ce0; --azur:#3a52e6; --peri:#4a3fc8;
-    --violet:#6a3ce0; --iris:#7d54e8;
-    --accent-grad:linear-gradient(120deg,#2a3ce0,#6a3ce0);
-    --line:rgba(38,44,120,.13); --line-2:rgba(38,44,120,.20);
-    --glass:rgba(38,44,120,.038); --glass-2:rgba(38,44,120,.065);
-    --txt:#161a33; --txt2:#565f7c; --pos:#0a9b63; --read:#2c3352;
-    --page-grad:radial-gradient(880px 620px at 50% -12%,rgba(43,69,255,.11),transparent 60%),radial-gradient(660px 540px at 86% 22%,rgba(123,82,255,.09),transparent 62%),radial-gradient(720px 580px at 6% 66%,rgba(64,110,255,.06),transparent 62%),linear-gradient(180deg,#f6f8ff,#e9ecf8);
+    --noir:#eae7f8; --noir2:#ffffff; --noir3:#e2ddf4;
+    --outremer:#3a2ce0; --azur:#5a3fe6; --peri:#6a3cd8;
+    --violet:#7a2ce0; --iris:#8f4fe8;
+    --accent-grad:linear-gradient(120deg,#3a2ce0,#7a2ce0);
+    --line:rgba(90,50,180,.15); --line-2:rgba(90,50,180,.24);
+    --glass:rgba(90,50,180,.045); --glass-2:rgba(90,50,180,.08);
+    --txt:#1a1636; --txt2:#5f5880; --pos:#0a9b63; --read:#2f2c52;
+    --page-grad:radial-gradient(880px 620px at 50% -12%,rgba(58,44,224,.14),transparent 60%),radial-gradient(700px 560px at 86% 20%,rgba(124,44,224,.16),transparent 62%),radial-gradient(720px 580px at 6% 66%,rgba(96,60,220,.10),transparent 62%),linear-gradient(180deg,#f2eefc,#e6e0f6);
     --nav-bg:rgba(255,255,255,.82); --panel-bg:linear-gradient(180deg,#ffffff,#f3f6ff); --dialog-grad:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.08),transparent 60%),linear-gradient(180deg,#f7f9ff,#eef2fb); --bar-bg:rgba(247,249,255,.8);
   }
   :root[data-theme="light"] .hero-scroll,:root[data-theme="light"] .beam{opacity:.5}
@@ -298,11 +298,11 @@
   @keyframes heroFocus{0%{opacity:0;filter:blur(15px)}55%{opacity:1}100%{opacity:1;filter:blur(0)}}
   /* Mots accent : rendu chromé (métal poli) avec reflet qui balaie */
   .hero h1 .ital{
-    background-image:linear-gradient(112deg,rgba(255,255,255,0) 36%,rgba(255,255,255,.92) 49%,rgba(255,255,255,0) 62%),
-      linear-gradient(180deg,#f7f8ff 0%,#cdd0f6 28%,#9a92ff 46%,#6a5ae6 53%,#b9b4f7 70%,#ffffff 100%);
+    background-image:linear-gradient(112deg,rgba(255,255,255,0) 36%,rgba(230,220,255,.9) 49%,rgba(255,255,255,0) 62%),
+      linear-gradient(180deg,#d9ccff 0%,#a888ff 26%,#8a5cff 45%,#6a2ce6 53%,#9b6cff 70%,#c7b0ff 100%);
     background-size:250% 100%,100% 100%;background-position:200% 0,50% 0;background-repeat:no-repeat;
     -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 1px 6px rgba(123,82,255,.34));will-change:background-position}
+    filter:drop-shadow(0 1px 7px rgba(124,58,255,.42));will-change:background-position}
   body.loaded .hero h1 .ital{opacity:0;animation:heroInk .7s ease .82s forwards,heroChrome 6.5s cubic-bezier(.5,0,.2,1) 1.2s infinite}
   body.loaded .hero h1 .ital.i2{animation-delay:1.08s,1.55s}
   @keyframes heroInk{from{opacity:0}to{opacity:1}}
@@ -564,7 +564,7 @@
   .modal .m-legal p{margin:0 0 4px;font-size:14px;line-height:1.6;color:var(--txt2)}
 
   /* ===== Retour haut ===== */
-  #toTop{position:fixed;right:27px;bottom:92px;z-index:90;display:grid;place-items:center;width:46px;height:46px;border-radius:13px;
+  #toTop{position:fixed;right:27px;bottom:164px;z-index:90;display:grid;place-items:center;width:46px;height:46px;border-radius:13px;
     background:rgba(11,14,26,.7);border:1px solid var(--line-2);color:var(--peri);cursor:pointer;backdrop-filter:blur(16px);
     opacity:0;visibility:hidden;transform:translateY(10px);transition:.3s}
   #toTop.show{opacity:1;visibility:visible;transform:none}
@@ -1089,7 +1089,22 @@
   .skip-link{position:fixed;top:10px;left:10px;z-index:200;background:var(--outremer);color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;transform:translateY(-140%);transition:transform .18s}
   .skip-link:focus{transform:none;outline:2px solid #fff;outline-offset:2px}
   .to-top:hover{border-color:var(--azur)}
-  @media(max-width:600px){.to-top{right:14px;bottom:14px}}
+  @media(max-width:600px){.to-top{right:14px}}
+  /* Bouton flottant : prendre rendez-vous */
+  .rdv-fab{position:fixed;right:20px;bottom:92px;z-index:95;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;
+    color:#fff;background:linear-gradient(135deg,#3a4dff 0%,#6a3cff 60%,#9b4dff 100%);border:1px solid rgba(180,160,255,.5);
+    box-shadow:0 12px 34px rgba(80,50,220,.5),inset 0 1px 0 rgba(255,255,255,.28);text-decoration:none;
+    transition:transform .2s ease,box-shadow .2s ease}
+  .rdv-fab::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(155,120,255,.4);opacity:.7;animation:fabPulse 2.8s ease-in-out infinite}
+  @keyframes fabPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.12);opacity:0}}
+  .rdv-fab:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 16px 42px rgba(90,55,230,.6)}
+  .rdv-fab svg{width:27px;height:27px;position:relative;z-index:1}
+  .rdv-fab-tip{position:absolute;right:72px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;
+    background:var(--noir2);color:var(--txt);border:1px solid var(--line-2);border-radius:10px;padding:8px 13px;font-family:'Inter Tight';font-size:13px;font-weight:600;
+    box-shadow:0 10px 26px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+  .rdv-fab:hover .rdv-fab-tip,.rdv-fab:focus-visible .rdv-fab-tip{opacity:1;transform:translateY(-50%) translateX(0)}
+  @media(prefers-reduced-motion:reduce){.rdv-fab::after{animation:none}.rdv-fab,.rdv-fab-tip{transition:none}}
+  @media(max-width:600px){.rdv-fab{width:54px;height:54px}.rdv-fab svg{width:24px;height:24px}.rdv-fab-tip{display:none}}
   /* Page thème */
   .th-wrap{max-width:var(--max)}
   .th-intro{font-size:15.5px;color:var(--txt2);line-height:1.75;margin:0 0 8px;max-width:720px}
@@ -1283,7 +1298,6 @@
       </div>
       <button class="nav-search" type="button" aria-label="Rechercher un article" onclick="openSearch()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span class="ns-txt">Rechercher</span><kbd class="ns-kbd">⌘K</kbd></button>
       <button class="theme-toggle" type="button" aria-label="Basculer le thème clair / sombre" onclick="toggleTheme()"><svg class="ic-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><svg class="ic-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-      <a href="#rdv" class="btn btn-pri">Prendre rendez-vous</a>
       <button class="burger" type="button" aria-label="Ouvrir le menu" onclick="openNav()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </nav>
@@ -1929,6 +1943,12 @@
   <a href="#contact" onclick="closeNav()">Contact</a>
   <a href="#rdv" class="btn btn-pri" onclick="closeNav()">Prendre rendez-vous</a>
 </aside>
+
+<!-- Bouton flottant : prendre rendez-vous -->
+<a href="#rdv" class="rdv-fab" aria-label="Prendre rendez-vous" onclick="T('cta_click',{cta:'rdv-fab'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="17" rx="3"/><path d="M8 2.5v4M16 2.5v4M3 9.5h18"/><path d="M9 14.5l2 2 4-4"/></svg>
+  <span class="rdv-fab-tip">Prendre rendez-vous</span>
+</a>
 
 <!-- Retour en haut -->
 <button type="button" class="to-top" id="toTop" aria-label="Revenir en haut de la page"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
