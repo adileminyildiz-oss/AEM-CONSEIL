@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Identification de votre société — AEM-CONSEIL</title>
+<meta name="theme-color" content="#04050b">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/article.css">
+<style>
+  .sp-bar img{height:44px}
+  @media(max-width:560px){.sp-bar img{height:36px}}
+  .siren-steps{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px;font-family:'Inter Tight',sans-serif;font-size:12.5px;color:var(--txt2)}
+  .siren-steps b{display:inline-flex;align-items:center;gap:7px;color:var(--txt)}
+  .siren-steps .dot{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:linear-gradient(135deg,var(--outremer),#7c3aff);color:#fff}
+  .siren-steps .sep{width:22px;height:1px;background:var(--line-2)}
+  .siren-card{border:1px solid var(--line-2);border-radius:20px;padding:clamp(20px,4vw,28px);background:var(--glass);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 14px 34px rgba(0,0,0,.18)}
+  .siren-row{display:flex;gap:10px;align-items:flex-end}
+  .siren-row>div{flex:1}
+  .siren-card label{display:block;font-size:12.5px;font-weight:600;color:var(--txt2);margin-bottom:6px;font-family:'Inter Tight',sans-serif}
+  .siren-card input{width:100%;font-size:15px;color:var(--txt);background:var(--glass-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 14px;outline:none;font-family:'Inter Tight',sans-serif;transition:border-color .16s}
+  .siren-card input:focus{border-color:var(--azur)}
+  .siren-row .btn-pri{flex:none}
+  .siren-status{min-height:18px;font-size:13px;margin-top:13px;font-family:'Inter Tight',sans-serif}
+  .siren-status[data-state=err]{color:#ff9c9c}
+  .siren-status[data-state=ok]{color:var(--pos)}
+  .siren-status[data-state=loading]{color:var(--peri)}
+  .siren-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px 16px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+  .siren-grid .full{grid-column:1/-1}
+  .siren-next:not([hidden]){display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:22px;
+    border:1px solid rgba(140,120,255,.42);border-radius:18px;padding:20px 22px;background:linear-gradient(135deg,rgba(43,69,255,.15),rgba(124,58,255,.13))}
+  .siren-next b{display:block;font-family:'Inter Tight',sans-serif;font-size:16px;color:var(--txt)}
+  .siren-next span{display:block;font-size:13.5px;color:var(--txt2);margin-top:3px}
+  .siren-next .btn-pri{flex:none}
+  .siren-note{font-size:12.5px;color:var(--txt2);line-height:1.6;margin-top:18px}
+  .siren-note code{background:var(--glass-2);border:1px solid var(--line);padding:1px 6px;border-radius:5px;font-size:11.5px}
+  @media(max-width:560px){.siren-grid{grid-template-columns:1fr}.siren-row{flex-direction:column;align-items:stretch}.siren-row .btn-pri{justify-content:center}}
+</style>
+</head>
+<body>
+<div class="sp-bar">
+  <div class="sp-brand"><a class="sp-back" href="/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</a></div>
+  <a href="/"><img src="/assets/logo-full.png" alt="AEM-CONSEIL"></a>
+  <a href="/#devis" class="btn btn-pri">Demander un devis</a>
+</div>
+
+<main id="content" class="sp-wrap" style="max-width:700px">
+  <div class="sp-hero">
+    <span class="sp-kick">Facturation</span>
+    <h1>Identifions votre <span class="ital">société</span></h1>
+    <p>Avant de créer vos factures et devis, renseignez votre numéro <b>SIREN</b> (9 chiffres) ou <b>SIRET</b> (14 chiffres) : les informations légales de votre entreprise sont récupérées automatiquement depuis les registres officiels (INSEE&nbsp;+&nbsp;INPI). Vérifiez-les, puis accédez à votre espace de facturation.</p>
+    <div class="siren-steps">
+      <b><span class="dot">1</span> Identification</b>
+      <span class="sep"></span>
+      <span><span class="dot" style="background:var(--glass-2);color:var(--txt2)">2</span> Espace facturation</span>
+    </div>
+  </div>
+
+  <div class="siren-card" style="margin-top:30px">
+    <div class="siren-row">
+      <div>
+        <label for="siren">Numéro SIREN / SIRET</label>
+        <input id="siren" inputmode="numeric" autocomplete="off" placeholder="ex. 552 081 317">
+      </div>
+      <button class="btn btn-pri" id="siren-go" type="button">Rechercher</button>
+    </div>
+    <div class="siren-status" id="siren-status" role="status" aria-live="polite"></div>
+
+    <div class="siren-grid">
+      <div class="full"><label for="f-raison">Raison sociale</label><input id="f-raison"></div>
+      <div><label for="f-siret">SIRET (siège)</label><input id="f-siret"></div>
+      <div><label for="f-tva">N° TVA intracommunautaire</label><input id="f-tva"></div>
+      <div class="full"><label for="f-adresse">Adresse</label><input id="f-adresse"></div>
+      <div><label for="f-cp">Code postal</label><input id="f-cp"></div>
+      <div><label for="f-ville">Ville</label><input id="f-ville"></div>
+      <div><label for="f-forme">Forme juridique</label><input id="f-forme"></div>
+      <div><label for="f-ape">Code APE / NAF</label><input id="f-ape"></div>
+    </div>
+  </div>
+
+  <div class="siren-next" id="siren-next" hidden>
+    <div>
+      <b>Société identifiée.</b>
+      <span>Vous allez être redirigé vers votre espace de facturation… <a href="#" id="siren-now" style="color:var(--peri);font-weight:600">y accéder maintenant</a></span>
+    </div>
+    <a class="btn btn-pri" id="siren-next-link" href="https://yada.aemconseil.eu/#facturation" target="_self" rel="noopener">Accéder à l'espace facturation <span aria-hidden="true">→</span></a>
+  </div>
+
+  <p class="siren-note">Vos informations restent modifiables : complétez ou corrigez-les si besoin avant de continuer. Source&nbsp;: <code>recherche-entreprises.api.gouv.fr</code> (registre officiel, gratuit).</p>
+</main>
+
+<script src="/components/siren-autofill/siren-autofill.js"></script>
+<script>
+  (function () {
+    var FACT = 'https://yada.aemconseil.eu/#facturation';
+    var redirectTimer = null;
+
+    function factUrl(siren) {
+      return siren ? FACT + '?siren=' + encodeURIComponent(siren) : FACT;
+    }
+
+    SirenAutofill.bind({
+      input: '#siren', button: '#siren-go', status: '#siren-status',
+      fields: {
+        raisonSociale: '#f-raison', siret: '#f-siret', tvaIntra: '#f-tva',
+        adresse: '#f-adresse', codePostal: '#f-cp', ville: '#f-ville',
+        formeJuridique: '#f-forme', codeApe: '#f-ape'
+      },
+      onResult: function (data) {
+        // Société identifiée → on révèle la confirmation, on prépare le lien
+        // puis on redirige automatiquement vers l'espace de facturation.
+        var url = factUrl(data.siren);
+        var next = document.getElementById('siren-next');
+        var link = document.getElementById('siren-next-link');
+        var now = document.getElementById('siren-now');
+        if (link) link.href = url;
+        if (now) now.onclick = function (e) { e.preventDefault(); go(url); };
+        if (next) { next.hidden = false; next.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        if (link) link.onclick = function (e) { e.preventDefault(); go(url); };
+        // Redirection automatique laissant le temps de vérifier les informations.
+        if (redirectTimer) clearTimeout(redirectTimer);
+        redirectTimer = setTimeout(function () { go(url); }, 4500);
+      }
+    });
+
+    function go(url) {
+      if (redirectTimer) { clearTimeout(redirectTimer); redirectTimer = null; }
+      window.location.href = url;
+    }
+  })();
+</script>
+</body>
+</html>
