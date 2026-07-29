@@ -1108,6 +1108,8 @@
   .skip-link:focus{transform:none;outline:2px solid #fff;outline-offset:2px}
   .to-top:hover{border-color:var(--azur)}
   @media(max-width:600px){.to-top{right:14px}}
+  .ft-install{display:inline-flex;align-items:center;gap:6px;margin-left:8px;font-family:'Inter Tight',sans-serif;font-size:12.5px;font-weight:600;color:var(--peri);background:var(--glass);border:1px solid var(--line-2);border-radius:999px;padding:5px 12px;cursor:pointer;transition:border-color .16s,color .16s}
+  .ft-install:hover{color:var(--txt);border-color:rgba(150,168,255,.45)}
   /* Bouton flottant : prendre rendez-vous */
   .rdv-fab{position:fixed;right:20px;bottom:92px;z-index:95;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;
     color:#fff;background:linear-gradient(135deg,#3a4dff 0%,#6a3cff 60%,#9b4dff 100%);border:1px solid rgba(180,160,255,.5);
@@ -1937,7 +1939,7 @@
         </div>
       </div>
       <div class="ft-bottom">
-        <span>© 2026 AEM-CONSEIL — Tous droits réservés.</span>
+        <span>© 2026 AEM-CONSEIL — Tous droits réservés. <button type="button" id="installBtn" class="ft-install" hidden><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7 10l5 5 5-5M5 21h14"/></svg> Installer l'application</button></span>
         <span style="display:flex;flex-wrap:wrap;gap:14px 22px"><a href="#" onclick="event.preventDefault();openLegal()">Mentions légales</a><a href="#" onclick="event.preventDefault();openPrivacy()">Politique de confidentialité</a><a href="#" onclick="event.preventDefault();openCGU()">CGU</a><a href="#" onclick="event.preventDefault();openCGV()">CGV</a><a href="#" onclick="event.preventDefault();reopenCookies()">Gérer mes cookies</a></span>
       </div>
     </div>
@@ -3382,6 +3384,26 @@ if('serviceWorker' in navigator){
     if(_swRefreshed)return; _swRefreshed=true; window.location.reload();
   });
 }
+
+/* ===== Installation de l'app (A2HS) ===== */
+(function(){
+  var deferred=null, btn=document.getElementById('installBtn');
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault(); deferred=e;
+    var dismissed=false; try{dismissed=localStorage.getItem('aem_install_dismissed')==='1';}catch(_){}
+    if(btn&&!dismissed)btn.hidden=false;
+  });
+  if(btn){btn.addEventListener('click',function(){
+    if(!deferred)return;
+    deferred.prompt();
+    deferred.userChoice.then(function(res){
+      T('pwa_install',{outcome:res&&res.outcome});
+      try{localStorage.setItem('aem_install_dismissed','1');}catch(_){}
+      btn.hidden=true; deferred=null;
+    });
+  });}
+  window.addEventListener('appinstalled',function(){ if(btn)btn.hidden=true; T('pwa_installed'); });
+})();
 </script>
 <script src="/assets/chat.js" defer></script>
 </body>
