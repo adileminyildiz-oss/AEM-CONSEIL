@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Démo — Remplissage automatique par SIREN</title>
+<style>
+  :root{--navy:#13204a;--blue:#2b45ff;--violet:#7c3aff;--line:#e2e4f0;--txt:#141a30;--muted:#5b6480;--bg:#f4f5fb}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--txt);background:
+    radial-gradient(900px 500px at 12% -8%,rgba(43,69,255,.10),transparent 55%),
+    radial-gradient(800px 520px at 88% 0,rgba(124,58,255,.10),transparent 55%),var(--bg);min-height:100vh;padding:40px 18px}
+  .wrap{max-width:640px;margin:0 auto}
+  h1{font-size:26px;letter-spacing:-.02em;margin:0 0 6px}
+  h1 span{color:var(--blue)}
+  .sub{color:var(--muted);font-size:14.5px;line-height:1.6;margin:0 0 26px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 24px;box-shadow:0 1px 2px rgba(16,20,50,.05),0 16px 40px rgba(16,20,50,.08)}
+  label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin:0 0 6px}
+  input{width:100%;font-size:15px;color:var(--txt);background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none}
+  input:focus{border-color:var(--blue)}
+  input[readonly]{background:#f6f7fc;color:#2a3350}
+  .siren-row{display:flex;gap:10px;align-items:flex-end}
+  .siren-row>div{flex:1}
+  .btn{flex:none;border:none;cursor:pointer;color:#fff;font-weight:600;font-size:14.5px;border-radius:10px;padding:12px 20px;
+    background:linear-gradient(135deg,#3a4dff,#7c3aff)}
+  .btn:disabled{opacity:.55;cursor:default}
+  .status{min-height:18px;font-size:13px;margin:12px 0 0}
+  .status[data-state=err]{color:#c62b2b}.status[data-state=ok]{color:#0a8f4d}.status[data-state=loading]{color:var(--blue)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+  .full{grid-column:1/-1}
+  .note{font-size:12px;color:var(--muted);margin-top:18px;line-height:1.5}
+  .note code{background:#eef0f8;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Facturation — <span>vos informations en un SIREN</span></h1>
+  <p class="sub">Saisissez votre numéro <b>SIREN</b> (9 chiffres) ou <b>SIRET</b> (14 chiffres) : les informations légales de votre entreprise sont récupérées automatiquement depuis les registres officiels (INSEE&nbsp;+&nbsp;INPI).</p>
+
+  <div class="card">
+    <div class="siren-row">
+      <div>
+        <label for="siren">Numéro SIREN / SIRET</label>
+        <input id="siren" inputmode="numeric" autocomplete="off" placeholder="ex. 552 081 317">
+      </div>
+      <button class="btn" id="siren-go" type="button">Rechercher</button>
+    </div>
+    <div class="status" id="siren-status" role="status" aria-live="polite"></div>
+
+    <div class="grid">
+      <div class="full"><label for="f-raison">Raison sociale</label><input id="f-raison" readonly></div>
+      <div><label for="f-siret">SIRET (siège)</label><input id="f-siret" readonly></div>
+      <div><label for="f-tva">N° TVA intracommunautaire</label><input id="f-tva" readonly></div>
+      <div class="full"><label for="f-adresse">Adresse</label><input id="f-adresse" readonly></div>
+      <div><label for="f-cp">Code postal</label><input id="f-cp" readonly></div>
+      <div><label for="f-ville">Ville</label><input id="f-ville" readonly></div>
+      <div><label for="f-forme">Forme juridique</label><input id="f-forme" readonly></div>
+      <div><label for="f-ape">Code APE / NAF</label><input id="f-ape" readonly></div>
+    </div>
+  </div>
+
+  <p class="note">Démo du composant <code>siren-autofill.js</code>. Les champs sont en lecture seule pour la démonstration ; dans votre formulaire, laissez-les modifiables afin que le client puisse compléter ou corriger. Source : <code>recherche-entreprises.api.gouv.fr</code> (gratuite, officielle).</p>
+</div>
+
+<script src="siren-autofill.js"></script>
+<script>
+  SirenAutofill.bind({
+    input: '#siren', button: '#siren-go', status: '#siren-status',
+    fields: {
+      raisonSociale: '#f-raison', siret: '#f-siret', tvaIntra: '#f-tva',
+      adresse: '#f-adresse', codePostal: '#f-cp', ville: '#f-ville',
+      formeJuridique: '#f-forme', codeApe: '#f-ape'
+    },
+    onResult: function (data) { console.log('Entreprise :', data); }
+  });
+</script>
+</body>
+</html>
