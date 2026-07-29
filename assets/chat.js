@@ -116,6 +116,10 @@
       a: 'Nous publions de nombreux <b>guides gratuits</b> sur la comptabilité, la fiscalité, la paie, la gestion et la création d\'entreprise. Dites-moi votre sujet et je vous oriente vers les bons articles.',
       chips: [['Tous les articles', onHome ? '#ressources' : '/ressources/']] },
 
+    { id: 'facturation', kw: 'facture factures devis facturation facturer creer produire emettre editer rediger envoyer document electronique plateforme quittance',
+      a: 'Pour <b>créer, envoyer et gérer vos factures et devis en ligne</b>, le cabinet met à votre disposition une plateforme dédiée, conforme à la facturation électronique.',
+      chips: [['Créer une facture ou un devis', 'https://yada.aemconseil.eu/#facturation']] },
+
     { id: 'contact', kw: 'contact contacter joindre telephone mail email ecrire appeler numero coordonnees',
       a: 'Vous pouvez nous joindre par téléphone au <a href="' + TEL_HREF + '">' + TEL_TXT + '</a> ou par e-mail à <a href="mailto:' + MAIL + '">' + MAIL + '</a>. Réponse assurée sous 24 h ouvrées.',
       chips: [['Être recontacté', '@lead'], ['Prendre rendez-vous', anchor('rdv')]] }
@@ -426,6 +430,10 @@
         if (target === '@lead') {
           // Formulaire de mise en relation dans le chat
           renderLead();
+        } else if (typeof target === 'string' && target.indexOf('http') === 0) {
+          // Lien externe : nouvel onglet
+          window.open(target, '_blank', 'noopener');
+          close();
         } else if (typeof target === 'string' && (target.charAt(0) === '#' || target.indexOf('/') === 0 || target.indexOf('tel:') === 0 || target.indexOf('mailto:') === 0)) {
           // Lien : on navigue et on ferme
           if (target.indexOf('tel:') === 0 || target.indexOf('mailto:') === 0) {
