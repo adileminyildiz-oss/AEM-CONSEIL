@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Identification de votre société — AEM-CONSEIL</title>
+<title>Identification — AEM-CONSEIL</title>
 <meta name="theme-color" content="#04050b">
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
 <link rel="stylesheet" href="/assets/fonts.css">
@@ -16,27 +16,40 @@
   .siren-steps b{display:inline-flex;align-items:center;gap:7px;color:var(--txt)}
   .siren-steps .dot{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:linear-gradient(135deg,var(--outremer),#7c3aff);color:#fff}
   .siren-steps .sep{width:22px;height:1px;background:var(--line-2)}
+  /* Sélecteur type de client */
+  .siren-type{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line-2);border-radius:14px;background:var(--glass-2);margin-top:28px}
+  .siren-type button{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:13.5px;color:var(--txt2);background:none;border:0;padding:10px 20px;border-radius:10px;cursor:pointer;transition:.16s;display:inline-flex;align-items:center;gap:8px}
+  .siren-type button svg{width:16px;height:16px}
+  .siren-type button[aria-selected=true]{color:#fff;background:linear-gradient(135deg,var(--outremer),#7c3aff);box-shadow:0 6px 16px rgba(43,69,255,.28)}
   .siren-card{border:1px solid var(--line-2);border-radius:20px;padding:clamp(20px,4vw,28px);background:var(--glass);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 14px 34px rgba(0,0,0,.18)}
+  .siren-card+.siren-card{margin-top:18px}
   .siren-row{display:flex;gap:10px;align-items:flex-end}
   .siren-row>div{flex:1}
   .siren-card label{display:block;font-size:12.5px;font-weight:600;color:var(--txt2);margin-bottom:6px;font-family:'Inter Tight',sans-serif}
-  .siren-card input{width:100%;font-size:15px;color:var(--txt);background:var(--glass-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 14px;outline:none;font-family:'Inter Tight',sans-serif;transition:border-color .16s}
-  .siren-card input:focus{border-color:var(--azur)}
+  .siren-card input,.siren-card textarea{width:100%;font-size:15px;color:var(--txt);background:var(--glass-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 14px;outline:none;font-family:'Inter Tight',sans-serif;transition:border-color .16s}
+  .siren-card textarea{min-height:70px;resize:vertical;line-height:1.45}
+  .siren-card input:focus,.siren-card textarea:focus{border-color:var(--azur)}
   .siren-row .btn-pri{flex:none}
   .siren-status{min-height:18px;font-size:13px;margin-top:13px;font-family:'Inter Tight',sans-serif}
   .siren-status[data-state=err]{color:#ff9c9c}
   .siren-status[data-state=ok]{color:var(--pos)}
   .siren-status[data-state=loading]{color:var(--peri)}
-  .siren-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px 16px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+  .siren-sub{display:flex;align-items:center;gap:9px;font-family:'Inter Tight',sans-serif;font-weight:600;font-size:13px;color:var(--txt);letter-spacing:.01em;margin-bottom:2px}
+  .siren-sub .tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--txt2)}
+  .siren-sub .tag.auto{color:var(--peri);border-color:rgba(140,120,255,.4)}
+  .siren-hint{font-size:12px;color:var(--txt2);margin:5px 0 16px}
+  .siren-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px 16px;margin-top:18px}
+  .siren-grid.top{margin-top:0}
   .siren-grid .full{grid-column:1/-1}
-  .siren-next:not([hidden]){display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:22px;
+  .req{color:var(--azur)}
+  .siren-next{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:20px;
     border:1px solid rgba(140,120,255,.42);border-radius:18px;padding:20px 22px;background:linear-gradient(135deg,rgba(43,69,255,.15),rgba(124,58,255,.13))}
   .siren-next b{display:block;font-family:'Inter Tight',sans-serif;font-size:16px;color:var(--txt)}
   .siren-next span{display:block;font-size:13.5px;color:var(--txt2);margin-top:3px}
   .siren-next .btn-pri{flex:none}
   .siren-note{font-size:12.5px;color:var(--txt2);line-height:1.6;margin-top:18px}
   .siren-note code{background:var(--glass-2);border:1px solid var(--line);padding:1px 6px;border-radius:5px;font-size:11.5px}
-  @media(max-width:560px){.siren-grid{grid-template-columns:1fr}.siren-row{flex-direction:column;align-items:stretch}.siren-row .btn-pri{justify-content:center}}
+  @media(max-width:560px){.siren-grid{grid-template-columns:1fr}.siren-row{flex-direction:column;align-items:stretch}.siren-row .btn-pri{justify-content:center}.siren-type{width:100%}.siren-type button{flex:1;justify-content:center}}
 </style>
 </head>
 <body>
@@ -46,11 +59,11 @@
   <a href="/#devis" class="btn btn-pri">Demander un devis</a>
 </div>
 
-<main id="content" class="sp-wrap" style="max-width:700px">
+<main id="content" class="sp-wrap" style="max-width:720px">
   <div class="sp-hero">
     <span class="sp-kick">Facturation</span>
-    <h1>Identifions votre <span class="ital">société</span></h1>
-    <p>Avant de créer vos factures et devis, renseignez votre numéro <b>SIREN</b> (9 chiffres) ou <b>SIRET</b> (14 chiffres) : les informations légales de votre entreprise sont récupérées automatiquement depuis les registres officiels (INSEE&nbsp;+&nbsp;INPI). Vérifiez-les, puis accédez à votre espace de facturation.</p>
+    <h1>Vos informations en un <span class="ital">instant</span></h1>
+    <p>Indiquez si vous êtes une <b>société</b> ou un <b>particulier</b>. Pour une société, votre numéro <b>SIRET</b> pré-remplit automatiquement les informations légales (INSEE&nbsp;+&nbsp;INPI). Elles seront enregistrées pour vos prochains documents.</p>
     <div class="siren-steps">
       <b><span class="dot">1</span> Identification</b>
       <span class="sep"></span>
@@ -58,77 +71,179 @@
     </div>
   </div>
 
-  <div class="siren-card" style="margin-top:30px">
-    <div class="siren-row">
-      <div>
-        <label for="siren">Numéro SIREN / SIRET</label>
-        <input id="siren" inputmode="numeric" autocomplete="off" placeholder="ex. 552 081 317">
+  <!-- Choix du type -->
+  <div class="siren-type" role="tablist" aria-label="Type de client">
+    <button type="button" id="tab-societe" role="tab" aria-selected="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M10 9h.01M14 9h.01M10 13h.01M14 13h.01M10 17h.01M14 17h.01"/></svg>
+      Société
+    </button>
+    <button type="button" id="tab-particulier" role="tab" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+      Particulier
+    </button>
+  </div>
+
+  <!-- ===== SOCIÉTÉ ===== -->
+  <div id="view-societe">
+    <div class="siren-card" style="margin-top:18px">
+      <div class="siren-sub">Numéro d'identification <span class="tag auto">Remplissage automatique</span></div>
+      <div class="siren-hint">Saisissez votre SIREN (9 chiffres) ou SIRET (14 chiffres) pour pré-remplir les informations légales.</div>
+      <div class="siren-row">
+        <div>
+          <label for="siren">Numéro SIREN / SIRET</label>
+          <input id="siren" inputmode="numeric" autocomplete="off" placeholder="ex. 552 081 317">
+        </div>
+        <button class="btn btn-pri" id="siren-go" type="button">Rechercher</button>
       </div>
-      <button class="btn btn-pri" id="siren-go" type="button">Rechercher</button>
+      <div class="siren-status" id="siren-status" role="status" aria-live="polite"></div>
     </div>
-    <div class="siren-status" id="siren-status" role="status" aria-live="polite"></div>
 
-    <div class="siren-grid">
-      <div class="full"><label for="f-raison">Raison sociale</label><input id="f-raison"></div>
-      <div><label for="f-siret">SIRET (siège)</label><input id="f-siret"></div>
-      <div><label for="f-tva">N° TVA intracommunautaire</label><input id="f-tva"></div>
-      <div class="full"><label for="f-adresse">Adresse</label><input id="f-adresse"></div>
-      <div><label for="f-cp">Code postal</label><input id="f-cp"></div>
-      <div><label for="f-ville">Ville</label><input id="f-ville"></div>
-      <div><label for="f-forme">Forme juridique</label><input id="f-forme"></div>
-      <div><label for="f-ape">Code APE / NAF</label><input id="f-ape"></div>
+    <div class="siren-card">
+      <div class="siren-sub">Émetteur — vos informations</div>
+      <div class="siren-hint">Vérifiez et complétez les champs.</div>
+      <div class="siren-grid top">
+        <div class="full"><label for="f-raison">Nom / Raison sociale <span class="req">*</span></label><input id="f-raison" autocomplete="organization" placeholder="AEM-CONSEIL"></div>
+        <div><label for="f-forme">Forme juridique</label><input id="f-forme" placeholder="SARL, SAS, EI, auto-entrepreneur…"></div>
+        <div><label for="f-capital">Capital social</label><input id="f-capital" placeholder="ex. 10 000 €"></div>
+        <div class="full"><label for="f-adresse">Adresse</label><textarea id="f-adresse" autocomplete="street-address" placeholder="12 rue de l'Exemple&#10;75000 Paris"></textarea></div>
+        <div><label for="f-siret">SIRET</label><input id="f-siret" inputmode="numeric" placeholder="000 000 000 00000"></div>
+        <div><label for="f-rcs">RCS / RM + ville</label><input id="f-rcs" placeholder="RCS Paris 000 000 000"></div>
+        <div><label for="f-tva">N° TVA intracom.</label><input id="f-tva" placeholder="FR00000000000"></div>
+        <div><label for="f-email">Email <span class="req">*</span></label><input id="f-email" type="email" autocomplete="email" placeholder="contact@exemple.fr"></div>
+        <div><label for="f-tel">Téléphone</label><input id="f-tel" type="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+        <div></div>
+        <div class="full"><label for="f-iban">IBAN (pour le paiement)</label><input id="f-iban" autocomplete="off" placeholder="FR76 0000 0000 0000 0000 0000 000"></div>
+        <div><label for="f-bic">BIC</label><input id="f-bic" autocomplete="off" placeholder="XXXXFRPPXXX"></div>
+        <div></div>
+      </div>
     </div>
   </div>
 
-  <div class="siren-next" id="siren-next" hidden>
+  <!-- ===== PARTICULIER ===== -->
+  <div id="view-particulier" hidden>
+    <div class="siren-card" style="margin-top:18px">
+      <div class="siren-sub">Particulier — vos informations</div>
+      <div class="siren-hint">Renseignez votre nom et votre adresse de facturation.</div>
+      <div class="siren-grid top">
+        <div><label for="p-prenom">Prénom <span class="req">*</span></label><input id="p-prenom" autocomplete="given-name" placeholder="Jean"></div>
+        <div><label for="p-nom">Nom <span class="req">*</span></label><input id="p-nom" autocomplete="family-name" placeholder="Dupont"></div>
+        <div class="full"><label for="p-adresse">Adresse de facturation <span class="req">*</span></label><textarea id="p-adresse" autocomplete="street-address" placeholder="3 avenue de l'Exemple&#10;69000 Lyon"></textarea></div>
+        <div><label for="p-email">Email <span style="color:var(--txt2);font-weight:400">(optionnel)</span></label><input id="p-email" type="email" autocomplete="email" placeholder="client@exemple.fr"></div>
+        <div><label for="p-tel">Téléphone <span style="color:var(--txt2);font-weight:400">(optionnel)</span></label><input id="p-tel" type="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="siren-next">
     <div>
-      <b>Société identifiée.</b>
-      <span>Vous allez être redirigé vers votre espace de facturation… <a href="#" id="siren-now" style="color:var(--peri);font-weight:600">y accéder maintenant</a></span>
+      <b>Informations prêtes.</b>
+      <span>Elles seront transmises à votre espace pour créer vos factures et devis.</span>
     </div>
-    <a class="btn btn-pri" id="siren-next-link" href="https://yada.aemconseil.eu/#facturation" target="_self" rel="noopener">Accéder à l'espace facturation <span aria-hidden="true">→</span></a>
+    <button class="btn btn-pri" id="siren-go-fact" type="button">Accéder à l'espace facturation <span aria-hidden="true">→</span></button>
   </div>
 
-  <p class="siren-note">Vos informations restent modifiables : complétez ou corrigez-les si besoin avant de continuer. Source&nbsp;: <code>recherche-entreprises.api.gouv.fr</code> (registre officiel, gratuit).</p>
+  <p class="siren-note">Champs marqués <span class="req">*</span> requis. Source des informations légales (société)&nbsp;: <code>recherche-entreprises.api.gouv.fr</code> (registre officiel, gratuit). Vos coordonnées bancaires ne servent qu'à l'affichage sur vos documents.</p>
 </main>
 
 <script src="/components/siren-autofill/siren-autofill.js"></script>
 <script>
   (function () {
     var FACT = 'https://yada.aemconseil.eu/#facturation';
-    var redirectTimer = null;
+    var type = 'societe';
 
-    function factUrl(siren) {
-      return siren ? FACT + '?siren=' + encodeURIComponent(siren) : FACT;
+    function val(sel) { var el = document.querySelector(sel); return el ? String(el.value || '').trim() : ''; }
+    function put(q, k, v) { if (v) q.push(encodeURIComponent(k) + '=' + encodeURIComponent(v)); }
+
+    /* --- Bascule Société / Particulier --- */
+    var tabS = document.getElementById('tab-societe');
+    var tabP = document.getElementById('tab-particulier');
+    var viewS = document.getElementById('view-societe');
+    var viewP = document.getElementById('view-particulier');
+    function select(t) {
+      type = t;
+      var soc = t === 'societe';
+      tabS.setAttribute('aria-selected', soc ? 'true' : 'false');
+      tabP.setAttribute('aria-selected', soc ? 'false' : 'true');
+      viewS.hidden = !soc;
+      viewP.hidden = soc;
+      say('');
+    }
+    tabS.addEventListener('click', function () { select('societe'); });
+    tabP.addEventListener('click', function () { select('particulier'); });
+
+    /* --- Statut --- */
+    var statusEl = document.getElementById('siren-status');
+    function say(msg, kind) {
+      if (!statusEl) return;
+      statusEl.textContent = msg || '';
+      statusEl.setAttribute('data-state', kind || '');
     }
 
+    /* --- Construction de l'URL de redirection --- */
+    function factUrl() {
+      var q = [];
+      put(q, 'type', type);
+      if (type === 'societe') {
+        put(q, 'siren', val('#siren').replace(/\D/g, '').slice(0, 9));
+        put(q, 'raison', val('#f-raison'));
+        put(q, 'forme', val('#f-forme'));
+        put(q, 'capital', val('#f-capital'));
+        put(q, 'adresse', val('#f-adresse'));
+        put(q, 'siret', val('#f-siret'));
+        put(q, 'rcs', val('#f-rcs'));
+        put(q, 'tva', val('#f-tva'));
+        put(q, 'email', val('#f-email'));
+        put(q, 'tel', val('#f-tel'));
+        put(q, 'iban', val('#f-iban'));
+        put(q, 'bic', val('#f-bic'));
+      } else {
+        put(q, 'prenom', val('#p-prenom'));
+        put(q, 'nom', val('#p-nom'));
+        put(q, 'adresse', val('#p-adresse'));
+        put(q, 'email', val('#p-email'));
+        put(q, 'tel', val('#p-tel'));
+      }
+      return FACT + (q.length ? '?' + q.join('&') : '');
+    }
+
+    function emailOk(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+    /* --- Validation + redirection --- */
+    document.getElementById('siren-go-fact').addEventListener('click', function () {
+      if (type === 'societe') {
+        if (!val('#f-raison')) { say('Renseignez au moins la raison sociale.', 'err'); document.querySelector('#f-raison').focus(); return; }
+        var em = val('#f-email');
+        if (!em || !emailOk(em)) { say('Renseignez un email valide pour recevoir vos documents.', 'err'); document.querySelector('#f-email').focus(); return; }
+      } else {
+        if (!val('#p-prenom') || !val('#p-nom')) { say('Renseignez votre prénom et votre nom.', 'err'); document.querySelector('#p-prenom').focus(); return; }
+        if (!val('#p-adresse')) { say('Renseignez votre adresse de facturation.', 'err'); document.querySelector('#p-adresse').focus(); return; }
+        var pe = val('#p-email');
+        if (pe && !emailOk(pe)) { say('L\'email saisi n\'est pas valide.', 'err'); document.querySelector('#p-email').focus(); return; }
+      }
+      window.location.href = factUrl();
+    });
+
+    /* --- Recherche SIREN (société) --- */
     SirenAutofill.bind({
       input: '#siren', button: '#siren-go', status: '#siren-status',
       fields: {
-        raisonSociale: '#f-raison', siret: '#f-siret', tvaIntra: '#f-tva',
-        adresse: '#f-adresse', codePostal: '#f-cp', ville: '#f-ville',
-        formeJuridique: '#f-forme', codeApe: '#f-ape'
+        raisonSociale: '#f-raison', formeJuridique: '#f-forme',
+        siret: '#f-siret', tvaIntra: '#f-tva'
       },
       onResult: function (data) {
-        // Société identifiée → on révèle la confirmation, on prépare le lien
-        // puis on redirige automatiquement vers l'espace de facturation.
-        var url = factUrl(data.siren);
-        var next = document.getElementById('siren-next');
-        var link = document.getElementById('siren-next-link');
-        var now = document.getElementById('siren-now');
-        if (link) link.href = url;
-        if (now) now.onclick = function (e) { e.preventDefault(); go(url); };
-        if (next) { next.hidden = false; next.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-        if (link) link.onclick = function (e) { e.preventDefault(); go(url); };
-        // Redirection automatique laissant le temps de vérifier les informations.
-        if (redirectTimer) clearTimeout(redirectTimer);
-        redirectTimer = setTimeout(function () { go(url); }, 4500);
+        var l1 = data.adresse || '';
+        var l2 = [data.codePostal, data.ville].filter(Boolean).join(' ').trim();
+        var adr = [l1, l2].filter(Boolean).join('\n');
+        var adrEl = document.getElementById('f-adresse');
+        if (adrEl && adr && !adrEl.value.trim()) adrEl.value = adr;
+        var rcsEl = document.getElementById('f-rcs');
+        if (rcsEl && !rcsEl.value.trim() && data.siren) {
+          rcsEl.value = 'RCS ' + (data.ville ? data.ville + ' ' : '') + data.siren;
+        }
+        var email = document.getElementById('f-email');
+        if (email) email.focus();
       }
     });
-
-    function go(url) {
-      if (redirectTimer) { clearTimeout(redirectTimer); redirectTimer = null; }
-      window.location.href = url;
-    }
   })();
 </script>
 </body>
