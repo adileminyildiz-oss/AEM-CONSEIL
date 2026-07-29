@@ -905,7 +905,9 @@
 
   /* ===== Page Guide (article) ===== */
   .gd-wrap{max-width:760px}
-  .gd-read{display:inline-block;margin-top:18px;font-size:12.5px;letter-spacing:.04em;color:var(--azur);border:1px solid var(--line-2);border-radius:999px;padding:6px 14px}
+  .gd-read{display:inline-block;font-size:12.5px;letter-spacing:.04em;color:var(--azur);border:1px solid var(--line-2);border-radius:999px;padding:6px 14px}
+  .gd-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:18px}
+  .gd-updated{font-size:12.5px;color:var(--txt2)}
   .gd-share{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
   .gd-share .gs-lab{font-size:13px;font-weight:600;color:var(--txt2);margin-right:2px}
   .gd-share a,.gd-share .gs-copy{display:inline-flex;align-items:center;gap:7px;color:var(--txt2);cursor:pointer;
@@ -2784,7 +2786,7 @@ function spGuidePageHTML(g,secs){
   return ''
     +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
     +'<div class="sp-wrap gd-wrap">'
-      +'<div class="sp-hero" style="text-align:left;margin:0"><span class="sp-kick">'+esc(g.cat)+' · Guide</span><h1>'+esc(g.title)+'</h1><p>'+esc(g.lead)+'</p><span class="gd-read">'+esc(g.read)+' de lecture</span></div>'
+      +'<div class="sp-hero" style="text-align:left;margin:0"><span class="sp-kick">'+esc(g.cat)+' · Guide</span><h1>'+esc(g.title)+'</h1><p>'+esc(g.lead)+'</p><div class="gd-meta"><span class="gd-read">'+esc(g.read)+' de lecture</span><span class="gd-updated">Mis à jour le 20 juillet 2026</span></div></div>'
       +spShareRow(g)
       +toc
       +'<article class="gd-body">'+secs+'</article>'
@@ -2842,7 +2844,7 @@ function spOpenGuide(slug){var g=GUIDE_BY_SLUG[slug]; if(!g){spClose();return;}
   loadArticles(function(){ var secs=(window.ARTICLE_SECTIONS&&window.ARTICLE_SECTIONS[slug])||[]; spShow(spGuidePageHTML(g,secs),g.title); });
   var url='https://aemconseil.eu/ressources/'+slug+'/';
   seoApply(g.title+' — AEM-CONSEIL', g.lead, url, url);
-  seoLD({"@context":"https://schema.org","@type":"Article","headline":g.title,"description":g.lead,"articleSection":g.cat,"inLanguage":"fr-FR","url":url,"author":PUBLISHER_LD,"publisher":PUBLISHER_LD,"isPartOf":{"@type":"Blog","name":"Le blog AEM-CONSEIL","url":"https://aemconseil.eu/#actualites"}});
+  seoLD({"@context":"https://schema.org","@type":"Article","headline":g.title,"description":g.lead,"articleSection":g.cat,"inLanguage":"fr-FR","url":url,"dateModified":"2026-07-20","author":PUBLISHER_LD,"publisher":PUBLISHER_LD,"isPartOf":{"@type":"Blog","name":"Le blog AEM-CONSEIL","url":"https://aemconseil.eu/#actualites"}});
 }
 function spThemePageHTML(t){
   var arts=GUIDES.filter(function(g){return g.cat===t.name;});

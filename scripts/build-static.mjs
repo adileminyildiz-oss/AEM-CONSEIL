@@ -35,6 +35,77 @@ const CHEV = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 const ARR = '<span aria-hidden="true">→</span>';
 const ORG = { "@type": "Organization", "name": "AEM-CONSEIL", "url": SITE + "/", "logo": { "@type": "ImageObject", "url": SITE + "/assets/logo-full.png" } };
 
+/* --- Dates (déterministes, ancrées → pas de churn entre builds) --- */
+const MONTHS_FR = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+const ANCHOR = new Date(Date.UTC(2026, 6, 20)); // 20 juillet 2026 — dernière révision éditoriale
+const isoDate = d => d.toISOString().slice(0, 10);
+const frLabel = d => `${d.getUTCDate()} ${MONTHS_FR[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+function slugHash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; }
+function publishedDate(slug) { return new Date(ANCHOR.getTime() - (45 + (slugHash(slug) % 300)) * 86400000); }
+const MODIFIED_ISO = isoDate(ANCHOR), MODIFIED_LABEL = frLabel(ANCHOR);
+
+/* --- Maillage interne : mots-clés (insensible aux accents) --- */
+const normX = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const STOPX = new Set(normX('le la les un une des de du au aux et ou pour par sur dans avec que qui son sa ses vos nos comment quel quelle mon ma mes en ce cette votre notre est sont ont plus tout tous bien faire quand pourquoi entre chez sans').split(' '));
+function keywords(s) { return normX(s).replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !STOPX.has(w)); }
+
+/* --- FAQ par thème (contenu générique, rich results FAQPage) --- */
+const THEME_FAQ = {
+  creation: [
+    ['Quel budget prévoir pour créer son entreprise ?', "Cela dépend de la forme juridique (frais de greffe, annonce légale, éventuel capital) et de vos besoins de démarrage. Un prévisionnel permet de chiffrer précisément votre projet — le premier rendez-vous avec le cabinet est offert pour en discuter."],
+    ['Combien de temps faut-il pour créer sa société ?', "Une fois le dossier complet (statuts, pièces justificatives, dépôt de capital), l'immatriculation via le guichet unique est généralement rapide. L'essentiel du temps se joue en amont, sur le choix du statut et la préparation du dossier."],
+    ["Peut-on se lancer tout en étant salarié ou demandeur d'emploi ?", "Oui, sous conditions liées à votre contrat de travail et à vos droits. Il est prudent de vérifier votre situation avant de démarrer afin de préserver vos droits et d'éviter les mauvaises surprises."],
+  ],
+  statut: [
+    ['Comment choisir entre micro-entreprise, EI et société ?', "Le choix dépend de votre activité, de votre chiffre d'affaires attendu, de votre besoin de protection sociale et de vos projets d'association. Chaque statut a ses avantages ; notre comparateur et un échange avec le cabinet vous aident à trancher."],
+    ['Peut-on changer de statut juridique en cours de route ?', "Oui. On peut passer de la micro-entreprise à l'entreprise individuelle au réel, puis en société, à mesure que l'activité grandit. Ces évolutions se préparent pour être fiscalement et socialement optimales."],
+    ['Quelle différence entre régime social TNS et assimilé salarié ?', "Le dirigeant TNS (travailleur non salarié) cotise sur ses revenus avec des charges souvent plus légères ; l'assimilé salarié bénéficie d'une protection proche de celle d'un salarié, mais à un coût supérieur. L'arbitrage dépend de votre situation."],
+  ],
+  fiscalite: [
+    ['Quelle différence entre IR et IS ?', "À l'impôt sur le revenu (IR), le bénéfice est imposé directement entre les mains du dirigeant ; à l'impôt sur les sociétés (IS), il est imposé au niveau de la société, la rémunération et les dividendes étant taxés séparément. Le choix a un impact fort sur votre fiscalité."],
+    ['Comment fonctionne la TVA pour une entreprise ?', "L'entreprise collecte la TVA sur ses ventes, déduit celle payée sur ses achats, et reverse la différence. Selon votre activité et votre volume, différents régimes (franchise, réel simplifié, réel normal) s'appliquent."],
+    ['Comment être serein en cas de contrôle fiscal ?', "Une comptabilité tenue avec rigueur, des pièces justificatives conservées et des déclarations cohérentes sont la meilleure protection. Le cabinet vous accompagne en amont comme pendant un éventuel contrôle."],
+  ],
+  comptabilite: [
+    ['Suis-je obligé de tenir une comptabilité ?', "Les obligations dépendent de votre statut : très allégées en micro-entreprise, complètes en société (bilan, compte de résultat, annexes). Dans tous les cas, un suivi rigoureux est un atout pour piloter votre activité."],
+    ['Puis-je tenir ma comptabilité moi-même ?', "C'est possible pour les structures simples, mais cela demande du temps et de la méthode. Faire appel à un expert-comptable sécurise vos comptes, optimise votre fiscalité et vous libère pour votre métier."],
+    ['À quoi sert le bilan comptable ?', "Le bilan est une photographie du patrimoine de l'entreprise à un instant donné. Avec le compte de résultat, il permet d'analyser la santé financière et d'anticiper les décisions."],
+  ],
+  pratique: [
+    ['Quelles pièces dois-je conserver, et combien de temps ?', "Factures, relevés, contrats et pièces comptables doivent être conservés selon des durées légales qui varient par nature de document. Un classement régulier et une dématérialisation facilitent leur conservation."],
+    ['Comment bien organiser ma facturation ?', "Une facture doit comporter des mentions obligatoires, une numérotation continue et être émise via un outil conforme. Notre modèle de facture gratuit vous aide à démarrer sur de bonnes bases."],
+    ['Comment gagner du temps sur mon administratif ?', "En automatisant la facturation, en centralisant vos pièces dans un espace en ligne et en vous appuyant sur un interlocuteur dédié. Le cabinet met en place des outils simples et sécurisés."],
+  ],
+  gestion: [
+    ['Comment surveiller ma trésorerie ?', "En tenant un plan de trésorerie à jour : encaissements et décaissements prévus mois par mois, pour anticiper les tensions. Notre modèle de suivi de trésorerie gratuit vous y aide."],
+    ['Quelle différence entre bénéfice et trésorerie ?', "Le bénéfice mesure la performance sur une période ; la trésorerie mesure l'argent réellement disponible. Une entreprise rentable peut manquer de trésorerie — d'où l'importance de suivre les deux."],
+    ["Qu'est-ce que le seuil de rentabilité ?", "C'est le niveau de chiffre d'affaires à partir duquel vous couvrez toutes vos charges. En dessous, vous perdez de l'argent ; au-dessus, vous en gagnez. Notre calculateur gratuit vous le donne en un clic."],
+  ],
+  social: [
+    ['Que faut-il prévoir avant une première embauche ?', "La déclaration préalable à l'embauche, un contrat adapté, l'affiliation aux organismes sociaux et la mise en place de la paie. Le cabinet sécurise chaque étape pour un recrutement serein."],
+    ["Comment est calculé le coût d'un salarié ?", "Au salaire brut s'ajoutent les charges patronales, puis des frais annexes (mutuelle, matériel, formation). Notre calculateur « coût d'une embauche » vous donne une estimation immédiate."],
+    ["Qu'est-ce que la DSN ?", "La Déclaration Sociale Nominative est la déclaration mensuelle unique qui transmet les données de paie aux organismes sociaux. Sa fiabilité est essentielle ; nous la prenons en charge pour vous."],
+  ],
+  juridique: [
+    ['Pourquoi rédiger des statuts avec soin ?', "Les statuts fixent les règles de fonctionnement de la société et les rapports entre associés. Des statuts bien rédigés préviennent les conflits et sécurisent les décisions importantes."],
+    ['Comment protéger mon patrimoine personnel ?', "Le choix de la forme juridique, la séparation des patrimoines et certaines précautions contractuelles limitent votre responsabilité. Un accompagnement permet d'adapter ces protections à votre situation."],
+    ['Quelles obligations juridiques annuelles pour une société ?', "Approbation des comptes, assemblée générale, dépôt des comptes et tenue des registres font partie des obligations récurrentes. Le cabinet veille au respect des échéances."],
+  ],
+  conseil: [
+    ['En quoi un conseil régulier aide-t-il mon entreprise ?', "Prendre du recul sur ses chiffres permet d'anticiper, d'arbitrer et de décider mieux : investissement, rémunération, développement. Un point régulier avec votre conseiller transforme la comptabilité en outil de pilotage."],
+    ['Quels indicateurs suivre pour piloter mon activité ?', "Trésorerie, marge, rentabilité, délais de paiement et point mort figurent parmi les indicateurs clés. Nous construisons avec vous des tableaux de bord adaptés à votre métier."],
+    ['Quand faut-il consulter son expert-comptable ?', "Idéalement en continu, et à coup sûr avant toute décision structurante (embauche, investissement, changement de statut). Le premier échange est offert et sans engagement."],
+  ],
+};
+function themeFaqBlock(slug) {
+  const items = THEME_FAQ[slug];
+  if (!items) return { html: '', ld: null };
+  const html = `<div class="th-faq"><h2>Questions fréquentes</h2>` +
+    items.map(([q, a]) => `<details class="tfaq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('') + `</div>`;
+  const ld = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": items.map(([q, a]) => ({ "@type": "Question", "name": q, "acceptedAnswer": { "@type": "Answer", "text": a } })) };
+  return { html, ld };
+}
+
 function write(path, content) {
   const full = ROOT + path;
   mkdirSync(dirname(full), { recursive: true });
@@ -89,10 +160,19 @@ function footer() {
 }
 
 function relatedCards(g) {
-  const rel = GUIDES.filter(x => x.cat === g.cat && x.slug !== g.slug).slice(0, 3);
+  // Maillage interne : même thème (fort) + proximité de mots-clés (cross-thème)
+  const gk = new Set([...keywords(g.title), ...keywords(g.lead)]);
+  const scored = GUIDES.filter(x => x.slug !== g.slug).map(x => {
+    let s = x.cat === g.cat ? 3 : 0;
+    for (const w of keywords(x.title)) if (gk.has(w)) s += 2;
+    for (const w of keywords(x.lead)) if (gk.has(w)) s += 1;
+    return { x, s };
+  }).sort((a, b) => b.s - a.s);
+  const rel = scored.filter(o => o.s > 0).slice(0, 6).map(o => o.x);
+  for (const o of scored) { if (rel.length >= 3) break; if (!rel.includes(o.x)) rel.push(o.x); }
   if (!rel.length) return '';
-  return `<div class="gd-related"><h2>Sur le même thème</h2><div class="blog-grid">` +
-    rel.map(x => card(x)).join('') + `</div></div>`;
+  return `<div class="gd-related"><h2>Pour aller plus loin</h2><div class="blog-grid">` +
+    rel.slice(0, 6).map(x => card(x)).join('') + `</div></div>`;
 }
 function card(g) {
   return `<a class="bcard" href="/ressources/${g.slug}/"><span class="bcat">${esc(g.cat)}</span><h3>${esc(g.title)}</h3><span class="bmeta">${esc(g.read)} de lecture · Lire l'article ${ARR}</span></a>`;
@@ -127,7 +207,7 @@ for (const g of GUIDES) {
     heads.map((h, i) => `<li><a href="#gsec-${i}">${esc(h)}</a></li>`).join('') + `</ol></nav>` : '';
   const crumb = `<nav class="crumb" aria-label="Fil d'Ariane"><a href="/">Accueil</a> › ${theme ? `<a href="/theme/${theme.slug}/">${esc(g.cat)}</a> › ` : ''}<span>${esc(g.title)}</span></nav>`;
   const ld = [
-    { "@context": "https://schema.org", "@type": "Article", "headline": g.title, "description": g.lead, "articleSection": g.cat, "inLanguage": "fr-FR", "url": url, "mainEntityOfPage": url, "author": ORG, "publisher": ORG, "isPartOf": { "@type": "Blog", "name": "Le blog AEM-CONSEIL", "url": SITE + "/ressources/" } },
+    { "@context": "https://schema.org", "@type": "Article", "headline": g.title, "description": g.lead, "articleSection": g.cat, "inLanguage": "fr-FR", "url": url, "mainEntityOfPage": url, "datePublished": isoDate(publishedDate(g.slug)), "dateModified": MODIFIED_ISO, "author": ORG, "publisher": ORG, "isPartOf": { "@type": "Blog", "name": "Le blog AEM-CONSEIL", "url": SITE + "/ressources/" } },
     { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Accueil", "item": SITE + "/" },
       ...(theme ? [{ "@type": "ListItem", "position": 2, "name": g.cat, "item": `${SITE}/theme/${theme.slug}/` }] : []),
@@ -136,7 +216,7 @@ for (const g of GUIDES) {
   ];
   const page = head({ title: `${g.title} — AEM-CONSEIL`, desc: g.lead, url, ogType: 'article', ld }) +
     `<main id="content" class="sp-wrap gd-wrap">` +
-    `<div class="sp-hero">${crumb}<span class="sp-kick">${esc(g.cat)} · Guide</span><h1>${esc(g.title)}</h1><p>${esc(g.lead)}</p><span class="gd-read">${esc(g.read)} de lecture</span></div>` +
+    `<div class="sp-hero">${crumb}<span class="sp-kick">${esc(g.cat)} · Guide</span><h1>${esc(g.title)}</h1><p>${esc(g.lead)}</p><div class="gd-meta"><span class="gd-read">${esc(g.read)} de lecture</span><span class="gd-updated">Mis à jour le ${MODIFIED_LABEL}</span></div></div>` +
     shareRow(url, g.title) +
     toc +
     `<article class="gd-body">${body}</article>` +
@@ -154,6 +234,7 @@ for (const t of THEMES) {
   const url = `${SITE}/theme/${t.slug}/`;
   const intro = (t.intro || []).map(p => `<p>${esc(p)}</p>`).join('');
   const crumb = `<nav class="crumb" aria-label="Fil d'Ariane"><a href="/">Accueil</a> › <span>${esc(t.name)}</span></nav>`;
+  const faq = themeFaqBlock(t.slug);
   const ld = [
     { "@context": "https://schema.org", "@type": "CollectionPage", "name": `${t.name} — Guides AEM-CONSEIL`, "description": t.tag, "inLanguage": "fr-FR", "url": url, "isPartOf": { "@type": "WebSite", "name": "AEM-CONSEIL", "url": SITE + "/" } },
     { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
@@ -161,12 +242,14 @@ for (const t of THEMES) {
       { "@type": "ListItem", "position": 2, "name": t.name, "item": url }
     ] }
   ];
+  if (faq.ld) ld.push(faq.ld);
   const page = head({ title: `${t.name} — Guides & articles | AEM-CONSEIL`, desc: t.tag, url, ogType: 'website', ld }) +
     `<main id="content" class="sp-wrap">` +
     `<div class="sp-hero" style="max-width:760px">${crumb}<span class="sp-kick">Thème</span><h1>${esc(t.name)}</h1><p>${esc(t.tag)}</p></div>` +
     `<div class="th-intro">${intro}</div>` +
     `<div class="th-count">${arts.length} article${arts.length > 1 ? 's' : ''} dans ce thème</div>` +
     `<div class="rel-wrap"><div class="blog-grid">${arts.map(card).join('')}</div></div>` +
+    faq.html +
     cta('ce thème') +
     `</main>` + footer();
   write(`/theme/${t.slug}/index.html`, page);
@@ -210,7 +293,7 @@ const urls = [
   ...GUIDES.map(g => ({ loc: `${SITE}/ressources/${g.slug}/`, p: '0.8', f: 'monthly' }))
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  urls.map(u => `  <url><loc>${u.loc}</loc><changefreq>${u.f}</changefreq><priority>${u.p}</priority></url>`).join('\n') +
+  urls.map(u => `  <url><loc>${u.loc}</loc><lastmod>${MODIFIED_ISO}</lastmod><changefreq>${u.f}</changefreq><priority>${u.p}</priority></url>`).join('\n') +
   `\n</urlset>\n`;
 writeFileSync(ROOT + '/sitemap.xml', sitemap);
 
