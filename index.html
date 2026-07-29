@@ -15,6 +15,9 @@
 <meta name="apple-mobile-web-app-title" content="AEM-CONSEIL">
 <meta name="application-name" content="AEM-CONSEIL">
 
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-tight-600-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/instrument-serif-400-italic.woff2" crossorigin>
 <link rel="preconnect" href="https://formsubmit.co" crossorigin>
 <link rel="dns-prefetch" href="https://formsubmit.co">
 <script src="/assets/analytics.js" defer></script>
@@ -1286,7 +1289,7 @@
 <body class="loading">
 <a href="#top" class="skip-link">Aller au contenu</a>
 
-<div id="loader" aria-hidden="true"><img src="assets/logo-full.png" alt="AEM CONSEIL"></div>
+<div id="loader" aria-hidden="true"><img src="assets/logo-full.png" alt="AEM CONSEIL" width="150" height="56" fetchpriority="high" decoding="async"></div>
 <div class="beam" aria-hidden="true"></div>
 <div id="scrollbar" aria-hidden="true"></div>
 <div id="bottomBlur" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
@@ -3382,6 +3385,17 @@ if('serviceWorker' in navigator){
   });
 }
 
+/* ===== Suivi Core Web Vitals (LCP / CLS / INP) → analytics ===== */
+(function(){
+  if(!('PerformanceObserver' in window))return;
+  var sent={}, lcp=0, cls=0, inp=0;
+  function send(name,val){ if(sent[name])return; sent[name]=1; try{if(window.aemTrack)window.aemTrack('web_vitals',{metric:name,value:Math.round(val)});}catch(e){} }
+  function obs(type,cb,opt){ try{var o=new PerformanceObserver(cb);o.observe(Object.assign({type:type,buffered:true},opt||{}));}catch(e){} }
+  obs('largest-contentful-paint',function(l){var e=l.getEntries();lcp=e[e.length-1].startTime;});
+  obs('layout-shift',function(l){l.getEntries().forEach(function(e){if(!e.hadRecentInput)cls+=e.value;});});
+  obs('event',function(l){l.getEntries().forEach(function(e){if(e.duration>inp)inp=e.duration;});},{durationThreshold:40});
+  document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='hidden'){ send('LCP',lcp); send('CLS',cls*1000); send('INP',inp); } });
+})();
 </script>
 <script src="/assets/chat.js" defer></script>
 </body>

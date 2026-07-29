@@ -140,6 +140,9 @@ function head({ title, desc, url, ogType, ld }) {
 <meta name="twitter:image" content="${SITE}/assets/og-image.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-tight-600-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-400-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-serif-400-italic.woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/article.css">
 ${ld.map(o => '<script type="application/ld+json">' + JSON.stringify(o) + '</script>').join('\n')}
@@ -154,6 +157,7 @@ ${ld.map(o => '<script type="application/ld+json">' + JSON.stringify(o) + '</scr
 function footer() {
   return `<footer class="sf"><div class="fl"><a href="/">Accueil</a><a href="/ressources/">Tous les articles</a><a href="/#outils">Outils gratuits</a><a href="/#contact">Contact</a></div><div>© AEM-CONSEIL — Cabinet de conseil &amp; expertise comptable. Informations générales à titre indicatif, ne constituant pas un conseil personnalisé.</div></footer>
 <script>function aemThemeLogo(){var dark=document.documentElement.getAttribute('data-theme')!=='light';document.querySelectorAll('img[src*="logo-full"]').forEach(function(im){im.src=dark?'/assets/logo-full.png':'/assets/logo-full-dark.png';});var mc=document.querySelector('meta[name=theme-color]');if(mc)mc.setAttribute('content',dark?'#04050b':'#eef1f9');}function aemToggleTheme(){var el=document.documentElement;var n=el.getAttribute('data-theme')==='light'?'dark':'light';var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){el.classList.add('theming');setTimeout(function(){el.classList.remove('theming');},480);}el.setAttribute('data-theme',n);try{localStorage.setItem('aem_theme',n);}catch(e){}aemThemeLogo();}aemThemeLogo();</script>
+<script>(function(){if(!('PerformanceObserver' in window))return;var sent={},lcp=0,cls=0,inp=0;function send(n,v){if(sent[n])return;sent[n]=1;try{if(window.aemTrack)window.aemTrack('web_vitals',{metric:n,value:Math.round(v)});}catch(e){}}function obs(t,cb,o){try{new PerformanceObserver(cb).observe(Object.assign({type:t,buffered:true},o||{}));}catch(e){}}obs('largest-contentful-paint',function(l){var e=l.getEntries();lcp=e[e.length-1].startTime;});obs('layout-shift',function(l){l.getEntries().forEach(function(e){if(!e.hadRecentInput)cls+=e.value;});});obs('event',function(l){l.getEntries().forEach(function(e){if(e.duration>inp)inp=e.duration;});},{durationThreshold:40});document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){send('LCP',lcp);send('CLS',cls*1000);send('INP',inp);}});})();</script>
 <script>document.addEventListener('click',function(e){var b=e.target.closest('.gs-copy');if(!b)return;var u=b.getAttribute('data-url');var s=b.querySelector('span');var done=function(){if(s){var o=s.textContent;s.textContent='Lien copié \\u2713';b.classList.add('ok');setTimeout(function(){s.textContent=o;b.classList.remove('ok');},1800);}};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(done).catch(function(){window.prompt('Copiez le lien :',u);});}else{window.prompt('Copiez le lien :',u);}});</script>
 </body>
 </html>`;
