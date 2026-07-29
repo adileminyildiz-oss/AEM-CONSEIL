@@ -110,10 +110,10 @@
         <div><label for="f-rcs">RCS / RM + ville</label><input id="f-rcs" placeholder="RCS Paris 000 000 000"></div>
         <div><label for="f-tva">N° TVA intracom.</label><input id="f-tva" placeholder="FR00000000000"></div>
         <div><label for="f-email">Email <span class="req">*</span></label><input id="f-email" type="email" autocomplete="email" placeholder="contact@exemple.fr"></div>
-        <div><label for="f-tel">Téléphone</label><input id="f-tel" type="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+        <div><label for="f-tel">Téléphone <span style="color:var(--txt2);font-weight:400">(optionnel)</span></label><input id="f-tel" type="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
         <div></div>
-        <div class="full"><label for="f-iban">IBAN (pour le paiement)</label><input id="f-iban" autocomplete="off" placeholder="FR76 0000 0000 0000 0000 0000 000"></div>
-        <div><label for="f-bic">BIC</label><input id="f-bic" autocomplete="off" placeholder="XXXXFRPPXXX"></div>
+        <div class="full"><label for="f-iban">IBAN (pour le paiement) <span style="color:var(--txt2);font-weight:400">(optionnel)</span></label><input id="f-iban" autocomplete="off" placeholder="FR76 0000 0000 0000 0000 0000 000"></div>
+        <div><label for="f-bic">BIC <span style="color:var(--txt2);font-weight:400">(optionnel)</span></label><input id="f-bic" autocomplete="off" placeholder="XXXXFRPPXXX"></div>
         <div></div>
       </div>
     </div>
@@ -130,9 +130,18 @@
         <div class="full"><label for="p-adresse">Adresse de facturation <span class="req">*</span></label><textarea id="p-adresse" autocomplete="street-address" placeholder="3 avenue de l'Exemple&#10;69000 Lyon"></textarea></div>
         <div><label for="p-email">Email <span style="color:var(--txt2);font-weight:400">(optionnel)</span></label><input id="p-email" type="email" autocomplete="email" placeholder="client@exemple.fr"></div>
         <div><label for="p-tel">Téléphone <span style="color:var(--txt2);font-weight:400">(optionnel)</span></label><input id="p-tel" type="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+        <div class="full"><label for="p-siret">SIRET <span style="color:var(--txt2);font-weight:400">(optionnel — auto-entrepreneur / micro-entreprise)</span></label>
+          <div class="siren-row">
+            <div><input id="p-siret" inputmode="numeric" autocomplete="off" placeholder="000 000 000 00000"></div>
+            <button class="btn btn-pri" id="p-siret-go" type="button">Remplir</button>
+          </div>
+          <div class="siren-hint" style="margin:9px 0 0">Facultatif : si vous avez un SIRET, il pré-remplit votre adresse.</div>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="siren-status" id="form-status" role="status" aria-live="polite" style="margin:18px 0 0"></div>
 
   <div class="siren-next">
     <div>
@@ -148,7 +157,10 @@
 <script src="/components/siren-autofill/siren-autofill.js"></script>
 <script>
   (function () {
-    var FACT = 'https://yada.aemconseil.eu/#facturation';
+    // La chaîne de requête doit précéder le fragment (#facturation),
+    // sinon les paramètres se retrouvent dans le hash et non dans location.search.
+    var FACT_BASE = 'https://yada.aemconseil.eu/';
+    var FACT_HASH = '#facturation';
     var type = 'societe';
 
     function val(sel) { var el = document.querySelector(sel); return el ? String(el.value || '').trim() : ''; }
@@ -171,8 +183,8 @@
     tabS.addEventListener('click', function () { select('societe'); });
     tabP.addEventListener('click', function () { select('particulier'); });
 
-    /* --- Statut --- */
-    var statusEl = document.getElementById('siren-status');
+    /* --- Statut (élément toujours visible, hors carte Société) --- */
+    var statusEl = document.getElementById('form-status');
     function say(msg, kind) {
       if (!statusEl) return;
       statusEl.textContent = msg || '';
@@ -202,8 +214,9 @@
         put(q, 'adresse', val('#p-adresse'));
         put(q, 'email', val('#p-email'));
         put(q, 'tel', val('#p-tel'));
+        put(q, 'siret', val('#p-siret').replace(/\s/g, ''));
       }
-      return FACT + (q.length ? '?' + q.join('&') : '');
+      return FACT_BASE + (q.length ? '?' + q.join('&') : '') + FACT_HASH;
     }
 
     function emailOk(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
@@ -244,6 +257,34 @@
         if (email) email.focus();
       }
     });
+
+    /* --- SIRET facultatif du particulier (auto-entrepreneur) --- */
+    var pBtn = document.getElementById('p-siret-go');
+    if (pBtn) {
+      pBtn.addEventListener('click', function () {
+        var v = val('#p-siret');
+        if (!SirenAutofill.isValidSiren(v.replace(/\D/g, '').slice(0, 9))) {
+          say('Numéro SIRET invalide : vérifiez les chiffres.', 'err');
+          document.querySelector('#p-siret').focus();
+          return;
+        }
+        say('Recherche en cours…', 'loading');
+        pBtn.disabled = true;
+        SirenAutofill.lookup(v).then(function (data) {
+          var l1 = data.adresse || '';
+          var l2 = [data.codePostal, data.ville].filter(Boolean).join(' ').trim();
+          var adr = [l1, l2].filter(Boolean).join('\n');
+          var adrEl = document.getElementById('p-adresse');
+          if (adrEl && adr && !adrEl.value.trim()) adrEl.value = adr;
+          // Si le nom n'est pas renseigné, on propose la raison sociale (personne physique)
+          var nomEl = document.getElementById('p-nom');
+          if (nomEl && !nomEl.value.trim() && data.raisonSociale) nomEl.value = data.raisonSociale;
+          say('Adresse récupérée ✓ Vérifiez et complétez si besoin.', 'ok');
+        }).catch(function (err) {
+          say((err && err.message) || 'Recherche impossible.', 'err');
+        }).then(function () { pBtn.disabled = false; });
+      });
+    }
   })();
 </script>
 </body>
