@@ -19,14 +19,6 @@
 }
 :root[data-theme="light"] :is(.bcard,.gd-toc){background:var(--noir2);box-shadow:0 1px 1px rgba(16,20,50,.04),0 4px 10px rgba(16,20,50,.05),0 16px 34px rgba(16,20,50,.08);border-color:rgba(18,22,54,.08)}
 :root[data-theme="dark"] .bcard{box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 14px 34px rgba(0,0,0,.26)}
-html.theming,html.theming *{transition:background-color .4s ease,border-color .35s ease,color .32s ease,fill .32s ease,box-shadow .35s ease !important}
-:root[data-theme="light"] .sp-bar img{filter:none}
-:root[data-theme="light"] .gd-share a:hover,:root[data-theme="light"] .gd-share .gs-copy:hover,
-:root[data-theme="light"] .sp-bar .sp-back:hover{color:var(--outremer)}
-.theme-toggle{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:999px;background:var(--glass);border:1px solid var(--line-2);color:var(--txt2);cursor:pointer}
-.theme-toggle:hover{color:var(--txt)}
-.theme-toggle .ic-sun{display:none}.theme-toggle .ic-moon{display:block}
-:root[data-theme="light"] .theme-toggle .ic-sun{display:block}:root[data-theme="light"] .theme-toggle .ic-moon{display:none}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5}
