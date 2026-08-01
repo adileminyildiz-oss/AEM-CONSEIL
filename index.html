@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://formsubmit.co" crossorigin>
 <link rel="dns-prefetch" href="https://formsubmit.co">
 <script src="/assets/analytics.js" defer></script>
+<script src="/assets/last-intake.js"></script>
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
@@ -2664,6 +2665,7 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
     if(nf._honey.value)return;
     if(!email){st.textContent='Entrez votre e-mail.';return;}
     btn.disabled=true;var o=btn.textContent;btn.textContent='…';
+    window.LAST&&LAST.intake('newsletter',{email:email});
     fetch('https://formsubmit.co/ajax/aemconseil.sas@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:email,_subject:'Newsletter — nouvelle inscription'})})
       .then(function(r){return r.json();}).then(function(){st.textContent='Merci ! Votre inscription est bien prise en compte.';nf.reset();T('newsletter_signup');})
       .catch(function(){st.textContent='Une erreur est survenue. Réessayez.';})
@@ -2918,6 +2920,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
     if(!form.checkValidity()){setStatus('Merci de remplir les champs requis.','err');form.reportValidity();return;}
     var original=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spin"></span>&nbsp;Envoi…';setStatus('','');
     var payload={nom:form.nom.value,email:form.email.value,telephone:form.telephone.value,objet:form.objet?form.objet.value:'',message:form.message.value,_subject:'Nouvelle demande — site AEM-CONSEIL',_template:'table',_captcha:'false'};
+    window.LAST&&LAST.intake('contact',{nom:form.nom.value,email:form.email.value,telephone:form.telephone.value,objet:form.objet?form.objet.value:'',message:form.message.value});
     fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
       .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
       .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.reset();btn.innerHTML='Message envoyé ✓';T('generate_lead',{method:'contact'});setStatus('✓ Merci ! Votre message a bien été envoyé. Nous vous répondons sous 24 h.','ok');setTimeout(function(){btn.innerHTML=original;btn.disabled=false;},2600);}else{throw new Error('refus');}})
@@ -2937,6 +2940,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
     if(!form.checkValidity()){setStatus('Indiquez votre prénom et votre numéro.','err');form.reportValidity();return;}
     var original=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spin"></span>&nbsp;Envoi…';setStatus('','');
     var payload={nom:form.nom.value,telephone:form.telephone.value,_subject:'Demande de rappel — site AEM-CONSEIL',_template:'table',_captcha:'false'};
+    window.LAST&&LAST.intake('rappel',{nom:form.nom.value,telephone:form.telephone.value});
     fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
       .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
       .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.reset();btn.innerHTML='Demande envoyée ✓';T('generate_lead',{method:'rappel'});setStatus('✓ Merci ! Nous vous rappelons sous 24 h.','ok');setTimeout(function(){btn.innerHTML=original;btn.disabled=false;},2600);}else{throw new Error('refus');}})
@@ -2978,6 +2982,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
     if(!nom||(!email&&!tel)){setStatus('Indiquez votre nom et un e-mail ou un téléphone.','err');return;}
     var original=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spin"></span>&nbsp;Envoi…';setStatus('','');
     var payload={nom:nom,email:email,telephone:tel,format:sel.format,date_souhaitee:fmtDate(sel.date)||'Non précisée',creneau:sel.slot||'Indifférent',message:form.message.value.trim(),_subject:'Demande de rendez-vous — site AEM-CONSEIL',_template:'table',_captcha:'false'};
+    window.LAST&&LAST.intake('rdv',{nom:nom,email:email,telephone:tel,message:form.message.value.trim(),meta:{format:sel.format,date_souhaitee:fmtDate(sel.date)||'',creneau:sel.slot||''}});
     fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
       .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
       .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.querySelector('.rdv-grid').style.display='none';done.hidden=false;T('generate_lead',{method:'rdv'});done.scrollIntoView({block:'center'});}else{throw new Error('refus');}})
@@ -3092,6 +3097,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
     if(!email||email.indexOf('@')<1){statusEl.textContent='Merci d\'entrer un e-mail valide.';statusEl.className='kit-status err';return;}
     submitEl.disabled=true;var o=submitEl.textContent;submitEl.textContent='Envoi…';
     var payload={email:email,ressource:current.title,newsletter:newsEl.checked?'oui':'non',_subject:'Téléchargement ressource — '+current.title,_template:'table',_captcha:'false'};
+    window.LAST&&LAST.intake('kit',{email:email,meta:{ressource:current.title,newsletter:newsEl.checked?'oui':'non'}});
     fetch('https://formsubmit.co/ajax/aemconseil.sas@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
       .then(function(r){return r.json().catch(function(){return{};});}).catch(function(){})
       .then(function(){
