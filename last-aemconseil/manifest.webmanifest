@@ -1,0 +1,10 @@
+{
+  "name": "LAST — Espace cabinet AEM-CONSEIL",
+  "short_name": "LAST",
+  "description": "Formalités et traitement des demandes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04050b",
+  "theme_color": "#04050b",
+  "icons": []
+}

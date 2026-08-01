@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>LAST — Espace cabinet AEM-CONSEIL</title>
+<meta name="theme-color" content="#04050b">
+<link rel="manifest" href="/manifest.webmanifest">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --noir:#04050b;--noir2:#070912;--noir3:#0b0e1a;
+    --outremer:#2b45ff;--azur:#6d86ff;--peri:#a9b8ff;
+    --line:rgba(150,168,255,.11);--line-2:rgba(150,168,255,.18);
+    --glass:rgba(255,255,255,.035);--glass-2:rgba(255,255,255,.06);
+    --txt:#f2f4ff;--txt2:#8b98bd;--pos:#3ee9a4;--danger:#ff6b7d;--warn:#ffcf7a;
+    --font:'Inter Tight',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{font-family:var(--font);color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:radial-gradient(820px 600px at 50% -10%,rgba(43,69,255,.20),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
+  a{color:inherit}
+  button{font-family:inherit;cursor:pointer}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:var(--glass-2);color:var(--txt);border-radius:11px;padding:10px 15px;font-weight:600;font-size:14px;transition:.16s}
+  .btn:hover{border-color:var(--azur)}
+  .btn-pri{border:none;background:linear-gradient(135deg,var(--outremer),#7c3aff);color:#fff}
+  .btn-pri:hover{filter:brightness(1.08)}
+  .btn-sm{padding:7px 11px;font-size:12.5px;border-radius:9px}
+
+  /* Topbar */
+  .top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid var(--line);background:rgba(4,5,11,.72);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:-.01em;font-size:17px}
+  .brand .mk{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,var(--outremer),#7c3aff);color:#fff;font-size:13px;font-weight:800}
+  .brand small{display:block;font-weight:400;font-size:10.5px;color:var(--txt2);letter-spacing:.02em}
+  .top .sp{flex:1}
+  .who{font-size:12.5px;color:var(--txt2)}
+
+  .wrap{display:grid;grid-template-columns:210px 1fr;gap:0;min-height:calc(100vh - 60px)}
+  .side{border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:3px}
+  .nav{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:var(--txt2);font-weight:600;font-size:13.5px;border:1px solid transparent}
+  .nav svg{width:17px;height:17px}
+  .nav.on{background:var(--glass-2);color:var(--txt);border-color:var(--line-2)}
+  .nav:hover{color:var(--txt)}
+  .nav .soon{margin-left:auto;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:2px 6px}
+  .main{padding:24px 26px;min-width:0}
+  h1{font-size:22px;letter-spacing:-.01em}
+  .lead{color:var(--txt2);font-size:13.5px;margin-top:4px}
+
+  /* Filtres */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 16px}
+  .chip{border:1px solid var(--line-2);background:var(--glass);color:var(--txt2);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600}
+  .chip.on{background:linear-gradient(135deg,rgba(43,69,255,.22),rgba(124,58,255,.18));color:#fff;border-color:rgba(140,120,255,.45)}
+
+  /* Liste demandes */
+  .card{border:1px solid var(--line-2);border-radius:16px;background:var(--glass);overflow:hidden}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--txt2);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--line)}
+  td{padding:13px 16px;border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  tbody tr{cursor:pointer;transition:.12s}
+  tbody tr:hover{background:var(--glass-2)}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid var(--line-2)}
+  .badge .d{width:6px;height:6px;border-radius:50%}
+  .src{font-size:11px;color:var(--peri);text-transform:uppercase;letter-spacing:.04em}
+  .empty,.notice{padding:40px 20px;text-align:center;color:var(--txt2);font-size:14px}
+  .notice{border:1px solid rgba(255,207,122,.3);background:rgba(255,207,122,.07);border-radius:14px;color:var(--warn);text-align:left;padding:18px 20px;font-size:13px;line-height:1.6}
+  .notice code{background:var(--glass-2);border:1px solid var(--line);padding:1px 6px;border-radius:5px}
+
+  /* Drawer détail */
+  .drawer-ov{position:fixed;inset:0;background:rgba(2,3,8,.6);z-index:40;opacity:0;pointer-events:none;transition:.2s}
+  .drawer-ov.open{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(440px,94vw);background:var(--noir2);border-left:1px solid var(--line-2);z-index:41;transform:translateX(100%);transition:.24s;padding:24px;overflow:auto}
+  .drawer.open{transform:none}
+  .drawer h3{font-size:18px}
+  .drawer .row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .drawer .row span{color:var(--txt2)}
+  .drawer label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--txt2);margin:16px 0 6px;font-weight:600}
+  .drawer select,.drawer textarea{width:100%;background:var(--glass-2);border:1px solid var(--line-2);border-radius:10px;color:var(--txt);padding:10px 12px;font-family:inherit;font-size:14px}
+  .drawer .msg{margin-top:8px;padding:12px 14px;background:var(--glass);border:1px solid var(--line);border-radius:10px;font-size:13.5px;white-space:pre-wrap}
+  .x{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--txt2);font-size:20px}
+
+  /* Auth gate */
+  .gate{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:24px;background:radial-gradient(700px 500px at 50% 0%,rgba(43,69,255,.16),transparent 60%),var(--noir)}
+  .gate[hidden]{display:none}
+  .authcard{width:100%;max-width:380px;background:linear-gradient(180deg,rgba(11,14,26,.92),rgba(5,7,14,.95));border:1px solid var(--line-2);border-radius:18px;padding:28px}
+  .authcard .brand{margin-bottom:16px}
+  .authcard label{display:block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt2);margin:14px 0 6px;font-weight:600}
+  .authcard input{width:100%;padding:11px 13px;background:var(--noir);border:1px solid var(--line-2);border-radius:10px;color:var(--txt);font-size:14px;font-family:inherit}
+  .authcard input:focus{outline:none;border-color:var(--azur)}
+  .authcard .submit{width:100%;margin-top:18px}
+  .authmsg{margin-top:12px;font-size:12.5px;color:var(--danger);min-height:16px}
+  .hidden{display:none!important}
+  @media(max-width:720px){.wrap{grid-template-columns:1fr}.side{flex-direction:row;overflow:auto;border-right:none;border-bottom:1px solid var(--line)}.nav .soon{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ====== Connexion ====== -->
+<div class="gate" id="gate" hidden>
+  <form class="authcard" id="authForm" autocomplete="on">
+    <div class="brand"><span class="mk">L</span><span>LAST<small>Espace cabinet AEM-CONSEIL</small></span></div>
+    <label for="email">Adresse e-mail</label>
+    <input id="email" type="email" required autocomplete="email" placeholder="vous@aemconseil.eu">
+    <label for="pass">Mot de passe</label>
+    <input id="pass" type="password" required autocomplete="current-password" placeholder="••••••••">
+    <button class="btn btn-pri submit" type="submit" id="authBtn">Se connecter</button>
+    <div class="authmsg" id="authMsg" role="status"></div>
+  </form>
+</div>
+
+<!-- ====== Application ====== -->
+<div id="app" class="hidden">
+  <div class="top">
+    <div class="brand"><span class="mk">L</span><span>LAST<small>Formalités & demandes</small></span></div>
+    <div class="sp"></div>
+    <span class="who" id="who"></span>
+    <button class="btn btn-sm" id="logout">Se déconnecter</button>
+  </div>
+
+  <div class="wrap">
+    <nav class="side">
+      <a class="nav on" id="nav-demandes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H5.2L4 17.2V4z"/><path d="M8 9h8M8 12h5"/></svg>
+        Demandes
+      </a>
+      <a class="nav" id="nav-dossiers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h6l2 2h10v10H3V7z"/></svg>
+        Dossiers <span class="soon">Bientôt</span>
+      </a>
+      <a class="nav" id="nav-clients">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+        Clients <span class="soon">Bientôt</span>
+      </a>
+    </nav>
+
+    <main class="main">
+      <h1>Boîte de réception</h1>
+      <p class="lead">Toutes les demandes reçues depuis aemconseil.eu.</p>
+
+      <div id="configNotice" class="notice hidden" style="margin-top:20px"></div>
+
+      <div class="filters" id="filters">
+        <button class="chip on" data-f="statut" data-v="">Toutes</button>
+        <button class="chip" data-f="statut" data-v="nouveau">Nouvelles</button>
+        <button class="chip" data-f="statut" data-v="qualifie">Qualifiées</button>
+        <button class="chip" data-f="statut" data-v="en_cours">En cours</button>
+        <button class="chip" data-f="statut" data-v="converti">Converties</button>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead><tr><th>Reçue le</th><th>Source</th><th>Demandeur</th><th>Objet</th><th>Statut</th></tr></thead>
+          <tbody id="rows"><tr><td colspan="5" class="empty">Chargement…</td></tr></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Drawer détail -->
+<div class="drawer-ov" id="drawerOv" onclick="LASTUI.close()"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <button class="x" onclick="LASTUI.close()" aria-label="Fermer">×</button>
+  <h3 id="dTitle">Demande</h3>
+  <div id="dBody"></div>
+</aside>
+
+<script>
+/* ============================================================================
+   CONFIGURATION — à renseigner avec le projet Supabase dédié de LAST
+   ========================================================================== */
+var SUPABASE_URL = '';   // ex. 'https://xxxx.supabase.co'
+var SUPABASE_ANON = '';  // clé publishable (anon)
+
+var STATUTS = {
+  nouveau:{l:'Nouvelle',c:'#6d86ff'}, qualifie:{l:'Qualifiée',c:'#a9b8ff'},
+  en_cours:{l:'En cours',c:'#ffcf7a'}, converti:{l:'Convertie',c:'#3ee9a4'},
+  perdu:{l:'Perdue',c:'#ff6b7d'}, clos:{l:'Clôturée',c:'#8b98bd'}
+};
+var SOURCES = {contact:'Contact',rappel:'Rappel',rdv:'Rendez-vous',newsletter:'Newsletter',kit:'Kit',chatbot:'Chatbot',identification:'Identification',autre:'Autre'};
+
+var sb = null, filterStatut = '';
+
+function el(id){ return document.getElementById(id); }
+function fmtDate(iso){ try{ var d=new Date(iso); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return iso; } }
+function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+
+/* ---------- Démarrage ---------- */
+function boot(){
+  if(!SUPABASE_URL || !SUPABASE_ANON){
+    // Mode non configuré : on montre l'appli avec une notice de configuration.
+    el('gate').hidden = true; el('app').classList.remove('hidden');
+    var n = el('configNotice'); n.classList.remove('hidden');
+    n.innerHTML = '⚙︎ <b>Configuration requise.</b> Renseignez <code>SUPABASE_URL</code> et '
+      + '<code>SUPABASE_ANON</code> dans <code>index.html</code>, puis exécutez '
+      + '<code>supabase/schema.sql</code> et déployez la fonction <code>intake</code>. '
+      + 'Voir <code>README.md</code>.';
+    el('rows').innerHTML = '<tr><td colspan="5" class="empty">En attente de configuration Supabase.</td></tr>';
+    el('logout').classList.add('hidden');
+    return;
+  }
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {auth:{persistSession:true,autoRefreshToken:true}});
+  sb.auth.getSession().then(function(res){
+    if(res.data && res.data.session) onAuth(res.data.session);
+    else el('gate').hidden = false;
+  });
+}
+
+/* ---------- Connexion ---------- */
+el('authForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var btn=el('authBtn'); btn.disabled=true; el('authMsg').textContent='';
+  sb.auth.signInWithPassword({ email: el('email').value.trim(), password: el('pass').value })
+    .then(function(res){
+      btn.disabled=false;
+      if(res.error){ el('authMsg').textContent = 'Identifiants incorrects.'; return; }
+      onAuth(res.data.session);
+    });
+});
+el('logout').addEventListener('click', function(){ if(sb) sb.auth.signOut().then(function(){ location.reload(); }); });
+
+function onAuth(session){
+  el('gate').hidden = true; el('app').classList.remove('hidden');
+  el('who').textContent = (session.user && session.user.email) || '';
+  loadDemandes();
+}
+
+/* ---------- Filtres ---------- */
+el('filters').addEventListener('click', function(e){
+  var c = e.target.closest('.chip'); if(!c) return;
+  el('filters').querySelectorAll('.chip').forEach(function(x){ x.classList.remove('on'); });
+  c.classList.add('on'); filterStatut = c.getAttribute('data-v'); loadDemandes();
+});
+
+/* ---------- Chargement des demandes ---------- */
+function loadDemandes(){
+  el('rows').innerHTML = '<tr><td colspan="5" class="empty">Chargement…</td></tr>';
+  var q = sb.from('demandes').select('*').order('cree_le',{ascending:false}).limit(200);
+  if(filterStatut) q = q.eq('statut', filterStatut);
+  q.then(function(res){
+    if(res.error){ el('rows').innerHTML = '<tr><td colspan="5" class="empty">Erreur : '+esc(res.error.message)+'</td></tr>'; return; }
+    var rows = res.data || [];
+    if(!rows.length){ el('rows').innerHTML = '<tr><td colspan="5" class="empty">Aucune demande.</td></tr>'; return; }
+    el('rows').innerHTML = rows.map(function(d){
+      var s = STATUTS[d.statut] || STATUTS.nouveau;
+      var who = esc([d.prenom,d.nom].filter(Boolean).join(' ') || d.email || d.entreprise || '—');
+      return '<tr onclick="LASTUI.open(\''+d.id+'\')">'
+        + '<td>'+fmtDate(d.cree_le)+'</td>'
+        + '<td><span class="src">'+esc(SOURCES[d.source]||d.source)+'</span></td>'
+        + '<td>'+who+'</td>'
+        + '<td>'+esc(d.objet||d.type||'—')+'</td>'
+        + '<td><span class="badge"><span class="d" style="background:'+s.c+'"></span>'+s.l+'</span></td>'
+        + '</tr>';
+    }).join('');
+    window.__rows = {}; rows.forEach(function(d){ window.__rows[d.id]=d; });
+  });
+}
+
+/* ---------- Drawer détail + mise à jour ---------- */
+var LASTUI = {
+  open: function(id){
+    var d = (window.__rows||{})[id]; if(!d) return;
+    el('dTitle').textContent = [d.prenom,d.nom].filter(Boolean).join(' ') || d.email || 'Demande';
+    var opts = Object.keys(STATUTS).map(function(k){ return '<option value="'+k+'"'+(k===d.statut?' selected':'')+'>'+STATUTS[k].l+'</option>'; }).join('');
+    el('dBody').innerHTML =
+      '<div class="row"><span>Source</span><b>'+esc(SOURCES[d.source]||d.source)+'</b></div>'
+      + (d.email?'<div class="row"><span>E-mail</span><a href="mailto:'+esc(d.email)+'">'+esc(d.email)+'</a></div>':'')
+      + (d.telephone?'<div class="row"><span>Téléphone</span><a href="tel:'+esc(d.telephone)+'">'+esc(d.telephone)+'</a></div>':'')
+      + (d.entreprise?'<div class="row"><span>Entreprise</span><b>'+esc(d.entreprise)+'</b></div>':'')
+      + (d.siren?'<div class="row"><span>SIREN</span><b>'+esc(d.siren)+'</b></div>':'')
+      + '<div class="row"><span>Reçue le</span><b>'+fmtDate(d.cree_le)+'</b></div>'
+      + (d.message?'<label>Message</label><div class="msg">'+esc(d.message)+'</div>':'')
+      + '<label for="dStatut">Statut</label><select id="dStatut">'+opts+'</select>'
+      + '<label for="dNote">Note interne (meta)</label><textarea id="dNote" rows="3" placeholder="Ajouter une note…">'+esc((d.meta&&d.meta.note)||'')+'</textarea>'
+      + '<button class="btn btn-pri" style="margin-top:16px;width:100%" onclick="LASTUI.save(\''+d.id+'\')">Enregistrer</button>';
+    el('drawer').classList.add('open'); el('drawerOv').classList.add('open'); el('drawer').setAttribute('aria-hidden','false');
+  },
+  save: function(id){
+    var statut = el('dStatut').value, note = el('dNote').value;
+    var meta = Object.assign({}, ((window.__rows||{})[id]||{}).meta||{}, { note: note });
+    sb.from('demandes').update({ statut: statut, meta: meta, maj_le: new Date().toISOString() }).eq('id', id)
+      .then(function(res){ if(!res.error){ LASTUI.close(); loadDemandes(); } });
+  },
+  close: function(){ el('drawer').classList.remove('open'); el('drawerOv').classList.remove('open'); el('drawer').setAttribute('aria-hidden','true'); }
+};
+window.LASTUI = LASTUI;
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') LASTUI.close(); });
+
+/* PWA */
+if('serviceWorker' in navigator){ window.addEventListener('load', function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
+
+boot();
+</script>
+</body>
+</html>
