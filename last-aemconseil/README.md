@@ -64,5 +64,7 @@ var SUPABASE_ANON = '<clé publishable / anon>';
 - **P3 ✅** : dossiers de formalités, checklists de pièces par forme
   (SASU/SAS/SARL/EURL/EI/micro/SCI…), suivi des pièces (attendue→reçue→validée),
   référence guichet unique INPI, facturation des honoraires sur yada.
-- **P4** : upload des pièces (Supabase Storage), génération de documents,
-  portail client, reporting.
+- **P4 (en cours)** : tableau de bord (KPIs + prochaines échéances) ✅,
+  section Clients (fiche + dossiers + facturation avec adresse/SIRET/email) ✅.
+  Restant : upload des pièces (Supabase Storage), génération de documents,
+  portail client.

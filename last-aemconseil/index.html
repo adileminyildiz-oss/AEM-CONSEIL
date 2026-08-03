@@ -157,7 +157,11 @@
 
   <div class="wrap">
     <nav class="side">
-      <a class="nav on" id="nav-demandes">
+      <a class="nav on" id="nav-dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13h6V4H4zM14 20h6v-9h-6zM14 4v4h6V4zM4 20h6v-4H4z"/></svg>
+        Tableau de bord
+      </a>
+      <a class="nav" id="nav-demandes">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H5.2L4 17.2V4z"/><path d="M8 9h8M8 12h5"/></svg>
         Demandes
       </a>
@@ -167,15 +171,27 @@
       </a>
       <a class="nav" id="nav-clients">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
-        Clients <span class="soon">Bientôt</span>
+        Clients
       </a>
     </nav>
 
     <main class="main">
       <div id="configNotice" class="notice hidden" style="margin-bottom:20px"></div>
 
+      <!-- ===== Section Tableau de bord ===== -->
+      <div id="section-dashboard">
+        <h1>Tableau de bord</h1>
+        <p class="lead">Vue d'ensemble de l'activité du cabinet.</p>
+        <div class="stats" id="kpis"></div>
+        <div style="margin-top:24px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--txt2);font-weight:600">Prochaines échéances (30 jours)</div>
+        <div class="card" style="margin-top:10px">
+          <table><thead><tr><th>Client</th><th>Dossier</th><th>Statut</th><th>Échéance</th></tr></thead>
+          <tbody id="ech-rows"><tr><td colspan="4" class="empty">—</td></tr></tbody></table>
+        </div>
+      </div>
+
       <!-- ===== Section Demandes ===== -->
-      <div id="section-demandes">
+      <div id="section-demandes" class="hidden">
         <h1>Boîte de réception</h1>
         <p class="lead">Toutes les demandes reçues depuis aemconseil.eu.</p>
 
@@ -232,6 +248,21 @@
           </table>
         </div>
       </div>
+
+      <!-- ===== Section Clients ===== -->
+      <div id="section-clients" class="hidden">
+        <h1>Clients</h1>
+        <p class="lead">Les entreprises et particuliers issus de vos demandes converties.</p>
+        <div class="toolbar">
+          <input class="search" id="csearch" placeholder="Rechercher un client…" autocomplete="off">
+        </div>
+        <div class="card">
+          <table>
+            <thead><tr><th>Client</th><th>Type</th><th>SIREN / SIRET</th><th>Contact</th></tr></thead>
+            <tbody id="crows"><tr><td colspan="4" class="empty">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
     </main>
   </div>
 </div>
@@ -276,6 +307,7 @@ function boot(){
       + 'Voir <code>README.md</code>.';
     el('rows').innerHTML = '<tr><td colspan="5" class="empty">En attente de configuration Supabase.</td></tr>';
     el('logout').classList.add('hidden');
+    loadDashboard();
     return;
   }
   sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {auth:{persistSession:true,autoRefreshToken:true}});
@@ -303,6 +335,7 @@ function onAuth(session){
   el('who').textContent = (session.user && session.user.email) || '';
   loadProfils();
   loadDemandes();
+  showSection('dashboard');
 }
 
 /* ---------- Filtres ---------- */
@@ -502,7 +535,7 @@ var CHECKLISTS = {
 function checklistFor(type, sous){ return CHECKLISTS[type+':'+sous] || ['Pièces justificatives','Dépôt au guichet unique (INPI)']; }
 
 var CLIENTS = [], DOSSIERS = [], dFilter = '';
-function loadClients(){ if(!sb) return; sb.from('clients').select('id,type,raison_sociale,nom,prenom,siren,siret,email,telephone,adresse').order('cree_le',{ascending:false}).then(function(res){ if(!res.error) CLIENTS = res.data||[]; }); }
+function loadClients(cb){ if(!sb){ if(cb) cb(); return; } sb.from('clients').select('id,type,raison_sociale,nom,prenom,siren,siret,email,telephone,adresse,cp,ville').order('cree_le',{ascending:false}).then(function(res){ if(!res.error) CLIENTS = res.data||[]; if(cb) cb(); }); }
 function clientLabel(c){ return c ? (c.raison_sociale || [c.prenom,c.nom].filter(Boolean).join(' ') || c.email || 'Client') : '—'; }
 
 function loadDossiers(){
@@ -615,18 +648,112 @@ var DOSSUI = {
 };
 window.DOSSUI = DOSSUI;
 
+/* ================= Phase 4 — Tableau de bord & Clients ================= */
+function loadDashboard(){
+  var box = el('kpis');
+  if(!sb){ box.innerHTML = '<div class="stat" style="min-width:100%"><div class="k">Configuration Supabase requise pour les indicateurs.</div></div>'; el('ech-rows').innerHTML='<tr><td colspan="4" class="empty">—</td></tr>'; return; }
+  Promise.all([
+    sb.from('demandes').select('statut'),
+    sb.from('dossiers_formalites').select('statut,echeance,honoraires, clients(raison_sociale,nom,prenom)')
+  ]).then(function(r){
+    var dem = (r[0] && r[0].data) || [], dos = (r[1] && r[1].data) || [];
+    renderKPIs(dem, dos);
+  });
+}
+function renderKPIs(dem, dos){
+  var actifs = ['a_faire','pieces_attendues','en_cours','depose_inpi','attente_greffe'];
+  var nouvelles = dem.filter(function(d){ return d.statut==='nouveau'; }).length;
+  var enCours = dos.filter(function(d){ return actifs.indexOf(d.statut)>=0; });
+  var hono = enCours.reduce(function(s,d){ return s + (Number(d.honoraires)||0); }, 0);
+  // échéances ≤ 30 jours (via comparaison de chaînes ISO, sans Date arithmetique lourde)
+  var today = new Date(); var in30 = new Date(today.getTime()+30*864e5);
+  function iso(dt){ return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); }
+  var tISO = iso(today), t30 = iso(in30);
+  var ech = dos.filter(function(d){ return d.echeance && d.statut!=='clos' && d.echeance>=tISO && d.echeance<=t30; })
+              .sort(function(a,b){ return a.echeance<b.echeance?-1:1; });
+  var cards = [
+    ['Demandes nouvelles', nouvelles, '#6d86ff'],
+    ['Dossiers en cours', enCours.length, '#a9b8ff'],
+    ['Échéances ≤ 30 j', ech.length, '#ffcf7a'],
+    ['Honoraires en cours', hono.toLocaleString('fr-FR')+' €', '#3ee9a4'],
+    ['Total demandes', dem.length, '#8b98bd']
+  ];
+  el('kpis').innerHTML = cards.map(function(c){ return '<div class="stat"><div class="n" style="color:'+c[2]+'">'+c[1]+'</div><div class="k">'+c[0]+'</div></div>'; }).join('');
+  el('ech-rows').innerHTML = ech.length ? ech.map(function(d){
+    var s = DSTATUTS[d.statut] || DSTATUTS.a_faire;
+    return '<tr><td>'+esc(clientLabel(d.clients))+'</td><td>'+esc(DTYPES[d.type_formalite]||d.type_formalite||'—')+'</td>'
+      + '<td><span class="badge"><span class="d" style="background:'+s.c+'"></span>'+s.l+'</span></td><td>'+esc(d.echeance)+'</td></tr>';
+  }).join('') : '<tr><td colspan="4" class="empty">Aucune échéance dans les 30 jours.</td></tr>';
+}
+
+function renderClients(){
+  var box = el('crows');
+  if(!sb){ box.innerHTML = '<tr><td colspan="4" class="empty">Configuration Supabase requise.</td></tr>'; return; }
+  var q = (el('csearch').value||'').toLowerCase().trim();
+  var rows = CLIENTS.filter(function(c){
+    if(!q) return true;
+    return [c.raison_sociale,c.nom,c.prenom,c.email,c.siren,c.siret,c.ville].filter(Boolean).join(' ').toLowerCase().indexOf(q)>=0;
+  });
+  if(!rows.length){ box.innerHTML = '<tr><td colspan="4" class="empty">Aucun client.</td></tr>'; return; }
+  box.innerHTML = rows.map(function(c){
+    var contact = esc(c.email || c.telephone || '—');
+    var id = esc(c.siret || c.siren || '—');
+    return '<tr onclick="CLUI.open(\''+c.id+'\')"><td>'+esc(clientLabel(c))+'</td>'
+      + '<td>'+(c.type==='particulier'?'Particulier':'Société')+'</td><td>'+id+'</td><td>'+contact+'</td></tr>';
+  }).join('');
+}
+var CLUI = {
+  open: function(id){
+    var c = CLIENTS.find(function(x){ return x.id===id; }); if(!c) return;
+    el('dTitle').textContent = clientLabel(c);
+    function row(lab,val){ return val ? '<div class="row"><span>'+lab+'</span><b>'+esc(val)+'</b></div>' : ''; }
+    el('dBody').innerHTML =
+      row('Type', c.type==='particulier'?'Particulier':'Société')
+      + row('SIREN', c.siren) + row('SIRET', c.siret) + row('N° TVA', c.tva)
+      + (c.email?'<div class="row"><span>E-mail</span><a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a></div>':'')
+      + row('Téléphone', c.telephone)
+      + row('Adresse', [c.adresse, [c.cp,c.ville].filter(Boolean).join(' ')].filter(Boolean).join(' · '))
+      + '<label style="margin-top:16px">Dossiers</label><div id="cl-dossiers" class="do-pieces"><div class="kempty" style="padding:10px 12px">Chargement…</div></div>'
+      + '<button class="btn btn-emit" style="width:100%;margin-top:14px" onclick="CLUI.facture(\''+c.id+'\')">Créer une facture sur yada <span aria-hidden="true">→</span></button>';
+    showDrawer();
+    if(sb){
+      sb.from('dossiers_formalites').select('id,type_formalite,sous_type,statut,honoraires').eq('client_id', id).order('cree_le',{ascending:false}).then(function(res){
+        var box = document.getElementById('cl-dossiers'); if(!box) return;
+        var list = (res.data)||[];
+        if(!list.length){ box.innerHTML = '<div class="kempty" style="padding:10px 12px">Aucun dossier.</div>'; return; }
+        box.innerHTML = list.map(function(d){
+          var s = DSTATUTS[d.statut]||DSTATUTS.a_faire;
+          return '<div class="prow"><span class="pbadge" style="border-color:'+s.c+';color:'+s.c+'">'+s.l+'</span><span>'+esc((DTYPES[d.type_formalite]||d.type_formalite)+(d.sous_type?' · '+d.sous_type:''))+'</span></div>';
+        }).join('');
+      });
+    }
+  },
+  facture: function(id){
+    var c = CLIENTS.find(function(x){ return x.id===id; }); if(!c) return;
+    var cnom = c.raison_sociale || [c.prenom,c.nom].filter(Boolean).join(' ') || '';
+    var adr = [c.adresse, [c.cp,c.ville].filter(Boolean).join(' ')].filter(Boolean).join('\n');
+    var q=[]; function add(k,v){ if(v) q.push(encodeURIComponent(k)+'='+encodeURIComponent(v)); }
+    add('fclient','1'); add('cnom',cnom); add('cadresse',adr); add('csiret',c.siret||c.siren||''); add('cemail',c.email||'');
+    window.open('https://yada.aemconseil.eu/' + (q.length?'?'+q.join('&'):'') + '#facturation', '_blank', 'noopener');
+  }
+};
+window.CLUI = CLUI;
+el('csearch').addEventListener('input', renderClients);
+
 /* Navigation entre sections */
-var section = 'demandes';
+var SECTIONS = ['dashboard','demandes','dossiers','clients'];
+var section = 'dashboard';
 function showSection(name){
   section = name;
-  el('section-demandes').classList.toggle('hidden', name!=='demandes');
-  el('section-dossiers').classList.toggle('hidden', name!=='dossiers');
-  document.getElementById('nav-demandes').classList.toggle('on', name==='demandes');
-  document.getElementById('nav-dossiers').classList.toggle('on', name==='dossiers');
+  SECTIONS.forEach(function(s){
+    el('section-'+s).classList.toggle('hidden', s!==name);
+    document.getElementById('nav-'+s).classList.toggle('on', s===name);
+  });
+  if(name==='dashboard') loadDashboard();
   if(name==='dossiers'){ loadClients(); loadDossiers(); }
+  if(name==='clients') loadClients(renderClients);
 }
-document.getElementById('nav-demandes').addEventListener('click', function(){ showSection('demandes'); });
-document.getElementById('nav-dossiers').addEventListener('click', function(){ showSection('dossiers'); });
+SECTIONS.forEach(function(s){ document.getElementById('nav-'+s).addEventListener('click', function(){ showSection(s); }); });
 document.getElementById('newDossier').addEventListener('click', function(){ DOSSUI.new(); });
 el('dfilters').addEventListener('click', function(e){ var c=e.target.closest('.chip'); if(!c) return; el('dfilters').querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');}); c.classList.add('on'); dFilter=c.getAttribute('data-v'); renderDossiers(); });
 
