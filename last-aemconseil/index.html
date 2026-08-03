@@ -7,6 +7,7 @@
 <title>LAST — Espace cabinet AEM-CONSEIL</title>
 <meta name="theme-color" content="#04050b">
 <link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232b45ff'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='19' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root{
@@ -52,6 +53,13 @@
   .filters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 16px}
   .chip{border:1px solid var(--line-2);background:var(--glass);color:var(--txt2);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600}
   .chip.on{background:linear-gradient(135deg,rgba(43,69,255,.22),rgba(124,58,255,.18));color:#fff;border-color:rgba(140,120,255,.45)}
+  .stats{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0 4px}
+  .stat{flex:1;min-width:118px;border:1px solid var(--line-2);border-radius:14px;background:var(--glass);padding:14px 16px}
+  .stat .n{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--txt2);margin-top:6px}
+  .toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0}
+  .search{flex:1;min-width:200px;background:var(--glass-2);border:1px solid var(--line-2);border-radius:11px;color:var(--txt);padding:10px 14px;font-family:inherit;font-size:14px}
+  .search:focus{outline:none;border-color:var(--azur)}
 
   /* Liste demandes */
   .card{border:1px solid var(--line-2);border-radius:16px;background:var(--glass);overflow:hidden}
@@ -141,12 +149,17 @@
 
       <div id="configNotice" class="notice hidden" style="margin-top:20px"></div>
 
-      <div class="filters" id="filters">
-        <button class="chip on" data-f="statut" data-v="">Toutes</button>
-        <button class="chip" data-f="statut" data-v="nouveau">Nouvelles</button>
-        <button class="chip" data-f="statut" data-v="qualifie">Qualifiées</button>
-        <button class="chip" data-f="statut" data-v="en_cours">En cours</button>
-        <button class="chip" data-f="statut" data-v="converti">Converties</button>
+      <div class="stats" id="stats"></div>
+
+      <div class="toolbar">
+        <div class="filters" id="filters">
+          <button class="chip on" data-f="statut" data-v="">Toutes</button>
+          <button class="chip" data-f="statut" data-v="nouveau">Nouvelles</button>
+          <button class="chip" data-f="statut" data-v="qualifie">Qualifiées</button>
+          <button class="chip" data-f="statut" data-v="en_cours">En cours</button>
+          <button class="chip" data-f="statut" data-v="converti">Converties</button>
+        </div>
+        <input class="search" id="search" placeholder="Rechercher un nom, e-mail, entreprise…" autocomplete="off">
       </div>
 
       <div class="card">
@@ -231,31 +244,50 @@ function onAuth(session){
 el('filters').addEventListener('click', function(e){
   var c = e.target.closest('.chip'); if(!c) return;
   el('filters').querySelectorAll('.chip').forEach(function(x){ x.classList.remove('on'); });
-  c.classList.add('on'); filterStatut = c.getAttribute('data-v'); loadDemandes();
+  c.classList.add('on'); filterStatut = c.getAttribute('data-v'); renderRows();
 });
+el('search').addEventListener('input', renderRows);
 
 /* ---------- Chargement des demandes ---------- */
+var ALL = [];
 function loadDemandes(){
   el('rows').innerHTML = '<tr><td colspan="5" class="empty">Chargement…</td></tr>';
-  var q = sb.from('demandes').select('*').order('cree_le',{ascending:false}).limit(200);
-  if(filterStatut) q = q.eq('statut', filterStatut);
-  q.then(function(res){
+  sb.from('demandes').select('*').order('cree_le',{ascending:false}).limit(500).then(function(res){
     if(res.error){ el('rows').innerHTML = '<tr><td colspan="5" class="empty">Erreur : '+esc(res.error.message)+'</td></tr>'; return; }
-    var rows = res.data || [];
-    if(!rows.length){ el('rows').innerHTML = '<tr><td colspan="5" class="empty">Aucune demande.</td></tr>'; return; }
-    el('rows').innerHTML = rows.map(function(d){
-      var s = STATUTS[d.statut] || STATUTS.nouveau;
-      var who = esc([d.prenom,d.nom].filter(Boolean).join(' ') || d.email || d.entreprise || '—');
-      return '<tr onclick="LASTUI.open(\''+d.id+'\')">'
-        + '<td>'+fmtDate(d.cree_le)+'</td>'
-        + '<td><span class="src">'+esc(SOURCES[d.source]||d.source)+'</span></td>'
-        + '<td>'+who+'</td>'
-        + '<td>'+esc(d.objet||d.type||'—')+'</td>'
-        + '<td><span class="badge"><span class="d" style="background:'+s.c+'"></span>'+s.l+'</span></td>'
-        + '</tr>';
-    }).join('');
-    window.__rows = {}; rows.forEach(function(d){ window.__rows[d.id]=d; });
+    ALL = res.data || [];
+    window.__rows = {}; ALL.forEach(function(d){ window.__rows[d.id]=d; });
+    renderStats(); renderRows();
   });
+}
+function renderStats(){
+  var order = ['nouveau','qualifie','en_cours','converti'];
+  el('stats').innerHTML = order.map(function(k){
+    var n = ALL.filter(function(d){ return d.statut===k; }).length, s = STATUTS[k];
+    return '<div class="stat"><div class="n" style="color:'+s.c+'">'+n+'</div><div class="k">'+s.l+'</div></div>';
+  }).join('') + '<div class="stat"><div class="n">'+ALL.length+'</div><div class="k">Total</div></div>';
+}
+function renderRows(){
+  var query = (el('search').value||'').toLowerCase().trim();
+  var rows = ALL.filter(function(d){
+    if(filterStatut && d.statut!==filterStatut) return false;
+    if(query){
+      var hay = [d.prenom,d.nom,d.email,d.entreprise,d.objet,d.telephone,d.siren].filter(Boolean).join(' ').toLowerCase();
+      if(hay.indexOf(query) < 0) return false;
+    }
+    return true;
+  });
+  if(!rows.length){ el('rows').innerHTML = '<tr><td colspan="5" class="empty">Aucune demande.</td></tr>'; return; }
+  el('rows').innerHTML = rows.map(function(d){
+    var s = STATUTS[d.statut] || STATUTS.nouveau;
+    var who = esc([d.prenom,d.nom].filter(Boolean).join(' ') || d.email || d.entreprise || '—');
+    return '<tr onclick="LASTUI.open(\''+d.id+'\')">'
+      + '<td>'+fmtDate(d.cree_le)+'</td>'
+      + '<td><span class="src">'+esc(SOURCES[d.source]||d.source)+'</span></td>'
+      + '<td>'+who+'</td>'
+      + '<td>'+esc(d.objet||d.type||'—')+'</td>'
+      + '<td><span class="badge"><span class="d" style="background:'+s.c+'"></span>'+s.l+'</span></td>'
+      + '</tr>';
+  }).join('');
 }
 
 /* ---------- Drawer détail + mise à jour ---------- */
