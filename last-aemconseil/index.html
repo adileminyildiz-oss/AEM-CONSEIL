@@ -81,6 +81,11 @@
   .kempty{color:var(--txt2);font-size:12px;padding:8px 4px}
   .drawer .btn-line{display:flex;gap:10px;margin-top:16px}
   .drawer .btn-line .btn{flex:1;justify-content:center}
+  .do-pieces{margin-top:8px;border:1px solid var(--line);border-radius:11px;overflow:hidden}
+  .prow{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:13px}
+  .prow:last-child{border-bottom:none}
+  .prow:hover{background:var(--glass-2)}
+  .pbadge{flex:none;font-size:10px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid;min-width:64px;text-align:center}
   @media(max-width:900px){.kanban{grid-template-columns:1fr 1fr}}
   @media(max-width:560px){.kanban{grid-template-columns:1fr}}
 
@@ -158,7 +163,7 @@
       </a>
       <a class="nav" id="nav-dossiers">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h6l2 2h10v10H3V7z"/></svg>
-        Dossiers <span class="soon">Bientôt</span>
+        Dossiers
       </a>
       <a class="nav" id="nav-clients">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
@@ -167,35 +172,66 @@
     </nav>
 
     <main class="main">
-      <h1>Boîte de réception</h1>
-      <p class="lead">Toutes les demandes reçues depuis aemconseil.eu.</p>
+      <div id="configNotice" class="notice hidden" style="margin-bottom:20px"></div>
 
-      <div id="configNotice" class="notice hidden" style="margin-top:20px"></div>
+      <!-- ===== Section Demandes ===== -->
+      <div id="section-demandes">
+        <h1>Boîte de réception</h1>
+        <p class="lead">Toutes les demandes reçues depuis aemconseil.eu.</p>
 
-      <div class="stats" id="stats"></div>
+        <div class="stats" id="stats"></div>
 
-      <div class="toolbar">
-        <div class="filters" id="filters">
-          <button class="chip on" data-f="statut" data-v="">Toutes</button>
-          <button class="chip" data-f="statut" data-v="nouveau">Nouvelles</button>
-          <button class="chip" data-f="statut" data-v="qualifie">Qualifiées</button>
-          <button class="chip" data-f="statut" data-v="en_cours">En cours</button>
-          <button class="chip" data-f="statut" data-v="converti">Converties</button>
+        <div class="toolbar">
+          <div class="filters" id="filters">
+            <button class="chip on" data-f="statut" data-v="">Toutes</button>
+            <button class="chip" data-f="statut" data-v="nouveau">Nouvelles</button>
+            <button class="chip" data-f="statut" data-v="qualifie">Qualifiées</button>
+            <button class="chip" data-f="statut" data-v="en_cours">En cours</button>
+            <button class="chip" data-f="statut" data-v="converti">Converties</button>
+          </div>
+          <input class="search" id="search" placeholder="Rechercher un nom, e-mail, entreprise…" autocomplete="off">
+          <div class="viewtabs" id="viewtabs">
+            <button type="button" data-view="liste" class="on">Liste</button>
+            <button type="button" data-view="kanban">Kanban</button>
+          </div>
         </div>
-        <input class="search" id="search" placeholder="Rechercher un nom, e-mail, entreprise…" autocomplete="off">
-        <div class="viewtabs" id="viewtabs">
-          <button type="button" data-view="liste" class="on">Liste</button>
-          <button type="button" data-view="kanban">Kanban</button>
+
+        <div class="card" id="listView">
+          <table>
+            <thead><tr><th>Reçue le</th><th>Source</th><th>Demandeur</th><th>Objet</th><th>Statut</th></tr></thead>
+            <tbody id="rows"><tr><td colspan="5" class="empty">Chargement…</td></tr></tbody>
+          </table>
         </div>
+        <div class="kanban hidden" id="kanbanView"></div>
       </div>
 
-      <div class="card" id="listView">
-        <table>
-          <thead><tr><th>Reçue le</th><th>Source</th><th>Demandeur</th><th>Objet</th><th>Statut</th></tr></thead>
-          <tbody id="rows"><tr><td colspan="5" class="empty">Chargement…</td></tr></tbody>
-        </table>
+      <!-- ===== Section Dossiers de formalités ===== -->
+      <div id="section-dossiers" class="hidden">
+        <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
+          <div><h1>Dossiers de formalités</h1><p class="lead">Suivi des créations et démarches, de la demande au dépôt au guichet unique.</p></div>
+          <button class="btn btn-pri" id="newDossier" style="margin-left:auto">+ Nouveau dossier</button>
+        </div>
+
+        <div class="stats" id="dstats"></div>
+
+        <div class="toolbar">
+          <div class="filters" id="dfilters">
+            <button class="chip on" data-v="">Tous</button>
+            <button class="chip" data-v="a_faire">À faire</button>
+            <button class="chip" data-v="pieces_attendues">Pièces attendues</button>
+            <button class="chip" data-v="en_cours">En cours</button>
+            <button class="chip" data-v="depose_inpi">Déposé INPI</button>
+            <button class="chip" data-v="clos">Clôturés</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <table>
+            <thead><tr><th>Client</th><th>Type</th><th>Statut</th><th>Échéance</th><th>Honoraires</th></tr></thead>
+            <tbody id="drows"><tr><td colspan="5" class="empty">Chargement…</td></tr></tbody>
+          </table>
+        </div>
       </div>
-      <div class="kanban hidden" id="kanbanView"></div>
     </main>
   </div>
 </div>
@@ -443,6 +479,156 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') LASTUI.cl
 
 /* PWA */
 if('serviceWorker' in navigator){ window.addEventListener('load', function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
+
+/* ================= Phase 3 — Dossiers de formalités ================= */
+function showDrawer(){ el('drawer').classList.add('open'); el('drawerOv').classList.add('open'); el('drawer').setAttribute('aria-hidden','false'); }
+var DTYPES = { creation:'Création', modification:'Modification', cessation:'Cessation', comptes:'Comptes annuels' };
+var CREATION_SOUS = ['SASU','SAS','SARL','EURL','EI','Micro-entreprise','SCI'];
+var DSTATUTS = {
+  a_faire:{l:'À faire',c:'#6d86ff'}, pieces_attendues:{l:'Pièces attendues',c:'#ffcf7a'},
+  en_cours:{l:'En cours',c:'#a9b8ff'}, depose_inpi:{l:'Déposé INPI',c:'#7c9cff'},
+  attente_greffe:{l:'Attente greffe',c:'#c9a2ff'}, clos:{l:'Clôturé',c:'#3ee9a4'}
+};
+var PSTATUTS = { attendue:{l:'Attendue',c:'#8b98bd'}, recue:{l:'Reçue',c:'#ffcf7a'}, validee:{l:'Validée',c:'#3ee9a4'} };
+var CHECKLISTS = {
+  'creation:SASU':['Statuts signés','PV de nomination du président','Attestation de dépôt du capital','Justificatif de siège social','Pièce d\'identité du dirigeant','Déclaration des bénéficiaires effectifs (DBE)','Attestation de parution (annonce légale)','Dépôt au guichet unique (INPI)'],
+  'creation:SAS':['Statuts signés','PV de nomination du président','Liste des souscripteurs','Attestation de dépôt du capital','Justificatif de siège social','Pièces d\'identité des dirigeants','Déclaration des bénéficiaires effectifs (DBE)','Attestation de parution (annonce légale)','Dépôt au guichet unique (INPI)'],
+  'creation:SARL':['Statuts signés','Acte de nomination du gérant','Attestation de dépôt du capital','Justificatif de siège social','Pièce d\'identité du gérant','Déclaration des bénéficiaires effectifs (DBE)','Attestation de parution (annonce légale)','Dépôt au guichet unique (INPI)'],
+  'creation:EURL':['Statuts signés','Acte de nomination du gérant','Attestation de dépôt du capital','Justificatif de siège social','Pièce d\'identité du gérant','Déclaration des bénéficiaires effectifs (DBE)','Attestation de parution (annonce légale)','Dépôt au guichet unique (INPI)'],
+  'creation:EI':['Pièce d\'identité','Justificatif de domicile / siège','Déclaration de début d\'activité (guichet unique)'],
+  'creation:Micro-entreprise':['Pièce d\'identité','Justificatif de domicile','Déclaration de début d\'activité micro (guichet unique)'],
+  'creation:SCI':['Statuts signés','Acte de nomination du gérant','Justificatif de siège social','Pièces d\'identité des associés','Déclaration des bénéficiaires effectifs (DBE)','Attestation de parution (annonce légale)','Dépôt au guichet unique (INPI)']
+};
+function checklistFor(type, sous){ return CHECKLISTS[type+':'+sous] || ['Pièces justificatives','Dépôt au guichet unique (INPI)']; }
+
+var CLIENTS = [], DOSSIERS = [], dFilter = '';
+function loadClients(){ if(!sb) return; sb.from('clients').select('id,type,raison_sociale,nom,prenom,siren,siret,email,telephone,adresse').order('cree_le',{ascending:false}).then(function(res){ if(!res.error) CLIENTS = res.data||[]; }); }
+function clientLabel(c){ return c ? (c.raison_sociale || [c.prenom,c.nom].filter(Boolean).join(' ') || c.email || 'Client') : '—'; }
+
+function loadDossiers(){
+  el('drows').innerHTML = '<tr><td colspan="5" class="empty">Chargement…</td></tr>';
+  if(!sb){ el('drows').innerHTML = '<tr><td colspan="5" class="empty">Configuration Supabase requise.</td></tr>'; return; }
+  sb.from('dossiers_formalites').select('*, clients(raison_sociale,nom,prenom)').order('cree_le',{ascending:false}).limit(500).then(function(res){
+    if(res.error){ el('drows').innerHTML = '<tr><td colspan="5" class="empty">Erreur : '+esc(res.error.message)+'</td></tr>'; return; }
+    DOSSIERS = res.data || [];
+    window.__dos = {}; DOSSIERS.forEach(function(d){ window.__dos[d.id]=d; });
+    renderDStats(); renderDossiers();
+  });
+}
+function renderDStats(){
+  var order = ['a_faire','pieces_attendues','en_cours','depose_inpi'];
+  el('dstats').innerHTML = order.map(function(k){
+    var n = DOSSIERS.filter(function(d){ return d.statut===k; }).length, s = DSTATUTS[k];
+    return '<div class="stat"><div class="n" style="color:'+s.c+'">'+n+'</div><div class="k">'+s.l+'</div></div>';
+  }).join('') + '<div class="stat"><div class="n">'+DOSSIERS.length+'</div><div class="k">Total</div></div>';
+}
+function renderDossiers(){
+  var rows = DOSSIERS.filter(function(d){ return !dFilter || d.statut===dFilter; });
+  if(!rows.length){ el('drows').innerHTML = '<tr><td colspan="5" class="empty">Aucun dossier.</td></tr>'; return; }
+  el('drows').innerHTML = rows.map(function(d){
+    var s = DSTATUTS[d.statut] || DSTATUTS.a_faire;
+    var type = esc((DTYPES[d.type_formalite]||d.type_formalite) + (d.sous_type?' · '+d.sous_type:''));
+    var hon = d.honoraires ? (Number(d.honoraires).toLocaleString('fr-FR')+' €') : '—';
+    return '<tr onclick="DOSSUI.open(\''+d.id+'\')">'
+      + '<td>'+esc(clientLabel(d.clients))+'</td><td>'+type+'</td>'
+      + '<td><span class="badge"><span class="d" style="background:'+s.c+'"></span>'+s.l+'</span></td>'
+      + '<td>'+(d.echeance?esc(d.echeance):'—')+'</td><td>'+hon+'</td></tr>';
+  }).join('');
+}
+var _inp = 'width:100%;background:var(--glass-2);border:1px solid var(--line-2);border-radius:10px;color:var(--txt);padding:10px 12px;font-family:inherit;font-size:14px';
+var DOSSUI = {
+  new: function(){
+    if(!sb){ alert('Configuration Supabase requise.'); return; }
+    el('dTitle').textContent = 'Nouveau dossier';
+    var clientOpts = CLIENTS.map(function(c){ return '<option value="'+c.id+'">'+esc(clientLabel(c))+'</option>'; }).join('');
+    var typeOpts = Object.keys(DTYPES).map(function(k){ return '<option value="'+k+'">'+DTYPES[k]+'</option>'; }).join('');
+    var sousOpts = CREATION_SOUS.map(function(s){ return '<option value="'+s+'">'+s+'</option>'; }).join('');
+    el('dBody').innerHTML =
+      '<label for="nd-client">Client</label><select id="nd-client">'+(clientOpts||'<option value="">— Convertissez d\'abord une demande en client —</option>')+'</select>'
+      + '<label for="nd-type">Type de formalité</label><select id="nd-type">'+typeOpts+'</select>'
+      + '<label for="nd-sous">Forme / sous-type</label><select id="nd-sous">'+sousOpts+'</select>'
+      + '<label for="nd-echeance">Échéance</label><input id="nd-echeance" type="date" style="'+_inp+'">'
+      + '<label for="nd-honoraires">Honoraires (€)</label><input id="nd-honoraires" type="number" inputmode="decimal" placeholder="ex. 900" style="'+_inp+'">'
+      + '<div style="font-size:11.5px;color:var(--txt2);margin-top:10px;line-height:1.5">La checklist des pièces est générée automatiquement selon la forme choisie.</div>'
+      + '<button class="btn btn-pri" style="width:100%;margin-top:16px" onclick="DOSSUI.create()">Créer le dossier</button>';
+    showDrawer();
+  },
+  create: function(){
+    var client_id = el('nd-client').value || null, type = el('nd-type').value, sous = el('nd-sous').value;
+    var echeance = el('nd-echeance').value || null, honoraires = el('nd-honoraires').value ? Number(el('nd-honoraires').value) : null;
+    sb.from('dossiers_formalites').insert({ client_id: client_id, type_formalite: type, sous_type: sous, statut: 'pieces_attendues', echeance: echeance, honoraires: honoraires }).select('id').single().then(function(res){
+      if(res.error){ alert('Erreur : '+res.error.message); return; }
+      var pieces = checklistFor(type, sous).map(function(nom){ return { dossier_id: res.data.id, nom: nom, statut: 'attendue' }; });
+      sb.from('pieces').insert(pieces).then(function(){ LASTUI.close(); loadDossiers(); });
+    });
+  },
+  open: function(id){
+    var d = (window.__dos||{})[id]; if(!d) return;
+    el('dTitle').textContent = clientLabel(d.clients) + ' — ' + (DTYPES[d.type_formalite]||d.type_formalite) + (d.sous_type?' '+d.sous_type:'');
+    var stOpts = Object.keys(DSTATUTS).map(function(k){ return '<option value="'+k+'"'+(k===d.statut?' selected':'')+'>'+DSTATUTS[k].l+'</option>'; }).join('');
+    el('dBody').innerHTML =
+      '<label for="do-statut">Statut</label><select id="do-statut">'+stOpts+'</select>'
+      + '<label for="do-inpi">Référence guichet unique / INPI</label><input id="do-inpi" value="'+esc(d.reference_inpi||'')+'" style="'+_inp+'">'
+      + '<label for="do-echeance">Échéance</label><input id="do-echeance" type="date" value="'+esc(d.echeance||'')+'" style="'+_inp+'">'
+      + '<label for="do-honoraires">Honoraires (€)</label><input id="do-honoraires" type="number" value="'+esc(d.honoraires||'')+'" style="'+_inp+'">'
+      + '<label for="do-notes">Notes</label><textarea id="do-notes" rows="2">'+esc(d.notes||'')+'</textarea>'
+      + '<label style="margin-top:18px">Pièces du dossier</label><div id="do-pieces" class="do-pieces"><div class="kempty" style="padding:10px 12px">Chargement…</div></div>'
+      + '<div style="font-size:11px;color:var(--txt2);margin-top:6px">Cliquez une pièce pour la faire passer Attendue → Reçue → Validée.</div>'
+      + '<div class="btn-line"><button class="btn btn-pri" onclick="DOSSUI.save(\''+id+'\')">Enregistrer</button></div>'
+      + '<button class="btn btn-emit" style="width:100%;margin-top:10px" onclick="DOSSUI.facture(\''+id+'\')">Facturer les honoraires sur yada <span aria-hidden="true">→</span></button>';
+    showDrawer();
+    DOSSUI.loadPieces(id);
+  },
+  loadPieces: function(id){
+    var box0 = document.getElementById('do-pieces');
+    if(!sb){ if(box0) box0.innerHTML = '<div class="kempty" style="padding:10px 12px">Configuration Supabase requise.</div>'; return; }
+    sb.from('pieces').select('*').eq('dossier_id', id).order('cree_le',{ascending:true}).then(function(res){
+      var box = document.getElementById('do-pieces'); if(!box) return;
+      var list = res.data || [];
+      if(res.error || !list.length){ box.innerHTML = '<div class="kempty" style="padding:10px 12px">Aucune pièce.</div>'; return; }
+      box.innerHTML = list.map(function(p){
+        var s = PSTATUTS[p.statut] || PSTATUTS.attendue;
+        return '<div class="prow" onclick="DOSSUI.cyclePiece(\''+p.id+'\',\''+id+'\')"><span class="pbadge" style="border-color:'+s.c+';color:'+s.c+'">'+s.l+'</span><span>'+esc(p.nom)+'</span></div>';
+      }).join('');
+    });
+  },
+  cyclePiece: function(pid, did){
+    sb.from('pieces').select('statut').eq('id',pid).single().then(function(res){
+      if(res.error) return;
+      var order=['attendue','recue','validee'], next=order[(order.indexOf(res.data.statut)+1)%order.length];
+      sb.from('pieces').update({statut:next}).eq('id',pid).then(function(){ DOSSUI.loadPieces(did); });
+    });
+  },
+  save: function(id){
+    var upd = { statut: el('do-statut').value, reference_inpi: el('do-inpi').value||null,
+      echeance: el('do-echeance').value||null, honoraires: el('do-honoraires').value?Number(el('do-honoraires').value):null,
+      notes: el('do-notes').value||null, maj_le: new Date().toISOString() };
+    sb.from('dossiers_formalites').update(upd).eq('id',id).then(function(res){ if(!res.error){ LASTUI.close(); loadDossiers(); } else alert('Erreur : '+res.error.message); });
+  },
+  facture: function(id){
+    var d = (window.__dos||{})[id]; if(!d) return; var c = d.clients || {};
+    var cnom = c.raison_sociale || [c.prenom,c.nom].filter(Boolean).join(' ') || '';
+    var q=[]; function add(k,v){ if(v) q.push(encodeURIComponent(k)+'='+encodeURIComponent(v)); }
+    add('fclient','1'); add('cnom',cnom);
+    window.open('https://yada.aemconseil.eu/' + (q.length?'?'+q.join('&'):'') + '#facturation', '_blank', 'noopener');
+  }
+};
+window.DOSSUI = DOSSUI;
+
+/* Navigation entre sections */
+var section = 'demandes';
+function showSection(name){
+  section = name;
+  el('section-demandes').classList.toggle('hidden', name!=='demandes');
+  el('section-dossiers').classList.toggle('hidden', name!=='dossiers');
+  document.getElementById('nav-demandes').classList.toggle('on', name==='demandes');
+  document.getElementById('nav-dossiers').classList.toggle('on', name==='dossiers');
+  if(name==='dossiers'){ loadClients(); loadDossiers(); }
+}
+document.getElementById('nav-demandes').addEventListener('click', function(){ showSection('demandes'); });
+document.getElementById('nav-dossiers').addEventListener('click', function(){ showSection('dossiers'); });
+document.getElementById('newDossier').addEventListener('click', function(){ DOSSUI.new(); });
+el('dfilters').addEventListener('click', function(e){ var c=e.target.closest('.chip'); if(!c) return; el('dfilters').querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');}); c.classList.add('on'); dFilter=c.getAttribute('data-v'); renderDossiers(); });
 
 boot();
 </script>

@@ -58,7 +58,11 @@ var SUPABASE_ANON = '<clé publishable / anon>';
 - Pièces en stockage privé (URL signées).
 
 ## Feuille de route
-- **P0/P1 (ce dépôt)** : connexion + boîte de réception + intake.
-- **P2** : pipeline (attribution, priorités, Kanban), conversion en client.
-- **P3** : dossiers de formalités, pièces, checklists, suivi guichet unique INPI.
-- **P4** : lien facturation yada, génération de documents, portail client.
+- **P0/P1 ✅** : connexion + boîte de réception + intake.
+- **P2 ✅** : pipeline (attribution, priorités, Kanban), conversion en client,
+  pont facturation yada (bloc Client pré-rempli).
+- **P3 ✅** : dossiers de formalités, checklists de pièces par forme
+  (SASU/SAS/SARL/EURL/EI/micro/SCI…), suivi des pièces (attendue→reçue→validée),
+  référence guichet unique INPI, facturation des honoraires sur yada.
+- **P4** : upload des pièces (Supabase Storage), génération de documents,
+  portail client, reporting.
