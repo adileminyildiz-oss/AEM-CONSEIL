@@ -28,6 +28,8 @@
   .btn:hover{border-color:var(--azur)}
   .btn-pri{border:none;background:linear-gradient(135deg,var(--outremer),#7c3aff);color:#fff}
   .btn-pri:hover{filter:brightness(1.08)}
+  .btn-emit{border:none;background:linear-gradient(135deg,#7bf0bd,#22b573);color:#04120b}
+  .btn-emit:hover{filter:brightness(1.06)}
   .btn-sm{padding:7px 11px;font-size:12.5px;border-radius:9px}
 
   /* Topbar */
@@ -60,6 +62,27 @@
   .toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0}
   .search{flex:1;min-width:200px;background:var(--glass-2);border:1px solid var(--line-2);border-radius:11px;color:var(--txt);padding:10px 14px;font-family:inherit;font-size:14px}
   .search:focus{outline:none;border-color:var(--azur)}
+  .viewtabs{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line-2);border-radius:12px;background:var(--glass-2)}
+  .viewtabs button{border:none;background:none;color:var(--txt2);font-family:inherit;font-weight:600;font-size:13px;padding:7px 14px;border-radius:8px;cursor:pointer}
+  .viewtabs button.on{background:linear-gradient(135deg,var(--outremer),#7c3aff);color:#fff}
+  /* Kanban */
+  .kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:4px}
+  .kanban.hidden,.card.hidden{display:none}
+  .kcol{background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:12px;min-height:140px;transition:.14s}
+  .kcol.drag{border-color:var(--azur);background:var(--glass-2)}
+  .kcol h4{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--txt2);display:flex;align-items:center;gap:8px;margin-bottom:12px;font-weight:700}
+  .kcol h4 .c{margin-left:auto;font-size:11px;color:var(--txt2);background:var(--glass-2);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+  .kcard{background:var(--noir3);border:1px solid var(--line-2);border-radius:11px;padding:11px 12px;margin-bottom:9px;cursor:grab}
+  .kcard:active{cursor:grabbing}
+  .kcard .who{font-weight:600;font-size:13.5px}
+  .kcard .kmeta{font-size:11.5px;color:var(--txt2);margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .kcard .pri{font-size:10px;text-transform:uppercase;letter-spacing:.04em;padding:1px 6px;border-radius:999px;border:1px solid var(--line-2)}
+  .kcard .pri.haute{color:#ff9c9c;border-color:rgba(255,107,125,.4)}
+  .kempty{color:var(--txt2);font-size:12px;padding:8px 4px}
+  .drawer .btn-line{display:flex;gap:10px;margin-top:16px}
+  .drawer .btn-line .btn{flex:1;justify-content:center}
+  @media(max-width:900px){.kanban{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.kanban{grid-template-columns:1fr}}
 
   /* Liste demandes */
   .card{border:1px solid var(--line-2);border-radius:16px;background:var(--glass);overflow:hidden}
@@ -160,14 +183,19 @@
           <button class="chip" data-f="statut" data-v="converti">Converties</button>
         </div>
         <input class="search" id="search" placeholder="Rechercher un nom, e-mail, entreprise…" autocomplete="off">
+        <div class="viewtabs" id="viewtabs">
+          <button type="button" data-view="liste" class="on">Liste</button>
+          <button type="button" data-view="kanban">Kanban</button>
+        </div>
       </div>
 
-      <div class="card">
+      <div class="card" id="listView">
         <table>
           <thead><tr><th>Reçue le</th><th>Source</th><th>Demandeur</th><th>Objet</th><th>Statut</th></tr></thead>
           <tbody id="rows"><tr><td colspan="5" class="empty">Chargement…</td></tr></tbody>
         </table>
       </div>
+      <div class="kanban hidden" id="kanbanView"></div>
     </main>
   </div>
 </div>
@@ -194,7 +222,7 @@ var STATUTS = {
 };
 var SOURCES = {contact:'Contact',rappel:'Rappel',rdv:'Rendez-vous',newsletter:'Newsletter',kit:'Kit',chatbot:'Chatbot',identification:'Identification',autre:'Autre'};
 
-var sb = null, filterStatut = '';
+var sb = null, filterStatut = '', view = 'liste', PROFILS = [];
 
 function el(id){ return document.getElementById(id); }
 function fmtDate(iso){ try{ var d=new Date(iso); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return iso; } }
@@ -237,6 +265,7 @@ el('logout').addEventListener('click', function(){ if(sb) sb.auth.signOut().then
 function onAuth(session){
   el('gate').hidden = true; el('app').classList.remove('hidden');
   el('who').textContent = (session.user && session.user.email) || '';
+  loadProfils();
   loadDemandes();
 }
 
@@ -244,9 +273,18 @@ function onAuth(session){
 el('filters').addEventListener('click', function(e){
   var c = e.target.closest('.chip'); if(!c) return;
   el('filters').querySelectorAll('.chip').forEach(function(x){ x.classList.remove('on'); });
-  c.classList.add('on'); filterStatut = c.getAttribute('data-v'); renderRows();
+  c.classList.add('on'); filterStatut = c.getAttribute('data-v'); render();
 });
-el('search').addEventListener('input', renderRows);
+el('search').addEventListener('input', render);
+el('viewtabs').addEventListener('click', function(e){
+  var btn = e.target.closest('button[data-view]'); if(!btn) return;
+  view = btn.getAttribute('data-view');
+  el('viewtabs').querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x===btn); });
+  el('listView').classList.toggle('hidden', view!=='liste');
+  el('kanbanView').classList.toggle('hidden', view!=='kanban');
+  el('filters').style.display = (view==='kanban') ? 'none' : '';
+  render();
+});
 
 /* ---------- Chargement des demandes ---------- */
 var ALL = [];
@@ -256,8 +294,53 @@ function loadDemandes(){
     if(res.error){ el('rows').innerHTML = '<tr><td colspan="5" class="empty">Erreur : '+esc(res.error.message)+'</td></tr>'; return; }
     ALL = res.data || [];
     window.__rows = {}; ALL.forEach(function(d){ window.__rows[d.id]=d; });
-    renderStats(); renderRows();
+    renderStats(); render();
   });
+}
+function render(){ if(view === 'kanban') renderKanban(); else renderRows(); }
+function loadProfils(){
+  sb.from('profils').select('id,nom,role').then(function(res){ if(!res.error) PROFILS = res.data || []; });
+}
+var KCOLS = ['nouveau','qualifie','en_cours','converti'];
+function renderKanban(){
+  var query = (el('search').value||'').toLowerCase().trim();
+  var data = ALL.filter(function(d){
+    if(!query) return true;
+    var hay = [d.prenom,d.nom,d.email,d.entreprise,d.objet,d.telephone,d.siren].filter(Boolean).join(' ').toLowerCase();
+    return hay.indexOf(query) >= 0;
+  });
+  el('kanbanView').innerHTML = KCOLS.map(function(k){
+    var s = STATUTS[k], items = data.filter(function(d){ return d.statut===k; });
+    var cards = items.map(function(d){
+      var who = esc([d.prenom,d.nom].filter(Boolean).join(' ') || d.email || d.entreprise || '—');
+      var pri = d.priorite==='haute' ? '<span class="pri haute">Haute</span>' : '';
+      return '<div class="kcard" draggable="true" data-id="'+d.id+'">'
+        + '<div class="who">'+who+'</div>'
+        + '<div class="kmeta"><span>'+esc(SOURCES[d.source]||d.source)+'</span><span>'+fmtDate(d.cree_le)+'</span>'+pri+'</div>'
+        + '</div>';
+    }).join('') || '<div class="kempty">—</div>';
+    return '<div class="kcol" data-statut="'+k+'"><h4><span style="width:7px;height:7px;border-radius:50%;background:'+s.c+';display:inline-block"></span>'+s.l+'<span class="c">'+items.length+'</span></h4>'+cards+'</div>';
+  }).join('');
+  wireKanbanDnD();
+}
+var _dragId = null;
+function wireKanbanDnD(){
+  el('kanbanView').querySelectorAll('.kcard').forEach(function(card){
+    card.addEventListener('click', function(){ if(card._moved) { card._moved=false; return; } LASTUI.open(card.getAttribute('data-id')); });
+    card.addEventListener('dragstart', function(e){ _dragId = card.getAttribute('data-id'); card._moved=true; try{ e.dataTransfer.effectAllowed='move'; }catch(x){} });
+    card.addEventListener('dragend', function(){ setTimeout(function(){ card._moved=false; }, 60); });
+  });
+  el('kanbanView').querySelectorAll('.kcol').forEach(function(col){
+    col.addEventListener('dragover', function(e){ e.preventDefault(); col.classList.add('drag'); });
+    col.addEventListener('dragleave', function(){ col.classList.remove('drag'); });
+    col.addEventListener('drop', function(e){ e.preventDefault(); col.classList.remove('drag'); var st=col.getAttribute('data-statut'); if(_dragId && st) updateStatut(_dragId, st); _dragId=null; });
+  });
+}
+function updateStatut(id, statut){
+  var d = (window.__rows||{})[id]; if(!d || d.statut===statut) return;
+  d.statut = statut; renderStats(); render();
+  sb.from('demandes').update({ statut: statut, maj_le: new Date().toISOString() }).eq('id', id)
+    .then(function(res){ if(res.error) loadDemandes(); });
 }
 function renderStats(){
   var order = ['nouveau','qualifie','en_cours','converti'];
@@ -296,6 +379,9 @@ var LASTUI = {
     var d = (window.__rows||{})[id]; if(!d) return;
     el('dTitle').textContent = [d.prenom,d.nom].filter(Boolean).join(' ') || d.email || 'Demande';
     var opts = Object.keys(STATUTS).map(function(k){ return '<option value="'+k+'"'+(k===d.statut?' selected':'')+'>'+STATUTS[k].l+'</option>'; }).join('');
+    var priL = {basse:'Basse',normale:'Normale',haute:'Haute'};
+    var priOpts = ['basse','normale','haute'].map(function(p){ return '<option value="'+p+'"'+(((d.priorite||'normale')===p)?' selected':'')+'>'+priL[p]+'</option>'; }).join('');
+    var assignOpts = '<option value="">— Non attribué —</option>' + PROFILS.map(function(p){ return '<option value="'+p.id+'"'+(d.assigned_to===p.id?' selected':'')+'>'+esc(p.nom||p.id)+'</option>'; }).join('');
     el('dBody').innerHTML =
       '<div class="row"><span>Source</span><b>'+esc(SOURCES[d.source]||d.source)+'</b></div>'
       + (d.email?'<div class="row"><span>E-mail</span><a href="mailto:'+esc(d.email)+'">'+esc(d.email)+'</a></div>':'')
@@ -305,15 +391,50 @@ var LASTUI = {
       + '<div class="row"><span>Reçue le</span><b>'+fmtDate(d.cree_le)+'</b></div>'
       + (d.message?'<label>Message</label><div class="msg">'+esc(d.message)+'</div>':'')
       + '<label for="dStatut">Statut</label><select id="dStatut">'+opts+'</select>'
-      + '<label for="dNote">Note interne (meta)</label><textarea id="dNote" rows="3" placeholder="Ajouter une note…">'+esc((d.meta&&d.meta.note)||'')+'</textarea>'
-      + '<button class="btn btn-pri" style="margin-top:16px;width:100%" onclick="LASTUI.save(\''+d.id+'\')">Enregistrer</button>';
+      + '<label for="dPriorite">Priorité</label><select id="dPriorite">'+priOpts+'</select>'
+      + '<label for="dAssign">Responsable</label><select id="dAssign">'+assignOpts+'</select>'
+      + '<label for="dNote">Note interne</label><textarea id="dNote" rows="3" placeholder="Ajouter une note…">'+esc((d.meta&&d.meta.note)||'')+'</textarea>'
+      + '<div class="btn-line">'
+      +   (d.client_id ? '<span class="btn" style="opacity:.6;pointer-events:none">✓ Client créé</span>' : '<button class="btn" onclick="LASTUI.convert(\''+d.id+'\')">Convertir en client</button>')
+      +   '<button class="btn btn-pri" onclick="LASTUI.save(\''+d.id+'\')">Enregistrer</button>'
+      + '</div>'
+      + '<button class="btn btn-emit" style="width:100%;margin-top:10px" onclick="LASTUI.facture(\''+d.id+'\')">Créer la facture sur yada <span aria-hidden="true">→</span></button>'
+      + '<div style="font-size:11.5px;color:var(--txt2);margin-top:8px;line-height:1.5">Ouvre la facturation avec les informations du client pré-remplies. Connectez-vous pour émettre la facture.</div>';
     el('drawer').classList.add('open'); el('drawerOv').classList.add('open'); el('drawer').setAttribute('aria-hidden','false');
   },
   save: function(id){
     var statut = el('dStatut').value, note = el('dNote').value;
+    var priorite = el('dPriorite').value, assigned = el('dAssign').value || null;
     var meta = Object.assign({}, ((window.__rows||{})[id]||{}).meta||{}, { note: note });
-    sb.from('demandes').update({ statut: statut, meta: meta, maj_le: new Date().toISOString() }).eq('id', id)
-      .then(function(res){ if(!res.error){ LASTUI.close(); loadDemandes(); } });
+    sb.from('demandes').update({ statut: statut, priorite: priorite, assigned_to: assigned, meta: meta, maj_le: new Date().toISOString() }).eq('id', id)
+      .then(function(res){ if(!res.error){ LASTUI.close(); loadDemandes(); } else { alert('Erreur : '+res.error.message); } });
+  },
+  convert: function(id){
+    var d = (window.__rows||{})[id]; if(!d) return;
+    var isSoc = !!(d.siren || d.entreprise);
+    var client = { type: isSoc?'societe':'particulier', siren: d.siren||null, raison_sociale: d.entreprise||null,
+      nom: d.nom||null, prenom: d.prenom||null, email: d.email||null, telephone: d.telephone||null,
+      adresse: (d.meta&&d.meta.adresse)||null, source_demande_id: d.id };
+    sb.from('clients').insert(client).select('id').single().then(function(res){
+      if(res.error){ alert('Conversion impossible : '+res.error.message); return; }
+      sb.from('demandes').update({ client_id: res.data.id, statut:'converti', maj_le:new Date().toISOString() }).eq('id', id)
+        .then(function(){ LASTUI.close(); loadDemandes(); });
+    });
+  },
+  facture: function(id){
+    // Pont LAST → yada : ouvre la facturation avec le CLIENT pré-rempli.
+    var d = (window.__rows||{})[id]; if(!d) return;
+    var isSoc = !!(d.siren || d.entreprise);
+    var cnom = isSoc ? (d.entreprise||'') : [d.prenom,d.nom].filter(Boolean).join(' ');
+    var q = [];
+    function add(k,v){ if(v) q.push(encodeURIComponent(k)+'='+encodeURIComponent(v)); }
+    add('fclient','1');
+    add('cnom', cnom);
+    add('cadresse', (d.meta&&d.meta.adresse)||'');
+    add('csiret', d.siret || (d.meta&&d.meta.siret) || d.siren || '');
+    add('cemail', d.email||'');
+    var url = 'https://yada.aemconseil.eu/' + (q.length?'?'+q.join('&'):'') + '#facturation';
+    window.open(url, '_blank', 'noopener');
   },
   close: function(){ el('drawer').classList.remove('open'); el('drawerOv').classList.remove('open'); el('drawer').setAttribute('aria-hidden','true'); }
 };
