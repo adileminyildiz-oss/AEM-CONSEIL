@@ -148,6 +148,9 @@ begin
   end loop;
 end $$;
 
--- NB : l'insertion des demandes depuis le site public passe par l'Edge Function
--- `intake` (service role), qui contourne la RLS de façon contrôlée. Aucun accès
--- anonyme direct n'est ouvert sur ces tables.
+-- Intake public : le site aemconseil.eu insère les demandes directement via
+-- l'API REST (clé publishable). Insertion autorisée pour tous, mais AUCUNE
+-- lecture / mise à jour / suppression anonyme (celles-ci restent gérées par la
+-- policy cabinet ci-dessus). L'Edge Function `intake` reste une alternative
+-- possible si vous souhaitez ajouter une notification e-mail côté serveur.
+create policy demandes_public_insert on public.demandes for insert with check (true);
