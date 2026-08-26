@@ -19,8 +19,11 @@ create table if not exists public.profils (
 );
 
 -- Un utilisateur authentifié est « membre du cabinet » s'il a un profil.
+-- SECURITY DEFINER : la fonction s'exécute avec les droits du propriétaire et
+-- CONTOURNE la RLS de `profils`. Indispensable, sinon la policy de `profils`
+-- (qui appelle est_cabinet) se rappellerait elle-même → récursion infinie (42P17).
 create or replace function public.est_cabinet()
-returns boolean language sql stable as $$
+returns boolean language sql stable security definer set search_path = public as $$
   select exists (select 1 from public.profils p where p.id = auth.uid());
 $$;
 

@@ -1,5 +1,5 @@
 /* LAST — Service worker (réseau d'abord, repli cache hors-ligne, même origine). */
-const CACHE = 'last-v2';
+const CACHE = 'last-v3';
 const CORE = ['./', './index.html'];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE).catch(() => {})).then(() => self.skipWaiting()));

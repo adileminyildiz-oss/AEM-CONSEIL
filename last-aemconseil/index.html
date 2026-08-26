@@ -295,7 +295,7 @@ var sb = null, filterStatut = '', view = 'liste', PROFILS = [];
 
 function el(id){ return document.getElementById(id); }
 function fmtDate(iso){ try{ var d=new Date(iso); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return iso; } }
-function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
 
 /* ---------- Démarrage ---------- */
 function boot(){
@@ -537,7 +537,7 @@ var CHECKLISTS = {
 function checklistFor(type, sous){ return CHECKLISTS[type+':'+sous] || ['Pièces justificatives','Dépôt au guichet unique (INPI)']; }
 
 var CLIENTS = [], DOSSIERS = [], dFilter = '';
-function loadClients(cb){ if(!sb){ if(cb) cb(); return; } sb.from('clients').select('id,type,raison_sociale,nom,prenom,siren,siret,email,telephone,adresse,cp,ville').order('cree_le',{ascending:false}).then(function(res){ if(!res.error) CLIENTS = res.data||[]; if(cb) cb(); }); }
+function loadClients(cb){ if(!sb){ if(cb) cb(); return; } sb.from('clients').select('id,type,raison_sociale,nom,prenom,siren,siret,tva,email,telephone,adresse,cp,ville').order('cree_le',{ascending:false}).then(function(res){ if(!res.error) CLIENTS = res.data||[]; if(cb) cb(); }); }
 function clientLabel(c){ return c ? (c.raison_sociale || [c.prenom,c.nom].filter(Boolean).join(' ') || c.email || 'Client') : '—'; }
 
 function loadDossiers(){
