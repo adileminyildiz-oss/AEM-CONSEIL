@@ -336,7 +336,7 @@
   '.aem-ch-form textarea:focus{border-color:rgba(150,170,255,.6)}' +
   '.aem-ch-send{flex:none;width:44px;height:44px;border-radius:12px;border:none;cursor:pointer;display:grid;place-items:center;color:#fff;background:linear-gradient(180deg,#2b45ff,#2036cc);transition:filter .15s}' +
   '.aem-ch-send:hover{filter:brightness(1.12)}.aem-ch-send:disabled{opacity:.45;cursor:default}' +
-  '.aem-ch-foot .aem-legal{margin:8px 2px 0;font-size:10.5px;color:#6f7fb5;text-align:center}' +
+  '.aem-ch-foot .aem-legal{margin:8px 2px 0;font-size:11px;color:#9aa6c8;text-align:center}' +
   '@media (prefers-reduced-motion:reduce){.aem-chat-btn,.aem-chat-panel,.aem-chip,.aem-ch-send{transition:none}.aem-chat-btn .aem-dot,.aem-typing i{animation:none}}';
 
   /* ---------- Construction du DOM ----------------------------------------- */

@@ -1296,7 +1296,7 @@
 <div id="app">
   <nav id="nav">
     <div class="nav-in">
-      <a href="#top" class="logo" aria-label="AEM CONSEIL — Accueil"><img src="assets/logo-full.png" alt="AEM Conseil" width="1792" height="664" decoding="async"></a>
+      <a href="#top" class="logo" aria-label="AEM CONSEIL — Accueil"><img src="assets/logo-full.png" alt="AEM-CONSEIL" width="1792" height="664" decoding="async"></a>
       <div class="nlinks">
         <div class="mega-wrap">
           <a href="#services">Services <svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
@@ -1904,7 +1904,7 @@
     <div class="wrap">
       <div class="ft-top">
         <div>
-          <a href="#top" class="logo"><img src="assets/logo-full.png" alt="AEM Conseil" width="1792" height="664" decoding="async"></a>
+          <a href="#top" class="logo"><img src="assets/logo-full.png" alt="AEM-CONSEIL" width="1792" height="664" decoding="async"></a>
           <p class="desc">Cabinet de conseil et d'expertise comptable au service des entrepreneurs, TPE et PME.</p>
         </div>
         <div class="ft-col">
@@ -2679,8 +2679,8 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
   });}
   var tt=document.getElementById('toTop');
   if(tt){
-    var onScroll=function(){tt.classList.toggle('show',window.pageYOffset>600);};
-    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+    // L'affichage du bouton (.show) est géré par le gestionnaire de défilement
+    // unique (requestAnimationFrame) plus bas — on ne garde ici que le clic.
     tt.addEventListener('click',function(){var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;window.scrollTo({top:0,behavior:rm?'auto':'smooth'});});
   }
 })();
