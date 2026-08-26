@@ -97,7 +97,7 @@
   "publisher": {"@type": "Organization", "name": "AEM-CONSEIL", "logo": {"@type": "ImageObject", "url": "https://aemconseil.eu/assets/logo-full.png"}},
   "potentialAction": {
     "@type": "SearchAction",
-    "target": {"@type": "EntryPoint", "urlTemplate": "https://aemconseil.eu/?q={search_term_string}#ressources"},
+    "target": {"@type": "EntryPoint", "urlTemplate": "https://aemconseil.eu/?q={search_term_string}"},
     "query-input": "required name=search_term_string"
   }
 }
@@ -1976,7 +1976,7 @@
 <div id="svcPage" role="dialog" aria-modal="true" aria-label="Page service"></div>
 <!-- Page Devis dédiée -->
 <div id="devisPage" role="dialog" aria-modal="true" aria-label="Simulateur de devis">
-  <div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" onclick="location.hash='#top'"><a href="#contact" class="btn btn-pri" onclick="spGo(event,'#contact')">Nous contacter</a></div>
+  <div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" role="button" tabindex="0" aria-label="Retour à l'accueil" onclick="location.hash='#top'" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();location.hash='#top'}"><a href="#contact" class="btn btn-pri" onclick="spGo(event,'#contact')">Nous contacter</a></div>
   <div class="sp-wrap">
       <div class="sh"><span class="kick">Simulateur</span><h2>Estimez votre <span class="ital">accompagnement</span> en 1 minute</h2><p>Quelques questions pour cerner votre besoin. Vous recevez un devis personnalisé et gratuit sous 24 h — sans engagement.</p></div>
       <form class="sim" id="simForm" novalidate>
@@ -2069,7 +2069,7 @@
 
 <!-- Prise de rendez-vous -->
 <div id="rdvPage" role="dialog" aria-modal="true" aria-label="Prendre rendez-vous">
-  <div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" onclick="location.hash='#top'"><a href="tel:+33665908325" class="btn btn-pri">Nous appeler</a></div>
+  <div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" role="button" tabindex="0" aria-label="Retour à l'accueil" onclick="location.hash='#top'" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();location.hash='#top'}"><a href="tel:+33665908325" class="btn btn-pri">Nous appeler</a></div>
   <div class="sp-wrap">
     <div class="sh"><span class="kick">Rendez-vous</span><h2>Réservez votre <span class="ital">premier échange</span> — offert</h2><p>Choisissez le format et le moment qui vous conviennent. Nous confirmons votre créneau sous 24 h ouvrées, sans engagement.</p></div>
     <form class="rdv" id="rdvForm" novalidate>
@@ -2138,7 +2138,7 @@
 
 <!-- Comparateur de statuts juridiques -->
 <div id="compPage" role="dialog" aria-modal="true" aria-label="Comparateur de statuts juridiques">
-  <div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" onclick="location.hash='#top'"><a href="#rdv" class="btn btn-pri" onclick="spGo(event,'#rdv')">Être conseillé</a></div>
+  <div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" role="button" tabindex="0" aria-label="Retour à l'accueil" onclick="location.hash='#top'" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();location.hash='#top'}"><a href="#rdv" class="btn btn-pri" onclick="spGo(event,'#rdv')">Être conseillé</a></div>
   <div class="sp-wrap">
     <div class="sh"><span class="kick">Comparateur</span><h2>Quel <span class="ital">statut juridique</span> pour votre projet ?</h2><p>Comparez d'un coup d'œil les principales formes juridiques. Filtrez selon que vous entreprenez seul ou à plusieurs — puis parlons du choix le mieux adapté à votre situation.</p></div>
     <div class="cmp-filters" role="tablist" aria-label="Filtrer les statuts">
@@ -2157,7 +2157,7 @@
   <div class="srch-box" onclick="event.stopPropagation()">
     <div class="srch-top">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input type="text" id="srchInput" placeholder="Rechercher parmi nos articles…" aria-label="Votre recherche" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="srchResults">
+      <input type="text" id="srchInput" placeholder="Rechercher parmi nos articles…" aria-label="Votre recherche" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="srchResults">
       <button type="button" class="srch-close" aria-label="Fermer la recherche" onclick="closeSearch()"><kbd>Échap</kbd></button>
     </div>
     <div class="srch-results" id="srchResults" role="listbox"></div>
@@ -2708,7 +2708,7 @@ function closeCGU(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;v
 /* ===== Pages Services : routeur par ancre (#services/slug) ===== */
 var SP_BASE_TITLE=document.title;
 /* Fragments partagés */
-function spBar(){return '<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>';}
+function spBar(){return '<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" role="button" tabindex="0" aria-label="Retour à l\'accueil" onclick="location.hash=\'#top\'" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();location.hash=\'#top\'}"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>';}
 function spCtas(){return '<div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Estimer mon besoin <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div>';}
 function spInc(s){return '<ul class="sp-inc">'+s.includes.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>';}
 function spCheck(s){return '<ul class="sp-check">'+s.includes.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>';}
@@ -2786,7 +2786,7 @@ function spGuidePageHTML(g,secs){
     +related.map(function(x){return '<a class="bcard" href="#ressources/'+x.slug+'"><span class="bcat">'+esc(x.cat)+'</span><h3>'+esc(x.title)+'</h3><span class="bmeta">'+esc(x.read)+' de lecture · Lire l\'article →</span></a>';}).join('')
     +'</div></div>':'';
   return ''
-    +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
+    +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" role="button" tabindex="0" aria-label="Retour à l\'accueil" onclick="location.hash=\'#top\'" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();location.hash=\'#top\'}"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
     +'<div class="sp-wrap gd-wrap">'
       +'<div class="sp-hero" style="text-align:left;margin:0"><span class="sp-kick">'+esc(g.cat)+' · Guide</span><h1>'+esc(g.title)+'</h1><p>'+esc(g.lead)+'</p><div class="gd-meta"><span class="gd-read">'+esc(g.read)+' de lecture</span><span class="gd-updated">Mis à jour le 20 juillet 2026</span></div></div>'
       +spShareRow(g)
@@ -2854,7 +2854,7 @@ function spThemePageHTML(t){
     return '<a class="bcard" href="#ressources/'+g.slug+'"><span class="bcat">'+esc(g.cat)+'</span><h3>'+esc(g.title)+'</h3><span class="bmeta">'+esc(g.read)+' de lecture · Lire l\'article →</span></a>';
   }).join('');
   return ''
-    +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
+    +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" width="1792" height="664" decoding="async" role="button" tabindex="0" aria-label="Retour à l\'accueil" onclick="location.hash=\'#top\'" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();location.hash=\'#top\'}"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
     +'<div class="sp-wrap th-wrap">'
       +'<div class="sp-hero" style="text-align:left;margin:0"><span class="sp-kick">Thème</span><h1>'+esc(t.name)+'</h1><p>'+esc(t.tag)+'</p></div>'
       +'<div class="th-intro">'+intro+'</div>'
@@ -3065,8 +3065,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   function setSel(i){var items=results.querySelectorAll('.srch-item');if(!items.length)return;sel=(i+items.length)%items.length;
     [].forEach.call(items,function(el,k){el.classList.toggle('sel',k===sel);});items[sel].scrollIntoView({block:'nearest'});}
   function go(slug){T('search_select',{slug:slug});closeSearch();location.hash='#ressources/'+slug;}
-  window.openSearch=function(){ov.classList.add('open');ov.setAttribute('aria-hidden','false');input.value='';search('');T('search_open');setTimeout(function(){input.focus();},40);};
-  window.closeSearch=function(){ov.classList.remove('open');ov.setAttribute('aria-hidden','true');};
+  window.openSearch=function(q){ov.classList.add('open');ov.setAttribute('aria-hidden','false');input.setAttribute('aria-expanded','true');input.value=q||'';search(q||'');T('search_open');setTimeout(function(){input.focus();},40);};
+  window.closeSearch=function(){ov.classList.remove('open');ov.setAttribute('aria-hidden','true');input.setAttribute('aria-expanded','false');};
+  try{var _q0=new URLSearchParams(location.search).get('q');if(_q0)window.openSearch(_q0);}catch(e){}
   input.addEventListener('input',function(){search(input.value);});
   input.addEventListener('keydown',function(e){
     if(e.key==='ArrowDown'){e.preventDefault();setSel(sel+1);}

@@ -66,7 +66,7 @@
   .viewtabs button{border:none;background:none;color:var(--txt2);font-family:inherit;font-weight:600;font-size:13px;padding:7px 14px;border-radius:8px;cursor:pointer}
   .viewtabs button.on{background:linear-gradient(135deg,var(--outremer),#7c3aff);color:#fff}
   /* Kanban */
-  .kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:4px}
+  .kanban{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:4px}
   .kanban.hidden,.card.hidden{display:none}
   .kcol{background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:12px;min-height:140px;transition:.14s}
   .kcol.drag{border-color:var(--azur);background:var(--glass-2)}
@@ -312,6 +312,13 @@ function boot(){
     loadDashboard();
     return;
   }
+  if(!window.supabase){
+    el('gate').hidden = true; el('app').classList.remove('hidden');
+    var nn = el('configNotice'); nn.classList.remove('hidden');
+    nn.innerHTML = '⚠︎ <b>Connexion indisponible.</b> La librairie Supabase n\'a pas pu se charger (réseau). Vérifiez votre connexion et rechargez la page.';
+    el('logout').classList.add('hidden'); loadDashboard();
+    return;
+  }
   sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {auth:{persistSession:true,autoRefreshToken:true}});
   sb.auth.getSession().then(function(res){
     if(res.data && res.data.session) onAuth(res.data.session);
@@ -372,7 +379,7 @@ function render(){ if(view === 'kanban') renderKanban(); else renderRows(); }
 function loadProfils(){
   sb.from('profils').select('id,nom,role').then(function(res){ if(!res.error) PROFILS = res.data || []; });
 }
-var KCOLS = ['nouveau','qualifie','en_cours','converti'];
+var KCOLS = ['nouveau','qualifie','en_cours','converti','perdu','clos'];
 function renderKanban(){
   var query = (el('search').value||'').toLowerCase().trim();
   var data = ALL.filter(function(d){
@@ -483,9 +490,11 @@ var LASTUI = {
   convert: function(id){
     var d = (window.__rows||{})[id]; if(!d) return;
     var isSoc = !!(d.siren || d.entreprise);
-    var client = { type: isSoc?'societe':'particulier', siren: d.siren||null, raison_sociale: d.entreprise||null,
-      nom: d.nom||null, prenom: d.prenom||null, email: d.email||null, telephone: d.telephone||null,
-      adresse: (d.meta&&d.meta.adresse)||null, source_demande_id: d.id };
+    var m = d.meta || {};
+    var client = { type: isSoc?'societe':'particulier', siren: d.siren||null, siret: m.siret||null,
+      raison_sociale: d.entreprise||null, nom: d.nom||null, prenom: d.prenom||null,
+      email: d.email||null, telephone: d.telephone||null, tva: m.tva||null,
+      adresse: m.adresse||null, forme_juridique: m.forme||null, source_demande_id: d.id };
     sb.from('clients').insert(client).select('id').single().then(function(res){
       if(res.error){ alert('Conversion impossible : '+res.error.message); return; }
       sb.from('demandes').update({ client_id: res.data.id, statut:'converti', maj_le:new Date().toISOString() }).eq('id', id)

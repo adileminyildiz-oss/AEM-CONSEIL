@@ -12,7 +12,10 @@
      LAST.intake('rdv',     { nom, email, telephone, message, meta:{ format, date_souhaitee, creneau } });
      LAST.intake('kit',     { email, meta:{ ressource } });
      LAST.intake('chatbot', { nom, email, telephone, message });
-     LAST.intake('identification', { type, siren, raison, ... });
+     LAST.intake('identification', { type, siren, entreprise, email, telephone, meta:{ forme, adresse, siret, tva } });
+     // NB : seules les colonnes de la table `demandes` vont au niveau racine
+     //      (source, type, nom, prenom, email, telephone, siren, entreprise, objet, message, meta).
+     //      Tout le reste (forme, adresse, siret, iban…) doit être imbriqué dans `meta`.
 
    Activation — deux modes :
      • Insertion directe Supabase (recommandé, aucune fonction à déployer) :
