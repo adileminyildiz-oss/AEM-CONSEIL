@@ -114,7 +114,7 @@
 
     { id: 'ressources', kw: 'article articles guide guides blog ressource ressources lire conseils fiche fiches documentation',
       a: 'Nous publions de nombreux <b>guides gratuits</b> sur la comptabilité, la fiscalité, la paie, la gestion et la création d\'entreprise. Dites-moi votre sujet et je vous oriente vers les bons articles.',
-      chips: [['Tous les articles', onHome ? '#ressources' : '/ressources/']] },
+      chips: [['Tous les articles', onHome ? '#actualites' : '/ressources/']] },
 
     { id: 'facturation', kw: 'facture factures devis facturation facturer creer produire emettre editer rediger envoyer document electronique plateforme quittance',
       a: 'Pour <b>créer, envoyer et gérer vos factures et devis en ligne</b>, le cabinet met à votre disposition une plateforme dédiée, conforme à la facturation électronique.',
