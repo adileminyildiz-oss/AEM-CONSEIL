@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <title>Espace — AEM-CONSEIL</title>
 <meta name="description" content="Espace en ligne AEM-CONSEIL : facturation et modules de gestion.">
 <meta name="theme-color" content="#04050b">
@@ -16,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/dist/umd/supabase.js" integrity="sha384-ysv13JVP3fufiEXfjML9OdCa/rRbMJvUBOWyor82wfuK8INNZAvmbxHgKIHi+oqz" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <style>
   :root{
@@ -266,6 +267,18 @@
 
   var frame = document.getElementById('moduleFrame');
   var frameLoad = document.getElementById('frameLoad');
+  var frameWatch = null;
+
+  function showFrameError(){
+    clearTimeout(frameWatch);
+    frameLoad.classList.add('hide');
+    frame.style.display = 'none';
+    var fe = document.getElementById('frameEmpty');
+    document.getElementById('feTitle').textContent = 'Chargement impossible';
+    document.getElementById('feDesc').textContent = 'Ce module n’a pas pu se charger. Vérifiez votre connexion, puis réessayez.';
+    fe.hidden = false;
+  }
+  frame.addEventListener('error', showFrameError);
 
   function currentKey(){
     var h = (location.hash||'').replace(/^#/,'');
@@ -289,6 +302,8 @@
       if(key!==current){
         current = key;
         frameLoad.classList.remove('hide');
+        clearTimeout(frameWatch);
+        frameWatch = setTimeout(showFrameError, 9000);
         frame.src = mod.url;
       }
     } else {
@@ -304,8 +319,10 @@
   }
 
   frame.addEventListener('load', function(){
-    if(frame.src && frame.src!=='about:blank' && !frame.src.endsWith('about:blank'))
+    if(frame.src && frame.src!=='about:blank' && !frame.src.endsWith('about:blank')){
+      clearTimeout(frameWatch);
       frameLoad.classList.add('hide');
+    }
   });
 
   document.getElementById('snav').addEventListener('click', function(e){
@@ -354,15 +371,19 @@
   }
   function showGate(){ document.body.classList.remove('authed'); }
   function setAuthMode(mode){
-    authMode=mode; var s=(mode==='signup');
-    $('authTitle').textContent = s?'Créer votre compte':'Connexion à votre espace';
-    $('authSub').textContent = s?'Renseignez votre email et un mot de passe (6 caractères min.).':'Accédez à vos factures et documents.';
-    $('authSubmit').textContent = s?'Créer mon compte':'Se connecter';
-    $('authPass2Wrap').hidden = !s;
-    $('authPass').setAttribute('autocomplete', s?'new-password':'current-password');
-    $('authSwitchTxt').innerHTML = s?'Déjà un compte&nbsp;?':'Pas encore de compte&nbsp;?';
+    authMode=mode; var s=(mode==='signup'), r=(mode==='recovery');
+    var emailLabel=document.querySelector('label[for="authEmail"]');
+    $('authTitle').textContent = r?'Nouveau mot de passe':(s?'Créer votre compte':'Connexion à votre espace');
+    $('authSub').textContent = r?'Choisissez un nouveau mot de passe (6 caractères min.).':(s?'Renseignez votre email et un mot de passe (6 caractères min.).':'Accédez à vos factures et documents.');
+    $('authSubmit').textContent = r?'Mettre à jour':(s?'Créer mon compte':'Se connecter');
+    $('authPass2Wrap').hidden = !(s||r);
+    $('authPass').setAttribute('autocomplete', (s||r)?'new-password':'current-password');
+    $('authEmail').style.display = r?'none':'';
+    if(emailLabel) emailLabel.style.display = r?'none':'';
+    $('authSwitchTxt').parentNode.style.display = r?'none':'';
     $('authToggle').textContent = s?'Se connecter':'Créer un compte';
-    $('authForgot').style.display = s?'none':'block';
+    $('authSwitchTxt').innerHTML = s?'Déjà un compte&nbsp;?':'Pas encore de compte&nbsp;?';
+    $('authForgot').style.display = (s||r)?'none':'block';
     authMsg('');
   }
   function frErr(m){
@@ -382,13 +403,18 @@
       return;
     }
     sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    setAuthMode('login');
+    var recoveryPending = /type=recovery/.test(location.hash||'') || /type=recovery/.test(location.search||'');
+    setAuthMode(recoveryPending?'recovery':'login');
+    if(recoveryPending) showGate();
 
     sb.auth.getSession().then(function(res){
+      if(recoveryPending){ showGate(); setAuthMode('recovery'); return; }
       var session = res && res.data && res.data.session;
       if(session){ showApp(session.user); } else { showGate(); }
-    });
+    }).catch(function(){ showGate(); authMsg('Service momentanément indisponible, réessayez plus tard.','err'); });
     sb.auth.onAuthStateChange(function(event, session){
+      if(event==='PASSWORD_RECOVERY'){ recoveryPending=true; showGate(); setAuthMode('recovery'); return; }
+      if(recoveryPending) return;
       if(session && session.user){ showApp(session.user); }
       else if(event==='SIGNED_OUT'){ showGate(); }
     });
@@ -405,6 +431,20 @@
       e.preventDefault();
       var email=$('authEmail').value.trim(), pass=$('authPass').value;
       var btn=$('authSubmit'), orig=btn.textContent;
+      if(authMode==='recovery'){
+        if(pass.length<6){ authMsg('Le mot de passe doit faire au moins 6 caractères.','err'); return; }
+        if(pass!==$('authPass2').value){ authMsg('Les deux mots de passe ne correspondent pas.','err'); return; }
+        btn.disabled=true; btn.innerHTML='<span class="auth-spin"></span>Mise à jour…'; authMsg('');
+        sb.auth.updateUser({password:pass}).then(function(r){
+          btn.disabled=false; btn.textContent=orig;
+          if(r.error){ authMsg(frErr(r.error.message),'err'); return; }
+          recoveryPending=false;
+          if(history.replaceState) history.replaceState(null,'',location.pathname);
+          authMsg('Mot de passe mis à jour ✓','ok');
+          sb.auth.getSession().then(function(rr){ var ss=rr&&rr.data&&rr.data.session; if(ss&&ss.user){ showApp(ss.user); } else { setAuthMode('login'); } });
+        }).catch(function(){ btn.disabled=false; btn.textContent=orig; authMsg('Une erreur est survenue. Réessayez.','err'); });
+        return;
+      }
       if(!email || !pass){ authMsg('Renseignez votre email et votre mot de passe.','err'); return; }
       if(authMode==='signup'){
         if(pass.length<6){ authMsg('Le mot de passe doit faire au moins 6 caractères.','err'); return; }
