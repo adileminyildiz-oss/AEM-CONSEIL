@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root{
     --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
@@ -48,6 +49,10 @@
   .search svg{width:15px;height:15px;color:var(--txt2);flex:none}
   .search input{border:none;background:none;color:var(--txt);font-family:inherit;font-size:13px;width:150px;outline:none}
   .search input::placeholder{color:#4a5578}
+  .cloud-dot{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--txt2);padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--glass)}
+  .cloud-dot .d{width:7px;height:7px;border-radius:50%;background:#5a6488;flex:none}
+  .cloud-dot.on .d{background:var(--pos);box-shadow:0 0 8px rgba(62,233,164,.7)}
+  .cloud-dot.local .d{background:#f5c451}
 
   .btn{font-family:'Inter Tight',sans-serif;font-weight:600;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:7px;
     padding:8px 13px;border-radius:10px;font-size:13px;white-space:nowrap;transition:transform .16s,filter .2s,background .2s}
@@ -70,6 +75,7 @@
   .list .lhead{padding:12px 16px 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5a6488;font-weight:600;display:flex;justify-content:space-between;align-items:center}
   .titem{display:flex;align-items:center;gap:11px;padding:11px 16px;cursor:pointer;border-bottom:1px solid var(--line);transition:background .15s}
   .titem:hover{background:var(--glass)}
+  .titem:focus-visible{outline:2px solid var(--azur);outline-offset:-2px}
   .titem.active{background:var(--glass-2);box-shadow:inset 3px 0 0 0 var(--azur)}
   .titem .av{width:34px;height:34px;border-radius:9px;flex:none;display:grid;place-items:center;font-family:'Inter Tight';font-weight:700;font-size:13px;color:#05061a;background:linear-gradient(135deg,#c2ccff,#7d93ff)}
   .titem.four .av{background:linear-gradient(135deg,#a9f0d0,#3ee9a4)}
@@ -130,8 +136,9 @@
   <div class="actions">
     <div class="search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input id="search" type="search" placeholder="Rechercher…" oninput="renderList()">
+      <input id="search" type="search" placeholder="Rechercher…" aria-label="Rechercher un tiers" oninput="renderList()">
     </div>
+    <span class="cloud-dot" id="cloudDot" title="État de la sauvegarde"><span class="d"></span><span id="cloudTxt">Local</span></span>
     <button class="btn btn-pri" onclick="newTiers()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Nouveau tiers</button>
   </div>
 </div>
@@ -141,16 +148,49 @@
   <div class="detail" id="detail"></div>
 </div>
 
-<div class="toast" id="toast"><span class="d"></span><span id="toastMsg"></span></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span class="d"></span><span id="toastMsg"></span></div>
 
 <script>
-const LS_TIERS='aem_tiers';
-function load(){ try{ return JSON.parse(localStorage.getItem(LS_TIERS)||'[]'); }catch(e){ return []; } }
-function save(list){ localStorage.setItem(LS_TIERS, JSON.stringify(list)); }
+/* ===== Persistance : cloud Supabase (par compte, RLS) + miroir localStorage ===== */
+const SUPABASE_URL='https://ammmyhtxnwyoopfxtans.supabase.co';
+const SUPABASE_KEY='sb_publishable_VBYOMpnF3kv7kkcrMLczZQ_v2e4_RHo';
+const Store={
+  sb:null, uid:null, cloud:false, migrated:false,
+  key(){ return 'aem_tiers'+(this.uid?'::'+this.uid:''); },
+  lget(k,d){ try{ var v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } },
+  lset(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+  init(){ var s=this; return new Promise(function(res){
+    try{ if(typeof window.supabase!=='undefined'){ s.sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+      s.sb.auth.getSession().then(function(r){ var ss=r&&r.data&&r.data.session; if(ss&&ss.user){ s.uid=ss.user.id; s.cloud=true; } res(); }).catch(function(){ res(); }); return; } }catch(e){}
+    res();
+  }); },
+  loadAll(){ var s=this; return new Promise(function(res){
+    function localList(){ var v=s.lget(s.key(),null); if(v===null) v=s.lget('aem_tiers',null); return v; }
+    function done(list){ list=list||[]; s.lset(s.key(), list); res(list); }
+    if(s.cloud){
+      s.sb.from('tiers').select('data').eq('user_id',s.uid).then(function(r){
+        if(!r.error && r.data){
+          var list=r.data.map(function(x){return x.data;});
+          if(!list.length){ var loc=localList(); if(loc && loc.length){ list=loc; s.migrated=true; list.forEach(function(t){ s.put(t); }); } }
+          done(list);
+        } else { s.cloud=false; done(localList()); }
+      }).catch(function(){ s.cloud=false; done(localList()); });
+    } else { done(localList()); }
+  }); },
+  saveLocal(list){ this.lset(this.key(), list); },
+  put(t){ var s=this; if(!s.cloud) return; s.sb.from('tiers').upsert({user_id:s.uid,tiers_id:t.id,data:t,updated_at:new Date().toISOString()}).then(function(r){ if(r&&r.error) s.cloud=false; updateCloudDot(); }).catch(function(){ s.cloud=false; updateCloudDot(); }); },
+  del(id){ var s=this; if(!s.cloud) return; s.sb.from('tiers').delete().eq('user_id',s.uid).eq('tiers_id',id).then(function(){}).catch(function(){}); }
+};
+function save(list){ Store.saveLocal(list); }
+function updateCloudDot(){ var d=document.getElementById('cloudDot'), t=document.getElementById('cloudTxt'); if(!d||!t) return;
+  if(Store.cloud){ d.className='cloud-dot on'; t.textContent='Cloud'; }
+  else if(Store.uid){ d.className='cloud-dot local'; t.textContent='Local (cloud indispo.)'; }
+  else { d.className='cloud-dot local'; t.textContent='Local'; } }
+
 function uid(){ return 't_'+Date.now().toString(36)+Math.floor(performance.now()).toString(36); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-let tiers = load();
+let tiers = [];
 let selId = null;   // id sélectionné ; '' = nouveau ; null = rien
 
 function initials(name){ const p=(name||'').trim().split(/\s+/).filter(Boolean); return ((p[0]||'')[0]||'?').toUpperCase()+((p[1]||'')[0]||'').toUpperCase(); }
@@ -168,7 +208,7 @@ function renderList(){
   box.innerHTML=head+items.map(t=>{
     const four=t.type==='fournisseur';
     const sub=[t.contact,t.email,t.addr&&t.addr.split('\n')[0]].filter(Boolean)[0]||'—';
-    return '<div class="titem'+(four?' four':'')+(t.id===selId?' active':'')+'" onclick="selectTiers(\''+t.id+'\')">'
+    return '<div class="titem'+(four?' four':'')+(t.id===selId?' active':'')+'" role="button" tabindex="0" aria-label="'+esc(t.name||'Sans nom')+'" onclick="selectTiers(\''+t.id+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();selectTiers(\''+t.id+'\');}">'
       +'<span class="av">'+esc(initials(t.name))+'</span>'
       +'<span class="m"><span class="n">'+(esc(t.name)||'Sans nom')+'</span><span class="s">'+esc(sub)+'</span></span>'
       +'<span class="badge '+(four?'four':'client')+'">'+(four?'Fourn.':'Client')+'</span></div>';
@@ -191,14 +231,14 @@ function renderDetail(t){
         </div>
       </div>
       <div class="grid2">
-        <div class="field col-2"><label>Nom / Raison sociale</label><input id="t-name" value="${esc(t.name)}" placeholder="Société Cliente SARL"></div>
-        <div class="field"><label>Contact (personne)</label><input id="t-contact" value="${esc(t.contact)}" placeholder="Marie Dupont"></div>
-        <div class="field"><label>Email</label><input id="t-email" type="email" value="${esc(t.email)}" placeholder="contact@exemple.fr"></div>
-        <div class="field"><label>Téléphone</label><input id="t-phone" value="${esc(t.phone)}" placeholder="06 00 00 00 00"></div>
-        <div class="field"><label>SIRET</label><input id="t-siret" value="${esc(t.siret)}" placeholder="000 000 000 00000"></div>
-        <div class="field col-2"><label>Adresse</label><textarea id="t-addr" placeholder="3 avenue du Client&#10;69000 Lyon">${esc(t.addr)}</textarea></div>
-        <div class="field"><label>N° TVA intracom.</label><input id="t-tva" value="${esc(t.tva)}" placeholder="FR00000000000"></div>
-        <div class="field col-2"><label>Notes</label><textarea id="t-notes" placeholder="Informations complémentaires…">${esc(t.notes)}</textarea></div>
+        <div class="field col-2"><label for="t-name">Nom / Raison sociale</label><input id="t-name" value="${esc(t.name)}" placeholder="Société Cliente SARL"></div>
+        <div class="field"><label for="t-contact">Contact (personne)</label><input id="t-contact" value="${esc(t.contact)}" placeholder="Marie Dupont"></div>
+        <div class="field"><label for="t-email">Email</label><input id="t-email" type="email" value="${esc(t.email)}" placeholder="contact@exemple.fr"></div>
+        <div class="field"><label for="t-phone">Téléphone</label><input id="t-phone" value="${esc(t.phone)}" placeholder="06 00 00 00 00"></div>
+        <div class="field"><label for="t-siret">SIRET</label><input id="t-siret" value="${esc(t.siret)}" placeholder="000 000 000 00000"></div>
+        <div class="field col-2"><label for="t-addr">Adresse</label><textarea id="t-addr" placeholder="3 avenue du Client&#10;69000 Lyon">${esc(t.addr)}</textarea></div>
+        <div class="field"><label for="t-tva">N° TVA intracom.</label><input id="t-tva" value="${esc(t.tva)}" placeholder="FR00000000000"></div>
+        <div class="field col-2"><label for="t-notes">Notes</label><textarea id="t-notes" placeholder="Informations complémentaires…">${esc(t.notes)}</textarea></div>
       </div>
       <div class="form-actions">
         <button class="btn btn-pri" onclick="saveTiers()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg> Enregistrer</button>
@@ -230,14 +270,16 @@ function readForm(){
 function saveTiers(){
   const data=readForm();
   if(!data.name){ toast('Indiquez au moins un nom.'); document.getElementById('t-name').focus(); return; }
-  if(selId){ const i=tiers.findIndex(x=>x.id===selId); if(i>=0){ tiers[i]=Object.assign(tiers[i],data,{updated:Date.now()}); } }
-  else { const t=Object.assign({id:uid()},data,{updated:Date.now()}); tiers.unshift(t); selId=t.id; }
-  save(tiers); renderList(); selectTiers(selId); toast('Tiers enregistré ✓');
+  let cur;
+  if(selId){ const i=tiers.findIndex(x=>x.id===selId); if(i>=0){ tiers[i]=Object.assign(tiers[i],data,{updated:Date.now()}); cur=tiers[i]; } }
+  else { cur=Object.assign({id:uid()},data,{updated:Date.now()}); tiers.unshift(cur); selId=cur.id; }
+  save(tiers); if(cur) Store.put(cur); renderList(); selectTiers(selId); toast('Tiers enregistré ✓');
 }
 function deleteTiers(){
   if(!selId) return;
   if(!confirm('Supprimer ce tiers définitivement ?')) return;
-  tiers=tiers.filter(x=>x.id!==selId); save(tiers); selId=null; renderEmpty(); renderList(); toast('Tiers supprimé');
+  const id=selId;
+  tiers=tiers.filter(x=>x.id!==id); save(tiers); Store.del(id); selId=null; renderEmpty(); renderList(); toast('Tiers supprimé');
 }
 
 let toastTimer=null;
@@ -245,8 +287,12 @@ function toast(msg){ const t=document.getElementById('toast'); document.getEleme
 
 /* Init */
 if(new URLSearchParams(location.search).has('embed')) document.body.classList.add('embed');
-renderList();
 renderEmpty();
+renderList();
+Store.init()
+  .then(function(){ updateCloudDot(); return Store.loadAll(); })
+  .then(function(list){ tiers=list||[]; renderList(); if(Store.migrated) toast('Tiers existants importés ✓'); })
+  .catch(function(){ tiers=[]; renderList(); toast('Mode local (connexion indisponible).'); });
 </script>
 </body>
 </html>

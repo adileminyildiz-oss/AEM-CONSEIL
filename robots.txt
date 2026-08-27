@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+# Maquettes d'exploration internes — ne pas indexer
+Disallow: /designs/
+
+Sitemap: https://aemconseil.eu/sitemap.xml
