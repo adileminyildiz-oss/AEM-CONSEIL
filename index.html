@@ -102,7 +102,10 @@
   .btn-pri:hover{filter:brightness(1.06)}
   .btn-ghost{padding:13px 24px;border-radius:12px;font-size:14.5px;color:var(--txt);background:var(--glass);border:1px solid var(--line-2)}
   .btn-ghost:hover{background:var(--glass-2)}
-  .btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--azur);outline-offset:3px}
+  .btn:focus-visible,a:focus-visible,button:focus-visible,[role="button"]:focus-visible,[tabindex="0"]:focus-visible,summary:focus-visible,.svc:focus-visible,.cmp-chip:focus-visible,.faq-q:focus-visible{outline:2px solid var(--azur);outline-offset:3px}
+  .skip{position:fixed;left:12px;top:-64px;z-index:3000;background:var(--azur);color:#04050b;padding:10px 16px;border-radius:10px;font-family:'Inter Tight',sans-serif;font-weight:600;font-size:14px;text-decoration:none;transition:top .18s ease}
+  .skip:focus{top:12px;outline:2px solid #fff;outline-offset:2px}
+  main:focus{outline:none}
   .kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--azur);font-weight:500}
 
   /* ===== Écran d'ouverture ===== */
@@ -181,7 +184,7 @@
   .hero-scroll .mouse i{width:3px;height:7px;border-radius:3px;background:var(--azur);animation:mouseDot 1.8s ease-in-out infinite}
   @keyframes mouseDot{0%{opacity:0;transform:translateY(-3px)}30%{opacity:1}70%{opacity:1;transform:translateY(6px)}100%{opacity:0;transform:translateY(9px)}}
   /* Entrée chorégraphiée (après l'écran d'ouverture) */
-  .hero .badge,.hero h1,.hero .lead,.hero .cta-row,.hero .trust,.hero-scroll{opacity:0}
+  .js .hero .badge,.js .hero h1,.js .hero .lead,.js .hero .cta-row,.js .hero .trust,.js .hero-scroll{opacity:0}
   body.loaded .hero .badge{animation:heroUp .8s cubic-bezier(.22,1,.36,1) .1s forwards}
   body.loaded .hero h1{animation:heroUp .9s cubic-bezier(.22,1,.36,1) .24s forwards}
   body.loaded .hero .lead{animation:heroUp .9s cubic-bezier(.22,1,.36,1) .44s forwards}
@@ -273,9 +276,9 @@
   .compare .col.old h3{color:var(--txt2)}
   .compare .col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
   .compare .col li{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.4}
-  .compare .col.old li{color:#5c6a86}
+  .compare .col.old li{color:#97a2c2}
   .compare .col li .m{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
-  .compare .col.old li .m{border:1px solid rgba(150,168,255,.2);color:#5c6a86}
+  .compare .col.old li .m{border:1px solid rgba(150,168,255,.2);color:#97a2c2}
   .compare .col.new li .m{background:linear-gradient(135deg,#5b7cff,#2b45ff);color:#fff}
   .compare .vs{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:52px;height:52px;border-radius:50%;
     display:grid;place-items:center;font-family:'Instrument Serif';font-style:italic;font-size:18px;color:var(--peri);
@@ -398,7 +401,7 @@
   .ft-top h4{font-family:'Inter Tight';font-size:14px;font-weight:600;margin:0 0 15px}
   .ft-col nav{position:static;background:none;border:none;backdrop-filter:none;display:flex;flex-direction:column;gap:10px;font-size:14px}
   .ft-col a{color:var(--txt2)}.ft-col a:hover{color:#fff}
-  .ft-col .soon-link{display:inline-flex;align-items:center;gap:8px;color:#5a6488;cursor:not-allowed;opacity:.7}
+  .ft-col .soon-link{display:inline-flex;align-items:center;gap:8px;color:#98a4c6;cursor:not-allowed;opacity:.9}
   .ft-col .soon-link .soon-tag{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--peri);
     background:rgba(109,134,255,.12);border:1px solid var(--line-2);padding:2px 7px;border-radius:999px}
   .ft-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:42px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--txt2)}
@@ -448,7 +451,7 @@
   @media(max-width:560px){.cookie-banner{left:12px;right:12px;width:auto;bottom:12px}}
 
   /* ===== Reveal ===== */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
   .reveal.in{opacity:1;transform:none}
 
   /* ===== Responsive ===== */
@@ -868,7 +871,9 @@
   }
 </style>
 </head>
-<body class="loading">
+<body>
+<script>document.documentElement.classList.add('js');document.body.classList.add('loading');</script>
+<a href="#main-content" class="skip">Aller au contenu</a>
 
 <div id="loader" aria-hidden="true"><img src="assets/logo-full.png" alt="AEM CONSEIL"></div>
 <div class="beam" aria-hidden="true"></div>
@@ -900,7 +905,7 @@
     </div>
   </nav>
 
-  <div class="wrap">
+  <main class="wrap" id="main-content" tabindex="-1">
     <!-- HERO -->
     <header id="top" class="hero">
       <div class="hero-bg" aria-hidden="true"><span class="g"></span><span class="orb o1"></span><span class="orb o2"></span></div>
@@ -1149,7 +1154,7 @@
       </div>
 
     </section>
-  </div>
+  </main>
 
   <!-- FOOTER -->
   <footer class="ft">
@@ -1683,7 +1688,7 @@ var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="cur
     var n=('0'+(i+1)).slice(-2);
     var last=i===SERVICES.length-1;
     var act=s.page?"location.hash=\'#services/"+s.page+"\'":"openSvc("+i+")";
-    var head='<div class="svc spot'+(i===0?' tall':(last?' wide':''))+'" onclick="'+act+'" tabindex="0" role="button" aria-label="'+esc(s.title)+'" onkeydown="if(event.key===\'Enter\'){'+act+'}">';
+    var head='<div class="svc spot'+(i===0?' tall':(last?' wide':''))+'" onclick="'+act+'" tabindex="0" role="button" aria-label="'+esc(s.title)+'" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();'+act+'}">';
     var ghost='<span class="ghost" aria-hidden="true">'+n+'</span>';
     var ic='<span class="ic">'+svgW(s.icon,20)+'</span>';
     var more='<span class="more">Voir le détail '+svgW('<path d="M7 17L17 7M17 7H9M17 7v8"/>',14)+'</span>';
@@ -1859,6 +1864,41 @@ window.addEventListener('hashchange',spRoute);
 spRoute();
 
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.body.classList.contains('page-open')){spBack();return;}closeSvc();closeLegal();closeCGV();closePrivacy();closeCGU();closeNav();}});
+
+/* ===== Accessibilité : arrière-plan inerte + focus des dialogues =====
+   Les pages plein écran (#svcPage/#devisPage) et les modales (.overlay-modal)
+   sont hors de #app. Quand l'une s'ouvre, on rend #app inerte (retiré de
+   l'ordre de tabulation), on place le focus dans le dialogue, et on le
+   restaure au déclencheur à la fermeture. Piloté par MutationObserver pour
+   couvrir toutes les fonctions d'ouverture/fermeture existantes. */
+(function(){
+  var app=document.getElementById('app'); if(!app||typeof MutationObserver==='undefined') return;
+  var prev=null, lastTrigger=null;
+  function currentDialog(){
+    var m=document.querySelector('.overlay-modal.open');
+    if(m) return m.querySelector('.modal')||m;
+    var pg=document.querySelector('#svcPage.open,#devisPage.open');
+    if(pg) return pg;
+    return null;
+  }
+  function focusIn(dlg){
+    var f=dlg.querySelector('a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])');
+    try{ if(f){ f.focus(); } else { dlg.setAttribute('tabindex','-1'); dlg.focus(); } }catch(e){}
+  }
+  function sync(){
+    var dlg=currentDialog();
+    if(dlg && !prev){ lastTrigger=document.activeElement; app.setAttribute('inert',''); focusIn(dlg); }
+    else if(!dlg && prev){ app.removeAttribute('inert'); try{ if(lastTrigger&&lastTrigger.focus) lastTrigger.focus(); }catch(e){} lastTrigger=null; }
+    prev=dlg;
+  }
+  var mo=new MutationObserver(sync);
+  function watch(el){ if(el) mo.observe(el,{attributes:true,attributeFilter:['class']}); }
+  watch(document.body);
+  watch(document.getElementById('svcPage'));
+  watch(document.getElementById('devisPage'));
+  document.querySelectorAll('.overlay-modal').forEach(watch);
+  sync();
+})();
 
 /* ===== Formulaire (FormSubmit) ===== */
 (function(){
