@@ -9,8 +9,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
 <link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/article.css">
-<script>window.LAST_INTAKE='https://ammmyhtxnwyoopfxtans.supabase.co/rest/v1/demandes';window.LAST_KEY='sb_publishable_VBYOMpnF3kv7kkcrMLczZQ_v2e4_RHo';</script>
-<script src="/assets/last-intake.js" defer></script>
+<script>window.AEM_INTAKE_URL='https://ammmyhtxnwyoopfxtans.supabase.co/rest/v1/demandes';window.AEM_INTAKE_KEY='sb_publishable_VBYOMpnF3kv7kkcrMLczZQ_v2e4_RHo';</script>
+<script src="/assets/intake.js" defer></script>
 <style>
   .sp-bar img{height:44px}
   @media(max-width:560px){.sp-bar img{height:36px}}
@@ -235,8 +235,8 @@
         var pe = val('#p-email');
         if (pe && !emailOk(pe)) { say('L\'email saisi n\'est pas valide.', 'err'); document.querySelector('#p-email').focus(); return; }
       }
-      // Copie de la demande vers LAST (inerte tant que window.LAST_INTAKE non défini)
-      if (window.LAST && LAST.intake) {
+      // Copie de la demande vers le back-office (inerte tant que window.AEM_INTAKE_URL non défini)
+      if (window.AEM && AEM.intake) {
         var pl = (type === 'societe')
           ? { type: 'societe', entreprise: val('#f-raison'), siren: val('#siren').replace(/\D/g, '').slice(0, 9),
               email: val('#f-email'), telephone: val('#f-tel'), objet: 'Identification société',
@@ -245,7 +245,7 @@
           : { type: 'particulier', nom: val('#p-nom'), prenom: val('#p-prenom'),
               email: val('#p-email'), telephone: val('#p-tel'), objet: 'Identification particulier',
               meta: { adresse: val('#p-adresse'), siret: val('#p-siret') } };
-        LAST.intake('identification', pl);
+        AEM.intake('identification', pl);
       }
       window.location.href = factUrl();
     });
