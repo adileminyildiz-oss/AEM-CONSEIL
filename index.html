@@ -3342,15 +3342,15 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
   if(reduce)return;
   var els=[].slice.call(document.querySelectorAll('.wrap>section,.wrap>.cta-band'));
   if(!els.length)return;
-  var MAX=2.6, ticking=false;
+  var ticking=false;
   function frame(){
     var vh=window.innerHeight||document.documentElement.clientHeight, cy=vh/2;
     for(var i=0;i<els.length;i++){
       var r=els[i].getBoundingClientRect();
       if(r.bottom<-40||r.top>vh+40){continue;}
       var d=((r.top+r.height/2)-cy)/vh; if(d>1)d=1; else if(d<-1)d=-1;
-      var sc=(1-Math.abs(d)*0.02).toFixed(4); // micro-respiration : plein format au centre
-      els[i].style.transform='perspective(2000px) rotateX('+(d*MAX).toFixed(2)+'deg) scale('+sc+')';
+      var sc=(1-Math.abs(d)*0.015).toFixed(4); // micro-respiration d'échelle (2D) : plein format au centre
+      els[i].style.transform='scale('+sc+')'; // rotation 3D retirée — elle rendait le texte flou au défilement
     }
     ticking=false;
   }
