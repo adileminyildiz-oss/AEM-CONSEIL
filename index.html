@@ -73,9 +73,10 @@
     --max:1120px;
   }
   *{box-sizing:border-box;margin:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;scroll-padding-top:86px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
   html,body{overflow-x:clip}
-  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5;-webkit-tap-highlight-color:transparent}
+  img{max-width:100%}
   body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
     background:
       radial-gradient(820px 600px at 50% -10%, rgba(43,69,255,.24), transparent 60%),
@@ -139,7 +140,7 @@
   .nlinks a:hover::after,.nlinks a.active::after{right:0}
   .burger{display:none;place-items:center;width:44px;height:44px;border-radius:11px;background:var(--glass);border:1px solid var(--line-2);color:var(--txt);cursor:pointer}
   .drawer{position:fixed;inset:0 0 0 auto;width:min(320px,84vw);z-index:80;background:var(--noir2);border-left:1px solid var(--line);
-    padding:26px 22px;display:flex;flex-direction:column;gap:6px;transform:translateX(100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+    padding:26px 22px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
   .drawer.open{transform:none}
   .drawer a{padding:14px 12px;border-radius:11px;font-weight:600;color:#dbe3f7;border-bottom:1px solid var(--line)}
   .drawer a:hover{background:var(--glass)}
@@ -193,14 +194,6 @@
   body.loaded .hero .trust{animation:heroUp .9s cubic-bezier(.22,1,.36,1) .74s forwards}
   body.loaded .hero-scroll{animation:heroUp 1s cubic-bezier(.22,1,.36,1) .9s forwards}
   @keyframes heroUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-
-  /* Figures (bilan) */
-  .figures{max-width:var(--max);margin:clamp(56px,7vw,80px) auto 0;display:grid;grid-template-columns:repeat(4,1fr);
-    border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--glass)}
-  .fig{padding:34px 16px;text-align:center;border-right:1px solid var(--line)}
-  .fig:last-child{border-right:none}
-  .fig .n{font-family:'Inter Tight';font-weight:600;font-size:clamp(30px,3.6vw,42px);letter-spacing:-.03em}
-  .fig .l{font-size:12.5px;color:var(--txt2);margin-top:6px}
 
   /* ===== Services (grille hairline cliquable) ===== */
   #services .sh h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:700}
@@ -412,7 +405,7 @@
   .overlay-modal{position:fixed;inset:0;z-index:150;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(2,3,10,.76);backdrop-filter:blur(7px)}
   .overlay-modal.open{display:flex;animation:fade .25s ease}
   @keyframes fade{from{opacity:0}to{opacity:1}}
-  .modal{position:relative;width:min(600px,100%);max-height:88vh;overflow:auto;padding:38px;border-radius:22px;
+  .modal{position:relative;width:min(600px,100%);max-height:88vh;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:38px;border-radius:22px;
     background:linear-gradient(160deg,rgba(15,20,38,.98),rgba(7,10,20,.98));border:1px solid var(--line-2);box-shadow:0 40px 100px rgba(0,0,0,.6);animation:modalIn .3s cubic-bezier(.22,1,.36,1)}
   @keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
   .modal-close{position:absolute;top:20px;right:20px;display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--glass);border:1px solid var(--line-2);color:#cdd7f5;cursor:pointer}
@@ -480,9 +473,6 @@
   @media(max-width:820px){
     .nlinks,.nav-in>.btn-pri{display:none}
     .burger{display:grid}
-    .figures{grid-template-columns:1fr 1fr}
-    .fig:nth-child(2){border-right:none}
-    .fig:nth-child(1),.fig:nth-child(2){border-bottom:1px solid var(--line)}
   }
   @media(max-width:520px){.steps{grid-template-columns:1fr}.hero .cta-row{flex-direction:column}.hero .cta-row .btn{width:100%;justify-content:center}}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}#app{filter:none!important;transform:none!important}*{animation-duration:.001ms!important}
@@ -552,7 +542,6 @@
   @media(max-width:560px){.sm-opts.two{grid-template-columns:1fr}.sm-grid2{grid-template-columns:1fr}.sm-panel{padding:26px 18px 22px}.sim-top{padding:20px 18px 0}}
 
   /* ===== New-gen : scroll fluide + ancres ===== */
-  html{scroll-behavior:smooth}
   section[id],header[id]{scroll-margin-top:86px}
 
   /* Barre de progression de lecture */
@@ -620,6 +609,7 @@
 
   /* ===== Page Service dédiée ===== */
   #svcPage,#devisPage{position:fixed;inset:0;z-index:130;display:none;overflow-y:auto;overflow-x:hidden;
+    overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
     background:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.16),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
   #svcPage.open,#devisPage.open{display:block}
   body.page-open{overflow:hidden}
@@ -689,7 +679,7 @@
   .cmp-chip{border:1px solid var(--line-2);border-radius:999px;padding:9px 16px;font-family:'Inter Tight';font-weight:500;font-size:13.5px;color:var(--txt2);background:var(--glass);cursor:pointer;transition:.18s}
   .cmp-chip:hover{color:#fff;border-color:rgba(109,134,255,.5)}
   .cmp-chip[aria-pressed="true"]{color:#0a1030;background:linear-gradient(120deg,#c9d2ff,#5b7cff);border-color:transparent}
-  .cmp-scroll{margin-top:24px;overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:rgba(4,6,14,.35)}
+  .cmp-scroll{margin-top:24px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:18px;background:rgba(4,6,14,.35)}
   .cmp-table{width:100%;border-collapse:collapse;min-width:560px}
   .cmp-table th,.cmp-table td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.4;vertical-align:top}
   .cmp-table thead th{font-family:'Inter Tight';font-weight:600;font-size:14px;color:var(--txt);background:rgba(12,15,28,.7)}
