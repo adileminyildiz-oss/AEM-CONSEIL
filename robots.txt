@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 # Maquettes d'exploration internes — ne pas indexer
 Disallow: /designs/
+# Sauvegardes de l'ancien design — ne pas indexer
+Disallow: /sauvegarde/
 
 Sitemap: https://aemconseil.eu/sitemap.xml

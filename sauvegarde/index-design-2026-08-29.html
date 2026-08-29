@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://formsubmit.co https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; frame-src 'self'">
+
+<title>AEM-CONSEIL — Cabinet de conseil & expertise comptable</title>
+<meta name="description" content="AEM-CONSEIL accompagne les entreprises dans leur comptabilité, leur gestion et leur développement : expertise comptable, conseil, paie, fiscalité et création d'entreprise.">
+<meta name="theme-color" content="#04050b">
+
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AEM-CONSEIL">
+<meta name="application-name" content="AEM-CONSEIL">
+
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+
+<meta name="author" content="AEM-CONSEIL">
+<meta name="keywords" content="expert-comptable, comptabilité, création d'entreprise, fiche de paie, fiscalité, conseil, gestion, TPE, PME, indépendant, FEC">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://aemconseil.eu/">
+
+<meta property="og:title" content="AEM-CONSEIL — Cabinet de conseil & expertise comptable">
+<meta property="og:description" content="Comptabilité, conseil, paie, fiscalité et création d'entreprise. Un cabinet à taille humaine, proche de vous.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aemconseil.eu/">
+<meta property="og:site_name" content="AEM-CONSEIL">
+<meta property="og:image" content="https://aemconseil.eu/assets/favicon-512.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AEM-CONSEIL — Cabinet de conseil & expertise comptable">
+<meta name="twitter:description" content="Comptabilité, conseil, paie, fiscalité et création d'entreprise. Un cabinet à taille humaine, proche de vous.">
+<meta name="twitter:image" content="https://aemconseil.eu/assets/favicon-512.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "name": "AEM-CONSEIL",
+  "description": "Cabinet de conseil et d'expertise comptable au service des entrepreneurs, TPE et PME : comptabilité, conseil, paie, fiscalité, création d'entreprise et démarches administratives.",
+  "url": "https://aemconseil.eu/",
+  "email": "aemconseil.sas@gmail.com",
+  "telephone": "+33665908325",
+  "image": "https://aemconseil.eu/assets/favicon-512.png",
+  "logo": "https://aemconseil.eu/assets/logo-full.png",
+  "areaServed": "FR",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  },
+  "knowsLanguage": "fr"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir:#04050b; --noir2:#070912; --noir3:#0b0e1a;
+    --outremer:#2b45ff; --azur:#6d86ff; --peri:#a9b8ff;
+    --line:rgba(150,168,255,.11); --line-2:rgba(150,168,255,.18);
+    --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06);
+    --txt:#f2f4ff; --txt2:#8b98bd; --pos:#3ee9a4;
+    --max:1120px;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  html,body{overflow-x:clip}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--txt);background:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.5}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(820px 600px at 50% -10%, rgba(43,69,255,.24), transparent 60%),
+      radial-gradient(640px 520px at 88% 26%, rgba(43,69,255,.10), transparent 62%),
+      radial-gradient(680px 560px at 8% 62%, rgba(43,69,255,.09), transparent 62%),
+      linear-gradient(180deg,#05060e,#04050b)}
+  .beam{position:fixed;top:-28%;left:50%;width:42vw;height:120vh;transform:translateX(-50%) rotate(8deg);z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(80,110,255,.14),transparent 70%);filter:blur(54px);animation:sway 16s ease-in-out infinite}
+  @keyframes sway{0%,100%{transform:translateX(-50%) rotate(8deg)}50%{transform:translateX(-46%) rotate(4deg)}}
+
+  a{color:inherit;text-decoration:none}
+  .disp{font-family:'Inter Tight',sans-serif;letter-spacing:-.03em}
+  .ital{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:0}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 34px}
+  .num-t{font-variant-numeric:tabular-nums}
+
+  /* ===== Boutons ===== */
+  .btn{position:relative;overflow:hidden;font-family:'Inter Tight',sans-serif;font-weight:600;cursor:pointer;border:none;
+    display:inline-flex;align-items:center;gap:9px;transition:transform .16s cubic-bezier(.22,1,.36,1),filter .2s,box-shadow .2s;isolation:isolate}
+  .btn::after{content:"";position:absolute;inset:0;left:-60%;width:44%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-16deg);transition:left .55s;pointer-events:none}
+  .btn:hover::after{left:135%}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:translateY(0) scale(.97)}
+  .btn-pri{padding:13px 24px;border-radius:12px;font-size:14.5px;color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff);box-shadow:0 10px 30px rgba(43,69,255,.42)}
+  .btn-pri:hover{filter:brightness(1.06)}
+  .btn-ghost{padding:13px 24px;border-radius:12px;font-size:14.5px;color:var(--txt);background:var(--glass);border:1px solid var(--line-2)}
+  .btn-ghost:hover{background:var(--glass-2)}
+  .btn:focus-visible,a:focus-visible,button:focus-visible,[role="button"]:focus-visible,[tabindex="0"]:focus-visible,summary:focus-visible,.svc:focus-visible,.cmp-chip:focus-visible,.faq-q:focus-visible{outline:2px solid var(--azur);outline-offset:3px}
+  .skip{position:fixed;left:12px;top:-64px;z-index:3000;background:var(--azur);color:#04050b;padding:10px 16px;border-radius:10px;font-family:'Inter Tight',sans-serif;font-weight:600;font-size:14px;text-decoration:none;transition:top .18s ease}
+  .skip:focus{top:12px;outline:2px solid #fff;outline-offset:2px}
+  main:focus{outline:none}
+  .kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--azur);font-weight:500}
+
+  /* ===== Écran d'ouverture ===== */
+  #app{transition:filter .8s ease,transform .8s ease}
+  body.loading{overflow:hidden}
+  body.loading #app{filter:blur(16px);transform:scale(1.012)}
+  #loader{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;
+    background:radial-gradient(circle at 50% 42%,rgba(43,69,255,.12),transparent 60%),var(--noir);transition:opacity .75s ease,visibility .75s ease}
+  #loader img{width:min(340px,62vw);height:auto;filter:brightness(1.18) drop-shadow(0 0 16px rgba(169,184,255,.7)) drop-shadow(0 0 38px rgba(43,69,255,.5));animation:loaderIn 1.1s cubic-bezier(.22,1,.36,1) both}
+  @keyframes loaderIn{0%{opacity:0;transform:scale(.86)}55%{opacity:1}100%{opacity:1;transform:scale(1)}}
+  body.loaded #loader{opacity:0;visibility:hidden;pointer-events:none}
+
+  /* ===== Nav ===== */
+  #nav{position:sticky;top:14px;z-index:60;padding:0 clamp(14px,3vw,28px)}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:10px 12px 10px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    border-radius:999px;border:1px solid rgba(150,168,255,.16);
+    background:linear-gradient(180deg,rgba(20,26,46,.6),rgba(9,13,26,.62));
+    -webkit-backdrop-filter:blur(28px) saturate(185%);backdrop-filter:blur(28px) saturate(185%);
+    box-shadow:0 18px 46px rgba(0,0,0,.5),0 0 40px rgba(43,69,255,.1),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.32);
+    transition:background .3s,border-color .3s,box-shadow .3s}
+  #nav.scrolled .nav-in{background:linear-gradient(180deg,rgba(24,30,54,.74),rgba(9,13,26,.74));border-color:rgba(150,168,255,.26);
+    box-shadow:0 22px 54px rgba(0,0,0,.6),0 0 50px rgba(43,69,255,.16),inset 0 1px 0 rgba(255,255,255,.17),inset 0 -1px 0 rgba(0,0,0,.36)}
+  #nav .btn-pri{border-radius:999px}
+  .logo img{height:34px;display:block;filter:brightness(1.15) drop-shadow(0 0 8px rgba(169,184,255,.55)) drop-shadow(0 0 20px rgba(43,69,255,.35));animation:glow 6s ease-in-out infinite}
+  @keyframes glow{0%,100%{filter:brightness(1.12) drop-shadow(0 0 6px rgba(169,184,255,.45)) drop-shadow(0 0 16px rgba(43,69,255,.28))}50%{filter:brightness(1.2) drop-shadow(0 0 12px rgba(169,184,255,.8)) drop-shadow(0 0 30px rgba(43,69,255,.5))}}
+  .nlinks{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--txt2)}
+  .nlinks a{position:relative;padding:3px 0}
+  .nlinks a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1.5px;background:var(--azur);transition:right .3s cubic-bezier(.22,1,.36,1)}
+  .nlinks a:hover,.nlinks a.active{color:#fff}
+  .nlinks a:hover::after,.nlinks a.active::after{right:0}
+  .burger{display:none;place-items:center;width:44px;height:44px;border-radius:11px;background:var(--glass);border:1px solid var(--line-2);color:var(--txt);cursor:pointer}
+  .drawer{position:fixed;inset:0 0 0 auto;width:min(320px,84vw);z-index:80;background:var(--noir2);border-left:1px solid var(--line);
+    padding:26px 22px;display:flex;flex-direction:column;gap:6px;transform:translateX(100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+  .drawer.open{transform:none}
+  .drawer a{padding:14px 12px;border-radius:11px;font-weight:600;color:#dbe3f7;border-bottom:1px solid var(--line)}
+  .drawer a:hover{background:var(--glass)}
+  .drawer .btn-pri{margin-top:14px;justify-content:center}
+  .drawer .dclose{align-self:flex-end;background:none;border:none;color:var(--txt2);font-size:24px;cursor:pointer;margin-bottom:6px}
+  .overlay{position:fixed;inset:0;z-index:75;background:rgba(0,0,0,.6);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.3s}
+  .overlay.open{opacity:1;visibility:visible}
+
+  /* ===== Sections ===== */
+  section{padding:clamp(64px,9vw,110px) 0}
+  .wrap>section,.wrap>.cta-band{transform-origin:center center;transition:transform .55s cubic-bezier(.22,1,.36,1)}
+  @media(prefers-reduced-motion:reduce){.wrap>section,.wrap>.cta-band{transform:none!important}}
+  .sh{max-width:660px;margin:0 auto clamp(40px,5vw,56px);text-align:center}
+  .sh h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(30px,4.4vw,48px);letter-spacing:-.03em;margin-top:14px;text-wrap:balance}
+  .sh h2 .ital{color:var(--peri)}
+  .sh p{margin-top:16px;font-size:16px;color:var(--txt2)}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;text-align:center;padding-top:clamp(48px,7vw,92px);padding-bottom:12px}
+  .hero>*:not(.hero-bg){position:relative;z-index:2}
+  /* Décor spatial du hero */
+  .hero-bg{position:absolute;left:50%;top:-8%;transform:translateX(-50%);width:min(1120px,124%);height:122%;z-index:0;pointer-events:none;overflow:hidden}
+  .hero-bg .g{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(150,168,255,.6) 1px,transparent 1px);background-size:40px 40px;opacity:.05;
+    -webkit-mask:radial-gradient(ellipse 56% 56% at 50% 30%,#000,transparent 72%);mask:radial-gradient(ellipse 56% 56% at 50% 30%,#000,transparent 72%)}
+  .hero-bg .orb{position:absolute;border-radius:50%;filter:blur(64px);mix-blend-mode:screen}
+  .hero-bg .o1{top:-2%;left:11%;width:34%;aspect-ratio:1;background:radial-gradient(circle,rgba(43,69,255,.5),transparent 62%);animation:heroFloat 22s ease-in-out infinite}
+  .hero-bg .o2{top:6%;right:9%;width:30%;aspect-ratio:1;background:radial-gradient(circle,rgba(109,134,255,.42),transparent 62%);animation:heroFloat 26s ease-in-out infinite reverse}
+  @keyframes heroFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(3%,4%) scale(1.12)}}
+  .hero h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(44px,7.4vw,88px);line-height:1;letter-spacing:-.035em;margin:24px auto 0;max-width:14ch;text-wrap:balance}
+  .hero h1 .ital{background:linear-gradient(100deg,#8ea6ff 22%,#eef2ff 46%,#8ea6ff 70%);background-size:230% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShimmer 7s linear infinite}
+  @keyframes heroShimmer{to{background-position:-230% 0}}
+  .hero .lead{margin:28px auto 0;max-width:520px;font-size:17px;color:var(--txt2)}
+  .hero .cta-row{display:flex;gap:13px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+  .badge{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--glass);font-size:13px;color:#c8d2f2;backdrop-filter:blur(14px)}
+  .dot{position:relative;width:7px;height:7px;border-radius:50%;background:var(--pos);box-shadow:0 0 9px var(--pos)}
+  .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--pos);animation:dotPulse 2.4s ease-out infinite}
+  @keyframes dotPulse{0%{transform:scale(.7);opacity:.6}100%{transform:scale(2.4);opacity:0}}
+  .trust{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:30px;font-size:13.5px;color:var(--txt2)}
+  .trust span{display:inline-flex;align-items:center;gap:8px}
+  .hero-scroll{display:inline-flex;flex-direction:column;align-items:center;gap:9px;margin-top:46px;color:var(--txt2);font-size:11px;letter-spacing:.22em;text-transform:uppercase;transition:color .25s}
+  .hero-scroll:hover{color:var(--peri)}
+  .hero-scroll .mouse{width:24px;height:38px;border:1.5px solid var(--line-2);border-radius:12px;display:flex;justify-content:center;padding-top:7px}
+  .hero-scroll .mouse i{width:3px;height:7px;border-radius:3px;background:var(--azur);animation:mouseDot 1.8s ease-in-out infinite}
+  @keyframes mouseDot{0%{opacity:0;transform:translateY(-3px)}30%{opacity:1}70%{opacity:1;transform:translateY(6px)}100%{opacity:0;transform:translateY(9px)}}
+  /* Entrée chorégraphiée (après l'écran d'ouverture) */
+  .js .hero .badge,.js .hero h1,.js .hero .lead,.js .hero .cta-row,.js .hero .trust,.js .hero-scroll{opacity:0}
+  body.loaded .hero .badge{animation:heroUp .8s cubic-bezier(.22,1,.36,1) .1s forwards}
+  body.loaded .hero h1{animation:heroUp .9s cubic-bezier(.22,1,.36,1) .24s forwards}
+  body.loaded .hero .lead{animation:heroUp .9s cubic-bezier(.22,1,.36,1) .44s forwards}
+  body.loaded .hero .cta-row{animation:heroUp .9s cubic-bezier(.22,1,.36,1) .6s forwards}
+  body.loaded .hero .trust{animation:heroUp .9s cubic-bezier(.22,1,.36,1) .74s forwards}
+  body.loaded .hero-scroll{animation:heroUp 1s cubic-bezier(.22,1,.36,1) .9s forwards}
+  @keyframes heroUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+  /* Figures (bilan) */
+  .figures{max-width:var(--max);margin:clamp(56px,7vw,80px) auto 0;display:grid;grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--glass)}
+  .fig{padding:34px 16px;text-align:center;border-right:1px solid var(--line)}
+  .fig:last-child{border-right:none}
+  .fig .n{font-family:'Inter Tight';font-weight:600;font-size:clamp(30px,3.6vw,42px);letter-spacing:-.03em}
+  .fig .l{font-size:12.5px;color:var(--txt2);margin-top:6px}
+
+  /* ===== Services (grille hairline cliquable) ===== */
+  #services .sh h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:700}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:222px;gap:16px}
+  .svc{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;text-align:left;
+    border:1px solid var(--line);border-radius:20px;padding:26px;cursor:pointer;
+    background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));backdrop-filter:blur(20px) saturate(160%);
+    transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s}
+  .svc:hover{transform:translateY(-5px);border-color:rgba(109,134,255,.45)}
+  .svc .ghost{position:absolute;top:-16px;right:8px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:118px;line-height:1;color:rgba(150,168,255,.06);pointer-events:none}
+  .svc .ic{position:absolute;top:24px;left:26px;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:var(--peri);
+    background:linear-gradient(150deg,rgba(43,69,255,.28),rgba(43,69,255,.08));border:1px solid rgba(109,134,255,.3)}
+  .svc h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:20px;letter-spacing:-.01em;position:relative}
+  .svc p{margin-top:8px;font-size:14px;color:var(--txt2);position:relative;max-width:38ch}
+  .svc .more{margin-top:14px;font-size:12.5px;color:var(--azur);display:inline-flex;align-items:center;gap:6px;opacity:0;transform:translateY(4px);transition:.25s;position:relative}
+  .svc:hover .more{opacity:1;transform:none}
+  .svc.tall{grid-row:span 2}
+  .svc.tall h3{font-size:25px}
+  .svc.wide{grid-column:1 / -1;align-items:center;justify-content:center;text-align:center}
+  .svc.wide .ghost{left:50%;right:auto;top:50%;transform:translate(-50%,-50%)}
+  .svc.wide .ic{position:static;top:auto;left:auto}
+  .svc.wide .wide-head{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+  .svc.wide h3{font-size:22px}
+  .svc.wide p{max-width:58ch;position:relative;z-index:1}
+  .svc.wide .more{position:relative;z-index:1;justify-content:center}
+  @media(max-width:820px){.svc-grid{grid-template-columns:1fr 1fr}.svc.tall{grid-row:span 1}.svc.wide{grid-column:1 / -1}}
+  @media(max-width:560px){
+    .svc-grid{grid-template-columns:1fr;grid-auto-rows:auto}
+    /* Empilement vertical : icône en haut, puis titre et texte, avec de l'air entre les deux */
+    .svc{min-height:0;justify-content:flex-start;padding:24px}
+    .svc .ic{position:static;top:auto;left:auto;margin-bottom:18px}
+    .svc.tall h3{font-size:21px}
+    .svc.wide{grid-column:auto;align-items:flex-start;justify-content:flex-start;text-align:left}
+    .svc.wide .wide-head{flex-direction:column;align-items:flex-start;gap:0}
+    .svc.wide .ic{margin-bottom:18px}
+    .svc.wide p{max-width:none}
+    .svc.wide .more{justify-content:flex-start}
+  }
+
+  /* ===== Méthode ===== */
+  #methode{position:relative;overflow:clip}
+  .methode-glow{position:absolute;left:50%;top:60%;width:min(780px,92%);height:360px;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at 58% 42%,rgba(43,69,255,.55),transparent 62%);filter:blur(72px);opacity:.5;
+    transform:translate(-50%,-50%);animation:auraShift 13s ease-in-out infinite}
+  @keyframes auraShift{0%,100%{transform:translate(-52%,-50%) scale(1)}50%{transform:translate(-47%,-53%) scale(1.14)}}
+  /* Méthode — timeline connectée */
+  .steps{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .track-line{position:absolute;top:29px;left:calc(12.5% - 7.5px);right:calc(12.5% - 7.5px);height:2px;border-radius:2px;background:rgba(150,168,255,.15);z-index:0}
+  .track-progress{position:absolute;top:29px;left:calc(12.5% - 7.5px);height:2px;border-radius:2px;width:0;z-index:0;
+    background:linear-gradient(90deg,var(--outremer),var(--azur));box-shadow:0 0 12px rgba(43,69,255,.6);transition:width 1.7s cubic-bezier(.22,1,.36,1),height 1.7s cubic-bezier(.22,1,.36,1)}
+  .steps.in .track-progress{width:calc(50% + 10px)}
+  .step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px}
+  .step .node{position:relative;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin-bottom:24px;
+    font-family:'Instrument Serif';font-style:italic;font-size:24px;color:var(--peri);backdrop-filter:blur(10px);
+    background:linear-gradient(160deg,rgba(20,26,48,.9),rgba(9,13,26,.95));border:1px solid var(--line-2);
+    box-shadow:0 8px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12);transition:transform .3s}
+  .step-body{display:flex;flex-direction:column;align-items:inherit;min-width:0}
+  .step:hover .node{transform:translateY(-4px)}
+  .step.on .node{border-color:rgba(109,134,255,.7);color:#fff;background:linear-gradient(160deg,var(--outremer),rgba(43,69,255,.5));box-shadow:0 0 26px rgba(43,69,255,.55),inset 0 1px 0 rgba(255,255,255,.2)}
+  .step.dest .node{border-color:rgba(62,233,164,.6);color:#04121b;background:linear-gradient(160deg,#8ff5cf,#3ee9a4);box-shadow:0 0 26px rgba(62,233,164,.5)}
+  .step h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px}
+  .step p{margin-top:8px;font-size:13.5px;line-height:1.5;color:var(--txt2);max-width:26ch}
+  .step .tag{margin-top:13px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--azur);padding:4px 11px;border:1px solid var(--line-2);border-radius:999px}
+  .step.dest .tag{color:var(--pos);border-color:rgba(62,233,164,.3)}
+
+  /* ===== À propos ===== */
+  /* À propos — comparatif « Notre différence » */
+  .compare{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .compare .col{border:1px solid var(--line);border-radius:22px;padding:32px 28px}
+  .compare .col.old{background:rgba(255,255,255,.02)}
+  .compare .col.new{background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03));border-color:rgba(109,134,255,.45);
+    box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 50px rgba(43,69,255,.18),inset 0 1px 0 rgba(255,255,255,.12)}
+  .compare .col h3{font-family:'Inter Tight';font-weight:600;font-size:18px;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+  .compare .col.old h3{color:var(--txt2)}
+  .compare .col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+  .compare .col li{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.4}
+  .compare .col.old li{color:#97a2c2}
+  .compare .col li .m{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
+  .compare .col.old li .m{border:1px solid rgba(150,168,255,.2);color:#97a2c2}
+  .compare .col.new li .m{background:linear-gradient(135deg,#5b7cff,#2b45ff);color:#fff}
+  .compare .vs{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:52px;height:52px;border-radius:50%;
+    display:grid;place-items:center;font-family:'Instrument Serif';font-style:italic;font-size:18px;color:var(--peri);
+    background:rgba(9,13,26,.95);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.6)}
+
+  /* ===== Avis ===== */
+  /* Avis — note de confiance + témoignages */
+  .avis-trust{display:grid;grid-template-columns:.82fr 1.18fr;gap:22px;align-items:stretch}
+  .score{border:1px solid rgba(109,134,255,.4);border-radius:22px;padding:36px 32px;display:flex;flex-direction:column;justify-content:center;
+    background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03));box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 50px rgba(43,69,255,.16),inset 0 1px 0 rgba(255,255,255,.12)}
+  .score .big{font-family:'Inter Tight';font-weight:800;font-size:64px;line-height:1;letter-spacing:-.03em}
+  .score .stars{color:#ffd166;letter-spacing:3px;font-size:20px;margin-top:10px}
+  .score .lab{margin-top:12px;font-size:14px;color:var(--txt2)}
+  .score .avatars{display:flex;margin-top:24px}
+  .score .avatars span{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:'Inter Tight';font-weight:700;font-size:13px;color:#04121b;border:2px solid #0a0e1a;margin-left:-10px;background:linear-gradient(135deg,#8ff5cf,#3ee9a4)}
+  .score .avatars span:first-child{margin-left:0}
+  .score .avatars .more{background:linear-gradient(135deg,#9ab4ff,#2b45ff);color:#fff}
+  .score .rec{margin-top:16px;font-size:13.5px;color:var(--peri);font-weight:600}
+  .alist{display:flex;flex-direction:column;gap:14px}
+  .arev{border:1px solid var(--line);border-radius:18px;background:var(--glass);padding:22px 24px;display:flex;gap:16px;align-items:flex-start;transition:border-color .25s,transform .25s}
+  .arev:hover{border-color:rgba(109,134,255,.4);transform:translateY(-2px)}
+  .arev .av{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#5b7cff,#2b45ff);color:#04121b;font-family:'Inter Tight';font-weight:700;font-size:14px}
+  .arev .st{color:#ffd166;letter-spacing:2px;font-size:12px}
+  .arev p{font-family:'Instrument Serif';font-style:italic;font-size:16px;line-height:1.5;color:#dbe3f2;margin:6px 0 10px}
+  .arev b{font-family:'Inter Tight';font-size:14px}
+  .arev .role{font-size:12.5px;color:var(--txt2);margin-left:8px}
+  @media(max-width:820px){.avis-trust{grid-template-columns:1fr}}
+
+  /* ===== FAQ ===== */
+  .faq-wrap{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:.72fr 1.28fr;gap:24px;align-items:start}
+  .faq-help{position:sticky;top:100px;border:1px solid rgba(109,134,255,.4);border-radius:20px;padding:30px 26px;
+    background:linear-gradient(160deg,rgba(43,69,255,.13),rgba(43,69,255,.03));box-shadow:0 24px 60px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.1)}
+  .faq-help h3{font-family:'Inter Tight';font-weight:600;font-size:20px}
+  .faq-help p{margin:12px 0 20px;font-size:14.5px;line-height:1.6;color:var(--txt2)}
+  .faq-help .btn-pri{width:100%;justify-content:center}
+  .faq-help .meta{margin-top:14px;font-size:12.5px;color:var(--peri);text-align:center;display:flex;align-items:center;justify-content:center;gap:7px}
+  .faq-list{display:flex;flex-direction:column;gap:12px}
+  .faq{border:1px solid var(--line);border-radius:14px;background:var(--glass);overflow:hidden;transition:border-color .2s}
+  .faq:hover{border-color:var(--line-2)}
+  .faq.open{border-color:rgba(109,134,255,.4)}
+  .faq button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 22px;background:none;border:none;cursor:pointer;text-align:left;color:var(--txt);font-family:'Inter Tight';font-size:16px;font-weight:600}
+  .faq .fi{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:8px;background:rgba(43,69,255,.14);border:1px solid var(--line-2);color:var(--peri);transition:transform .25s}
+  .faq.open .fi{transform:rotate(45deg)}
+  .faq-panel{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .faq.open .faq-panel{max-height:320px}
+  .faq-panel p{margin:0;padding:0 22px 22px;font-size:14.5px;line-height:1.6;color:var(--txt2)}
+
+  /* ===== Contact ===== */
+  .contact{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  .contact>*{min-width:0}
+  .contact h3{font-family:'Inter Tight';font-weight:600;font-size:20px;margin:0 0 24px}
+  .cinfo{display:flex;flex-direction:column;gap:12px}
+  .cinfo .row{display:flex;align-items:center;gap:15px;padding:15px 18px;border:1px solid var(--line);border-radius:14px;background:var(--glass);color:inherit;transition:transform .25s cubic-bezier(.22,1,.36,1),border-color .25s}
+  a.row:hover{transform:translateY(-2px);border-color:rgba(109,134,255,.45)}
+  .cinfo .ci{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:12px;color:var(--peri);background:linear-gradient(150deg,rgba(43,69,255,.24),rgba(43,69,255,.08));border:1px solid var(--line-2)}
+  .cinfo .row .lab{display:block;font-size:12px;color:var(--txt2);letter-spacing:.03em}
+  .cinfo .row .val{display:block;margin-top:2px;font-family:'Inter Tight';font-weight:500;font-size:15px;color:#eef2ff}
+  .contact-extra{margin-top:16px;padding:20px 22px;border:1px solid rgba(109,134,255,.35);border-radius:16px;
+    background:linear-gradient(160deg,rgba(43,69,255,.12),rgba(43,69,255,.03));box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+  .contact-extra b{font-family:'Inter Tight';font-weight:600;font-size:15px;display:block;margin-bottom:12px}
+  .contact-extra .chips{display:flex;flex-direction:column;gap:9px}
+  .contact-extra .chips span{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:#cdd7f5}
+  .contact-extra .chips svg{color:var(--pos);flex:none}
+  form{border:1px solid var(--line);border-radius:20px;background:var(--glass);padding:32px}
+  .field select{width:100%;padding:13px 15px;border-radius:11px;background:rgba(0,0,0,.28);border:1px solid var(--line-2);color:var(--txt);font-size:15px;font-family:inherit;
+    appearance:none;-webkit-appearance:none;cursor:pointer;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236d86ff' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 14px center}
+  .field select:focus{outline:none;border-color:var(--azur);box-shadow:0 0 0 3px rgba(43,69,255,.16)}
+  .field select option{background:#0a0e1a;color:var(--txt)}
+  /* Widget « Être rappelé » */
+  .callback{margin-top:16px;padding:22px;border:1px solid rgba(109,134,255,.4);border-radius:16px;
+    background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03));box-shadow:0 24px 60px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08)}
+  .callback b{font-family:'Inter Tight';font-weight:600;font-size:16px;display:flex;align-items:center;gap:9px}
+  .callback b svg{color:var(--peri)}
+  .callback>p{margin:8px 0 16px;font-size:13.5px;color:var(--txt2)}
+  .callback .cb-row{display:flex;gap:10px}
+  .callback input{flex:1;min-width:0;padding:12px 14px;border-radius:11px;background:rgba(0,0,0,.28);border:1px solid var(--line-2);color:var(--txt);font-size:14.5px;font-family:inherit}
+  .callback input::placeholder{color:#5c6a8e}
+  .callback input:focus{outline:none;border-color:var(--azur);box-shadow:0 0 0 3px rgba(43,69,255,.16)}
+  .callback .btn-pri{width:100%;justify-content:center;margin-top:12px}
+  .callback .cb-status{margin:12px 0 0;font-size:13px;text-align:center;min-height:1em;display:none}
+  .callback .cb-status.show{display:block}.callback .cb-status.ok{color:var(--pos)}.callback .cb-status.err{color:#ff9aa8}
+  @media(max-width:520px){.callback .cb-row{flex-direction:column}}
+  .field{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+  .field label{font-size:13px;font-weight:600;color:#cdd7f5}
+  .field label .opt{color:var(--txt2);font-weight:400}
+  .field input,.field textarea{width:100%;padding:13px 15px;border-radius:11px;background:rgba(0,0,0,.28);border:1px solid var(--line-2);color:var(--txt);font-size:15px;font-family:inherit}
+  .field input::placeholder,.field textarea::placeholder{color:#5c6a8e}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--azur);box-shadow:0 0 0 3px rgba(43,69,255,.16)}
+  form .btn-pri{width:100%;justify-content:center;margin-top:4px}
+  #formStatus{margin:14px 0 0;font-size:13.5px;text-align:center;min-height:1em;display:none}
+  #formStatus.show{display:block}#formStatus.ok{color:var(--pos)}#formStatus.err{color:#ff9aa8}
+  .form-note{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:12.5px;color:var(--txt2)}
+  .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+  .spin{display:inline-block;width:15px;height:15px;border-radius:50%;border:2px solid rgba(5,6,26,.4);border-top-color:#05061a;animation:spin .7s linear infinite;vertical-align:-2px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ===== CTA ===== */
+  .cta-band{position:relative;text-align:center;border:1px solid var(--line-2);border-radius:26px;padding:clamp(48px,6vw,78px) 28px;overflow:hidden;
+    background:linear-gradient(150deg,rgba(43,69,255,.16),rgba(43,69,255,.03));box-shadow:0 30px 80px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.1)}
+  .cta-band .orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(50px)}
+  .cta-band .orb1{top:-70px;left:6%;width:280px;height:280px;background:radial-gradient(circle,rgba(43,69,255,.4),transparent 70%);animation:ctaPulse 9s ease-in-out infinite}
+  .cta-band .orb2{bottom:-90px;right:8%;width:300px;height:300px;background:radial-gradient(circle,rgba(109,134,255,.32),transparent 70%);animation:ctaPulse 9s ease-in-out infinite 1.6s}
+  @keyframes ctaPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+  .cta-band>*{position:relative;z-index:1}
+  .cta-band .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .cta-band h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(28px,4vw,46px);letter-spacing:-.03em;max-width:660px;margin:14px auto 0;text-wrap:balance}
+  .cta-band h2 .ital{color:var(--peri)}
+  .cta-band p{margin:16px auto 0;max-width:540px;color:#c3cdf0;font-size:16.5px;line-height:1.6}
+  .cta-band .cta-actions{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .cta-band .reassure{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:13px;color:var(--txt2)}
+  .cta-band .reassure span{display:inline-flex;align-items:center;gap:7px}
+  .cta-band .reassure svg{color:var(--pos)}
+
+  /* ===== Footer ===== */
+  footer.ft{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0 36px;margin-top:20px}
+  .ft-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px}
+  .ft-top img{height:38px;filter:brightness(1.14) drop-shadow(0 0 10px rgba(43,69,255,.4))}
+  .ft-top .desc{margin-top:18px;max-width:320px;font-size:14px;color:var(--txt2)}
+  .ft-top h4{font-family:'Inter Tight';font-size:14px;font-weight:600;margin:0 0 15px}
+  .ft-col nav{position:static;background:none;border:none;backdrop-filter:none;display:flex;flex-direction:column;gap:10px;font-size:14px}
+  .ft-col a{color:var(--txt2)}.ft-col a:hover{color:#fff}
+  .ft-col .soon-link{display:inline-flex;align-items:center;gap:8px;color:#98a4c6;cursor:not-allowed;opacity:.9}
+  .ft-col .soon-link .soon-tag{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--peri);
+    background:rgba(109,134,255,.12);border:1px solid var(--line-2);padding:2px 7px;border-radius:999px}
+  .ft-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:42px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--txt2)}
+  .ft-bottom a{color:var(--txt2)}.ft-bottom a:hover{color:#fff}
+
+  /* ===== Modales ===== */
+  .overlay-modal{position:fixed;inset:0;z-index:150;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(2,3,10,.76);backdrop-filter:blur(7px)}
+  .overlay-modal.open{display:flex;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .modal{position:relative;width:min(600px,100%);max-height:88vh;overflow:auto;padding:38px;border-radius:22px;
+    background:linear-gradient(160deg,rgba(15,20,38,.98),rgba(7,10,20,.98));border:1px solid var(--line-2);box-shadow:0 40px 100px rgba(0,0,0,.6);animation:modalIn .3s cubic-bezier(.22,1,.36,1)}
+  @keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+  .modal-close{position:absolute;top:20px;right:20px;display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--glass);border:1px solid var(--line-2);color:#cdd7f5;cursor:pointer}
+  .modal-close:hover{background:var(--glass-2);color:#fff}
+  .modal .m-ic{display:grid;place-items:center;width:56px;height:56px;border-radius:15px;color:var(--peri);background:linear-gradient(150deg,rgba(43,69,255,.26),rgba(43,69,255,.08));border:1px solid var(--line-2)}
+  .modal h3{font-family:'Inter Tight';font-weight:600;font-size:23px;letter-spacing:-.02em;margin:20px 0 0}
+  .modal .m-desc{margin:12px 0 0;font-size:15px;line-height:1.6;color:var(--txt2)}
+  .modal ul{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
+  .modal li{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.45;color:#dbe3f7}
+  .modal li svg{flex:none;margin-top:2px;color:var(--azur)}
+  .modal .m-cta{display:block;text-align:center;margin-top:28px}
+  .modal h4{font-family:'Inter Tight';font-weight:600;font-size:15px;margin:20px 0 6px}
+  .modal .m-legal p{margin:0 0 4px;font-size:14px;line-height:1.6;color:var(--txt2)}
+
+  /* ===== Retour haut ===== */
+  #toTop{position:fixed;right:22px;bottom:22px;z-index:90;display:grid;place-items:center;width:46px;height:46px;border-radius:13px;
+    background:rgba(11,14,26,.7);border:1px solid var(--line-2);color:var(--peri);cursor:pointer;backdrop-filter:blur(16px);
+    opacity:0;visibility:hidden;transform:translateY(10px);transition:.3s}
+  #toTop.show{opacity:1;visibility:visible;transform:none}
+  #toTop:hover{border-color:var(--azur);box-shadow:0 0 20px rgba(43,69,255,.3)}
+
+  /* ===== Cookies ===== */
+  .cookie-banner{position:fixed;left:20px;bottom:20px;z-index:135;width:min(360px,calc(100vw - 36px));padding:20px;border-radius:18px;
+    display:flex;flex-direction:column;gap:14px;background:linear-gradient(160deg,rgba(15,20,38,.94),rgba(7,10,20,.96));border:1px solid var(--line-2);
+    backdrop-filter:blur(24px);box-shadow:0 24px 60px rgba(0,0,0,.5);transform:translateY(18px);opacity:0;visibility:hidden;transition:.35s}
+  .cookie-banner.show{transform:none;opacity:1;visibility:visible}
+  .cookie-banner .ck-head{display:flex;align-items:center;gap:11px}
+  .cookie-banner .ck-ic{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--peri);background:linear-gradient(150deg,rgba(43,69,255,.24),rgba(43,69,255,.08));border:1px solid var(--line-2)}
+  .cookie-banner .ck-ic svg{width:19px;height:19px}
+  .cookie-banner b{font-family:'Inter Tight';font-size:15px}
+  .cookie-banner p{font-size:13.5px;color:var(--txt2);margin:0}
+  .cookie-banner p b{color:var(--txt);font-family:inherit}
+  .cookie-banner .ck-actions{display:flex;gap:9px}
+  .ck-btn{flex:1;text-align:center;padding:11px;border-radius:11px;font-weight:600;font-size:13.5px;cursor:pointer;border:none;font-family:'Inter Tight'}
+  .ck-accept{color:#05061a;background:linear-gradient(135deg,#c2ccff,#2b45ff)}
+  .ck-refuse{background:var(--glass-2);color:var(--txt);border:1px solid var(--line-2)}
+  @media(max-width:560px){.cookie-banner{left:12px;right:12px;width:auto;bottom:12px}}
+
+  /* ===== Reveal ===== */
+  .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===== Responsive ===== */
+  @media(max-width:960px){
+    .compare{grid-template-columns:1fr;gap:14px}
+    .compare .col.old{order:1}
+    .compare .vs{position:static;transform:none;margin:0 auto;order:2}
+    .compare .col.new{order:3}
+    .svc-grid{grid-template-columns:1fr}
+    .faq-wrap{grid-template-columns:1fr;gap:16px}
+    .faq-help{position:static}
+    .contact{grid-template-columns:1fr;gap:30px}
+    .ft-top{grid-template-columns:1fr;gap:28px}
+    /* Timeline verticale */
+    .steps{grid-template-columns:1fr;gap:0}
+    /* Ligne verticale : un connecteur par étape, du centre d'un cercle au suivant (pas de dépassement) */
+    .track-line,.track-progress{display:none}
+    .step:not(.dest)::before{content:'';position:absolute;left:29px;top:30px;height:100%;width:2px;z-index:0;
+      background:linear-gradient(180deg,rgba(43,69,255,.9),rgba(109,134,255,.45))}
+    .step{flex-direction:row;align-items:flex-start;text-align:left;gap:22px;padding:0 0 34px}
+    .step .node{margin-bottom:0;flex:none}
+    .step-body{flex:1 1 auto}
+    .step p{max-width:none}
+  }
+  @media(max-width:820px){
+    .nlinks,.nav-in>.btn-pri{display:none}
+    .burger{display:grid}
+    .figures{grid-template-columns:1fr 1fr}
+    .fig:nth-child(2){border-right:none}
+    .fig:nth-child(1),.fig:nth-child(2){border-bottom:1px solid var(--line)}
+  }
+  @media(max-width:520px){.steps{grid-template-columns:1fr}.hero .cta-row{flex-direction:column}.hero .cta-row .btn{width:100%;justify-content:center}}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}#app{filter:none!important;transform:none!important}*{animation-duration:.001ms!important}
+    .hero .badge,.hero h1,.hero .lead,.hero .cta-row,.hero .trust,.hero-scroll{opacity:1!important;animation:none!important}.hero h1 .ital{color:var(--peri)!important}}
+
+  /* ===== Simulateur de devis ===== */
+  .sim{position:relative;max-width:760px;margin:0 auto;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;
+    background:linear-gradient(160deg,rgba(20,26,48,.55),rgba(9,13,26,.72));backdrop-filter:blur(24px) saturate(160%);
+    box-shadow:0 40px 100px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+  .sim-top{padding:22px 26px 0}
+  .sm-barrow{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .sm-steplab{font-family:'Inter Tight';font-size:13px;color:var(--txt2);font-weight:500}
+  .sm-steplab b{color:var(--peri);font-weight:600}
+  .sm-bar{margin-top:12px;height:5px;border-radius:5px;background:rgba(150,168,255,.14);overflow:hidden}
+  .sm-bar>i{display:block;height:100%;border-radius:5px;width:20%;background:linear-gradient(90deg,var(--outremer),var(--azur));
+    box-shadow:0 0 12px rgba(43,69,255,.6);transition:width .45s cubic-bezier(.22,1,.36,1)}
+  .sm-panel{padding:30px 26px 26px}
+  .sm-step{display:none}
+  .sm-step.on{display:block;animation:smIn .4s cubic-bezier(.22,1,.36,1)}
+  @keyframes smIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .sm-q{font-family:'Inter Tight';font-weight:600;font-size:22px;letter-spacing:-.01em}
+  .sm-hint{margin-top:6px;color:var(--txt2);font-size:14px}
+  .sm-opts{margin-top:22px;display:grid;gap:12px}
+  .sm-opts.two{grid-template-columns:1fr 1fr}
+  .sm-opts.chips{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .sm-opt{position:relative;text-align:left;cursor:pointer;border:1px solid var(--line-2);border-radius:16px;padding:18px;
+    background:var(--glass);color:var(--txt);font-family:'Inter';font-size:15px;transition:.22s;display:flex;align-items:center;gap:13px}
+  .sm-opt:hover{border-color:rgba(109,134,255,.5);background:var(--glass-2);transform:translateY(-2px)}
+  .sm-opt .oi{flex:none;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:var(--peri);
+    background:linear-gradient(150deg,rgba(43,69,255,.26),rgba(43,69,255,.08));border:1px solid var(--line-2)}
+  .sm-opt .ot{display:flex;flex-direction:column;gap:2px}
+  .sm-opt .ot b{font-family:'Inter Tight';font-weight:600;font-size:15.5px}
+  .sm-opt .ot span{font-size:12.5px;color:var(--txt2)}
+  .sm-opt .chk{position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;opacity:0;transition:.2s;color:#fff}
+  .sm-opt.sel{border-color:rgba(109,134,255,.75);background:linear-gradient(160deg,rgba(43,69,255,.2),rgba(43,69,255,.05));box-shadow:0 0 32px rgba(43,69,255,.18)}
+  .sm-opt.sel .chk{opacity:1;background:linear-gradient(135deg,#5b7cff,#2b45ff);border-color:transparent}
+  .sm-opt.mini{padding:14px 16px;justify-content:center;text-align:center}
+  .sm-opt.mini b{font-size:14.5px}
+  .sm-fld{margin-top:16px}
+  .sm-fld label{display:block;font-family:'Inter Tight';font-size:13.5px;color:var(--peri);margin-bottom:7px;font-weight:500}
+  .sm-fld input,.sm-fld textarea{width:100%;padding:14px 15px;border-radius:13px;border:1px solid var(--line-2);background:rgba(4,6,14,.6);
+    color:var(--txt);font-family:'Inter';font-size:15px;outline:none;transition:.2s}
+  .sm-fld input:focus,.sm-fld textarea:focus{border-color:rgba(109,134,255,.7);box-shadow:0 0 0 3px rgba(43,69,255,.14)}
+  .sm-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .sm-recap{margin-top:20px;border:1px solid var(--line);border-radius:16px;background:rgba(4,6,14,.4);padding:18px 20px}
+  .sm-recap .rr{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .sm-recap .rr:last-child{border-bottom:none}
+  .sm-recap .rr span{color:var(--txt2)}.sm-recap .rr b{font-family:'Inter Tight';font-weight:600;text-align:right}
+  .sm-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:26px}
+  .sm-btn{font-family:'Inter Tight';font-weight:600;font-size:15px;border-radius:13px;padding:14px 24px;cursor:pointer;border:1px solid transparent;transition:.22s;display:inline-flex;align-items:center;gap:9px}
+  .sm-btn-ghost{background:transparent;border-color:var(--line-2);color:var(--txt2)}
+  .sm-btn-ghost:hover{color:#fff;border-color:rgba(109,134,255,.5)}
+  .sm-btn-ghost.hide{visibility:hidden}
+  .sm-btn-pri{background:linear-gradient(120deg,#c9d2ff,#5b7cff 60%,#2b45ff);color:#0a1030;box-shadow:0 10px 30px rgba(43,69,255,.4)}
+  .sm-btn-pri:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .sm-btn-pri[disabled]{opacity:.45;cursor:not-allowed;filter:none;transform:none;box-shadow:none}
+  .sm-done{text-align:center;padding:12px 6px 6px}
+  .sm-done .sm-badge{width:70px;height:70px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;color:#04121b;
+    background:linear-gradient(160deg,#8ff5cf,#3ee9a4);box-shadow:0 0 34px rgba(62,233,164,.5)}
+  .sm-done h3{font-family:'Inter Tight';font-weight:600;font-size:24px;letter-spacing:-.01em}
+  .sm-done p{margin-top:10px;color:var(--txt2);font-size:15px;line-height:1.6}
+  .sm-reassure{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .sm-reassure span{font-size:12.5px;color:#cdd7f5;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03)}
+  .sm-status{margin-top:14px;font-size:14px;text-align:center;min-height:19px;color:var(--txt2)}
+  .sm-status.err{color:#ff9b9b}.sm-status.ok{color:var(--pos)}
+  .sm-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+  @media(max-width:560px){.sm-opts.two{grid-template-columns:1fr}.sm-grid2{grid-template-columns:1fr}.sm-panel{padding:26px 18px 22px}.sim-top{padding:20px 18px 0}}
+
+  /* ===== New-gen : scroll fluide + ancres ===== */
+  html{scroll-behavior:smooth}
+  section[id],header[id]{scroll-margin-top:86px}
+
+  /* Barre de progression de lecture */
+  #bottomBlur{position:fixed;left:0;right:0;bottom:0;height:132px;z-index:50;pointer-events:none;transition:opacity .45s ease}
+  #bottomBlur.hide{opacity:0}
+  #bottomBlur>span{position:absolute;inset:0;display:block}
+  #bottomBlur>span:nth-child(1){backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+    -webkit-mask-image:linear-gradient(to top,#000 0%,#000 14%,transparent 40%);mask-image:linear-gradient(to top,#000 0%,#000 14%,transparent 40%)}
+  #bottomBlur>span:nth-child(2){backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+    -webkit-mask-image:linear-gradient(to top,transparent 10%,#000 30%,#000 46%,transparent 66%);mask-image:linear-gradient(to top,transparent 10%,#000 30%,#000 46%,transparent 66%)}
+  #bottomBlur>span:nth-child(3){backdrop-filter:blur(2.5px);-webkit-backdrop-filter:blur(2.5px);
+    -webkit-mask-image:linear-gradient(to top,transparent 34%,#000 56%,#000 72%,transparent 90%);mask-image:linear-gradient(to top,transparent 34%,#000 56%,#000 72%,transparent 90%)}
+  #bottomBlur>span:nth-child(4){backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);
+    -webkit-mask-image:linear-gradient(to top,transparent 60%,#000 82%,transparent 100%);mask-image:linear-gradient(to top,transparent 60%,#000 82%,transparent 100%)}
+  #bottomBlur::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(4,5,11,.5),transparent 72%)}
+  @media(prefers-reduced-motion:reduce){#bottomBlur{display:none}}
+  #scrollbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;pointer-events:none;
+    background:linear-gradient(90deg,var(--outremer),var(--azur),var(--peri));box-shadow:0 0 10px rgba(43,69,255,.6);transition:width .12s linear}
+
+  /* Halo lumineux qui suit le curseur (spotlight hover) */
+  .spot{position:relative}
+  .spot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;z-index:0;
+    background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(109,134,255,.16),transparent 62%)}
+  .spot:hover::after{opacity:1}
+  .spot>*{position:relative;z-index:1}
+
+  /* Bandeau chiffres + marquee */
+  #chiffres{overflow:clip}
+  .stats-band{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:var(--max);margin:0 auto}
+  .stat{border:1px solid var(--line);border-radius:20px;padding:30px 24px;text-align:center;
+    background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.012));backdrop-filter:blur(18px) saturate(150%)}
+  .stat .num{display:block;font-family:'Inter Tight';font-weight:700;font-size:clamp(34px,4.6vw,50px);letter-spacing:-.03em;line-height:1;
+    background:linear-gradient(120deg,#fff,var(--peri));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .lab{display:block;margin-top:12px;font-size:13.5px;color:var(--txt2);line-height:1.4}
+  .marquee{margin-top:34px;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:16px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .mq-track{display:flex;align-items:center;gap:0;width:max-content;animation:mq 34s linear infinite}
+  .mq-track span{font-family:'Inter Tight';font-weight:600;font-size:15px;color:var(--peri);white-space:nowrap;padding:0 26px;display:inline-flex;align-items:center;gap:26px}
+  .mq-track span::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--azur);opacity:.6}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  .marquee:hover .mq-track{animation-play-state:paused}
+  @media(max-width:860px){.stats-band{grid-template-columns:1fr 1fr;gap:12px}}
+  @media(max-width:560px){.stat{padding:24px 16px}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mq-track{animation:none}.spot::after{display:none}}
+
+  /* ===== Méga-menu Services ===== */
+  .mega-wrap{position:relative;display:flex;align-items:center}
+  .mega-wrap>a .caret{margin-left:5px;transition:transform .25s;vertical-align:middle}
+  .mega-wrap:hover>a .caret,.mega-wrap:focus-within>a .caret{transform:rotate(180deg)}
+  .mega{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(6px);padding-top:16px;width:min(600px,92vw);z-index:70;
+    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,transform .22s ease}
+  .mega-wrap:hover .mega,.mega-wrap:focus-within .mega{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  .mega-inner{background:linear-gradient(160deg,rgba(15,20,38,.98),rgba(8,11,22,.98));border:1px solid var(--line-2);border-radius:18px;padding:12px;
+    display:grid;grid-template-columns:1fr 1fr;gap:5px;box-shadow:0 34px 80px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.06)}
+  .mega .mitem{display:flex;gap:12px;align-items:flex-start;padding:12px 13px;border-radius:13px;transition:background .18s;color:var(--txt)}
+  .mega .mitem:hover{background:var(--glass-2)}
+  .mega .mitem .mi{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--peri);
+    background:linear-gradient(150deg,rgba(43,69,255,.26),rgba(43,69,255,.08));border:1px solid var(--line-2)}
+  .mega .mitem b{font-family:'Inter Tight';font-weight:600;font-size:14px;display:block}
+  .mega .mitem em{font-style:normal;font-size:12px;color:var(--txt2);display:block;margin-top:2px;line-height:1.35}
+  /* Sous-liens Services dans le tiroir mobile */
+  .drawer .dsub{font-size:14.5px;color:var(--txt2);padding-left:16px;border-left:1px solid var(--line-2);margin-left:4px}
+  .drawer .dsub:hover{color:#fff}
+  .drawer .dlabel{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--azur);margin-top:8px;font-weight:600}
+
+  /* ===== Page Service dédiée ===== */
+  #svcPage,#devisPage{position:fixed;inset:0;z-index:130;display:none;overflow-y:auto;overflow-x:hidden;
+    background:radial-gradient(760px 560px at 50% -6%,rgba(43,69,255,.16),transparent 60%),linear-gradient(180deg,#05060e,#04050b)}
+  #svcPage.open,#devisPage.open{display:block}
+  body.page-open{overflow:hidden}
+  .sp-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:14px clamp(16px,5vw,40px);background:rgba(4,5,11,.72);backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid var(--line)}
+  .sp-bar .sp-brand{display:flex;align-items:center;gap:14px}
+  .sp-bar .sp-back{display:inline-flex;align-items:center;gap:8px;font-family:'Inter Tight';font-weight:500;font-size:14px;color:var(--txt2);background:none;border:none;cursor:pointer;padding:8px 10px;border-radius:10px}
+  .sp-bar .sp-back:hover{color:#fff;background:var(--glass)}
+  .sp-bar img{height:28px;cursor:pointer}
+  .sp-wrap{max-width:960px;margin:0 auto;padding:clamp(38px,6vw,74px) 22px 96px}
+  .sp-hero{text-align:center;max-width:700px;margin:0 auto}
+  .sp-kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--azur);font-weight:600}
+  .sp-hero h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(31px,6vw,54px);letter-spacing:-.03em;margin-top:14px;text-wrap:balance;line-height:1.05}
+  .sp-hero h1 .ital{font-family:'Instrument Serif';font-style:italic;font-weight:400;color:var(--peri)}
+  .sp-hero p{margin-top:18px;color:var(--txt2);font-size:17px;line-height:1.7}
+  .sp-hero .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+  .sp-sec{margin-top:60px}
+  .sp-sec>h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(23px,3.2vw,32px);letter-spacing:-.02em;text-align:center}
+  .sp-sec>.sub{text-align:center;color:var(--txt2);margin-top:8px;font-size:15px}
+  .sp-inc{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .sp-inc li{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:15px 18px;background:var(--glass);font-size:14.5px;line-height:1.45}
+  .sp-inc li svg{flex:none;color:var(--azur);margin-top:1px}
+  .sp-steps{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+  .sp-stepcard{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--glass)}
+  .sp-stepcard .n{font-family:'Instrument Serif';font-style:italic;font-size:26px;color:var(--peri)}
+  .sp-stepcard h3{font-family:'Inter Tight';font-weight:600;font-size:16px;margin-top:8px}
+  .sp-stepcard p{margin-top:6px;color:var(--txt2);font-size:13.5px;line-height:1.5}
+  .sp-aud{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .sp-aud span{border:1px solid var(--line-2);border-radius:999px;padding:9px 16px;font-size:13.5px;color:#cdd7f5;background:var(--glass)}
+  .sp-faq{margin-top:26px;max-width:720px;margin-left:auto;margin-right:auto}
+  .sp-final{margin-top:64px;text-align:center;border:1px solid var(--line-2);border-radius:24px;padding:clamp(36px,5vw,58px) 26px;overflow:hidden;
+    background:linear-gradient(160deg,rgba(43,69,255,.15),rgba(43,69,255,.03));box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 50px rgba(43,69,255,.14)}
+  .sp-final h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(24px,3.6vw,36px);letter-spacing:-.02em;max-width:560px;margin:0 auto;text-wrap:balance}
+  .sp-final p{margin:14px auto 0;max-width:500px;color:#c3cdf0;font-size:15.5px;line-height:1.6}
+  .sp-final .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+  @media(max-width:640px){.sp-inc{grid-template-columns:1fr}}
+  .sp-wrap.wide{max-width:1060px}
+  /* Layout B — hero scindé */
+  .sp-split{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
+  .sp-split-txt{text-align:left}
+  .sp-split-txt h1{font-family:'Inter Tight';font-weight:600;font-size:clamp(29px,4vw,46px);letter-spacing:-.03em;margin-top:12px;line-height:1.05;text-wrap:balance}
+  .sp-split-txt p{margin-top:16px;color:var(--txt2);font-size:16px;line-height:1.7}
+  .sp-split-txt .cta-actions{justify-content:flex-start;margin-top:24px}
+  .sp-split-card{border:1px solid var(--line-2);border-radius:20px;padding:28px 26px;
+    background:linear-gradient(160deg,rgba(20,26,48,.55),rgba(9,13,26,.7));backdrop-filter:blur(20px) saturate(150%);box-shadow:0 30px 70px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.07)}
+  .sp-split-card h3{font-family:'Inter Tight';font-weight:600;font-size:16px;margin-bottom:16px}
+  .sp-check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+  .sp-check li{display:flex;gap:11px;align-items:flex-start;font-size:14px;line-height:1.45;color:#cfd7ee}
+  .sp-check li svg{flex:none;color:var(--azur);margin-top:2px}
+  @media(max-width:820px){.sp-split{grid-template-columns:1fr;gap:24px}.sp-split-txt{text-align:center}.sp-split-txt .cta-actions{justify-content:center}}
+  /* Layout C — bento + étapes numérotées */
+  .sp-bento{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .sp-bento .tile{border:1px solid var(--line);border-radius:20px;padding:26px 24px;background:var(--glass);backdrop-filter:blur(14px) saturate(140%)}
+  .sp-bento .tile.wide{grid-column:1/-1}
+  .sp-bento .tile.accent{border-color:rgba(109,134,255,.42);background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03))}
+  .sp-bento .tile h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px;margin-bottom:14px}
+  .sp-bento .tile p{color:var(--txt2);font-size:14.5px;line-height:1.6}
+  .sp-steplist{list-style:none;margin:28px auto 0;padding:0;counter-reset:sl;display:flex;flex-direction:column;gap:14px;max-width:760px}
+  .sp-steplist li{counter-increment:sl;position:relative;padding:18px 20px 18px 62px;border:1px solid var(--line);border-radius:14px;background:var(--glass)}
+  .sp-steplist li::before{content:counter(sl,decimal-leading-zero);position:absolute;left:20px;top:16px;font-family:'Instrument Serif';font-style:italic;font-size:22px;color:var(--peri)}
+  .sp-steplist li b{font-family:'Inter Tight';font-weight:600;font-size:15.5px;display:block}
+  .sp-steplist li span{display:block;margin-top:4px;color:var(--txt2);font-size:13.5px;line-height:1.5}
+  @media(max-width:640px){.sp-bento{grid-template-columns:1fr}}
+
+  /* ===== Comparateur de statuts ===== */
+  .cmp-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+  .cmp-chip{border:1px solid var(--line-2);border-radius:999px;padding:9px 16px;font-family:'Inter Tight';font-weight:500;font-size:13.5px;color:var(--txt2);background:var(--glass);cursor:pointer;transition:.18s}
+  .cmp-chip:hover{color:#fff;border-color:rgba(109,134,255,.5)}
+  .cmp-chip[aria-pressed="true"]{color:#0a1030;background:linear-gradient(120deg,#c9d2ff,#5b7cff);border-color:transparent}
+  .cmp-scroll{margin-top:24px;overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:rgba(4,6,14,.35)}
+  .cmp-table{width:100%;border-collapse:collapse;min-width:560px}
+  .cmp-table th,.cmp-table td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.4;vertical-align:top}
+  .cmp-table thead th{font-family:'Inter Tight';font-weight:600;font-size:14px;color:var(--txt);background:rgba(12,15,28,.7)}
+  .cmp-table thead th:first-child{color:var(--txt2);font-weight:500}
+  .cmp-table tbody th{font-family:'Inter Tight';font-weight:500;color:var(--peri);white-space:nowrap;background:rgba(255,255,255,.02);position:sticky;left:0}
+  .cmp-table td{color:var(--txt2)}
+  .cmp-table tbody tr:last-child th,.cmp-table tbody tr:last-child td{border-bottom:none}
+  .cmp-note{margin-top:16px;font-size:12.5px;color:var(--txt2);text-align:center;opacity:.85}
+
+  /* ===== Page Guide (article) ===== */
+  .gd-wrap{max-width:760px}
+  .gd-read{display:inline-block;margin-top:18px;font-size:12.5px;letter-spacing:.04em;color:var(--azur);border:1px solid var(--line-2);border-radius:999px;padding:6px 14px}
+  .gd-body{margin-top:52px}
+  .gd-sec{margin-top:38px}
+  .gd-sec:first-child{margin-top:0}
+  .gd-sec h2{font-family:'Inter Tight';font-weight:600;font-size:clamp(20px,2.6vw,26px);letter-spacing:-.02em;margin-bottom:14px}
+  .gd-sec p{color:#cfd7ee;font-size:16px;line-height:1.75;margin-bottom:14px}
+  .gd-list{list-style:none;margin:6px 0 14px;padding:0;display:flex;flex-direction:column;gap:10px}
+  .gd-list li{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;line-height:1.5;color:#cfd7ee}
+  .gd-list li svg{flex:none;color:var(--azur);margin-top:2px}
+
+  /* ===== Méthodes comptables (section Méthode) ===== */
+  .meth-methods{position:relative;z-index:1;margin-top:72px}
+  .meth-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:920px;margin:32px auto 0}
+  .meth-card{border:1px solid var(--line);border-radius:22px;padding:30px 28px;background:var(--glass);backdrop-filter:blur(16px) saturate(150%)}
+  .meth-card.best{border-color:rgba(109,134,255,.45);background:linear-gradient(160deg,rgba(43,69,255,.14),rgba(43,69,255,.03));box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 46px rgba(43,69,255,.16),inset 0 1px 0 rgba(255,255,255,.1)}
+  .meth-tag{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt2);font-weight:600}
+  .meth-card.best .meth-tag{color:var(--peri)}
+  .meth-card h3{font-family:'Inter Tight';font-weight:600;font-size:20px;letter-spacing:-.01em;margin-top:9px}
+  .meth-card>p{margin-top:12px;color:var(--txt2);font-size:14.5px;line-height:1.6}
+  .meth-card ul{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .meth-card li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.45;color:#cfd7ee}
+  .meth-card li .mk{flex:none;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;margin-top:1px;font-size:11px}
+  .meth-card li .mk.ok{background:linear-gradient(135deg,#5b7cff,#2b45ff);color:#fff}
+  .meth-card li .mk.no{border:1px solid rgba(150,168,255,.25);color:var(--txt2)}
+  .meth-card li.lim{color:var(--txt2)}
+  .meth-detail{max-width:920px;margin:20px auto 0;border:1px solid var(--line-2);border-radius:22px;padding:32px 32px;
+    background:linear-gradient(160deg,rgba(20,26,48,.5),rgba(9,13,26,.62));backdrop-filter:blur(18px) saturate(150%)}
+  .meth-detail h3{font-family:'Inter Tight';font-weight:600;font-size:clamp(19px,2.4vw,24px);letter-spacing:-.02em}
+  .meth-detail>p{margin-top:10px;color:var(--txt2);font-size:15px;line-height:1.65}
+  .meth-reasons{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .meth-reasons li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:#cfd7ee}
+  .meth-reasons li svg{flex:none;color:var(--azur);margin-top:2px}
+  .meth-reasons li b{font-family:'Inter Tight';font-weight:600;color:var(--txt)}
+  .meth-note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--txt2);line-height:1.6}
+  @media(max-width:760px){.meth-grid{grid-template-columns:1fr}.meth-reasons{grid-template-columns:1fr}}
+
+  /* ===== Nos engagements (À propos) ===== */
+  .engage{margin-top:56px}
+  .engage-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+  .eng{border:1px solid var(--line);border-radius:18px;padding:26px 24px;background:var(--glass);backdrop-filter:blur(16px) saturate(150%)}
+  .eng .ei{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:var(--peri);background:linear-gradient(150deg,rgba(43,69,255,.26),rgba(43,69,255,.08));border:1px solid var(--line-2)}
+  .eng h3{font-family:'Inter Tight';font-weight:600;font-size:16.5px;letter-spacing:-.01em;margin-top:16px}
+  .eng p{margin-top:8px;color:var(--txt2);font-size:14px;line-height:1.55}
+  @media(max-width:860px){.engage-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.engage-grid{grid-template-columns:1fr}}
+
+  /* ===== Prise de contact : comment ça se passe ===== */
+  .onb{margin-top:52px}
+  .onb-head{text-align:center;max-width:560px;margin:0 auto 30px}
+  .onb-head h3{font-family:'Inter Tight';font-weight:600;font-size:clamp(20px,2.6vw,26px);letter-spacing:-.02em}
+  .onb-head p{margin-top:8px;color:var(--txt2);font-size:15px;line-height:1.6}
+  .onb-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .onb-step{position:relative;border:1px solid var(--line);border-radius:16px;padding:24px 22px;background:var(--glass)}
+  .onb-step .n{font-family:'Instrument Serif';font-style:italic;font-size:26px;color:var(--peri)}
+  .onb-step h4{font-family:'Inter Tight';font-weight:600;font-size:15.5px;margin-top:8px}
+  .onb-step p{margin-top:7px;color:var(--txt2);font-size:13.5px;line-height:1.5}
+  @media(max-width:860px){.onb-steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:460px){.onb-steps{grid-template-columns:1fr}}
+
+  /* ===== Compaction mobile : échelle générale réduite ===== */
+  @media(max-width:600px){
+    .wrap{padding:0 16px}
+    section{padding:42px 0}
+    .sh{margin:0 auto 24px}
+    .sh h2{font-size:24px;margin-top:9px}
+    .sh p{font-size:13.5px;margin-top:9px}
+    .kick{font-size:10.5px;letter-spacing:.2em}
+    /* Hero */
+    .hero{padding-top:34px}
+    .hero h1{font-size:33px;margin-top:14px}
+    .hero .lead{font-size:14.5px;margin-top:14px}
+    .hero .badge{font-size:11.5px;padding:7px 13px}
+    .hero .trust{gap:10px 16px;font-size:12px}
+    .cta-row{gap:10px;margin-top:20px}
+    /* Services */
+    .svc-grid{gap:11px}
+    .svc{padding:18px;border-radius:16px}
+    .svc h3,.svc.tall h3,.svc.wide h3{font-size:17px}
+    .svc p{font-size:12.5px;margin-top:6px}
+    .svc .ic{width:38px;height:38px}
+    .svc .ghost{font-size:88px}
+    /* Méthode */
+    .meth-methods{margin-top:44px}
+    .meth-grid{gap:12px;margin-top:22px}
+    .meth-card{padding:20px 18px;border-radius:16px}
+    .meth-card h3{font-size:17px}
+    .meth-card>p{font-size:13.5px}
+    .meth-detail{padding:22px 20px}
+    .meth-note{font-size:12.5px}
+    /* À propos */
+    .compare .col{padding:22px 18px;border-radius:16px}
+    .engage{margin-top:38px}
+    .eng{padding:18px 16px;border-radius:14px}
+    .eng h3{font-size:15px;margin-top:12px}
+    .eng p{font-size:12.5px}
+    .eng .ei{width:38px;height:38px}
+    /* Chiffres */
+    #chiffres .stat{padding:18px 10px;border-radius:16px}
+    .stat .num{font-size:30px}
+    .stat .lab{font-size:11.5px;margin-top:8px}
+    .marquee{margin-top:24px;padding:12px 0}
+    .mq-track span{font-size:13.5px;padding:0 18px;gap:18px}
+    /* Avis */
+    .arev{padding:16px}
+    .score{padding:24px 20px}
+    /* Simulateur */
+    .sm-panel{padding:20px 15px}
+    .sm-q{font-size:18px}
+    .sm-hint{font-size:13px}
+    .sm-opt{padding:14px;border-radius:13px}
+    /* Comment ça se passe */
+    .onb{margin-top:38px}
+    .onb-step{padding:18px 16px}
+    .onb-head{margin-bottom:22px}
+    /* CTA + Contact */
+    .cta-band{padding:38px 18px;border-radius:20px}
+    .cta-band h2{font-size:25px}
+    .cta-band p{font-size:14.5px}
+    .contact{gap:22px}
+    /* Pages dédiées (Services / Guides) */
+    .sp-wrap{padding:28px 16px 56px}
+    .sp-hero h1{font-size:29px}
+    .sp-hero p{font-size:15px}
+    .sp-sec{margin-top:40px}
+    .sp-inc li{padding:13px 15px;font-size:13.5px}
+    .sp-stepcard{padding:18px}
+    .sp-final{padding:30px 20px}
+    .gd-body{margin-top:36px}
+    .gd-sec{margin-top:30px}
+    .gd-sec h2{font-size:19px}
+    .gd-sec p{font-size:15px}
+    .cmp-table th,.cmp-table td{padding:11px 13px;font-size:12.5px}
+  }
+
+  /* ===== Présentation (accueil) ===== */
+  .cinfo .row.bill{border-color:rgba(109,134,255,.42);background:linear-gradient(160deg,rgba(43,69,255,.16),rgba(43,69,255,.03))}
+  .cinfo .row.bill:hover{border-color:rgba(109,134,255,.72);background:linear-gradient(160deg,rgba(43,69,255,.24),rgba(43,69,255,.05))}
+  .cinfo .row.bill .arr{margin-left:auto;color:var(--peri);flex:none;transition:transform .2s}
+  .cinfo .row.bill:hover .arr{transform:translateX(3px)}
+  #intro{padding-top:clamp(30px,5vw,60px)}
+  .intro-inner{max-width:820px;margin:0 auto;text-align:center}
+  .intro-lead{font-family:'Inter Tight';font-weight:500;font-size:clamp(23px,3.4vw,34px);line-height:1.4;letter-spacing:-.015em;margin-top:16px;text-wrap:balance;color:var(--txt)}
+  .intro-lead .ital{font-family:'Instrument Serif';font-style:italic;font-weight:400;color:var(--peri)}
+  .intro-cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:38px;text-align:left}
+  .intro-cols p{color:var(--txt2);font-size:15px;line-height:1.72}
+  .intro-cols b{color:var(--peri);font-weight:600}
+  @media(max-width:700px){.intro-cols{grid-template-columns:1fr;gap:16px;margin-top:28px}}
+
+  /* ===== Effets visuels mobile (aucun changement fonctionnel) ===== */
+  @keyframes mUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes mShine{from{background-position:0 0}to{background-position:220% 0}}
+  @keyframes mGlow{0%,100%{box-shadow:0 12px 32px rgba(43,69,255,.4)}50%{box-shadow:0 14px 48px rgba(43,69,255,.72)}}
+  @media(max-width:600px){
+    /* Retour tactile sur les éléments cliquables (sans transform, pour ne pas gêner les apparitions) */
+    .svc:active,.mitem:active,.dsub:active,.sm-opt:active,.cmp-chip:active,.sp-back:active,.row:active{filter:brightness(1.15)}
+  }
+  @media(max-width:600px) and (prefers-reduced-motion:no-preference){
+    /* Apparition des cartes en cascade quand la section entre à l'écran */
+    .svc-grid.in>.svc,.stats-band.in>.stat,.engage.in .eng,.meth-methods.in .meth-card,.onb.in .onb-step{animation:mUp .55s cubic-bezier(.22,1,.36,1) both}
+    .svc-grid.in>.svc:nth-child(2),.stats-band.in>.stat:nth-child(2),.engage.in .eng:nth-child(2),.meth-methods.in .meth-card:nth-child(2),.onb.in .onb-step:nth-child(2){animation-delay:.08s}
+    .svc-grid.in>.svc:nth-child(3),.stats-band.in>.stat:nth-child(3),.engage.in .eng:nth-child(3),.onb.in .onb-step:nth-child(3){animation-delay:.16s}
+    .svc-grid.in>.svc:nth-child(4),.stats-band.in>.stat:nth-child(4),.engage.in .eng:nth-child(4),.onb.in .onb-step:nth-child(4){animation-delay:.24s}
+    .svc-grid.in>.svc:nth-child(5),.engage.in .eng:nth-child(5){animation-delay:.32s}
+    .svc-grid.in>.svc:nth-child(6),.engage.in .eng:nth-child(6){animation-delay:.40s}
+    /* Scintillement doux des chiffres clés */
+    #chiffres .stat .num{background:linear-gradient(100deg,var(--peri) 26%,#fff 50%,var(--peri) 74%);-webkit-background-clip:text;background-clip:text;background-size:220% 100%;animation:mShine 5s linear infinite}
+    /* Souffle lumineux sur le CTA principal */
+    .cta-band .btn-pri{animation:mGlow 3.4s ease-in-out infinite}
+  }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');document.body.classList.add('loading');</script>
+<a href="#main-content" class="skip">Aller au contenu</a>
+
+<div id="loader" aria-hidden="true"><img src="assets/logo-full.png" alt="AEM CONSEIL"></div>
+<div class="beam" aria-hidden="true"></div>
+<div id="scrollbar" aria-hidden="true"></div>
+<div id="bottomBlur" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+<div id="app">
+  <nav id="nav">
+    <div class="nav-in">
+      <a href="#top" class="logo" aria-label="AEM CONSEIL — Accueil"><img src="assets/logo-full.png" alt="AEM Conseil"></a>
+      <div class="nlinks">
+        <div class="mega-wrap">
+          <a href="#services">Services <svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="mega"><div class="mega-inner" id="megaInner"></div></div>
+        </div>
+        <a href="#methode">Méthode</a>
+        <div class="mega-wrap">
+          <a href="#ressources/creer-son-entreprise">Ressources <svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="mega"><div class="mega-inner" id="megaRes"></div></div>
+        </div>
+        <a href="#apropos">À propos</a>
+        <a href="#avis">Avis</a>
+        <a href="#devis">Devis</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="#contact" class="btn btn-pri">Prendre rendez-vous</a>
+      <button class="burger" type="button" aria-label="Ouvrir le menu" onclick="openNav()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </nav>
+
+  <main class="wrap" id="main-content" tabindex="-1">
+    <!-- HERO -->
+    <header id="top" class="hero">
+      <div class="hero-bg" aria-hidden="true"><span class="g"></span><span class="orb o1"></span><span class="orb o2"></span></div>
+      <span class="badge"><span class="dot"></span> Cabinet disponible · Réponse sous 24 h</span>
+      <h1 class="disp">Des comptes <span class="ital">justes.</span> Des décisions <span class="ital">claires.</span></h1>
+      <p class="lead">AEM-CONSEIL accompagne entrepreneurs, TPE et PME dans leur comptabilité, leur gestion et leurs décisions — avec rigueur, proximité et une exigence de clarté à chaque ligne.</p>
+      <div class="cta-row">
+        <a href="#devis" class="btn btn-pri">Demander un devis gratuit <span aria-hidden="true">→</span></a>
+        <a href="#services" class="btn btn-ghost">Découvrir nos services</a>
+      </div>
+      <div class="trust">
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6d86ff" stroke-width="1.8"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Expertise certifiée</span>
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6d86ff" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Données sécurisées</span>
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6d86ff" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Interlocuteur dédié</span>
+      </div>
+      <a href="#services" class="hero-scroll" aria-label="Découvrir la suite"><span class="mouse"><i></i></span><span>Découvrir</span></a>
+    </header>
+
+    <!-- PRÉSENTATION -->
+    <section id="intro">
+      <div class="intro-inner reveal">
+        <span class="kick">Le cabinet</span>
+        <p class="intro-lead">Des comptes justes ne servent à rien s'ils ne vous aident pas à <span class="ital">décider</span>. Chez AEM-CONSEIL, nous allons au-delà des chiffres.</p>
+        <div class="intro-cols">
+          <p>AEM-CONSEIL est un cabinet de conseil et d'expertise comptable qui accompagne les entrepreneurs, indépendants, TPE et PME à chaque étape de leur développement. De la création de votre entreprise à la clôture de vos comptes, nous prenons en charge votre <b>comptabilité</b>, votre <b>fiscalité</b>, votre <b>paie</b> et votre <b>pilotage</b> — avec la même exigence de clarté et de rigueur.</p>
+          <p>Nous traduisons votre comptabilité en informations concrètes, nous anticipons vos échéances et nous restons disponibles pour répondre à vos questions — par un interlocuteur unique qui connaît votre dossier. Parce que chaque projet est différent, nous construisons un accompagnement <b>sur-mesure</b>, adapté à votre activité, votre taille et vos ambitions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="sh reveal"><span class="kick">Nos expertises</span><h2>Tout ce qu'un <span class="ital">cabinet</span> doit vous apporter</h2><p>De la création à la croissance, un accompagnement complet et lisible — cliquez sur une expertise pour le détail.</p></div>
+      <div class="svc-grid reveal" id="svc-grid"></div>
+    </section>
+
+    <!-- MÉTHODE -->
+    <section id="methode">
+      <div class="methode-glow" aria-hidden="true"></div>
+      <div class="sh reveal"><span class="kick">Notre méthode</span><h2>Une <span class="ital">logique</span> comptable, du premier jour au bilan</h2><p>Un processus clair et rythmé par vos échéances, pour ne jamais être pris au dépourvu.</p></div>
+      <div class="steps reveal" id="steps"></div>
+
+      <div class="meth-methods reveal">
+        <div class="sh"><span class="kick">La méthode comptable</span><h2>Quelle <span class="ital">méthode</span> pour tenir vos comptes&nbsp;?</h2><p>Deux grandes approches existent — le choix détermine la fiabilité de vos comptes et votre capacité à piloter. Voici celle que nous appliquons, et pourquoi.</p></div>
+        <div class="meth-grid">
+          <div class="meth-card">
+            <span class="meth-tag">Approche 1</span>
+            <h3>Comptabilité de trésorerie</h3>
+            <p>Les opérations sont enregistrées au moment où l'argent entre ou sort : encaissements et décaissements. C'est la logique du relevé bancaire.</p>
+            <ul>
+              <li><span class="mk ok">✓</span>Simple et rapide à tenir</li>
+              <li><span class="mk ok">✓</span>Adaptée aux très petites structures (certaines professions libérales, micro-entreprise)</li>
+              <li class="lim"><span class="mk no">–</span>Ne tient pas compte des factures non encore payées</li>
+              <li class="lim"><span class="mk no">–</span>Vision partielle : le résultat est faussé par le simple décalage des paiements</li>
+            </ul>
+          </div>
+          <div class="meth-card best spot">
+            <span class="meth-tag">Notre choix</span>
+            <h3>Comptabilité d'engagement</h3>
+            <p>Les opérations sont enregistrées dès qu'elles naissent : une facture émise ou reçue est comptabilisée immédiatement, indépendamment de son paiement.</p>
+            <ul>
+              <li><span class="mk ok">✓</span>Image fidèle et sincère de votre activité</li>
+              <li><span class="mk ok">✓</span>Créances, dettes et stocks pris en compte</li>
+              <li><span class="mk ok">✓</span>Obligatoire pour la plupart des sociétés</li>
+              <li><span class="mk ok">✓</span>Base d'un vrai pilotage : tableaux de bord et prévisionnels</li>
+            </ul>
+          </div>
+        </div>
+        <div class="meth-detail">
+          <h3>Pourquoi nous appliquons la comptabilité d'engagement, en partie double</h3>
+          <p>C'est la méthode de référence des cabinets d'expertise comptable — et celle qui vous sert le mieux au quotidien. Chaque opération est enregistrée deux fois, au débit et au crédit : c'est le principe de la <b>partie double</b>, garant de comptes équilibrés et vérifiables.</p>
+          <ul class="meth-reasons">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>Une image fidèle</b> — votre résultat reflète l'activité réelle de la période, pas les aléas de trésorerie.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>La conformité</b> — elle répond au Plan Comptable Général et aux attentes de l'administration et des banques.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>L'anticipation</b> — vous visualisez vos échéances et votre trésorerie à venir, pas seulement le passé.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>Le pilotage</b> — des comptes exploitables en continu pour décider au bon moment.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>La fiabilité</b> — la partie double sécurise chaque écriture et rend les comptes traçables.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><span><b>La sérénité</b> — moins d'erreurs, des clôtures plus rapides et des contrôles facilités.</span></li>
+          </ul>
+          <p class="meth-note">En pratique, nous adaptons le niveau de détail — système réel simplifié ou réel normal — à la taille et aux obligations de votre entreprise, sans jamais rogner sur la rigueur. Objectif : des comptes justes, et des décisions claires.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- À PROPOS -->
+    <section id="apropos">
+      <div class="sh reveal"><span class="kick">À propos</span><h2>La <span class="ital">différence</span> d'un cabinet à taille humaine</h2><p>Chez AEM-CONSEIL, la proximité, la réactivité et la transparence ne sont pas des mots : c'est notre façon de travailler.</p></div>
+      <div class="compare reveal">
+        <div class="col old spot">
+          <h3>Un cabinet classique</h3>
+          <ul>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un interlocuteur qui change souvent</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Des réponses qui tardent</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un jargon technique</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Un bilan… une fois par an</li>
+          </ul>
+        </div>
+        <div class="col new spot">
+          <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a9b8ff" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Avec AEM-CONSEIL</h3>
+          <ul>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Un interlocuteur unique et dédié</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Une réponse sous 24 h</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Des conseils clairs, sans jargon</li>
+            <li><span class="m"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>Des tableaux de bord en continu</li>
+          </ul>
+        </div>
+        <div class="vs" aria-hidden="true">vs</div>
+      </div>
+
+      <div class="engage reveal">
+        <div class="sh"><span class="kick">Nos engagements</span><h2>Ce sur quoi vous pouvez <span class="ital">compter</span></h2><p>Six principes qui guident chaque dossier que nous prenons en charge.</p></div>
+        <div class="engage-grid">
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0112 0M16 5.5a3 3 0 010 5.5M21 20a6 6 0 00-4-5.6"/></svg></span><h3>Proximité</h3><p>Un cabinet à taille humaine : on vous connaît, on connaît votre dossier — et vous gardez le même interlocuteur.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><h3>Réactivité</h3><p>Une réponse sous 24 h ouvrées, sans avoir à relancer ni à tout réexpliquer à chaque échange.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Transparence</h3><p>Un devis clair, des honoraires sans surprise et des explications à chaque étape de votre dossier.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span><h3>Confidentialité</h3><p>Secret professionnel et données hébergées de façon sécurisée, en conformité avec le RGPD.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><h3>Pédagogie</h3><p>Des conseils clairs, sans jargon : vous comprenez vos chiffres et les décisions à prendre.</p></div>
+          <div class="eng spot"><span class="ei"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M7 12h10M10 18h4"/></svg></span><h3>Sur-mesure</h3><p>Un accompagnement adapté à votre activité, votre taille et vos objectifs — jamais un dossier standard.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHIFFRES + MARQUEE -->
+    <section id="chiffres">
+      <div class="stats-band reveal">
+        <div class="stat"><span class="num aem-count" data-to="200" data-suffix="+">0</span><span class="lab">clients accompagnés</span></div>
+        <div class="stat"><span class="num aem-count" data-to="10" data-suffix=" ans">0</span><span class="lab">d'expérience à vos côtés</span></div>
+        <div class="stat"><span class="num aem-count" data-to="24" data-suffix=" h">0</span><span class="lab">délai de réponse</span></div>
+        <div class="stat"><span class="num aem-count" data-to="97" data-suffix=" %">0</span><span class="lab">de clients satisfaits</span></div>
+      </div>
+      <div class="marquee reveal" aria-hidden="true">
+        <div class="mq-track">
+          <span>Réactivité</span><span>Proximité</span><span>Transparence</span><span>Rigueur</span><span>Accompagnement sur-mesure</span><span>Sans jargon</span><span>Interlocuteur dédié</span><span>Conseil stratégique</span>
+          <span>Réactivité</span><span>Proximité</span><span>Transparence</span><span>Rigueur</span><span>Accompagnement sur-mesure</span><span>Sans jargon</span><span>Interlocuteur dédié</span><span>Conseil stratégique</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVIS -->
+    <section id="avis">
+      <div class="sh reveal"><span class="kick">Ils nous font confiance</span><h2>La <span class="ital">parole</span> à nos clients</h2><p>Des entrepreneurs et dirigeants qui avancent sereinement à nos côtés.</p></div>
+      <div class="avis-trust reveal">
+        <div class="score">
+          <div class="big">5,0</div>
+          <div class="stars">★★★★★</div>
+          <div class="lab">Note moyenne de nos clients</div>
+          <div class="avatars"><span>SL</span><span>KM</span><span>EP</span><span class="more">+</span></div>
+          <div class="rec">200+ clients · 97 % nous recommandent</div>
+        </div>
+        <div class="alist" id="avis-list"></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="sh reveal"><span class="kick">Questions fréquentes</span><h2>Vous vous <span class="ital">posez</span> des questions ?</h2><p>Les réponses qui reviennent le plus souvent — claires et sans jargon.</p></div>
+      <div class="faq-wrap reveal">
+        <aside class="faq-help">
+          <h3>Une autre question ?</h3>
+          <p>Vous ne trouvez pas votre réponse ? Écrivez-nous : on vous répond avec plaisir, simplement et sans engagement.</p>
+          <a href="#contact" class="btn btn-pri">Nous écrire</a>
+          <div class="meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Réponse sous 24 h</div>
+        </aside>
+        <div class="faq-list" id="faq-list"></div>
+      </div>
+    </section>
+
+    <!-- COMMENT ÇA SE PASSE -->
+    <section id="process">
+      <div class="onb reveal" style="margin-top:0">
+        <div class="onb-head"><h3>Et ensuite, comment ça se passe&nbsp;?</h3><p>Un parcours simple et sans engagement, de votre premier message à la mise en route.</p></div>
+        <div class="onb-steps">
+          <div class="onb-step spot"><span class="n">01</span><h4>Le premier échange</h4><p>Offert et sans engagement. On prend le temps de comprendre votre situation et vos besoins.</p></div>
+          <div class="onb-step spot"><span class="n">02</span><h4>L'étude de votre besoin</h4><p>Nous analysons votre dossier et identifions l'accompagnement le plus adapté.</p></div>
+          <div class="onb-step spot"><span class="n">03</span><h4>Une proposition claire</h4><p>Un devis transparent et une lettre de mission détaillée — vous savez exactement ce qui est inclus.</p></div>
+          <div class="onb-step spot"><span class="n">04</span><h4>La mise en route</h4><p>Reprise de votre dossier et installation de vos outils, sans interruption de service.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section>
+      <div class="cta-band reveal">
+        <span class="orb orb1" aria-hidden="true"></span><span class="orb orb2" aria-hidden="true"></span>
+        <span class="eyebrow">Premier rendez-vous offert</span>
+        <h2>Faisons le point sur votre <span class="ital">situation</span> — et voyons comment avancer</h2>
+        <p>Un échange gratuit et sans engagement : on analyse vos comptes, on répond à vos questions et on vous dit concrètement ce que nous pouvons faire pour vous.</p>
+        <div class="cta-actions">
+          <a href="#devis" class="btn btn-pri">Demander un devis gratuit <span aria-hidden="true">→</span></a>
+          <a href="tel:+33665908325" class="btn btn-ghost">Nous appeler</a>
+        </div>
+        <div class="reassure">
+          <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Sans engagement</span>
+          <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Réponse sous 24 h</span>
+          <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Interlocuteur dédié</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="sh reveal"><span class="kick">Contact</span><h2>Parlons de votre <span class="ital">projet</span></h2><p>Remplissez le formulaire ou contactez-nous directement, nous répondons rapidement.</p></div>
+      <div class="contact reveal">
+        <div>
+          <h3>Nos coordonnées</h3>
+          <div class="cinfo">
+            <a class="row" href="tel:+33665908325"><span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.8 2z"/></svg></span><span><span class="lab">Téléphone</span><span class="val">06 65 90 83 25</span></span></a>
+            <a class="row" href="mailto:aemconseil.sas@gmail.com"><span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span><span class="lab">E-mail</span><span class="val">aemconseil.sas@gmail.com</span></span></a>
+            <div class="row"><span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><span class="lab">Horaires</span><span class="val">Lun – Ven · 9h – 18h</span></span></div>
+            <a class="row bill" id="billLink" href="#facturation"><span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h5M9 17h3"/></svg></span><span><span class="lab">Espace facturation</span><span class="val">Consultez et réglez vos factures en ligne</span></span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></a>
+          </div>
+          <div class="contact-extra">
+            <b>Le premier rendez-vous est offert</b>
+            <div class="chips">
+              <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Gratuit et sans engagement</span>
+              <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Réponse sous 24 h</span>
+              <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Un interlocuteur dédié</span>
+            </div>
+          </div>
+          <form id="callbackForm" class="callback" novalidate>
+            <b><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.8 2z"/></svg> Pas le temps d'écrire ?</b>
+            <p>Laissez votre prénom et votre numéro : on vous rappelle sous 24 h.</p>
+            <div class="cb-row">
+              <input name="nom" required autocomplete="given-name" placeholder="Votre prénom" aria-label="Votre prénom">
+              <input name="telephone" required type="tel" autocomplete="tel" placeholder="Votre numéro" aria-label="Votre numéro">
+            </div>
+            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" id="cbBtn" class="btn btn-pri"><span>Être rappelé</span></button>
+            <p id="cbStatus" class="cb-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="ccol">
+          <h3>Écrivez-nous</h3>
+          <form id="contactForm" novalidate>
+          <div class="field"><label for="f-nom">Nom complet</label><input id="f-nom" name="nom" type="text" required autocomplete="name" placeholder="Votre nom"></div>
+          <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" required autocomplete="email" placeholder="vous@exemple.fr"></div>
+          <div class="field"><label for="f-tel">Téléphone <span class="opt">(optionnel)</span></label><input id="f-tel" name="telephone" type="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+          <div class="field"><label for="f-obj">Objet de votre demande</label><select id="f-obj" name="objet"><option value="Expertise comptable">Expertise comptable</option><option value="Paie & social">Paie &amp; social</option><option value="Fiscalité">Fiscalité</option><option value="Création d'entreprise">Création d'entreprise</option><option value="Conseil & gestion">Conseil &amp; gestion</option><option value="Autre / je ne sais pas encore">Autre / je ne sais pas encore</option></select></div>
+          <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="4" required placeholder="Décrivez votre besoin..."></textarea></div>
+          <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" id="formBtn" class="btn btn-pri"><span>Envoyer le message</span></button>
+          <p id="formStatus" role="status" aria-live="polite"></p>
+          <p class="form-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>Vos informations restent confidentielles.</p>
+          </form>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="ft">
+    <div class="wrap">
+      <div class="ft-top">
+        <div>
+          <a href="#top" class="logo"><img src="assets/logo-full.png" alt="AEM Conseil"></a>
+          <p class="desc">Cabinet de conseil et d'expertise comptable au service des entrepreneurs, TPE et PME.</p>
+        </div>
+        <div class="ft-col">
+          <h4>Navigation</h4>
+          <nav aria-label="Pied de page">
+            <a href="#services">Services</a>
+            <a href="#methode">Méthode</a>
+            <a href="#apropos">À propos</a>
+            <a href="#avis">Avis</a>
+            <a href="#faq">FAQ</a>
+          </nav>
+        </div>
+        <div class="ft-col">
+          <h4>Contact</h4>
+          <nav aria-label="Contact">
+            <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>
+            <a href="tel:+33665908325">06 65 90 83 25</a>
+            <a href="#contact">Prendre rendez-vous</a>
+            <a href="https://yada.aemconseil.eu/">Espace client</a>
+          </nav>
+        </div>
+      </div>
+      <div class="ft-bottom">
+        <span>© 2026 AEM-CONSEIL — Tous droits réservés.</span>
+        <span style="display:flex;flex-wrap:wrap;gap:14px 22px"><a href="#" onclick="event.preventDefault();openLegal()">Mentions légales</a><a href="#" onclick="event.preventDefault();openPrivacy()">Politique de confidentialité</a><a href="#" onclick="event.preventDefault();openCGU()">CGU</a><a href="#" onclick="event.preventDefault();openCGV()">CGV</a><a href="#" onclick="event.preventDefault();reopenCookies()">Gérer mes cookies</a></span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Menu mobile -->
+<div class="overlay" id="ov" onclick="closeNav()"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" aria-label="Fermer" onclick="closeNav()">✕</button>
+  <a href="#services" onclick="closeNav()">Services</a>
+  <div class="dsublist" id="drawerSvc"></div>
+  <a href="#methode" onclick="closeNav()">Méthode</a>
+  <div class="dsublist" id="drawerRes"></div>
+  <a href="#apropos" onclick="closeNav()">À propos</a>
+  <a href="#avis" onclick="closeNav()">Avis</a>
+  <a href="#devis" onclick="closeNav()">Devis</a>
+  <a href="#faq" onclick="closeNav()">FAQ</a>
+  <a href="#contact" onclick="closeNav()">Contact</a>
+  <a href="#contact" class="btn btn-pri" onclick="closeNav()">Prendre rendez-vous</a>
+</aside>
+
+<!-- Page Service dédiée -->
+<div id="svcPage" role="dialog" aria-modal="true" aria-label="Page service"></div>
+<!-- Page Devis dédiée -->
+<div id="devisPage" role="dialog" aria-modal="true" aria-label="Simulateur de devis">
+  <div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash='#top'"><a href="#contact" class="btn btn-pri" onclick="spGo(event,'#contact')">Nous contacter</a></div>
+  <div class="sp-wrap">
+      <div class="sh"><span class="kick">Simulateur</span><h2>Estimez votre <span class="ital">accompagnement</span> en 1 minute</h2><p>Quelques questions pour cerner votre besoin. Vous recevez un devis personnalisé et gratuit sous 24 h — sans engagement.</p></div>
+      <form class="sim" id="simForm" novalidate>
+        <input type="text" class="sm-hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="sim-top">
+          <div class="sm-barrow"><span class="sm-steplab">Étape <b id="smCur">1</b> / 5</span><span class="sm-steplab" id="smTitle">Votre situation</span></div>
+          <div class="sm-bar"><i id="smBar"></i></div>
+        </div>
+        <div class="sm-panel">
+          <!-- Étape 1 -->
+          <section class="sm-step on" data-step="1">
+            <div class="sm-q">Où en êtes-vous aujourd'hui ?</div>
+            <div class="sm-hint">Cela nous aide à adapter notre accompagnement.</div>
+            <div class="sm-opts" data-single="situation">
+              <button type="button" class="sm-opt" data-val="Je crée mon entreprise"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.8-.8.8-2 0-3s-2.2-.8-3 0z"/><path d="M9 12a12 12 0 018-9c1 4-1 8-4 10l-1 4-3-3z"/></svg></span><span class="ot"><b>Je crée mon entreprise</b><span>Statut, formalités, démarrage</span></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="J'ai déjà une entreprise"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></span><span class="ot"><b>J'ai déjà une entreprise</b><span>Tenue, bilan, conseil au quotidien</span></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Je change de cabinet"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 019-9 9 9 0 016.7 3M21 12a9 9 0 01-9 9 9 9 0 01-6.7-3"/><path d="M18 3v3h-3M6 21v-3h3"/></svg></span><span class="ot"><b>Je change de cabinet</b><span>Reprise de dossier sans stress</span></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+            </div>
+          </section>
+          <!-- Étape 2 -->
+          <section class="sm-step" data-step="2">
+            <div class="sm-q">Quelle est votre forme juridique ?</div>
+            <div class="sm-hint">Si vous ne savez pas encore, choisissez « Je ne sais pas encore ».</div>
+            <div class="sm-opts chips" data-single="statut">
+              <button type="button" class="sm-opt mini" data-val="Micro-entreprise"><b>Micro-entreprise</b></button>
+              <button type="button" class="sm-opt mini" data-val="Entreprise individuelle"><b>Entreprise individuelle</b></button>
+              <button type="button" class="sm-opt mini" data-val="EURL"><b>EURL</b></button>
+              <button type="button" class="sm-opt mini" data-val="SASU"><b>SASU</b></button>
+              <button type="button" class="sm-opt mini" data-val="SARL"><b>SARL</b></button>
+              <button type="button" class="sm-opt mini" data-val="SAS"><b>SAS</b></button>
+              <button type="button" class="sm-opt mini" data-val="SCI"><b>SCI</b></button>
+              <button type="button" class="sm-opt mini" data-val="Je ne sais pas encore"><b>Je ne sais pas encore</b></button>
+            </div>
+          </section>
+          <!-- Étape 3 -->
+          <section class="sm-step" data-step="3">
+            <div class="sm-q">De quoi avez-vous besoin ?</div>
+            <div class="sm-hint">Plusieurs choix possibles.</div>
+            <div class="sm-opts two" data-multi="besoins">
+              <button type="button" class="sm-opt" data-val="Tenue comptable & bilan"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 15v3M12 10v8M17 5v13"/></svg></span><span class="ot"><b>Comptabilité & bilan</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Paie & social"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0112 0M16 5.5a3 3 0 010 5.5"/></svg></span><span class="ot"><b>Paie & social</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Fiscalité & TVA"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8M21 7v5M21 7h-5"/></svg></span><span class="ot"><b>Fiscalité & TVA</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Conseil & gestion"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 12h18"/></svg></span><span class="ot"><b>Conseil & gestion</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Création & juridique"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/></svg></span><span class="ot"><b>Création & formalités</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+              <button type="button" class="sm-opt" data-val="Accompagnement global"><span class="oi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span><span class="ot"><b>Accompagnement global</b></span><span class="chk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+            </div>
+          </section>
+          <!-- Étape 4 -->
+          <section class="sm-step" data-step="4">
+            <div class="sm-q">Combien de salariés ?</div>
+            <div class="sm-hint">Une estimation suffit.</div>
+            <div class="sm-opts chips" data-single="salaries">
+              <button type="button" class="sm-opt mini" data-val="Aucun"><b>Aucun</b></button>
+              <button type="button" class="sm-opt mini" data-val="1 à 5"><b>1 à 5</b></button>
+              <button type="button" class="sm-opt mini" data-val="6 à 20"><b>6 à 20</b></button>
+              <button type="button" class="sm-opt mini" data-val="Plus de 20"><b>Plus de 20</b></button>
+            </div>
+          </section>
+          <!-- Étape 5 -->
+          <section class="sm-step" data-step="5">
+            <div class="sm-q">Où vous envoyer votre devis ?</div>
+            <div class="sm-hint">Réponse sous 24 h, sans engagement.</div>
+            <div class="sm-grid2">
+              <div class="sm-fld"><label for="sm-prenom">Prénom</label><input type="text" id="sm-prenom" placeholder="Votre prénom" autocomplete="given-name"></div>
+              <div class="sm-fld"><label for="sm-tel">Téléphone</label><input type="tel" id="sm-tel" placeholder="06 12 34 56 78" autocomplete="tel"></div>
+            </div>
+            <div class="sm-fld"><label for="sm-email">E-mail</label><input type="email" id="sm-email" placeholder="vous@exemple.fr" autocomplete="email"></div>
+            <div class="sm-fld"><label for="sm-msg">Un mot sur votre projet (facultatif)</label><textarea id="sm-msg" rows="3" placeholder="Activité, échéance, question particulière…"></textarea></div>
+            <div class="sm-recap" id="smRecap"></div>
+          </section>
+          <!-- Fin -->
+          <section class="sm-step" data-step="6">
+            <div class="sm-done">
+              <div class="sm-badge"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <h3>Votre demande est envoyée</h3>
+              <p>Merci ! Nous revenons vers vous sous 24 h avec un devis personnalisé et un premier rendez-vous offert.</p>
+              <div class="sm-reassure"><span>✔ Sans engagement</span><span>✔ Premier RDV offert</span><span>✔ Réponse sous 24 h</span></div>
+            </div>
+          </section>
+
+          <div class="sm-nav" id="smNav">
+            <button type="button" class="sm-btn sm-btn-ghost hide" id="smPrev">← Retour</button>
+            <button type="button" class="sm-btn sm-btn-pri" id="smNext" disabled>Continuer →</button>
+          </div>
+          <div class="sm-status" id="smStatus" role="status" aria-live="polite"></div>
+        </div>
+      </form>
+      </div>
+</div>
+
+
+<!-- Modale service -->
+<div class="overlay-modal" id="svcModal" onclick="closeSvc(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="svcTitle" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" aria-label="Fermer" onclick="closeSvc()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="m-ic" id="svcIcon"></div>
+    <h3 id="svcTitle"></h3>
+    <p class="m-desc" id="svcDesc"></p>
+    <ul id="svcFeatures"></ul>
+    <a href="#devis" onclick="closeSvc()" class="btn btn-pri m-cta">Demander un devis</a>
+  </div>
+</div>
+
+<!-- Modale mentions légales -->
+<div class="overlay-modal" id="legalModal" onclick="closeLegal(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="legalTitle" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" aria-label="Fermer" onclick="closeLegal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h3 id="legalTitle">Mentions légales</h3>
+    <div class="m-legal" style="margin-top:16px">
+      <h4>Éditeur du site</h4>
+      <p>AEM-CONSEIL — Cabinet de conseil et d'expertise comptable.<br>E-mail : <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a> · Tél. : <a href="tel:+33665908325">06 65 90 83 25</a></p>
+      <h4>Hébergement</h4>
+      <p>Site hébergé par GitHub Pages (GitHub, Inc.), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+      <h4>Données personnelles (RGPD)</h4>
+      <p>Les informations transmises via le formulaire de contact servent uniquement à répondre à votre demande et ne sont jamais cédées à des tiers. Vous disposez d'un droit d'accès, de rectification et de suppression en écrivant à aemconseil.sas@gmail.com.</p>
+      <h4>Cookies</h4>
+      <p>Des cookies de mesure d'audience ne sont déposés qu'après votre consentement, modifiable à tout moment via « Gérer mes cookies ».</p>
+      <p style="margin-top:14px;font-size:13px;opacity:.7">À compléter : forme juridique, SIRET, capital social, RCS, n° de TVA intracommunautaire, directeur de la publication.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Politique de confidentialité -->
+<div class="overlay-modal" id="privacyModal" onclick="closePrivacy(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" aria-label="Fermer" onclick="closePrivacy()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h3 id="privacyTitle">Politique de confidentialité</h3>
+    <p class="m-desc">AEM-CONSEIL accorde une grande importance à la protection de vos données personnelles. La présente politique explique quelles données sont collectées, pourquoi, et comment vous pouvez exercer vos droits. Dernière mise à jour : juillet 2026.</p>
+    <div class="m-legal" style="margin-top:20px">
+      <h4>1. Responsable du traitement</h4>
+      <p>Le responsable du traitement des données est le cabinet AEM-CONSEIL, joignable par e-mail à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a> et par téléphone au <a href="tel:+33665908325">06 65 90 83 25</a>.</p>
+
+      <h4>2. Données que nous collectons</h4>
+      <p>Nous collectons les données que vous nous transmettez directement via le formulaire de contact ou de demande de rappel : nom, prénom, adresse e-mail, numéro de téléphone, objet et contenu de votre message. Nous collectons également des données techniques de navigation (statistiques d'audience) uniquement après votre consentement aux cookies.</p>
+
+      <h4>3. Finalités et bases légales</h4>
+      <p>Vos données sont traitées pour : répondre à vos demandes et vous recontacter (base : mesures précontractuelles et intérêt légitime) ; exécuter nos missions lorsque vous devenez client (base : exécution du contrat) ; respecter nos obligations légales et comptables (base : obligation légale) ; mesurer l'audience du site (base : votre consentement).</p>
+
+      <h4>4. Destinataires des données</h4>
+      <p>Vos données sont destinées au seul cabinet AEM-CONSEIL. Elles ne sont jamais vendues ni cédées. Elles peuvent être traitées par nos prestataires techniques (hébergeur, service d'envoi de formulaire) agissant en qualité de sous-traitants, ainsi que par les administrations lorsque la loi l'impose.</p>
+
+      <h4>5. Durée de conservation</h4>
+      <p>Les données de prospection sont conservées jusqu'à trois (3) ans après le dernier contact. Les données liées à une relation contractuelle sont conservées pendant la durée de la mission puis archivées selon les délais légaux (notamment dix ans pour les pièces comptables). Les données de mesure d'audience sont conservées au maximum treize (13) mois.</p>
+
+      <h4>6. Transferts hors Union européenne</h4>
+      <p>Certains prestataires techniques peuvent être situés hors de l'Union européenne. Dans ce cas, les transferts sont encadrés par des garanties appropriées (clauses contractuelles types de la Commission européenne) assurant un niveau de protection adéquat.</p>
+
+      <h4>7. Sécurité</h4>
+      <p>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées (accès restreints, chiffrement des échanges, sauvegardes) afin de protéger vos données contre tout accès, altération ou divulgation non autorisés.</p>
+
+      <h4>8. Vos droits</h4>
+      <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité de vos données, ainsi que du droit de définir des directives relatives à leur sort après votre décès. Vous pouvez les exercer à tout moment en écrivant à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>.</p>
+
+      <h4>9. Cookies</h4>
+      <p>Le site n'utilise des cookies de mesure d'audience qu'après votre consentement, recueilli via le bandeau dédié et modifiable à tout moment par « Gérer mes cookies ». Les cookies strictement nécessaires au fonctionnement du site ne requièrent pas de consentement.</p>
+
+      <h4>10. Réclamation auprès de la CNIL</h4>
+      <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la Commission nationale de l'informatique et des libertés (CNIL), 3 place de Fontenoy, 75007 Paris — <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
+
+      <h4>11. Modification de la politique</h4>
+      <p>La présente politique peut être mise à jour à tout moment pour refléter les évolutions légales ou de nos services. La version applicable est celle publiée sur le site à la date de votre consultation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Conditions générales d'utilisation -->
+<div class="overlay-modal" id="cguModal" onclick="closeCGU(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cguTitle" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" aria-label="Fermer" onclick="closeCGU()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h3 id="cguTitle">Conditions générales d'utilisation</h3>
+    <p class="m-desc">Les présentes CGU définissent les conditions d'accès et d'utilisation du site aemconseil.eu. Dernière mise à jour : juillet 2026.</p>
+    <div class="m-legal" style="margin-top:20px">
+      <h4>1. Objet</h4>
+      <p>Les présentes conditions générales d'utilisation (CGU) ont pour objet de définir les modalités de mise à disposition et d'utilisation du site aemconseil.eu (ci-après « le Site »). Toute navigation sur le Site implique l'acceptation pleine et entière des présentes CGU.</p>
+
+      <h4>2. Définitions</h4>
+      <p>« Site » : le site accessible à l'adresse aemconseil.eu. « Éditeur » : le cabinet AEM-CONSEIL, responsable de la publication. « Utilisateur » : toute personne qui navigue sur le Site et accède à ses contenus.</p>
+
+      <h4>3. Éditeur et hébergeur</h4>
+      <p>Le Site est édité par AEM-CONSEIL (voir « Mentions légales » pour les coordonnées complètes) et hébergé par GitHub Pages (GitHub, Inc.), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+
+      <h4>4. Accès au site</h4>
+      <p>Le Site est accessible gratuitement à tout Utilisateur disposant d'un accès à Internet. Les frais de connexion et d'équipement restent à sa charge. L'Éditeur s'efforce d'assurer une disponibilité permanente mais ne saurait être tenu responsable des interruptions liées à la maintenance, à une panne ou à un cas de force majeure.</p>
+
+      <h4>5. Propriété intellectuelle</h4>
+      <p>L'ensemble des éléments du Site (textes, logo, marque, graphismes, structure) est protégé par le droit de la propriété intellectuelle et demeure la propriété exclusive de l'Éditeur. Toute reproduction ou représentation, totale ou partielle, sans autorisation écrite préalable, est interdite et constituerait une contrefaçon.</p>
+
+      <h4>6. Comportement de l'Utilisateur</h4>
+      <p>L'Utilisateur s'engage à utiliser le Site conformément à la loi et aux présentes CGU, à ne pas en perturber le fonctionnement et à fournir des informations exactes lorsqu'il remplit un formulaire.</p>
+
+      <h4>7. Responsabilité</h4>
+      <p>Les informations présentes sur le Site sont fournies à titre indicatif et n'ont pas de valeur contractuelle. Elles ne sauraient se substituer à un conseil personnalisé. L'Éditeur ne saurait être tenu responsable d'un usage qui en serait fait, ni des dommages indirects résultant de l'utilisation du Site.</p>
+
+      <h4>8. Liens hypertextes</h4>
+      <p>Le Site peut contenir des liens vers des sites tiers dont l'Éditeur ne maîtrise pas le contenu et ne saurait être tenu responsable. La création d'un lien vers le Site est autorisée sous réserve de ne pas porter atteinte à l'image de l'Éditeur.</p>
+
+      <h4>9. Données personnelles et cookies</h4>
+      <p>Le traitement des données personnelles et l'usage des cookies sont détaillés dans la « Politique de confidentialité », qui fait partie intégrante des présentes CGU.</p>
+
+      <h4>10. Modification des CGU</h4>
+      <p>L'Éditeur se réserve le droit de modifier les présentes CGU à tout moment. La version applicable est celle en vigueur au moment de la connexion de l'Utilisateur.</p>
+
+      <h4>11. Droit applicable et juridiction</h4>
+      <p>Les présentes CGU sont soumises au droit français. Tout litige relatif à leur interprétation ou à leur exécution relève de la compétence des tribunaux français.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Conditions générales de vente -->
+<div class="overlay-modal" id="cgvModal" onclick="closeCGV(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cgvTitle" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" aria-label="Fermer" onclick="closeCGV()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h3 id="cgvTitle">Conditions générales de vente</h3>
+    <p class="m-desc">Applicables aux prestations de conseil et d'expertise comptable proposées par AEM-CONSEIL. Dernière mise à jour : juillet 2026.</p>
+    <div class="m-legal" style="margin-top:20px">
+      <h4>1. Objet et champ d'application</h4>
+      <p>Les présentes conditions générales de vente (CGV) régissent les relations entre le cabinet AEM-CONSEIL (ci-après « le Cabinet ») et ses clients (ci-après « le Client ») pour l'ensemble des prestations de comptabilité, de conseil, de fiscalité, de social et d'accompagnement à la création d'entreprise. Toute commande de prestation implique l'acceptation sans réserve des présentes CGV, qui prévalent sur tout autre document du Client.</p>
+
+      <h4>2. Définitions</h4>
+      <p>« Cabinet » : AEM-CONSEIL, prestataire des services. « Client » : toute personne physique ou morale ayant commandé une prestation. « Prestation » : tout service fourni par le Cabinet. « Lettre de mission » : le document contractuel décrivant une mission déterminée et ses honoraires.</p>
+
+      <h4>3. Prestations et lettre de mission</h4>
+      <p>Chaque mission fait l'objet d'une lettre de mission distincte qui précise sa nature, son étendue, les obligations réciproques et les honoraires convenus. La lettre de mission signée complète et prévaut sur les présentes CGV pour les points spécifiques qu'elle traite. Les prestations sont réalisées conformément aux normes professionnelles de l'Ordre des experts-comptables lorsque la mission en relève.</p>
+
+      <h4>4. Devis et commande</h4>
+      <p>Les devis sont gratuits et valables trente (30) jours à compter de leur émission. La commande est ferme dès la signature du devis ou de la lettre de mission, ou dès tout accord écrit du Client (y compris par e-mail).</p>
+
+      <h4>5. Prix</h4>
+      <p>Les honoraires sont fixés dans le devis ou la lettre de mission, forfaitairement ou au temps passé, et exprimés en euros. Ils peuvent être révisés pour toute prestation nouvelle ou modification substantielle de la mission, après information du Client.</p>
+
+      <h4>6. Modalités de paiement</h4>
+      <p>Sauf stipulation contraire, les factures sont payables à trente (30) jours à réception. Conformément aux articles L.441-10 et D.441-5 du Code de commerce, tout retard de paiement entraîne de plein droit des pénalités au taux d'intérêt légal majoré, ainsi qu'une indemnité forfaitaire de recouvrement de 40 €, sans préjudice de la suspension des prestations en cours.</p>
+
+      <h4>7. Exécution des prestations</h4>
+      <p>Les délais d'exécution sont donnés à titre indicatif et dépendent notamment de la transmission par le Client des éléments nécessaires. Le Cabinet exécute les prestations selon un calendrier rythmé par les échéances légales du Client.</p>
+
+      <h4>8. Obligations du Cabinet</h4>
+      <p>Le Cabinet s'engage à exécuter ses missions avec diligence, dans le respect du secret professionnel et des règles déontologiques applicables. Il est tenu à une obligation de moyens et non de résultat, sauf disposition expresse contraire.</p>
+
+      <h4>9. Obligations du Client</h4>
+      <p>Le Client s'engage à fournir en temps utile l'ensemble des documents, informations et justificatifs nécessaires à la bonne exécution de la mission, et à en garantir l'exactitude et la sincérité. Le Cabinet ne saurait être tenu responsable des conséquences d'informations transmises tardivement, incomplètes ou erronées.</p>
+
+      <h4>10. Droit de rétractation</h4>
+      <p>Lorsque le Client est un consommateur ayant conclu le contrat à distance ou hors établissement, il dispose d'un délai de quatorze (14) jours pour se rétracter, sauf s'il a expressément demandé le commencement de l'exécution avant la fin de ce délai. Ce droit ne s'applique pas aux professionnels agissant dans le cadre de leur activité.</p>
+
+      <h4>11. Durée, résiliation et interruption</h4>
+      <p>Les missions récurrentes sont conclues pour la durée précisée dans la lettre de mission, généralement l'exercice comptable, renouvelable. Chaque partie peut y mettre fin par lettre recommandée dans le respect d'un préavis raisonnable, les prestations réalisées jusqu'à la date effective de fin restant dues.</p>
+
+      <h4>12. Confidentialité et données personnelles (RGPD)</h4>
+      <p>Le Cabinet traite les données du Client dans le seul cadre de l'exécution des missions, de manière confidentielle et conforme au Règlement (UE) 2016/679 (RGPD), tel que détaillé dans la « Politique de confidentialité ». Le Client dispose d'un droit d'accès, de rectification, d'effacement et de portabilité en écrivant à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>.</p>
+
+      <h4>13. Responsabilité</h4>
+      <p>La responsabilité du Cabinet est limitée aux dommages directs et prouvés résultant d'une faute qui lui serait imputable, dans la limite du montant des honoraires perçus au titre de la mission concernée. Sa responsabilité ne peut être engagée pour les retards ou manquements imputables au Client ou à un tiers.</p>
+
+      <h4>14. Force majeure</h4>
+      <p>La responsabilité du Cabinet ne saurait être engagée en cas d'inexécution ou de retard imputable à un cas de force majeure au sens de l'article 1218 du Code civil (catastrophe, panne généralisée, mesure administrative, etc.). Les obligations sont suspendues pendant la durée de l'événement.</p>
+
+      <h4>15. Propriété des travaux</h4>
+      <p>Les documents et livrables remis au Client lui appartiennent une fois les honoraires intégralement réglés. Le Cabinet conserve la propriété de ses méthodes, outils et supports internes.</p>
+
+      <h4>16. Réclamation, médiation et droit applicable</h4>
+      <p>Toute réclamation peut être adressée par écrit à <a href="mailto:aemconseil.sas@gmail.com">aemconseil.sas@gmail.com</a>. À défaut d'accord amiable, le Client consommateur peut recourir gratuitement à un médiateur de la consommation. Les présentes CGV sont soumises au droit français ; à défaut de résolution amiable, tout litige relève de la compétence des tribunaux français compétents.</p>
+
+      <p style="margin-top:16px;font-size:13px;opacity:.7">Modèle à faire valider et à compléter selon votre situation (forme juridique, SIRET, n° d'inscription à l'Ordre des experts-comptables, médiateur désigné, taux et délais spécifiques).</p>
+    </div>
+  </div>
+</div>
+
+<button id="toTop" type="button" aria-label="Revenir en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentement aux cookies" aria-hidden="true">
+  <div class="ck-head"><span class="ck-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5h.01"/><path d="M16 15.5h.01"/><path d="M12 18h.01"/><path d="M11 12h.01"/><path d="M15 11h.01"/></svg></span><b>Cookies</b></div>
+  <p>Nous utilisons des cookies pour améliorer votre expérience. <b>Vous restez libre</b> d'accepter ou de refuser.</p>
+  <div class="ck-actions"><button class="ck-btn ck-refuse" type="button" onclick="setCookieConsent('refused')">Refuser</button><button class="ck-btn ck-accept" type="button" onclick="setCookieConsent('accepted')">Accepter</button></div>
+</div>
+
+<script>
+/* ===== Données ===== */
+var IC={
+  bars:'<path d="M7 15v3M12 10v8M17 5v13"/>',
+  case:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 12h18"/>',
+  doc:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+  trend:'<path d="M3 17l6-6 4 4 8-8M21 7v5M21 7h-5"/>',
+  rocket:'<path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.8-.8.8-2 0-3s-2.2-.8-3 0z"/><path d="M9 12a12 12 0 018-9c1 4-1 8-4 10l-1 4-3-3z"/><circle cx="14" cy="9" r="1.3"/>',
+  users:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0112 0M16 5.5a3 3 0 010 5.5M21 20a6 6 0 00-4-5.6"/>',
+  scale:'<path d="M12 3v18M7 21h10M5 7h14M5 7l-2.5 5.5a3 3 0 006 0zM19 7l-2.5 5.5a3 3 0 006 0z"/>'
+};
+var SERVICES=[
+  {icon:IC.bars,page:'comptabilite',title:'Expertise comptable',teaser:'Tenue, bilan, comptes annuels et liasses fiscales, en toute sérénité.',
+    desc:'Une comptabilité tenue avec rigueur, des comptes clairs et conformes, pour piloter votre activité en toute sérénité.',
+    features:['Traitement des factures clients et fournisseurs','Récupération et exploitation de votre FEC (Fichier des Écritures Comptables)','Saisie et tenue complète de votre comptabilité','Établissement du bilan et du compte de résultat','Comptes annuels et liasses fiscales','Révision et arrêté des comptes','Tableaux de bord et reporting réguliers']},
+  {icon:IC.case,page:'conseil-gestion',title:'Conseil & gestion',teaser:'Tableaux de bord, prévisionnels et pilotage stratégique de votre activité.',
+    desc:'Un accompagnement stratégique pour piloter, anticiper et développer votre activité en toute confiance.',
+    features:['Tableaux de bord personnalisés','Prévisionnels et budgets','Analyse de rentabilité et de marges','Suivi de trésorerie','Accompagnement à la prise de décision','Points réguliers avec votre conseiller']},
+  {icon:IC.doc,page:'paie-social',title:'Paie & social',teaser:'Bulletins de paie, déclarations sociales et obligations employeur.',
+    desc:'La gestion complète de vos salariés, du bulletin de paie aux obligations sociales.',
+    features:['Bulletins de paie mensuels','Déclarations sociales (DSN)','Gestion des congés et absences','Contrats et documents de fin de contrat','Conseil en droit social','Veille sur la réglementation sociale']},
+  {icon:IC.trend,page:'fiscalite',title:'Fiscalité',teaser:'Optimisation, TVA, déclarations et veille réglementaire adaptées.',
+    desc:'Une fiscalité optimisée et sécurisée, en parfaite conformité avec la réglementation en vigueur.',
+    features:['Déclarations de TVA','Analyse et contrôle de cohérence de votre FEC','Optimisation fiscale adaptée à votre situation','Déclarations fiscales annuelles','Veille réglementaire permanente','Assistance en cas de contrôle']},
+  {icon:IC.rocket,page:'creation',title:'Création d’entreprise',teaser:'Statut, formalités et démarrage de votre activité, accompagnés de A à Z.',
+    desc:'De l’idée à l’immatriculation, on vous accompagne pour lancer votre activité sur des bases solides.',
+    features:['Choix du statut juridique adapté','Rédaction des statuts','Formalités et immatriculation','Business plan et prévisionnel','Ouverture des comptes et démarches','Accompagnement au démarrage']},
+  {icon:IC.users,title:'Accompagnement personnalisé',teaser:'Un interlocuteur dédié, à votre écoute au quotidien.',
+    desc:'Un interlocuteur dédié, disponible et à votre écoute, pour répondre à toutes vos questions au quotidien.',
+    features:['Un interlocuteur unique et dédié','Réponses sous 24 h','Rendez-vous à distance ou en présentiel','Outils digitaux modernes et sécurisés','Conseils clairs, sans jargon','Suivi sur-mesure selon vos besoins']}
+];
+var STEPS=[
+  {t:'Reprise & FEC',d:'Récupération de votre FEC et de vos pièces comptables, puis point complet de votre situation.',tag:'Démarrage'},
+  {t:'Tenue & révision',d:'Saisie, lettrage, rapprochements bancaires et révision des comptes, tout au long de l’exercice.',tag:'En continu'},
+  {t:'Déclarations & échéances',d:'TVA, DSN, acomptes et déclarations : chaque obligation traitée dans les délais légaux.',tag:'Aux échéances'},
+  {t:'Bilan & conseil',d:'Clôture, bilan et liasse fiscale, puis rendez-vous de pilotage pour préparer la suite.',tag:'Objectif',dest:true}
+];
+var ABOUT_POINTS=['Des conseils clairs, sans jargon','Une équipe disponible et réactive','Des outils digitaux modernes et sécurisés','Un accompagnement sur-mesure selon vos besoins'];
+var REVIEWS=[
+  {initials:'SL',name:'Sophie L.',role:'Gérante, commerce',quote:'Un accompagnement vraiment humain. Mes comptes sont enfin clairs et je gagne un temps précieux chaque mois.'},
+  {initials:'KM',name:'Karim M.',role:'Fondateur, startup',quote:'Réactifs, pédagogues et toujours disponibles. Ils m’ont accompagné de la création au développement de ma société.'},
+  {initials:'EP',name:'Élodie P.',role:'Dirigeante, PME',quote:'Des conseils stratégiques qui ont un vrai impact sur ma rentabilité. Je recommande sans hésiter.'},
+  {initials:'TB',name:'Thomas B.',role:'Restaurateur',quote:'La reprise de ma comptabilité s’est faite sans le moindre stress. Un vrai interlocuteur qui connaît mon dossier.'},
+  {initials:'NC',name:'Nadia C.',role:'Consultante indépendante',quote:'Enfin des réponses claires à mes questions, sans jargon. Je sais toujours où j’en suis et ce que je dois anticiper.'},
+  {initials:'RaM',name:'Rachid M.',role:'Artisan du bâtiment',quote:'Paie, TVA, bilan : tout est géré dans les délais. Je me concentre sur mon métier l’esprit tranquille.'}
+];
+var FAQS=[
+  {q:'Le premier rendez-vous est-il vraiment gratuit ?',a:'Oui, totalement. Le premier échange sert à comprendre votre situation et vos besoins, sans aucun engagement ni frais.'},
+  {q:'Puis-je changer d’expert-comptable en cours d’année ?',a:'Absolument. Le changement est possible à tout moment. Nous récupérons votre dossier auprès de votre ancien cabinet pour une transition sans stress.'},
+  {q:'Mes documents et mes données sont-ils en sécurité ?',a:'Vos données sont hébergées sur des serveurs sécurisés et chiffrés, conformes au RGPD. Vous gardez un accès permanent via un espace en ligne dédié.'},
+  {q:'Travaillez-vous à distance ou en présentiel ?',a:'Les deux. Nous privilégions des outils digitaux modernes pour un suivi à distance fluide, tout en restant disponibles en présentiel quand vous le souhaitez.'},
+  {q:'Quels types d’entreprises accompagnez-vous ?',a:'Nous accompagnons les entrepreneurs individuels, indépendants, TPE et PME, quel que soit leur secteur et leur stade de développement.'},
+  {q:'Comment se passe la reprise de ma comptabilité ?',a:'Nous récupérons votre FEC et vos pièces comptables, réalisons un point complet, puis reprenons la tenue sans interruption de service.'},
+  {q:'Comment sont fixés vos honoraires ?',a:'Chaque mission fait l’objet d’un devis clair et d’une lettre de mission, établis selon votre activité, votre volume et vos besoins. Pas de mauvaise surprise : vous savez à l’avance ce qui est inclus.'},
+  {q:'Dois-je me déplacer au cabinet ?',a:'Non, sauf si vous le souhaitez. Tout se fait à distance via des outils sécurisés — transmission des pièces, échanges, signature. Nous restons disponibles en présentiel quand c’est utile.'},
+  {q:'Quels logiciels et outils utilisez-vous ?',a:'Nous travaillons avec des outils comptables et collaboratifs modernes, conformes au RGPD. Vous disposez d’un espace en ligne pour déposer vos pièces et suivre votre dossier à tout moment.'},
+  {q:'Sous quel délai obtiendrai-je une réponse ?',a:'Nous nous engageons à répondre à toute demande sous 24 h ouvrées. Votre interlocuteur dédié connaît votre dossier : pas besoin de tout réexpliquer à chaque fois.'},
+  {q:'Accompagnez-vous la création d’entreprise ?',a:'Oui, de A à Z : choix du statut, rédaction des statuts, formalités, prévisionnel et démarrage. Nous vous aidons à partir sur des bases solides, puis assurons le suivi comptable.'}
+];
+
+/* ===== Pages Services (méga-menu) ===== */
+var SERVICE_PAGES=[
+  {slug:'comptabilite',icon:IC.bars,cat:'Comptabilité',title:'Expertise comptable',menu:'Tenue, bilan et comptes annuels',
+    lead:'Une comptabilité tenue avec rigueur, des comptes clairs et conformes — pour piloter votre activité l’esprit tranquille.',
+    includes:['Tenue complète de votre comptabilité','Saisie, lettrage et rapprochements bancaires','Révision et arrêté des comptes','Bilan et compte de résultat','Comptes annuels et liasse fiscale','Reprise et exploitation de votre FEC','Tableaux de bord et reporting réguliers'],
+    process:[{t:'Reprise & FEC',d:'Récupération de vos pièces et de votre FEC, puis point complet de votre situation.'},{t:'Tenue en continu',d:'Saisie, lettrage et rapprochements tout au long de l’exercice.'},{t:'Révision',d:'Contrôle de cohérence et arrêté des comptes avant clôture.'},{t:'Bilan & conseil',d:'Bilan, liasse fiscale et rendez-vous de pilotage pour préparer la suite.'}],
+    audience:['Indépendants','TPE','PME','Professions libérales','Commerçants','Artisans'],
+    faq:[{q:'Puis-je vous confier ma compta en cours d’année ?',a:'Oui. Nous récupérons votre dossier auprès de votre ancien cabinet et reprenons la tenue sans interruption de service.'},{q:'À quelle fréquence ai-je un point sur mes comptes ?',a:'Selon la formule : au minimum au moment du bilan, et idéalement via des tableaux de bord réguliers tout au long de l’année.'}]},
+  {slug:'paie-social',layout:'B',icon:IC.users,cat:'Social',title:'Paie & social',menu:'Bulletins, DSN et obligations employeur',
+    lead:'La gestion complète de vos salariés, du bulletin de paie aux déclarations sociales — sans erreur et dans les délais.',
+    includes:['Bulletins de paie mensuels','Déclarations sociales (DSN)','Gestion des entrées et sorties','Suivi des congés et absences','Contrats et documents de fin de contrat','Conseil en droit social','Veille sur la réglementation sociale'],
+    process:[{t:'Paramétrage',d:'Mise en place de votre dossier social et de votre convention collective.'},{t:'Collecte',d:'Recueil mensuel des variables de paie (heures, primes, absences).'},{t:'Édition',d:'Établissement et contrôle des bulletins de paie.'},{t:'Déclarations',d:'Télétransmission des DSN et suivi des échéances sociales.'}],
+    audience:['Employeurs','TPE avec salariés','PME','Associations','Commerces'],
+    faq:[{q:'À partir de combien de salariés m’accompagnez-vous ?',a:'Dès le premier salarié — y compris pour votre toute première embauche et les formalités associées.'},{q:'La DSN est-elle incluse ?',a:'Oui, l’établissement et la télétransmission des déclarations sociales nominatives font partie de la mission paie.'}]},
+  {slug:'fiscalite',layout:'C',icon:IC.trend,cat:'Fiscalité',title:'Fiscalité & TVA',menu:'Déclarations, optimisation et veille',
+    lead:'Une fiscalité optimisée et sécurisée, en parfaite conformité — pour ne payer ni trop, ni au mauvais moment.',
+    includes:['Déclarations de TVA','Déclarations fiscales annuelles','Optimisation fiscale adaptée à votre situation','Contrôle de cohérence de votre FEC','Choix et suivi du régime d’imposition','Veille réglementaire permanente','Assistance en cas de contrôle'],
+    process:[{t:'Diagnostic',d:'Analyse de votre situation et de votre régime fiscal.'},{t:'Déclarations',d:'Établissement et dépôt de vos déclarations périodiques.'},{t:'Optimisation',d:'Recommandations légales pour alléger et lisser votre charge fiscale.'},{t:'Veille',d:'Alertes sur les évolutions qui vous concernent.'}],
+    audience:['Toutes entreprises assujetties','Dirigeants','Indépendants','Sociétés'],
+    faq:[{q:'Quel régime de TVA est adapté à mon activité ?',a:'Cela dépend de votre chiffre d’affaires et de votre activité. Nous étudions votre cas pour choisir le régime le plus avantageux.'},{q:'Que se passe-t-il en cas de contrôle fiscal ?',a:'Nous vous assistons à chaque étape : préparation des pièces, réponses à l’administration et accompagnement dans les échanges.'}]},
+  {slug:'conseil-gestion',layout:'B',icon:IC.case,cat:'Pilotage',title:'Conseil & gestion',menu:'Tableaux de bord et prévisionnels',
+    lead:'Un accompagnement stratégique pour piloter, anticiper et développer votre activité en toute confiance.',
+    includes:['Tableaux de bord personnalisés','Prévisionnels et budgets','Analyse de rentabilité et de marges','Suivi de trésorerie','Aide à la prise de décision','Business plan','Points réguliers avec votre conseiller'],
+    process:[{t:'Cadrage',d:'Définition de vos objectifs et des indicateurs clés à suivre.'},{t:'Mise en place',d:'Construction de vos tableaux de bord et prévisionnels.'},{t:'Suivi',d:'Points périodiques pour comparer réalisé et objectifs.'},{t:'Recommandations',d:'Conseils concrets pour ajuster et gagner en rentabilité.'}],
+    audience:['Dirigeants','Créateurs','PME en croissance','Porteurs de projet'],
+    faq:[{q:'À quelle fréquence se font les points de pilotage ?',a:'Selon vos besoins : mensuel, trimestriel ou à des moments clés de votre activité.'},{q:'Pouvez-vous établir un prévisionnel pour ma banque ?',a:'Oui, nous réalisons des prévisionnels et business plans solides pour vos demandes de financement.'}]},
+  {slug:'creation',icon:IC.rocket,cat:'Création',title:'Création d’entreprise',menu:'Statut, formalités et démarrage',
+    lead:'De l’idée à l’immatriculation, on vous accompagne pour lancer votre activité sur des bases solides.',
+    includes:['Choix du statut juridique adapté','Rédaction des statuts','Formalités et immatriculation','Business plan et prévisionnel','Ouverture des comptes et démarches','Aides et financements','Accompagnement au démarrage'],
+    process:[{t:'Étude du projet',d:'Analyse de votre projet, de vos objectifs et de votre situation.'},{t:'Choix du statut',d:'Comparaison des formes juridiques et fiscales pour la plus adaptée.'},{t:'Formalités',d:'Rédaction des statuts, immatriculation et démarches administratives.'},{t:'Démarrage',d:'Mise en place de vos outils et accompagnement des premiers mois.'}],
+    audience:['Futurs entrepreneurs','Porteurs de projet','Créateurs de société','Repreneurs'],
+    faq:[{q:'Quel statut juridique choisir ?',a:'Cela dépend de votre projet, de vos associés et de votre régime social souhaité. Nous vous guidons vers le statut le plus pertinent.'},{q:'Quels sont les délais de création ?',a:'Une fois le dossier complet, l’immatriculation intervient généralement sous quelques jours ouvrés.'}]},
+  {slug:'juridique',layout:'C',icon:IC.scale,cat:'Juridique',title:'Juridique & formalités',menu:'Statuts, assemblées et secrétariat',
+    lead:'Le suivi juridique de votre société tout au long de sa vie — statuts, modifications et obligations, sans y penser.',
+    includes:['Rédaction et mise à jour des statuts','Approbation annuelle des comptes','Tenue des assemblées générales','Modifications statutaires','Transfert de siège social','Secrétariat juridique annuel','Formalités auprès du greffe'],
+    process:[{t:'Point annuel',d:'Revue de vos obligations juridiques de l’année.'},{t:'Préparation',d:'Rédaction des actes, convocations et procès-verbaux.'},{t:'Assemblées',d:'Tenue des assemblées et formalisation des décisions.'},{t:'Formalités',d:'Dépôts au greffe et mise à jour de vos registres.'}],
+    audience:['Sociétés (SAS, SARL, SCI…)','Dirigeants','Associés','Holdings'],
+    faq:[{q:'Qu’est-ce que le secrétariat juridique annuel ?',a:'C’est la gestion de vos obligations juridiques récurrentes : approbation des comptes, assemblée générale et dépôts associés.'},{q:'Pouvez-vous gérer une modification de statuts ?',a:'Oui : changement de gérant, transfert de siège, modification de l’objet ou du capital — nous rédigeons les actes et réalisons les formalités.'}]}
+];
+var SP_BY_SLUG={}; SERVICE_PAGES.forEach(function(s){SP_BY_SLUG[s.slug]=s;});
+
+/* ===== Comparateur de statuts (infos générales à titre indicatif) ===== */
+var STATUTS=[
+  {k:'micro',nom:'Micro-entreprise'},
+  {k:'ei',nom:'Entreprise individuelle'},
+  {k:'eurl',nom:'EURL'},
+  {k:'sasu',nom:'SASU'},
+  {k:'sarl',nom:'SARL'},
+  {k:'sas',nom:'SAS'}
+];
+var CMP_ROWS=[
+  {label:'Associés',v:{micro:'1',ei:'1',eurl:'1',sasu:'1',sarl:'2 à 100',sas:'2 minimum'}},
+  {label:'Responsabilité',v:{micro:'Limitée au patrimoine professionnel',ei:'Limitée au patrimoine professionnel',eurl:'Limitée aux apports',sasu:'Limitée aux apports',sarl:'Limitée aux apports',sas:'Limitée aux apports'}},
+  {label:'Capital minimum',v:{micro:'Aucun',ei:'Aucun',eurl:'Libre (dès 1 €)',sasu:'Libre (dès 1 €)',sarl:'Libre (dès 1 €)',sas:'Libre (dès 1 €)'}},
+  {label:'Régime social du dirigeant',v:{micro:'Travailleur non salarié',ei:'Travailleur non salarié',eurl:'Travailleur non salarié',sasu:'Assimilé salarié',sarl:'TNS si gérant majoritaire',sas:'Assimilé salarié'}},
+  {label:'Imposition des bénéfices',v:{micro:'Impôt sur le revenu (micro)',ei:'Impôt sur le revenu (option IS)',eurl:'Impôt sur le revenu (option IS)',sasu:'Impôt sur les sociétés (option IR 5 ans)',sarl:'Impôt sur les sociétés (option IR)',sas:'Impôt sur les sociétés (option IR 5 ans)'}},
+  {label:'Idéal pour',v:{micro:'Tester une activité, charges légères',ei:'Se lancer seul, simplement',eurl:'Entreprendre seul en société',sasu:'Seul : souplesse et protection sociale',sarl:'Projet à plusieurs, cadre sécurisant',sas:'Lever des fonds, souplesse à plusieurs'}}
+];
+function cmpRender(sel){
+  var stat=STATUTS.filter(function(s){return sel.indexOf(s.k)>=0;});
+  var head='<tr><th>Critère</th>'+stat.map(function(s){return '<th>'+esc(s.nom)+'</th>';}).join('')+'</tr>';
+  var body=CMP_ROWS.map(function(r){return '<tr><th>'+esc(r.label)+'</th>'+stat.map(function(s){return '<td>'+esc(r.v[s.k]||'—')+'</td>';}).join('')+'</tr>';}).join('');
+  return '<thead>'+head+'</thead><tbody>'+body+'</tbody>';
+}
+function cmpBlock(){
+  var chips=STATUTS.map(function(s){return '<button type="button" class="cmp-chip" data-k="'+s.k+'" aria-pressed="true">'+esc(s.nom)+'</button>';}).join('');
+  return '<div class="sp-sec"><h2>Comparez les statuts juridiques</h2><p class="sub">Sélectionnez les formes à comparer (2 minimum).</p>'
+    +'<div class="cmp-chips" id="cmpChips">'+chips+'</div>'
+    +'<div class="cmp-scroll"><table class="cmp-table" id="cmpTable"></table></div>'
+    +'<p class="cmp-note">Informations générales à titre indicatif — nous vous aidons à choisir le statut adapté à votre situation.</p></div>';
+}
+function initComparateur(){
+  var table=document.getElementById('cmpTable'), chips=document.getElementById('cmpChips'); if(!table||!chips)return;
+  var sel=STATUTS.map(function(s){return s.k;});
+  function draw(){table.innerHTML=cmpRender(sel);}
+  draw();
+  chips.querySelectorAll('.cmp-chip').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.k, i=sel.indexOf(k);
+      if(i>=0){ if(sel.length<=2)return; sel.splice(i,1); b.setAttribute('aria-pressed','false'); }
+      else { sel.push(k); b.setAttribute('aria-pressed','true'); }
+      sel.sort(function(a,c){return STATUTS.map(function(x){return x.k;}).indexOf(a)-STATUTS.map(function(x){return x.k;}).indexOf(c);});
+      draw();
+    });
+  });
+}
+
+/* ===== Guides (Ressources) — contenu éditorial original ===== */
+var GUIDES=[
+  {slug:'creer-son-entreprise',cat:'Création',read:'4 min',title:'Créer son entreprise, étape par étape',
+    lead:'De l’idée à l’immatriculation, voici les grandes étapes pour lancer votre activité sereinement — sans rien oublier.',
+    sections:[
+      {h:'1. Cadrer son projet',p:['Avant toute démarche administrative, prenez le temps de clarifier votre projet : quelle activité, pour quels clients, avec quel modèle de revenus ? Un projet bien cadré évite de mauvais choix par la suite.','Estimez vos besoins de financement et vos charges des premiers mois. C’est le socle de votre prévisionnel.']},
+      {h:'2. Choisir son statut juridique',p:['Le statut détermine votre responsabilité, votre régime social et votre fiscalité. Micro-entreprise pour tester simplement, société (SASU, SARL…) pour protéger votre patrimoine et vous développer.'],list:['Vous lancez seul et testez une activité : la micro-entreprise','Vous voulez protéger votre patrimoine : une société','Vous serez plusieurs associés : SARL ou SAS']},
+      {h:'3. Réaliser les formalités',p:['Rédaction des statuts (pour une société), dépôt du capital, publication d’une annonce légale puis immatriculation sur le guichet unique. Une fois le dossier complet, l’immatriculation intervient généralement en quelques jours.']},
+      {h:'4. Bien démarrer',p:['Ouvrez un compte dédié à l’activité, mettez en place votre facturation et votre suivi comptable dès le premier euro. C’est là qu’un accompagnement fait gagner un temps précieux et évite les erreurs.']}
+    ]},
+  {slug:'micro-ou-societe',cat:'Statut',read:'3 min',title:'Micro-entreprise ou société : comment choisir ?',
+    lead:'Deux voies très différentes pour entreprendre. Voici les critères concrets pour trancher selon votre situation.',
+    sections:[
+      {h:'La micro-entreprise',p:['Simple et rapide, elle convient pour tester une activité ou exercer en complément. La comptabilité est allégée et les charges sont calculées sur le chiffre d’affaires encaissé.'],list:['Formalités minimales','Comptabilité très simplifiée','Plafonds de chiffre d’affaires à respecter','Pas de déduction des charges réelles']},
+      {h:'La société (SASU, SARL, SAS…)',p:['Elle crée une personne morale distincte : votre responsabilité est limitée aux apports et vous pouvez déduire vos charges réelles. C’est le cadre adapté pour se développer, s’associer ou lever des fonds.'],list:['Responsabilité limitée','Déduction des charges réelles','Image plus solide vis-à-vis des partenaires','Formalités et gestion plus structurées']},
+      {h:'Comment trancher',p:['Le bon choix dépend de votre chiffre d’affaires prévisionnel, de vos charges, de votre besoin de protection sociale et de vos projets de développement. Un point avec votre expert-comptable permet de sécuriser la décision — souvent avant même de vous lancer.']}
+    ]},
+  {slug:'comprendre-la-tva',cat:'Fiscalité',read:'4 min',title:'Comprendre la TVA en quelques minutes',
+    lead:'Collecte, déduction, déclaration : les bases de la TVA expliquées simplement, sans jargon.',
+    sections:[
+      {h:'Le principe',p:['La TVA est un impôt sur la consommation que vous collectez pour l’État. Vous la facturez à vos clients (TVA collectée) et vous déduisez celle payée à vos fournisseurs (TVA déductible). Vous reversez la différence.']},
+      {h:'Les régimes',p:['Selon votre chiffre d’affaires et votre activité, vous relevez de la franchise en base (pas de TVA facturée), du régime simplifié ou du régime réel normal. Chaque régime a ses seuils et ses obligations déclaratives.']},
+      {h:'Les déclarations',p:['La TVA se déclare mensuellement, trimestriellement ou annuellement selon le régime. Une déclaration juste et dans les délais évite pénalités et régularisations. C’est un poste que nous prenons entièrement en charge.']}
+    ]},
+  {slug:'preparer-son-bilan',cat:'Comptabilité',read:'3 min',title:'Bien préparer son bilan comptable',
+    lead:'Le bilan n’est pas qu’une obligation : bien préparé, c’est un outil de pilotage. Voici comment l’aborder.',
+    sections:[
+      {h:'Rassembler les pièces',p:['Factures, relevés bancaires, justificatifs de frais, contrats en cours : plus vos pièces sont complètes et à jour, plus la clôture est rapide et fiable. Un suivi régulier tout au long de l’année évite le rush de fin d’exercice.']},
+      {h:'Vérifier la cohérence',p:['Rapprochements bancaires, lettrage des comptes clients et fournisseurs, contrôle des stocks et des immobilisations : cette révision garantit des comptes sincères et sans surprise.']},
+      {h:'En faire un outil de décision',p:['Au-delà des chiffres, le bilan raconte la santé de votre entreprise. Le rendez-vous de clôture est le moment idéal pour analyser vos résultats et préparer les décisions de l’année à venir.']}
+    ]},
+  {slug:'changer-de-comptable',cat:'Pratique',read:'3 min',title:'Changer d’expert-comptable sans stress',
+    lead:'Changer de cabinet est plus simple qu’on ne le croit — et possible à tout moment de l’année.',
+    sections:[
+      {h:'C’est possible quand vous voulez',p:['Vous n’êtes lié à aucune période imposée : le changement peut intervenir à tout moment. Le nouveau cabinet se charge de récupérer votre dossier auprès de l’ancien, dans le respect des règles de la profession.']},
+      {h:'Une transition organisée',p:['Nous récupérons votre FEC et vos pièces comptables, réalisons un point complet de votre situation, puis reprenons la tenue sans interruption de service. Vous ne perdez ni historique, ni continuité.'],list:['Récupération de votre dossier','Point complet de votre situation','Reprise de la tenue sans coupure']},
+      {h:'Ce que vous y gagnez',p:['Un interlocuteur dédié, des réponses rapides et des conseils clairs. Si votre cabinet actuel ne vous apporte plus cela, un premier échange (offert) permet de voir concrètement ce que nous pouvons améliorer.']}
+    ]}
+];
+var GUIDE_BY_SLUG={}; GUIDES.forEach(function(g){GUIDE_BY_SLUG[g.slug]=g;});
+
+/* ===== Helpers ===== */
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function svgW(inner,s){s=s||24;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">'+inner+'</svg>';}
+var CHK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>';
+
+/* ===== Rendu ===== */
+(function(){
+  document.getElementById('svc-grid').innerHTML=SERVICES.map(function(s,i){
+    var n=('0'+(i+1)).slice(-2);
+    var last=i===SERVICES.length-1;
+    var act=s.page?"location.hash=\'#services/"+s.page+"\'":"openSvc("+i+")";
+    var head='<div class="svc spot'+(i===0?' tall':(last?' wide':''))+'" onclick="'+act+'" tabindex="0" role="button" aria-label="'+esc(s.title)+'" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();'+act+'}">';
+    var ghost='<span class="ghost" aria-hidden="true">'+n+'</span>';
+    var ic='<span class="ic">'+svgW(s.icon,20)+'</span>';
+    var more='<span class="more">Voir le détail '+svgW('<path d="M7 17L17 7M17 7H9M17 7v8"/>',14)+'</span>';
+    if(last){
+      return head+ghost+'<div class="wide-head">'+ic+'<h3>'+esc(s.title)+'</h3></div><p>'+esc(s.teaser)+'</p>'+more+'</div>';
+    }
+    return head+ghost+ic+'<h3>'+esc(s.title)+'</h3><p>'+esc(s.teaser)+'</p>'+more+'</div>';
+  }).join('');
+
+  var CHECK='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>';
+  document.getElementById('steps').innerHTML=
+    '<div class="track-line" aria-hidden="true"></div><div class="track-progress" aria-hidden="true"></div>'
+    + STEPS.map(function(s,i){
+        var n=('0'+(i+1)).slice(-2);
+        var node=s.dest?'<div class="node">'+CHECK+'</div>':'<div class="node">'+n+'</div>';
+        return '<div class="step'+(s.dest?' dest':' on')+'">'+node+'<div class="step-body"><h3>'+esc(s.t)+'</h3><p>'+esc(s.d)+'</p><span class="tag">'+esc(s.tag)+'</span></div></div>';
+      }).join('');
+
+  document.getElementById('avis-list').innerHTML=REVIEWS.map(function(r){
+    return '<div class="arev"><span class="av">'+esc(r.initials)+'</span>'
+      +'<div><div class="st">★★★★★</div><p>« '+esc(r.quote)+' »</p>'
+      +'<b>'+esc(r.name)+'</b><span class="role">'+esc(r.role)+'</span></div></div>';
+  }).join('');
+
+  document.getElementById('faq-list').innerHTML=FAQS.map(function(f){
+    return '<div class="faq spot"><button type="button" onclick="toggleFaq(this)">'+esc(f.q)
+      +'<span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></button>'
+      +'<div class="faq-panel"><p>'+esc(f.a)+'</p></div></div>';
+  }).join('');
+
+  var mi=document.getElementById('megaInner');
+  if(mi){mi.innerHTML=SERVICE_PAGES.map(function(s){
+    return '<a class="mitem" href="#services/'+s.slug+'"><span class="mi">'+svgW(s.icon,18)+'</span><span><b>'+esc(s.title)+'</b><em>'+esc(s.menu)+'</em></span></a>';
+  }).join('');}
+  var ds=document.getElementById('drawerSvc');
+  if(ds){ds.innerHTML='<span class="dlabel">Nos expertises</span>'+SERVICE_PAGES.map(function(s){
+    return '<a class="dsub" href="#services/'+s.slug+'" onclick="closeNav()">'+esc(s.title)+'</a>';
+  }).join('');}
+  var mr=document.getElementById('megaRes');
+  if(mr){mr.innerHTML=GUIDES.map(function(g){
+    return '<a class="mitem" href="#ressources/'+g.slug+'"><span class="mi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span><b>'+esc(g.title)+'</b><em>'+esc(g.cat)+' · '+esc(g.read)+'</em></span></a>';
+  }).join('');}
+  var dr=document.getElementById('drawerRes');
+  if(dr){dr.innerHTML='<span class="dlabel">Ressources & guides</span>'+GUIDES.map(function(g){
+    return '<a class="dsub" href="#ressources/'+g.slug+'" onclick="closeNav()">'+esc(g.title)+'</a>';
+  }).join('');}
+})();
+
+/* ===== Interactions ===== */
+function openNav(){document.getElementById('drawer').classList.add('open');document.getElementById('ov').classList.add('open');document.getElementById('drawer').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+function closeNav(){document.getElementById('drawer').classList.remove('open');document.getElementById('ov').classList.remove('open');document.getElementById('drawer').setAttribute('aria-hidden','true');document.body.style.overflow='';}
+function openSvc(i){var s=SERVICES[i];if(!s)return;
+  document.getElementById('svcIcon').innerHTML=svgW(s.icon,28);
+  document.getElementById('svcTitle').textContent=s.title;
+  document.getElementById('svcDesc').textContent=s.desc;
+  document.getElementById('svcFeatures').innerHTML=s.features.map(function(f){return '<li>'+CHK+esc(f)+'</li>';}).join('');
+  var m=document.getElementById('svcModal');m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+function closeSvc(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('svcModal');m.classList.remove('open');document.body.style.overflow='';}
+function toggleFaq(b){var el=b.closest('.faq');if(el)el.classList.toggle('open');}
+function openLegal(){var m=document.getElementById('legalModal');m.classList.add('open');document.body.style.overflow='hidden';}
+function closeLegal(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('legalModal');m.classList.remove('open');document.body.style.overflow='';}
+function openCGV(){var m=document.getElementById('cgvModal');m.classList.add('open');document.body.style.overflow='hidden';}
+function closeCGV(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('cgvModal');m.classList.remove('open');document.body.style.overflow='';}
+function openPrivacy(){var m=document.getElementById('privacyModal');m.classList.add('open');document.body.style.overflow='hidden';}
+function closePrivacy(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('privacyModal');m.classList.remove('open');document.body.style.overflow='';}
+function openCGU(){var m=document.getElementById('cguModal');m.classList.add('open');document.body.style.overflow='hidden';}
+function closeCGU(e){if(e&&e.type==='click'&&e.target!==e.currentTarget)return;var m=document.getElementById('cguModal');m.classList.remove('open');document.body.style.overflow='';}
+
+/* ===== Pages Services : routeur par ancre (#services/slug) ===== */
+var SP_BASE_TITLE=document.title;
+/* Fragments partagés */
+function spBar(){return '<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>';}
+function spCtas(){return '<div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Estimer mon besoin <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div>';}
+function spInc(s){return '<ul class="sp-inc">'+s.includes.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>';}
+function spCheck(s){return '<ul class="sp-check">'+s.includes.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>';}
+function spSteps(s){return '<div class="sp-steps">'+s.process.map(function(p,i){return '<div class="sp-stepcard"><span class="n">'+('0'+(i+1)).slice(-2)+'</span><h3>'+esc(p.t)+'</h3><p>'+esc(p.d)+'</p></div>';}).join('')+'</div>';}
+function spStepsList(s){return '<ol class="sp-steplist">'+s.process.map(function(p){return '<li><b>'+esc(p.t)+'</b><span>'+esc(p.d)+'</span></li>';}).join('')+'</ol>';}
+function spAud(s){return '<div class="sp-aud">'+s.audience.map(function(a){return '<span>'+esc(a)+'</span>';}).join('')+'</div>';}
+function spFaq(s){return '<div class="sp-faq faq-list">'+s.faq.map(function(f){return '<div class="faq spot"><button type="button" onclick="toggleFaq(this)">'+esc(f.q)+'<span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="faq-panel"><p>'+esc(f.a)+'</p></div></div>';}).join('')+'</div>';}
+function spFinal(s){return '<div class="sp-final"><h2>Parlons de votre '+esc(s.title.toLowerCase())+'</h2><p>Premier rendez-vous offert, réponse sous 24 h et sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis gratuit <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Prendre rendez-vous</a></div></div>';}
+function spHero(s){return '<div class="sp-hero"><span class="sp-kick">'+esc(s.cat)+'</span><h1>'+esc(s.title)+'</h1><p>'+esc(s.lead)+'</p>'+spCtas()+'</div>';}
+
+/* Layout A — classique empilé */
+function spLayoutA(s){return spHero(s)
+  +'<div class="sp-sec"><h2>Ce que comprend la mission</h2>'+spInc(s)+'</div>'
+  +'<div class="sp-sec"><h2>Comment ça se passe</h2><p class="sub">Un processus clair, rythmé par vos échéances.</p>'+spSteps(s)+'</div>'
+  +'<div class="sp-sec"><h2>Pour qui&nbsp;?</h2>'+spAud(s)+'</div>'
+  +(s.slug==='creation'?cmpBlock():'')
+  +'<div class="sp-sec"><h2>Questions fréquentes</h2>'+spFaq(s)+'</div>'
+  +spFinal(s);}
+
+/* Layout B — hero scindé + carte mission */
+function spLayoutB(s){return '<div class="sp-split">'
+    +'<div class="sp-split-txt"><span class="sp-kick">'+esc(s.cat)+'</span><h1>'+esc(s.title)+'</h1><p>'+esc(s.lead)+'</p>'+spCtas()+'</div>'
+    +'<div class="sp-split-card"><h3>Ce que comprend la mission</h3>'+spCheck(s)+'</div>'
+  +'</div>'
+  +'<div class="sp-sec"><h2>Comment ça se passe</h2><p class="sub">Un processus clair, rythmé par vos échéances.</p>'+spSteps(s)+'</div>'
+  +'<div class="sp-sec"><h2>Pour qui&nbsp;?</h2>'+spAud(s)+'</div>'
+  +'<div class="sp-sec"><h2>Questions fréquentes</h2>'+spFaq(s)+'</div>'
+  +spFinal(s);}
+
+/* Layout C — bento éditorial + étapes numérotées */
+function spLayoutC(s){return spHero(s)
+  +'<div class="sp-bento">'
+    +'<div class="tile wide"><h3>Ce que comprend la mission</h3>'+spCheck(s)+'</div>'
+    +'<div class="tile"><h3>Pour qui&nbsp;?</h3>'+spAud(s)+'</div>'
+    +'<div class="tile accent"><h3>Notre engagement</h3><p>Un interlocuteur unique et dédié, une réponse sous 24 h et des conseils clairs, sans jargon — sur toute la durée de votre mission.</p></div>'
+  +'</div>'
+  +'<div class="sp-sec"><h2>Comment ça se passe</h2>'+spStepsList(s)+'</div>'
+  +'<div class="sp-sec"><h2>Questions fréquentes</h2>'+spFaq(s)+'</div>'
+  +spFinal(s);}
+
+function spServicePageHTML(s){
+  var L=s.layout||'A', inner=(L==='B')?spLayoutB(s):(L==='C')?spLayoutC(s):spLayoutA(s);
+  return spBar()+'<div class="sp-wrap'+(L==='A'?'':' wide')+'">'+inner+'</div>';
+}
+function spGuidePageHTML(g){
+  var secs=g.sections.map(function(s){
+    var ps=(s.p||[]).map(function(x){return '<p>'+esc(x)+'</p>';}).join('');
+    var li=s.list?'<ul class="gd-list">'+s.list.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>':'';
+    return '<div class="gd-sec"><h2>'+esc(s.h)+'</h2>'+ps+li+'</div>';
+  }).join('');
+  return ''
+    +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash=\'#top\'"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis</a></div>'
+    +'<div class="sp-wrap gd-wrap">'
+      +'<div class="sp-hero" style="text-align:left;margin:0"><span class="sp-kick">'+esc(g.cat)+' · Guide</span><h1>'+esc(g.title)+'</h1><p>'+esc(g.lead)+'</p><span class="gd-read">'+esc(g.read)+' de lecture</span></div>'
+      +'<article class="gd-body">'+secs+'</article>'
+      +'<div class="sp-final"><h2>Une question sur ce sujet&nbsp;?</h2><p>Le premier rendez-vous est offert. Parlons de votre situation, sans engagement.</p><div class="cta-actions"><a href="#devis" class="btn btn-pri" onclick="spGo(event,\'#devis\')">Demander un devis <span aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost" onclick="spGo(event,\'#contact\')">Nous contacter</a></div></div>'
+    +'</div>';
+}
+function spBillingPageHTML(){
+  var feats=['Toutes vos factures réunies au même endroit','Téléchargement de vos factures et documents','Paiement en ligne sécurisé','Historique et suivi de vos règlements','Accès 24 h/24, 7 j/7','Données chiffrées et conformes au RGPD'];
+  var inc=feats.map(function(x){return '<li>'+CHK+'<span>'+esc(x)+'</span></li>';}).join('');
+  return ''
+    +'<div class="sp-bar"><div class="sp-brand"><button type="button" class="sp-back" onclick="spBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Retour au site</button></div><img src="assets/logo-full.png" alt="AEM CONSEIL" onclick="location.hash=\'#top\'"><a href="#contact" class="btn btn-pri" onclick="spGo(event,\'#contact\')">Nous contacter</a></div>'
+    +'<div class="sp-wrap">'
+      +'<div class="sp-hero"><span class="sp-kick">Espace client · Bientôt disponible</span><h1>Espace <span class="ital">facturation</span></h1><p>Un espace sécurisé pour consulter, télécharger et régler vos factures en ligne, à tout moment. Sa mise en place est en cours — en attendant, nous vous transmettons vos documents directement.</p><div class="cta-actions"><a href="#contact" class="btn btn-pri" onclick="spGo(event,\'#contact\')">Obtenir mes factures <span aria-hidden="true">→</span></a></div></div>'
+      +'<div class="sp-sec"><h2>Ce que vous pourrez y faire</h2><ul class="sp-inc">'+inc+'</ul></div>'
+      +'<div class="sp-final"><h2>Besoin d’une facture dès maintenant&nbsp;?</h2><p>Contactez-nous : nous vous transmettons vos factures et documents sans attendre l’ouverture de l’espace.</p><div class="cta-actions"><a href="#contact" class="btn btn-pri" onclick="spGo(event,\'#contact\')">Nous contacter <span aria-hidden="true">→</span></a><a href="tel:+33665908325" class="btn btn-ghost">06 65 90 83 25</a></div></div>'
+    +'</div>';
+}
+function spCloseDevis(){var dp=document.getElementById('devisPage'); if(dp)dp.classList.remove('open');}
+function spCloseSvc(){var el=document.getElementById('svcPage'); if(el){el.classList.remove('open');el.innerHTML='';}}
+function spShow(html,title){
+  spCloseDevis();
+  var el=document.getElementById('svcPage'); if(!el)return;
+  el.innerHTML=html; el.classList.add('open'); el.scrollTop=0;
+  document.body.classList.add('page-open'); document.title=title+' — AEM-CONSEIL';
+}
+function spOpenService(slug){var s=SP_BY_SLUG[slug]; if(!s){spClose();return;} spShow(spServicePageHTML(s),s.title); if(slug==='creation')initComparateur();}
+function spOpenGuide(slug){var g=GUIDE_BY_SLUG[slug]; if(!g){spClose();return;} spShow(spGuidePageHTML(g),g.title);}
+function spOpenDevis(){
+  spCloseSvc();
+  var dp=document.getElementById('devisPage'); if(!dp)return;
+  dp.classList.add('open'); dp.scrollTop=0;
+  document.body.classList.add('page-open'); document.title='Demande de devis — AEM-CONSEIL';
+}
+function spClose(){
+  spCloseSvc(); spCloseDevis();
+  document.body.classList.remove('page-open'); document.title=SP_BASE_TITLE;
+}
+function spRoute(){
+  var h=location.hash||'';
+  if(h==='#devis'){ spOpenDevis(); return; }
+  if(h==='#facturation'){ spShow(spBillingPageHTML(),'Espace facturation'); return; }
+  var m=h.match(/^#(services|ressources)\/([a-z0-9-]+)$/);
+  if(m){ if(m[1]==='services'){spOpenService(m[2]);} else {spOpenGuide(m[2]);} return; }
+  spClose();
+}
+function spBack(){ if(window.history.length>1){history.back();} else {location.hash='#top';} }
+function spGo(e,target){ if(e)e.preventDefault(); if(location.hash===target){spClose();var t=document.querySelector(target);if(t)t.scrollIntoView();} else {location.hash=target;} }
+window.addEventListener('hashchange',spRoute);
+spRoute();
+
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.body.classList.contains('page-open')){spBack();return;}closeSvc();closeLegal();closeCGV();closePrivacy();closeCGU();closeNav();}});
+
+/* ===== Accessibilité : arrière-plan inerte + focus des dialogues =====
+   Les pages plein écran (#svcPage/#devisPage) et les modales (.overlay-modal)
+   sont hors de #app. Quand l'une s'ouvre, on rend #app inerte (retiré de
+   l'ordre de tabulation), on place le focus dans le dialogue, et on le
+   restaure au déclencheur à la fermeture. Piloté par MutationObserver pour
+   couvrir toutes les fonctions d'ouverture/fermeture existantes. */
+(function(){
+  var app=document.getElementById('app'); if(!app||typeof MutationObserver==='undefined') return;
+  var prev=null, lastTrigger=null;
+  function currentDialog(){
+    var m=document.querySelector('.overlay-modal.open');
+    if(m) return m.querySelector('.modal')||m;
+    var pg=document.querySelector('#svcPage.open,#devisPage.open');
+    if(pg) return pg;
+    return null;
+  }
+  function focusIn(dlg){
+    var f=dlg.querySelector('a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])');
+    try{ if(f){ f.focus(); } else { dlg.setAttribute('tabindex','-1'); dlg.focus(); } }catch(e){}
+  }
+  function sync(){
+    var dlg=currentDialog();
+    if(dlg && !prev){ lastTrigger=document.activeElement; app.setAttribute('inert',''); focusIn(dlg); }
+    else if(!dlg && prev){ app.removeAttribute('inert'); try{ if(lastTrigger&&lastTrigger.focus) lastTrigger.focus(); }catch(e){} lastTrigger=null; }
+    prev=dlg;
+  }
+  var mo=new MutationObserver(sync);
+  function watch(el){ if(el) mo.observe(el,{attributes:true,attributeFilter:['class']}); }
+  watch(document.body);
+  watch(document.getElementById('svcPage'));
+  watch(document.getElementById('devisPage'));
+  document.querySelectorAll('.overlay-modal').forEach(watch);
+  sync();
+})();
+
+/* ===== Formulaire (FormSubmit) ===== */
+(function(){
+  var form=document.getElementById('contactForm');if(!form)return;
+  var btn=document.getElementById('formBtn'),status=document.getElementById('formStatus');
+  var ENDPOINT='https://formsubmit.co/ajax/aemconseil.sas@gmail.com';
+  function setStatus(m,t){status.textContent=m;status.className=(m?'show ':'')+(t||'');}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(form._honey&&form._honey.value)return;
+    if(!form.checkValidity()){setStatus('Merci de remplir les champs requis.','err');form.reportValidity();return;}
+    var original=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spin"></span>&nbsp;Envoi…';setStatus('','');
+    var payload={nom:form.nom.value,email:form.email.value,telephone:form.telephone.value,objet:form.objet?form.objet.value:'',message:form.message.value,_subject:'Nouvelle demande — site AEM-CONSEIL',_template:'table',_captcha:'false'};
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
+      .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.reset();btn.innerHTML='Message envoyé ✓';setStatus('✓ Merci ! Votre message a bien été envoyé. Nous vous répondons sous 24 h.','ok');setTimeout(function(){btn.innerHTML=original;btn.disabled=false;},2600);}else{throw new Error('refus');}})
+      .catch(function(){setStatus('Une erreur est survenue. Écrivez-nous à aemconseil.sas@gmail.com.','err');btn.innerHTML=original;btn.disabled=false;});
+  });
+})();
+
+/* ===== Widget « Être rappelé » (FormSubmit) ===== */
+(function(){
+  var form=document.getElementById('callbackForm');if(!form)return;
+  var btn=document.getElementById('cbBtn'),status=document.getElementById('cbStatus');
+  var ENDPOINT='https://formsubmit.co/ajax/aemconseil.sas@gmail.com';
+  function setStatus(m,t){status.textContent=m;status.className='cb-status '+(m?'show ':'')+(t||'');}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(form._honey&&form._honey.value)return;
+    if(!form.checkValidity()){setStatus('Indiquez votre prénom et votre numéro.','err');form.reportValidity();return;}
+    var original=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spin"></span>&nbsp;Envoi…';setStatus('','');
+    var payload={nom:form.nom.value,telephone:form.telephone.value,_subject:'Demande de rappel — site AEM-CONSEIL',_template:'table',_captcha:'false'};
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){return r.json().catch(function(){return{};}).then(function(d){return{ok:r.ok,d:d};});})
+      .then(function(res){if(res.ok&&(res.d.success===undefined||String(res.d.success)==='true')){form.reset();btn.innerHTML='Demande envoyée ✓';setStatus('✓ Merci ! Nous vous rappelons sous 24 h.','ok');setTimeout(function(){btn.innerHTML=original;btn.disabled=false;},2600);}else{throw new Error('refus');}})
+      .catch(function(){setStatus('Une erreur est survenue. Appelez-nous au 06 65 90 83 25.','err');btn.innerHTML=original;btn.disabled=false;});
+  });
+})();
+
+/* ===== Cookies + analytics ===== */
+var _analyticsLoaded=false, ANALYTICS_ID='';
+function loadAnalytics(){if(_analyticsLoaded||!ANALYTICS_ID)return;_analyticsLoaded=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ANALYTICS_ID;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',ANALYTICS_ID,{anonymize_ip:true});}
+function setCookieConsent(c){try{localStorage.setItem('aem_cookie_consent',c);localStorage.setItem('aem_cookie_date',String(Date.now()));}catch(e){}var el=document.getElementById('cookieBanner');if(el)el.classList.remove('show');if(c==='accepted')loadAnalytics();}
+function reopenCookies(){var el=document.getElementById('cookieBanner');if(el)el.classList.add('show');}
+(function(){var c=null;try{c=localStorage.getItem('aem_cookie_consent');}catch(e){}if(c==='accepted'){loadAnalytics();return;}if(c==='refused')return;var el=document.getElementById('cookieBanner');if(el)setTimeout(function(){el.classList.add('show');},1200);})();
+
+/* ===== Ouverture + arrivée en haut ===== */
+try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(e){}
+(function(){function reveal(){if(document.body.classList.contains('loaded'))return;window.scrollTo(0,0);document.body.classList.add('loaded');document.body.classList.remove('loading');setTimeout(function(){var l=document.getElementById('loader');if(l)l.style.display='none';},850);}window.addEventListener('load',function(){setTimeout(reveal,650);});setTimeout(reveal,3500);})();
+
+/* ===== Reveal + compteurs + nav scrollspy + toTop ===== */
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});}
+  else{
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  }
+  var countIO=new IntersectionObserver(function(en){en.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;countIO.unobserve(el);var to=parseInt(el.dataset.to,10)||0,suf=el.dataset.suffix||'',dur=1400,t0=performance.now();var tick=function(now){var p=Math.min(1,(now-t0)/dur),ea=1-Math.pow(1-p,3);el.textContent=Math.round(to*ea)+suf;if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);});},{threshold:.6});
+  document.querySelectorAll('.aem-count').forEach(function(el){countIO.observe(el);});
+
+  var nav=document.getElementById('nav'),toTop=document.getElementById('toTop'),scrollbar=document.getElementById('scrollbar'),bblur=document.getElementById('bottomBlur');
+  var links=[].slice.call(document.querySelectorAll('.nlinks > a, .nlinks > .mega-wrap > a'));
+  var secs=links.map(function(a){var h=a.getAttribute('href');return (h&&/^#[\w-]+$/.test(h))?document.querySelector(h):null;});
+  var ticking=false;
+  function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(function(){
+    var y=window.scrollY||window.pageYOffset;
+    var docH=document.documentElement.scrollHeight, vh=window.innerHeight;
+    nav.classList.toggle('scrolled',y>10);
+    if(toTop)toTop.classList.toggle('show',y>600);
+    if(scrollbar){var h=docH-vh;scrollbar.style.width=(h>0?Math.min(100,y/h*100):0)+'%';}
+    if(bblur)bblur.classList.toggle('hide',(y+vh)>=(docH-140));
+    var cur=-1;for(var i=0;i<secs.length;i++){if(secs[i]&&secs[i].getBoundingClientRect().top<=140)cur=i;}
+    links.forEach(function(a,i){a.classList.toggle('active',i===cur);});
+    ticking=false;});}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);onScroll();
+})();
+
+/* ===== Défilement animé vers les ancres (lent → rapide → lent) ===== */
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce)return;                 // respecte la préférence « animations réduites »
+  var OFFSET=86;                    // = scroll-margin-top des sections (nav collante)
+  var htmlEl=document.documentElement;
+  var rafId=0, animating=false;
+
+  /* courbe d'accélération : démarrage lent, milieu rapide, arrivée lente */
+  function easeInOut(t){ return t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+
+  function stop(){ if(rafId)cancelAnimationFrame(rafId); rafId=0; if(animating){animating=false;htmlEl.style.scrollBehavior='';} }
+
+  function targetTop(el){
+    var y=window.scrollY||window.pageYOffset;
+    var top=el.getBoundingClientRect().top+y-OFFSET;
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    return Math.max(0,Math.min(top,max));
+  }
+
+  function animateTo(destY,done){
+    stop();
+    var startY=window.scrollY||window.pageYOffset;
+    var dist=destY-startY;
+    if(Math.abs(dist)<2){ if(done)done(); return; }
+    var dur=Math.max(500,Math.min(1100,Math.abs(dist)*0.6));  // durée liée à la distance
+    var t0=null; animating=true;
+    htmlEl.style.scrollBehavior='auto';   // neutralise le smooth CSS pendant l'animation
+    function step(now){
+      if(t0===null)t0=now;
+      var p=Math.min(1,(now-t0)/dur);
+      window.scrollTo(0,startY+dist*easeInOut(p));
+      if(p<1){ rafId=requestAnimationFrame(step); }
+      else{ rafId=0;animating=false;htmlEl.style.scrollBehavior='';if(done)done(); }
+    }
+    rafId=requestAnimationFrame(step);
+  }
+
+  /* l'utilisateur reprend la main → on stoppe l'animation */
+  ['wheel','touchstart','keydown'].forEach(function(ev){
+    window.addEventListener(ev,function(){ if(animating)stop(); },{passive:true});
+  });
+
+  document.addEventListener('click',function(e){
+    if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    var a=e.target.closest&&e.target.closest('a[href^="#"]');
+    if(!a)return;
+    var href=a.getAttribute('href');
+    if(!/^#[\w-]+$/.test(href))return;    // ignore les routes SPA (#services/slug, #ressources/slug…)
+    var el=document.querySelector(href);
+    if(!el)return;                        // ex. #devis : ouvre un panneau, pas de section → comportement natif
+    e.preventDefault();
+    if(document.body.classList.contains('page-open')&&typeof spClose==='function')spClose();
+    animateTo(targetTop(el),function(){ try{history.pushState(null,'',href);}catch(_){} });
+  },false);
+})();
+
+/* ===== New-gen : halo curseur sur les cartes ===== */
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=!window.matchMedia||window.matchMedia('(pointer: fine)').matches;
+  if(reduce||!fine)return;
+  // Halo qui suit le curseur sur les cartes .spot
+  document.addEventListener('mousemove',function(e){
+    var el=e.target.closest&&e.target.closest('.spot');
+    if(!el)return;
+    var r=el.getBoundingClientRect();
+    el.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    el.style.setProperty('--my',(e.clientY-r.top)+'px');
+  },{passive:true});
+})();
+
+/* ===== Simulateur de devis ===== */
+(function(){
+  var form=document.getElementById('simForm'); if(!form) return;
+  var STEP_TITLES=['Votre situation','Forme juridique','Vos besoins','Vos effectifs','Vos coordonnées'];
+  var data={situation:'',statut:'',besoins:[],salaries:'',prenom:'',tel:'',email:'',msg:''};
+  var cur=1, TOTAL=5;
+  var steps=[].slice.call(form.querySelectorAll('.sm-step'));
+  var bar=document.getElementById('smBar'), scur=document.getElementById('smCur'), stitle=document.getElementById('smTitle');
+  var prev=document.getElementById('smPrev'), next=document.getElementById('smNext'), nav=document.getElementById('smNav'), status=document.getElementById('smStatus');
+  var ENDPOINT='https://formsubmit.co/ajax/aemconseil.sas@gmail.com';
+  var sending=false;
+
+  function show(n){
+    cur=n;
+    steps.forEach(function(s){s.classList.toggle('on', +s.dataset.step===n);});
+    if(n<=TOTAL){bar.style.width=(n/TOTAL*100)+'%';scur.textContent=n;stitle.textContent=STEP_TITLES[n-1];}
+    prev.classList.toggle('hide', n===1 || n>TOTAL);
+    if(n>TOTAL){nav.style.display='none';return;} nav.style.display='flex';
+    next.textContent = n===TOTAL ? 'Envoyer ma demande' : 'Continuer →';
+    if(n===TOTAL) buildRecap();
+    refresh();
+  }
+  function valid(n){
+    if(n===1)return !!data.situation;
+    if(n===2)return !!data.statut;
+    if(n===3)return data.besoins.length>0;
+    if(n===4)return !!data.salaries;
+    if(n===5)return data.prenom.trim() && /.+@.+\..+/.test(data.email) && data.tel.trim();
+    return true;
+  }
+  function refresh(){ next.disabled = sending || !valid(cur); }
+
+  form.querySelectorAll('[data-single]').forEach(function(grp){
+    var key=grp.dataset.single;
+    grp.querySelectorAll('.sm-opt').forEach(function(b){
+      b.addEventListener('click',function(){
+        grp.querySelectorAll('.sm-opt').forEach(function(x){x.classList.remove('sel');});
+        b.classList.add('sel'); data[key]=b.dataset.val; refresh();
+        if(cur<TOTAL){ setTimeout(function(){show(cur+1);},220); }
+      });
+    });
+  });
+  form.querySelectorAll('[data-multi]').forEach(function(grp){
+    var key=grp.dataset.multi;
+    grp.querySelectorAll('.sm-opt').forEach(function(b){
+      b.addEventListener('click',function(){
+        b.classList.toggle('sel');
+        var v=b.dataset.val, i=data[key].indexOf(v);
+        if(b.classList.contains('sel')&&i<0)data[key].push(v);
+        if(!b.classList.contains('sel')&&i>=0)data[key].splice(i,1);
+        refresh();
+      });
+    });
+  });
+  [['sm-prenom','prenom'],['sm-tel','tel'],['sm-email','email'],['sm-msg','msg']].forEach(function(p){
+    var el=document.getElementById(p[0]); if(el)el.addEventListener('input',function(){data[p[1]]=el.value;refresh();});
+  });
+
+  function buildRecap(){
+    var r=document.getElementById('smRecap');
+    r.innerHTML=''
+      +'<div class="rr"><span>Situation</span><b>'+(data.situation||'—')+'</b></div>'
+      +'<div class="rr"><span>Forme juridique</span><b>'+(data.statut||'—')+'</b></div>'
+      +'<div class="rr"><span>Besoins</span><b>'+(data.besoins.join(', ')||'—')+'</b></div>'
+      +'<div class="rr"><span>Salariés</span><b>'+(data.salaries||'—')+'</b></div>';
+  }
+
+  function send(){
+    if(sending)return; sending=true; refresh();
+    next.textContent='Envoi…'; status.className='sm-status'; status.textContent='';
+    var payload={
+      _subject:'Demande de devis — simulateur AEM-CONSEIL',
+      Prénom:data.prenom, 'E-mail':data.email, Téléphone:data.tel,
+      Situation:data.situation, 'Forme juridique':data.statut,
+      Besoins:data.besoins.join(', ')||'—', Salariés:data.salaries,
+      Message:data.msg||'—', _template:'table'
+    };
+    if(form._honey && form._honey.value){ show(6); return; }
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); })
+      .then(function(){ sending=false; show(6); })
+      .catch(function(){ sending=false; next.textContent='Envoyer ma demande'; refresh();
+        status.className='sm-status err'; status.textContent='Une erreur est survenue. Réessayez ou écrivez-nous à aemconseil.sas@gmail.com.'; });
+  }
+
+  next.addEventListener('click',function(){ if(!valid(cur))return; if(cur<TOTAL){show(cur+1);} else {send();} });
+  prev.addEventListener('click',function(){ if(cur>1 && cur<=TOTAL)show(cur-1); });
+  show(1);
+})();
+
+/* ===== Défilement « enroulé » : légère inclinaison des sections ===== */
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce)return;
+  var els=[].slice.call(document.querySelectorAll('.wrap>section,.wrap>.cta-band'));
+  if(!els.length)return;
+  var MAX=2.6, ticking=false;
+  function frame(){
+    var vh=window.innerHeight||document.documentElement.clientHeight, cy=vh/2;
+    for(var i=0;i<els.length;i++){
+      var r=els[i].getBoundingClientRect();
+      if(r.bottom<-40||r.top>vh+40){continue;}
+      var d=((r.top+r.height/2)-cy)/vh; if(d>1)d=1; else if(d<-1)d=-1;
+      var sc=(1-Math.abs(d)*0.02).toFixed(4); // micro-respiration : plein format au centre
+      els[i].style.transform='perspective(2000px) rotateX('+(d*MAX).toFixed(2)+'deg) scale('+sc+')';
+    }
+    ticking=false;
+  }
+  function onScroll(){ if(ticking)return; ticking=true; requestAnimationFrame(frame); }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  onScroll();
+})();
+
+/* ===== Service worker ===== */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js').then(function(reg){ if(reg.update) reg.update(); }).catch(function(){});
+  });
+  var _swRefreshed=false;
+  navigator.serviceWorker.addEventListener('controllerchange',function(){
+    if(_swRefreshed)return; _swRefreshed=true; window.location.reload();
+  });
+}
+</script>
+</body>
+</html>
